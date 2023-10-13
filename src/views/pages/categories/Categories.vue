@@ -3,7 +3,7 @@
         <layouts></layouts>
 
         <div class="page-wrapper">
-            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
+            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
 
             <categorieslist />
 
@@ -18,9 +18,10 @@
 export default {
     data() {
         return {
-            title: "Listings-Categories",
+            title: "Layanan",
             text: "Home",
-            text1: "Categories",
+            text1: "Unit Kerja",
+            text2: "Layanan",
             name: "/",
         }
     },

@@ -3,128 +3,80 @@
 		<div class="categorieslist-section">
             <div class="container">
 		        <div class="row">
-			       <div class="col-lg-3 col-md-4">
+			       <div class="col-lg-3 col-md-4" v-for="item in paginatedLayanan" :key="item.id">
 				    	<div class="categories-content">
 							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-		    				   <img src="../../../assets/img/icons/category-1.svg" alt="car1">
-							   <h6>Automotive</h6>
-							   <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
+		    				   <img :src="require('../../../assets/img/icons/category-'+randNo()+'.svg')" alt="car1">
+							   <h6>{{ item.nama }}</h6>
+							   <span class="ads">{{ item.output }}</span>
+							   <span>{{ item.deskripsi }}</span>
 							</a>								   
 					   </div>
 				   </div>
-			       <div class="col-lg-3 col-md-4">
-			            <div class="categories-content">
-					        <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img src="../../../assets/img/icons/category-2.svg" alt="icons">
-								<h6>Electronics</h6>
-								<span class="ads">09 Ads</span>
-								<span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>																			   
-						</div>
-				   </div>
-				   <div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-3.svg" alt="car1">
-							   <h6>Fashion Style</h6>
-					           <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>								   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-					           <img src="../../../assets/img/icons/category-4.svg" alt="car1">
-							   <h6>Health Care</h6>
-							   <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-5.svg" alt="car1">
-							   <h6>Job Board</h6>
-					    	   <span class="ads">09 Ads</span>
-						       <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-6.svg" alt="car1">
-							   <h6>Education</h6>
-							   <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-						    </a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content" >
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-7.svg" alt="car1">
-							   <h6>Real Estate</h6>
-						    	<span class="ads">09 Ads</span>
-					    	    <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content ">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-8.svg" alt="car1">
-							   <h6>Travel</h6>
-					           <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-					    	<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-9.svg" alt="car1">
-							   <h6>Sports & Game</h6>
-							   <span class="ads">09 Ads</span>
-						       <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content aos aos-init aos-animate" data-aos="fade-up">
-							<a href="javascript:void(0);" class="text-center">
-							   <img src="../../../assets/img/icons/category-10.svg" alt="car1">
-							   <h6>Magazines</h6>
-					           <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-11.svg" alt="car1">
-							   <h6>Pet & Animal </h6>
-							   <span class="ads">09 Ads</span>
-					       	   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-						</div>							   
-					</div>
-					<div class="col-lg-3 col-md-4">
-					    <div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							   <img src="../../../assets/img/icons/category-12.svg" alt="car1">
-							   <h6>House Hold</h6>
-							  <span class="ads">09 Ads</span>
-							   <span>Lorem Ipsum is simply dummy text of the typewriting</span>
-							</a>								   
-					   </div>							   
-					</div>
 				</div>
 			</div>
 		</div>
 		<!-- /Categories Section -->
 </template>
+
+<script>
+export default {
+	data() {
+			return {
+				loading: false,
+				random: null,
+				itemsPerPage: 12,
+        		currentPage: 1,
+				layanan: []
+			}
+	},
+	computed: {
+    	paginatedLayanan() {
+			const start = (this.currentPage - 1) * this.itemsPerPage;
+			const end = start + this.itemsPerPage;
+			return this.layanan.slice(start, end);
+		},
+		displayedPages() {
+			const start = Math.max(this.currentPage - 1, 1);
+			const end = Math.min(start + 2, this.totalPages);
+			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+		},
+		totalPages() {
+            return Math.ceil(this.layanan.length / this.itemsPerPage);
+        },
+	},
+	methods: {
+		async getLayanan() {
+			this.loading = true;
+			try{
+				const sid = this.$route.params.id
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.get(process.env.VUE_APP_API_URL+'/getLayanan/'+sid,{headers})
+				this.layanan = response.data.data
+				console.log(this.layanan)
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
+		changePage(pageNumber) {
+			this.currentPage = pageNumber;
+		},
+		randNo() {
+        	return Math.floor(Math.random() * 28) + 1;
+    	}
+	},
+	created() {
+		this.getLayanan(),
+		this.random = this.randNo();
+	}
+}
+</script>

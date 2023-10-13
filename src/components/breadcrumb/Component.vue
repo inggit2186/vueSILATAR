@@ -9,6 +9,7 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><router-link :to="name">{{ text }}</router-link></li>
 								<li class="breadcrumb-item active" aria-current="page">{{ text1 }}</li>
+								<li class="breadcrumb-item active" aria-current="page">{{ text2 }}</li>
 							</ol>
 						</nav>							
 					</div>
@@ -32,6 +33,10 @@
                 default: "",
             },
             text1: {
+                type: String,
+                default: "",
+            },
+            text2: {
                 type: String,
                 default: "",
             },

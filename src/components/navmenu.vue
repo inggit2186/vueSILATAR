@@ -12,7 +12,7 @@
                 <router-link to="/">Home</router-link>
             </li>
             <li v-bind:class="{'active': currentPath == 'layananMenu'}">
-                <router-link to="/layananMenu">Layanan</router-link>
+                <router-link to="/UnitKerja/Layanan">Layanan</router-link>
             </li>
             <!--
             <li class="has-submenu" :class=" ListingsMenu ? 'active' : 'notactive'">

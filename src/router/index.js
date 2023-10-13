@@ -47,9 +47,14 @@ const routes = [
         component: IndexThree
     },
     {
-        path: '/layananMenu',
-        name: 'Layanan',
+        path: '/UnitKerja/:id',
+        name: 'Unit Kerja',
         component: layananMenu
+    },
+    {
+        path:'/Layanan/:id',
+        name: 'Layanan Seksi',
+        component: Categories
     },
     {
         path: '/about',
@@ -88,7 +93,7 @@ const routes = [
     },
     {
         path: '/bookmarks',
-        name: 'bookmarks',
+        name: 'Bookmarks',
         component: BookMark,
         meta: {
             requiresAuth: true
@@ -106,7 +111,7 @@ const routes = [
     },
     {
         path: '/dashboard',
-        name: 'dashboard',
+        name: 'Dashboard',
         component: Dashboard,
         meta: {
             requiresAuth: true
@@ -174,7 +179,7 @@ const routes = [
     },
     {
         path: '/messages',
-        name: 'messages',
+        name: 'Messages',
         component: Message,
         meta: {
             requiresAuth: true
@@ -182,7 +187,7 @@ const routes = [
     },
     {
         path: '/my-listing',
-        name: 'my-listing',
+        name: 'My Listing',
         component: MyListing,
         meta: {
             requiresAuth: true
@@ -200,7 +205,7 @@ const routes = [
     },
     {
         path: '/profile',
-        name: 'profile',
+        name: 'Profile',
         component: Profiles,
         meta: {
             requiresAuth: true
@@ -208,7 +213,7 @@ const routes = [
     },
     {
         path: '/reviews',
-        name: 'reviews',
+        name: 'Reviews',
         component: Reviews,
         meta: {
             requiresAuth: true

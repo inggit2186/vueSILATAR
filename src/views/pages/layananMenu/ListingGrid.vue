@@ -20,7 +20,7 @@ export default {
         return {
             title: "Unit Kerja",
             text: "Home",
-            text1: "Seksi",
+            text1: "Unit Kerja",
             name: "/",
         }
     },

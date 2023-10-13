@@ -1,32 +1,32 @@
 <template>
     <div class="">
         <ul class="dashborad-menus">
-            <li :class="{ active: this.$route.name === 'dashboard' }">
+            <li :class="{ active: this.$route.name === 'Dashboard' }">
                 <router-link to="dashboard">
                     <i class="feather-grid"></i> <span>Dashboard</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'profile' }">
+            <li :class="{ active: this.$route.name === 'Profile' }">
                 <router-link to="profile">
                     <i class="fa-solid fa-user"></i> <span>Profile</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'my-listing' }">
+            <li :class="{ active: this.$route.name === 'My Listing' }">
                 <router-link to="my-listing">
                     <i class="feather-list"></i> <span>My Listing</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'bookmarks' }">
+            <li :class="{ active: this.$route.name === 'Bookmarks' }">
                 <router-link to="bookmarks">
                     <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'messages' }">
+            <li :class="{ active: this.$route.name === 'Messages' }">
                 <router-link to="messages">
                     <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'reviews' }">
+            <li :class="{ active: this.$route.name === 'Reviews' }">
                 <router-link to="reviews">
                     <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
                 </router-link>
