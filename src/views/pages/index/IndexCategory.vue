@@ -14,7 +14,7 @@
 			 </div>			     
 	        </div>	
         	<div class="row" >
-				<div class="col-lg-2 col-md-3 col-sm-6" v-for="item in IndexCategory" :key="item.id">
+				<div v-for="item in IndexCategory" :key="item.id" class="col-lg-2 col-md-3 col-sm-6">
 				    <router-link to="/categories" class="category-links">
 					        <h5>{{ item.title }}</h5>
 						    <span>{{ item.text}}</span>

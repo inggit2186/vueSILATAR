@@ -134,7 +134,7 @@
 						</div>
 					    <div class="grid-view listgrid-sidebar">
 						    <div class="row">
-							    <div class="col-lg-6 col-md-4" v-for="item in ListingGridSidebar" :key="item.id">
+							    <div v-for="item in ListingGridSidebar" :key="item.id" class="col-lg-6 col-md-4">
 							        <div class="card">
 								        <div class="blog-widget">
 								            <div class="blog-img">

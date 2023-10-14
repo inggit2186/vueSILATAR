@@ -86,6 +86,12 @@ import "vue3-carousel/dist/carousel.css";
 import IndexFourClient from '../../../assets/json/indexFourClient.json'
 
 export default {
+	components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+  },
 	data() {
 		return {
 			IndexFourClient: IndexFourClient,
@@ -108,12 +114,6 @@ export default {
 			}
 		}
 	},
-	components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
-  },
 }
 </script>
 

@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-3 col-md-6 aos" data-aos="fade-up" v-for="item in IndexSpace" :key="item.id">
+						<div v-for="item in IndexSpace" :key="item.id" class="col-lg-3 col-md-6 aos" data-aos="fade-up">
 							<div class="space-wrap">
 								<div class="space-img">
 									<router-link to="/service-details">
@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-2 col-sm-6 aos" data-aos="fade-up" v-for="item in IndexCity" :key="item.id">
+						<div v-for="item in IndexCity" :key="item.id" class="col-lg-2 col-sm-6 aos" data-aos="fade-up">
 							<div class="city-wrap">
 								<div class="city-img">
 									<img :src="import(`../../../assets/img/work/${item.img}`)" class="img-fluid" alt="blog-img">										

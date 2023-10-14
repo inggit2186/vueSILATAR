@@ -79,6 +79,12 @@
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 import IndexTwoBlog from '../../../assets/json/indexTwoBlog.json'
 export default {
+    components: {
+			Carousel,
+			Slide,
+			Pagination,
+			Navigation,
+		},
     data() {
         return {
             IndexTwoBlog: IndexTwoBlog,
@@ -109,12 +115,6 @@ export default {
 			},
         }
     },
-    components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
-		},
 }
 </script>
 

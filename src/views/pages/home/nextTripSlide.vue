@@ -30,6 +30,12 @@ import NextTripPlan from '../../../assets/json/nextTripPlan.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+    components: {
+        Carousel,
+        Slide,
+        Pagination,
+        Navigation,
+    },
     data() {
         return {
             NextTripPlan: NextTripPlan,
@@ -59,12 +65,6 @@ export default {
                 }
             },
         }
-    },
-    components: {
-        Carousel,
-        Slide,
-        Pagination,
-        Navigation,
     },
 }
 </script>

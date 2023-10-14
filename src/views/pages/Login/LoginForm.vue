@@ -23,22 +23,23 @@
 										<span class="lock-icon"><i class="feather-lock"></i></span>
 											<b-form-input
 												v-if="showPassword"
-												type="text"
-												class="form-control pass-input"
 												id="password"
 												v-model="password"
+												type="text"
+												class="form-control pass-input"
 												placeholder="password"
 										/>
-										<b-form-input v-else type="password"
-											class="form-control pass-input"
-											placeholder="password" v-model="password" />
+										<b-form-input
+v-else v-model="password"
+											type="password"
+											class="form-control pass-input" placeholder="password" />
 										<span
 											class="toggle-password"
-											@click="toggleShow"
 											:class="{
 											'feather-eye': showPassword,
 											'feather-eye-off': !showPassword,
 											}"
+											@click="toggleShow"
 										></span>
 									</div>
 								</div>

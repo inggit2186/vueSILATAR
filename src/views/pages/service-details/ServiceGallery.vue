@@ -2,7 +2,7 @@
     <!--Galler Slider Section-->
 		<div class="bannergallery-section">
 		     <div class="gallery-slider d-flex">
-                    <div class="gallery-widget" v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">   
+                    <div v-for="(src, index) in imgs" :key="index" class="gallery-widget" @click="() => showImg(index)">   
 							<img class="img-fluid" alt="Image" :src="import(`../../../assets/img/gallery/gallery1/${src.src}`)">
 						
 					</div>	

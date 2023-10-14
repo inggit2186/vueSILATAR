@@ -2,7 +2,7 @@
         <div class="recommended-carousel">
             <div class="recommended-slider owl-carousel owl-theme">
                 <Carousel :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
-                <Slide class="carousel__slide recommended-widget" v-for="item in RecommendSlide" :key="item.id">
+                <Slide v-for="item in RecommendSlide" :key="item.id" class="carousel__slide recommended-widget">
                     <div class="img-blk">
                         <router-link to="/service-details">
                             <img :src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid" alt="List 1">
@@ -43,6 +43,12 @@ import RecommendSlide from '../../../assets/json/recommendSlide.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+    components: {
+        Carousel,
+        Slide,
+        Pagination,
+        Navigation,
+    },
     data() {
         return {
             RecommendSlide: RecommendSlide,
@@ -68,12 +74,6 @@ export default {
                 }
             },
         }
-    },
-    components: {
-        Carousel,
-        Slide,
-        Pagination,
-        Navigation,
     },
 }
 </script>

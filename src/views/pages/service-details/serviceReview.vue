@@ -31,7 +31,7 @@
                                 been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
                                 galley of type and scrambled it to make a type specimen book.</p>
                             <div class="row">
-                                <div class="col-lg-3  col-md-3 col-sm-3"  v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
+                                <div v-for="(src, index) in imgs"  :key="index" class="col-lg-3  col-md-3 col-sm-3" @click="() => showImg(index)">
                                     <div class="review-gallery">
                                         <img class="img-fluid" alt="Image" :src="import(`../../../assets/img/gallery/${src.src}`)">
                                     </div>
@@ -125,7 +125,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <textarea rows="4" class="form-control" placeholder="Write a Review*"
+                                    <textarea
+rows="4" class="form-control" placeholder="Write a Review*"
                                         required></textarea>
                                 </div>
                                 <div class="reviewbox-rating">

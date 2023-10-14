@@ -36,12 +36,13 @@
 						</div>
 						<div class="grid-view">
 							<div class="row ">
-								<div class="col-lg-6 col-md-4" v-for="item in ListingMapGrid" :key="item.id">
+								<div v-for="item in ListingMapGrid" :key="item.id" class="col-lg-6 col-md-4">
 									<div class="card">
 										<div class="blog-widget">
 											<div class="blog-img">
 												<router-link to="service-details">
-													<img :src="import(`../../../../assets/img/list/${item.image}`)"
+													<img
+:src="import(`../../../../assets/img/list/${item.image}`)"
 														class="img-fluid" alt="blog-img">
 												</router-link>
 												<div class="fav-item">
@@ -55,7 +56,8 @@
 												<div class="card-body">
 													<div class="blogfeaturelink">
 														<div class="grid-author">
-															<img :src="import(`../../../../assets/img/profiles/${item.author}`)"
+															<img
+:src="import(`../../../../assets/img/profiles/${item.author}`)"
 																alt="author">
 														</div>
 														<div class="blog-features">
@@ -136,9 +138,10 @@
 				</div>
 				<div class="col-lg-6 map-right">
 					<div id="map" class="map-listing"></div>
-					<div class="showfilter" v-on:click="filter = !filter" :class="{ filteropen: filter }">
+					<div class="showfilter" :class="{ filteropen: filter }" @click="filter = !filter">
 						<b-button variant="btn filterbtn">
-							<span class="showfilter-btn"><img src="../../../../assets/img/details-icon.svg"
+							<span class="showfilter-btn"><img
+src="../../../../assets/img/details-icon.svg"
 									alt="details-icon"> Show Filters</span>
 							<span class="hidefilter-btn"><i class="feather-eye-off"></i> Hide Filters</span>
 						</b-button>
@@ -147,11 +150,13 @@
 								<h4><img src="../../../../assets/img/details-icon.svg" alt="details-icon"> Filter</h4>
 								<b-form>
 									<div class="filter-content looking-input form-group">
-										<b-form-input type="text" class="form-control"
+										<b-form-input
+type="text" class="form-control"
 											placeholder="What are you looking for?" />
 									</div>
 									<div class="filter-content form-group">
-										<vue-select class="category-select" :options="Category"
+										<vue-select
+class="category-select" :options="Category"
 											placeholder="Choose Category" />
 									</div>
 									<div class="filter-content looking-input form-group">
@@ -226,7 +231,8 @@
 										</div>
 
 										<div class="search-btn">
-											<b-button variant="primary" type="submit"> <i class="fa fa-search"
+											<b-button variant="primary" type="submit"> <i
+class="fa fa-search"
 													aria-hidden="true"></i> Search</b-button>
 											<b-button variant="reset mb-0" type="submit"> <i
 													class="fas fa-light fa-arrow-rotate-right"></i> Reset Filters</b-button>

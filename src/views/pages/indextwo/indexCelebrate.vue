@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-lg-5 col-md-6">
 					<!-- Category -->
-					<div class="wedding-wrap aos" data-aos="fade-up" v-for="item in IndexTwoCategory" :key="item.id">
+					<div v-for="item in IndexTwoCategory" :key="item.id" class="wedding-wrap aos" data-aos="fade-up">
 						<div class="wedding-img">
 							<router-link to="/categories">
 								<img class="img-fluid" :src="import(`../../../assets/img/service/${item.image}`)" alt="locations">
@@ -74,7 +74,7 @@
 				
 				<div class="col-lg-5 col-md-6 aos" data-aos="fade-up">
 					<!-- Category -->
-					<div class="wedding-wrap wedding-align" v-for="item in IndexTwoWeds" :key="item.id">
+					<div v-for="item in IndexTwoWeds" :key="item.id" class="wedding-wrap wedding-align">
 						<div class="wedding-content">
 							<h6><router-link to="/categories">{{ item.title }}</router-link></h6>
 							<p>{{ item.content }}</p>
@@ -102,6 +102,12 @@ import IndexTwoCategory from '../../../assets/json/indexTwoCategory.json'
 import IndexTwoWeds from '../../../assets/json/indexTwoWeds.json'
 
 export default {
+	components: {
+		Carousel,
+		Slide,
+		Pagination,
+		Navigation,
+	},
 	data() {
 		return {
 			IndexCelebrate: IndexCelebrate,
@@ -125,12 +131,6 @@ export default {
 				}
 			},
 		}
-	},
-	components: {
-		Carousel,
-		Slide,
-		Pagination,
-		Navigation,
 	},
 }
 </script>

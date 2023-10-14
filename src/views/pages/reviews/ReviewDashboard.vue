@@ -4,14 +4,15 @@
 		<div class="container">
 			<userMenu />
 			<div class="row dashboard-info reviewpage-content">
-				<div class="col-lg-6 d-flex" v-for="item in Review" :key="item.id">
+				<div v-for="item in Review" :key="item.id" class="col-lg-6 d-flex">
 					<div class="card dash-cards">
 						<div class="card-header">
 							<h4>{{item.title}}</h4>
 							<div class="card-dropdown">
 								<ul>
 									<li class="nav-item dropdown has-arrow logged-item">
-										<a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+										<a
+href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
 											aria-expanded="false">
 											<span>All Listing</span>
 										</a>

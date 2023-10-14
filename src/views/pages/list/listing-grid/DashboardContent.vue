@@ -4,7 +4,7 @@
 			<div class="container">			
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row">
-					    <div class="col-lg-4 col-md-4 col-sm-6" v-for="item in DashboardContent" :key="item.id">
+					    <div v-for="item in DashboardContent" :key="item.id" class="col-lg-4 col-md-4 col-sm-6">
 							<div class="card aos aos-init aos-animate" data-aos="fade-up">
 				    			<div class="blog-widget">
 									<div class="blog-img">

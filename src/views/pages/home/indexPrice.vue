@@ -42,7 +42,7 @@
 							</div>
 						</div>
 						<div class="card-body tab-content">
-							<div class="tab-pane active" id="FAQhotels">	
+							<div id="FAQhotels" class="tab-pane active">	
 								<div class="row">
 									<div class="col-sm-6 d-flex">
 										<div class="faq-shadow-blk flex-fill">
@@ -58,7 +58,7 @@
 									</div>
 								</div>				
 							</div>
-							<div class="tab-pane fade" id="FAQpayments">	
+							<div id="FAQpayments" class="tab-pane fade">	
 								<div class="row">
 									<div class="col-sm-6 d-flex">
 										<div class="faq-shadow-blk flex-fill">
@@ -74,7 +74,7 @@
 									</div>
 								</div>				
 							</div>
-							<div class="tab-pane fade" id="FAQtrip">	
+							<div id="FAQtrip" class="tab-pane fade">	
 								<div class="row">
 									<div class="col-sm-6 d-flex">
 										<div class="faq-shadow-blk flex-fill">
@@ -90,7 +90,7 @@
 									</div>
 								</div>				
 							</div>
-							<div class="tab-pane fade" id="FAQguide">	
+							<div id="FAQguide" class="tab-pane fade">	
 								<div class="row">
 									<div class="col-sm-6 d-flex">
 										<div class="faq-shadow-blk flex-fill">
@@ -106,7 +106,7 @@
 									</div>
 								</div>				
 							</div>
-							<div class="tab-pane fade" id="FAQcancel">	
+							<div id="FAQcancel" class="tab-pane fade">	
 								<div class="row">
 									<div class="col-sm-6 d-flex">
 										<div class="faq-shadow-blk flex-fill">
@@ -137,7 +137,7 @@
 		<!-- /FAQ Banner -->	
 		
 		<!-- Price Section -->
-		<section class="section-blk price-section" id="price">
+		<section id="price" class="section-blk price-section">
 			<div class="container">					
 				<div class="row text-center">		
 					<div class="col-md-12">	

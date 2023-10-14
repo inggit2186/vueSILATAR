@@ -1,38 +1,38 @@
 <template>
     <div class="">
         <ul class="dashborad-menus">
-            <li :class="{ active: this.$route.name === 'Dashboard' }">
+            <li :class="{ active: $route.name === 'Dashboard' }">
                 <router-link to="dashboard">
                     <i class="feather-grid"></i> <span>Dashboard</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'Profile' }">
+            <li :class="{ active: $route.name === 'Profile' }">
                 <router-link to="profile">
                     <i class="fa-solid fa-user"></i> <span>Profile</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'My Listing' }">
+            <li :class="{ active: $route.name === 'My Listing' }">
                 <router-link to="my-listing">
                     <i class="feather-list"></i> <span>My Listing</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'Bookmarks' }">
+            <li :class="{ active: $route.name === 'Bookmarks' }">
                 <router-link to="bookmarks">
                     <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'Messages' }">
+            <li :class="{ active: $route.name === 'Messages' }">
                 <router-link to="messages">
                     <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
                 </router-link>
             </li>
-            <li :class="{ active: this.$route.name === 'Reviews' }">
+            <li :class="{ active: $route.name === 'Reviews' }">
                 <router-link to="reviews">
                     <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
                 </router-link>
             </li>
             <li>
-                <b-button variant="primary w-70 logout-btn" v-on:click="logout()" :disabled="loading">
+                <b-button variant="primary w-70 logout-btn" :disabled="loading" @click="logout()">
                     <span v-if="!loading"><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
                     <span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp; Good Bye...</span>
                 </b-button>

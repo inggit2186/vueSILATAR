@@ -3,7 +3,7 @@
 		<div class="aboutpopular-locations">
 		    <div class="container">
 				<div class="row">
-				    <div :class="item.class" v-for="item in AboutPopular" :key="item.id">
+				    <div v-for="item in AboutPopular" :key="item.id" :class="item.class">
 					    <div class="aboutlocation-details usa">
 						<div class="aboutloc-img">
 						    <img :src="import(`../../../assets/img/locations/${item.img}`)" alt="">

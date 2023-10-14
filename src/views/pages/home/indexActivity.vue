@@ -8,7 +8,7 @@
 							<h2 class="m-0">Top destinations with Activities</h2>
 						</div>	
 						<div class="row row-gap-14">
-							<div class="col-sm-6 col-lg-3" v-for="item in IndexActivity" :key="item.id">
+							<div v-for="item in IndexActivity" :key="item.id" class="col-sm-6 col-lg-3">
 								<div class="shadow-box d-flex">
 									<div class="flex-shrink-0">
 										<div class="icon-blk rounded-circle overflow-hidden">

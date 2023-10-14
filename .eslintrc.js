@@ -1,7 +1,6 @@
 module.exports = {
     env: {
       node: true,
-      es2022: true,
     },
     extends: [
         'eslint:recommended',
@@ -9,7 +8,6 @@ module.exports = {
         "prettier"
       ],
     rules: {
-      // override/add rules settings here, such as:
-      // 'vue/no-unused-vars': 'error'
+      "no-mixed-spaces-and-tabs": 0
     }
   }

@@ -57,6 +57,12 @@ import "vue3-carousel/dist/carousel.css";
 
 
 export default {
+	components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+  },
 	data() {
 		return {
 			IndexClient: IndexClient,
@@ -79,12 +85,6 @@ export default {
 			}
 		}
 	},
-	components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
-  },
 }
 </script>
 

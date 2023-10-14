@@ -69,7 +69,7 @@
 											<div class="col-md-10">
 												<div class="subscribe-blk bg-white">
 													<div class="input-group align-items-center">
-														<span class="input-group-text material-icons" id="basic-addon1">mail_outline</span>
+														<span id="basic-addon1" class="input-group-text material-icons">mail_outline</span>
 														<input type="email" class="form-control" placeholder="Enter your email here" aria-label="email" aria-describedby="basic-addon1">
 														<div class="subscribe-btn-grp">
 															<input type="submit" class="btn" value="Subscribe">
@@ -94,6 +94,12 @@ import IndexLatestBlog from '../../../assets/json/indexThreeLatestBlog.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+	components: {
+        Carousel,
+        Slide,
+        Pagination,
+        Navigation,
+    },
 	data() {
 		return {
 			IndexLatestBlog: IndexLatestBlog,
@@ -120,12 +126,6 @@ export default {
             },
 		}
 	},
-	components: {
-        Carousel,
-        Slide,
-        Pagination,
-        Navigation,
-    },
 }
 </script>
 

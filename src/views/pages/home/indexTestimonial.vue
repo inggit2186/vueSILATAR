@@ -138,6 +138,12 @@ import IndexTestimonial from '../../../assets/json/indexThreeTestimonial.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+	components: {
+        Carousel,
+        Slide,
+        Pagination,
+        Navigation,
+    },
 	data() {
 		return {
 			IndexTestimonial: IndexTestimonial,
@@ -168,12 +174,6 @@ export default {
             },
 		}
 	},
-	components: {
-        Carousel,
-        Slide,
-        Pagination,
-        Navigation,
-    },
 }
 </script>
 

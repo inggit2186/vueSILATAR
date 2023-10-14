@@ -126,7 +126,8 @@
                                                 <div class="col-md-6">
                                                     <div class="portfolio-item">
                                                         <div class="portfolio-img">
-                                                            <img src="../../../assets/img/gallery/gallery-04.jpg" class="img-fluid"
+                                                            <img
+src="../../../assets/img/gallery/gallery-04.jpg" class="img-fluid"
                                                                 alt="img">
                                                         </div>
                                                         <div class="portfolio-overlay-item">
@@ -142,7 +143,8 @@
                                                 <div class="col-md-6">
                                                     <div class="portfolio-item">
                                                         <div class="portfolio-img">
-                                                            <img src="../../../assets/img/gallery/gallery-05.jpg" class="img-fluid"
+                                                            <img
+src="../../../assets/img/gallery/gallery-05.jpg" class="img-fluid"
                                                                 alt="img">
                                                         </div>
                                                         <div class="portfolio-overlay-item">
@@ -158,7 +160,8 @@
                                                 <div class="col-md-12">
                                                     <div class="portfolio-item">
                                                         <div class="portfolio-img">
-                                                            <img src="../../../assets/img/gallery/gallery-06.jpg" class="img-fluid"
+                                                            <img
+src="../../../assets/img/gallery/gallery-06.jpg" class="img-fluid"
                                                                 alt="img">
                                                         </div>
                                                         <div class="portfolio-overlay-item">
@@ -200,6 +203,12 @@
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+    components: {
+		Carousel,
+		Slide,
+		Pagination,
+		Navigation,
+	},
     data() {
         return {
             settings: {
@@ -275,12 +284,6 @@ export default {
 		handleHide() {
 		this.visible = false;
 		},
-	},
-    components: {
-		Carousel,
-		Slide,
-		Pagination,
-		Navigation,
 	},
 }
 </script>

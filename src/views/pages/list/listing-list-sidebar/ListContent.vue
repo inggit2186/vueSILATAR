@@ -134,7 +134,7 @@
 							</div>
 						</div>
 						<div class="blog-listview">
-						    <div class="card" v-for="item in ListingListSidebar" :key="item.id">
+						    <div v-for="item in ListingListSidebar" :key="item.id" class="card">
 						        <div class="blog-widget">
 						            <div class="blog-img">
 								        <router-link to="service-details.">

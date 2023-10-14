@@ -4,10 +4,11 @@
 		<div class="container">
 			<div class="gallery-content">
 				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-3" v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
+					<div v-for="(src, index) in imgs" :key="index" class="col-lg-3 col-md-3 col-sm-3" @click="() => showImg(index)">
 						<div class="gallery-widget">
 							<a href="javascript:void()" data-fancybox="gallery2">
-								<img :src="import(`../../../assets/img/gallery/gallery2/${src.src}`)" class="img-fluid"
+								<img
+:src="import(`../../../assets/img/gallery/gallery2/${src.src}`)" class="img-fluid"
 									alt="Image">
 							</a>
 						</div>

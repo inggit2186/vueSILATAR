@@ -38,11 +38,12 @@
 							</div>
 						</div>
 						<div class="blog-listview">
-							<div class="card" v-for="item in ListingMapList" :key="item.id">
+							<div v-for="item in ListingMapList" :key="item.id" class="card">
 								<div class="blog-widget">
 									<div class="blog-img">
 										<router-link to="service-details">
-											<img :src="import(`../../../../assets/img/blog/${item.image}`)" class="img-fluid"
+											<img
+:src="import(`../../../../assets/img/blog/${item.image}`)" class="img-fluid"
 												alt="blog-img">
 										</router-link>
 										<div class="fav-item">
@@ -63,7 +64,8 @@
 												</div>
 												<div class="blog-author">
 													<div class="blog-author-img">
-														<img :src="import(`../../../../assets/img/profiles/${item.author}`)"
+														<img
+:src="import(`../../../../assets/img/profiles/${item.author}`)"
 															alt="author">
 													</div>
 													<a href="javascript:void(0)">{{item.name}}</a>
@@ -142,10 +144,12 @@
 				<div class="col-lg-6 map-right">
 					<div id="map" class="map-listing">
 					</div>
-					<div class="showfilter" v-on:click="filter = !filter"
-                    		:class="{ filteropen: filter }">
+					<div
+class="showfilter" :class="{ filteropen: filter }"
+                    		@click="filter = !filter">
 						<button class="btn filterbtn">
-							<span class="showfilter-btn"><img src="../../../../assets/img/details-icon.svg"
+							<span class="showfilter-btn"><img
+src="../../../../assets/img/details-icon.svg"
 									alt="details-icon"> Show Filters</span>
 							<span class="hidefilter-btn"><i class="feather-eye-off"></i> Hide Filters</span>
 						</button>
@@ -238,7 +242,8 @@
 											<input type="text" class="form-control me-0" placeholder="Max">
 										</div>
 										<div class="search-btn">
-											<b-button variant="primary" type="submit"> <i class="fa fa-search"
+											<b-button variant="primary" type="submit"> <i
+class="fa fa-search"
 													aria-hidden="true"></i> Search</b-button>
 											<b-button variant="reset mb-0" type="submit"> <i
 													class="fas fa-light fa-arrow-rotate-right"></i> Reset

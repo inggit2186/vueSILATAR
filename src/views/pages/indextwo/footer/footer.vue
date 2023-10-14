@@ -208,13 +208,13 @@
 
 <script>
     export default {
+        components: {},
         data() {
             return{
                 India: ["India", "UK", "Japan"],
                 Currency: ["USD", "Euro"]
             };
         },
-        components: {},
 		mouted() {},
     };
 </script>

@@ -18,10 +18,10 @@
 												<img :src="imageUrl" alt="profile">
 											</div>										    
 											<div class="settings-upload-btn">
-												<input type="file" accept="image/*" name="image" v-on:change="filex" id="filex" class="hide-input image-upload" @change="onFileSelected">
+												<input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
 												<label for="file" class="file-upload" :disable="loadingpp">
-													<span style="color: aliceblue;" v-if="!loadingpp"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
-													<span style="color: aliceblue;" v-else ><i class="fa fa-spinner fa-spin"></i>&nbsp; JNE Berangkaattt... </span>
+													<span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
+													<span v-else style="color: aliceblue;" ><i class="fa fa-spinner fa-spin"></i>&nbsp; JNE Berangkaattt... </span>
 												</label>												
 											</div>	
 											<span>Max file size: 10 MB</span>
@@ -33,7 +33,7 @@
 											    <label class="col-form-label">Nama Lengkap</label>
 										        <div class="pass-group group-img">
 													<span class="lock-icon"><i class="feather-user"></i></span>
-													<b-form-input v-model="user.name" id="name" type="text" class="form-control" placeholder="Nama Lengkap" readonly />													
+													<b-form-input id="name" v-model="user.name" type="text" class="form-control" placeholder="Nama Lengkap" readonly />													
 												</div>
 										    </div> 
 											<div class="row">
@@ -42,7 +42,7 @@
 														<label class="col-form-label">Handphone / Whatsapp</label>
 														<div class="pass-group group-img">
 															<span class="lock-icon"><i class="feather-phone-call"></i></span>
-															<b-form-input type="tel" class="form-control" id="telp" v-model="user.telp" placeholder="Nomor Kontak" />													
+															<b-form-input id="telp" v-model="user.telp" type="tel" class="form-control" placeholder="Nomor Kontak" />													
 														</div>
 													</div>
 												 </div>
@@ -51,7 +51,7 @@
 														<label class="col-form-label">Email Address</label>
 														<div class="group-img">
 															<i class="feather-mail"></i>
-															<b-form-input type="text" class="form-control" id="email" v-model="user.email" placeholder="Alamat Email" />
+															<b-form-input id="email" v-model="user.email" type="text" class="form-control" placeholder="Alamat Email" />
 														</div>
 													</div>
 												 </div>											
@@ -62,7 +62,7 @@
 														<label class="col-form-label">Pekerjaan/Jabatan</label>
 														<div class="pass-group group-img">
 															<i class="fas fa-briefcase lock-icon"></i>
-															<b-form-input type="text" class="form-control" id="pekerjaan" v-model="user.pekerjaan" placeholder="Pekerjaan / Jabatan" readonly/>													
+															<b-form-input id="pekerjaan" v-model="user.pekerjaan" type="text" class="form-control" placeholder="Pekerjaan / Jabatan" readonly/>													
 														</div>
 													</div>
 												 </div>
@@ -71,7 +71,7 @@
 														<label class="col-form-label">Satuan Kerja</label>
 														<div class="group-img">
 															<i class="fa fa-bank"></i>
-															<b-form-input type="text" class="form-control" id="satker" v-model="user.satker" placeholder="Tempat Bekerja" readonly />
+															<b-form-input id="satker" v-model="user.satker" type="text" class="form-control" placeholder="Tempat Bekerja" readonly />
 														</div>
 													</div>
 												 </div>											
@@ -79,7 +79,7 @@
 											<div class="form-group">
 											    <label class="col-form-label">:: Ceritakan Sedikit Tentang Diri Anda ::</label>
 												<div class="pass-group group-img">
-													<textarea rows="4" v-model="user.bio" id="user.bio" name="user.bio" class="form-control">{{user.bio}}</textarea>												
+													<textarea id="user.bio" v-model="user.bio" rows="4" name="user.bio" class="form-control">{{user.bio}}</textarea>												
 												</div>
 											</div>
 											<div class="row socialmedia-info">
@@ -88,7 +88,7 @@
 														<label class="col-form-label">Facebook</label>
 														<div class="pass-group group-img">
 															<span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
-															<b-form-input type="text" id="facebook" v-model="user.facebook" class="form-control" placeholder="https://www.facebook.com/" />												
+															<b-form-input id="facebook" v-model="user.facebook" type="text" class="form-control" placeholder="https://www.facebook.com/" />												
 														</div>
 													</div>
 												 </div>
@@ -97,7 +97,7 @@
 														<label class="col-form-label">Twitter</label>
 														<div class="pass-group group-img">
 															<span class="lock-icon"><i class="fab fa-twitter"></i></span>
-															<b-form-input type="text" id="twitter" v-model="user.twitter" class="form-control" placeholder="https://twitter.com/" />												
+															<b-form-input id="twitter" v-model="user.twitter" type="text" class="form-control" placeholder="https://twitter.com/" />												
 														</div>
 													</div>
 												 </div>											
@@ -108,7 +108,7 @@
 														<label class="col-form-label">LinkedIn</label>
 														<div class="pass-group group-img">
 															<span class="lock-icon"><i class="fab fa-linkedin" aria-hidden="true"></i></span>
-															<b-form-input type="text" id="linkedin" v-model="user.linkedin" class="form-control" placeholder="https://www.linkedin.com/" />												
+															<b-form-input id="linkedin" v-model="user.linkedin" type="text" class="form-control" placeholder="https://www.linkedin.com/" />												
 														</div>
 													</div>
 												 </div>
@@ -117,7 +117,7 @@
 														<label class="col-form-label">Instagram</label>
 														<div class="pass-group group-img">
 															<span class="lock-icon"><i class="fab fa-instagram"></i></span>
-															<b-form-input type="text" id="instagram" v-model="user.instagram" class="form-control" placeholder="https://www.instagram.com/" />												
+															<b-form-input id="instagram" v-model="user.instagram" type="text" class="form-control" placeholder="https://www.instagram.com/" />												
 														</div>
 													</div>
 												 </div>											
@@ -146,7 +146,7 @@
 											    <label class="col-form-label">Password Lama</label>
 										        <div class="pass-group group-img">
 													<span class="lock-icon"><i class="feather-lock"></i></span>
-													<b-form-input type="password" id="oldpw" v-model="oldpw" class="form-control pass-input" placeholder="Password" required/>													
+													<b-form-input id="oldpw" v-model="oldpw" type="password" class="form-control pass-input" placeholder="Password" required/>													
 												</div>
 										    </div>
                                             <div class="form-group">
@@ -155,22 +155,23 @@
 													<span class="lock-icon"><i class="feather-lock"></i></span>
 													<b-form-input
 														v-if="showPassword"
+														v-model="password"
 														type="text"
 														class="form-control pass-input"
-														v-model="password"
 														placeholder=".............."
 														required
 													/>
-													<b-form-input v-else type="password"
-														class="form-control pass-input"
-														placeholder=".............." v-model="password" required/>
+													<b-form-input
+v-else v-model="password"
+														type="password"
+														class="form-control pass-input" placeholder=".............." required/>
 													<span
 														class="toggle-password"
-														@click="toggleShow"
 														:class="{
 														'feather-eye': showPassword,
 														'feather-eye-off': !showPassword,
 														}"
+														@click="toggleShow"
 													></span>
 												</div>
 										    </div>
@@ -180,22 +181,23 @@
 													<span class="lock-icon"><i class="feather-lock"></i></span>
 													<b-form-input
 														v-if="showPassword2"
+														v-model="password2"
 														type="text"
 														class="form-control pass-input"
-														v-model="password2"
 														placeholder=".............."
 														required
 													/>
-													<b-form-input v-else type="password"
-														class="form-control pass-input"
-														placeholder=".............." v-model="password2" required/>
+													<b-form-input
+v-else v-model="password2"
+														type="password"
+														class="form-control pass-input" placeholder=".............." required/>
 													<span
 														class="toggle-password"
-														@click="toggleShow1"
 														:class="{
 														'feather-eye': showPassword2,
 														'feather-eye-off': !showPassword2,
 														}"
+														@click="toggleShow1"
 													></span>
 												</div>
 										    </div>	

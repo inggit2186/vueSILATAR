@@ -61,12 +61,12 @@
 
 <script>
 export default {
+    components: {},
     data() {
         return{
             Category: ["Choose Category", "Computer", "Automobile", "Car Wash", "Cleaning", "Electrical", "Construction"]
         };
     },
-    components: {},
 	
 };
 </script>

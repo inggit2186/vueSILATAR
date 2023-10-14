@@ -341,7 +341,7 @@
 												<img :src="imageUrl" alt="">
 											</div>
 											<div class="settings-upload-btn">
-												<input type="file" accept="image/*" name="image" class="hide-input image-upload" id="file" @change="onFileChange">
+												<input id="file" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileChange">
 												<label for="file" class="file-upload">Upload File</label>
 											</div>
 											</div>
@@ -351,7 +351,7 @@
 												<img :src="logoUrl" alt="">
 											</div>
 											<div class="settings-upload-btn">
-												<input type="file" accept="image/*" name="image" class="hide-input image-upload" id="file1" @change="onLogoChange">
+												<input id="file1" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onLogoChange">
 												<label for="file1" class="file-upload">Upload File</label>
 											</div>
 										</div>
@@ -382,7 +382,7 @@
 									     </div>
 									</div>	
                                     <div class="settings-upload-btn">
-										<input type="file" @change="OnFileSelect" accept="image/*" name="image" class="hide-input image-upload" id="file2">
+										<input id="file2" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="OnFileSelect">
 										<label for="file2" class="file-upload">Upload File</label>												
 									</div>									
 								</div>								
@@ -400,6 +400,7 @@
 const img1 = import(`@/assets/img/mediaimg-2.jpg`)
 const img2 = import(`@/assets/img/mediaimg-1.jpg`)
 export default {
+	components: {},
 	data() {
 		return {
 			Num: ["65", "75", "85", "95", "105", "110", "115"],
@@ -409,7 +410,6 @@ export default {
       		logoUrl: img2
 		};
 	},
-	components: {},
 	mouted() {
 	},
 	methods: {

@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4 aos" data-aos="fade-up" v-for="item in IndexCowork" :key="item.id">
+						<div v-for="item in IndexCowork" :key="item.id" class="col-md-4 aos" data-aos="fade-up">
 							<div class="cowork-box">
 								<router-link to="/service-details">
 									<div class="cowork-img">
@@ -87,6 +87,12 @@ import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 import IndexCowork from '../../../assets/json/indexCowork.json';
 import Indexfourcategory from '../../../assets/json/indexFourCategory'
     export default {
+		components: {
+			Carousel,
+			Slide,
+			Pagination,
+			Navigation,
+		},
         data() {
             return {
                 IndexCowork: IndexCowork,
@@ -110,11 +116,5 @@ import Indexfourcategory from '../../../assets/json/indexFourCategory'
 			},
             };
         },
-		components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
-		},
     }
 </script>

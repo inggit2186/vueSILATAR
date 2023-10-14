@@ -108,6 +108,12 @@
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 import IndexWedding from '../../../assets/json/indexWedding.json'
     export default {
+		components: {
+			Carousel,
+			Slide,
+			Pagination,
+			Navigation,
+		},
         data(){
 			return{
 				IndexWedding: IndexWedding,
@@ -136,12 +142,6 @@ import IndexWedding from '../../../assets/json/indexWedding.json'
 				}
 			},
 			};
-		},
-		components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
 		},
 		mouted() {},
     };

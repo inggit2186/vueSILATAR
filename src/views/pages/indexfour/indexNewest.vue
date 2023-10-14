@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-3 col-md-6 aos" data-aos="fade-up" v-for="item in IndexSpace" :key="item.id">
+						<div v-for="item in IndexSpace" :key="item.id" class="col-lg-3 col-md-6 aos" data-aos="fade-up">
 							<div class="space-wrap">
 								<div class="space-img">
 									<router-link to="/service-details">
@@ -42,7 +42,8 @@
 									<h5><router-link to="/service-details">{{ item.title }}</router-link></h5>
 									<ul>
 										<li class="addr"><i class="feather-map-pin"></i> {{ item.city }}</li>
-										<li><a href="javascript:void(0);" class="fav-icon"
+										<li><a
+href="javascript:void(0);" class="fav-icon"
 											:class="{ selected: isIconSelected }" @click="toggleIcon">
                                                 <i class="fa-solid fa-heart"></i>
                                             </a>
@@ -79,7 +80,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-2 col-sm-6 aos" data-aos="fade-up" v-for="item in IndexCity" :key="item.id">
+						<div v-for="item in IndexCity" :key="item.id" class="col-lg-2 col-sm-6 aos" data-aos="fade-up">
 							<div class="city-wrap">
 								<div class="city-img">
 									<img :src="import(`../../../assets/img/work/${item.img}`)" class="img-fluid" alt="blog-img">										

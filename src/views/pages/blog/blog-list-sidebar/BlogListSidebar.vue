@@ -5,7 +5,7 @@
 		        <div class="row">
 			        <div class="col-lg-8">
 						<div class="bloglistleft-widget blog-listview">
-						    <div class="card" v-for="item in BlogListSidebar" :key="item.id">
+						    <div v-for="item in BlogListSidebar" :key="item.id" class="card">
 							        <div class="blog-widget">
 							            <div class="blog-img">
 										    <router-link to="blog-details">

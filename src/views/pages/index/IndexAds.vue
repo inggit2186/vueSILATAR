@@ -14,7 +14,7 @@
             </div>
             <div class="lateestads-content">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 d-flex" v-for="item in IndexAds" :key="item.id">
+                    <div v-for="item in IndexAds" :key="item.id" class="col-lg-3 col-md-4 col-sm-6 d-flex">
                         <div class="card flex-fill">
                             <div class="blog-widget">
                                 <div class="blog-img">

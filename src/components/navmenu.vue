@@ -7,11 +7,12 @@
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
         <ul class="navbar-nav main-nav my-2 my-lg-0">
-            <li class="has-submenu megamenu active"
-            v-bind:class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
+            <li
+class="has-submenu megamenu active"
+            :class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
                 <router-link to="/">Home</router-link>
             </li>
-            <li v-bind:class="{'active': currentPath == 'layananMenu'}">
+            <li :class="{'active': currentPath == 'layananMenu'}">
                 <router-link to="/UnitKerja/Layanan">Layanan</router-link>
             </li>
             <!--
@@ -64,17 +65,17 @@
                 </ul>
             </li>
             -->
-            <li v-bind:class="{'active': currentPath == 'contact'}">
+            <li :class="{'active': currentPath == 'contact'}">
                 <router-link to="/contact">Kontak Kami</router-link>
             </li>
         </ul>
     </div>
     <div class="d-flex align-items-center block-e" :disabled="auth">
-        <div class="cta-btn" v-if="!auth">
+        <div v-if="!auth" class="cta-btn">
             <router-link to="/login" class="btn">LOGIN  / </router-link>
             <router-link to="/signup" class="btn ms-1">  DAFTAR</router-link>
         </div>
-        <div class="nav header-navbar-rht" v-else>
+        <div v-else class="nav header-navbar-rht">
             <li class="nav-item">
                 <router-link class="nav-link header-login add-listing" to="add-listing"><i class="fa-solid fa-plus"></i> Add Listing</router-link>
             </li>
@@ -87,7 +88,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profile Settings</router-link>
-                    <b-button class="dropdown-item" v-on:click="logout()">
+                    <b-button class="dropdown-item" @click="logout()">
                         <span><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
                     </b-button>
                 </div>
@@ -131,6 +132,33 @@ export default {
                 return this.$route.name == 'blog-list' || this.$route.name == 'blog-grid' || this.$route.name == 'blog-details' || this.$route.name == 'blog-list-sidebar' || this.$route.name == 'blog-grid-sidebar';
             }
         },
+        mounted() {
+            $(window).scroll(function(){
+            var sticky = $('.header'),
+            scroll = $(window).scrollTop();
+                if (scroll >= 50) sticky.addClass('fixed');
+                else sticky.removeClass('fixed');
+        });
+            $('body').append('<div class="sidebar-overlay"></div>');
+            $(document).on('click', '#mobile_btn', function () {
+                $('main-wrapper').toggleClass('slide-nav');
+                $('.sidebar-overlay').toggleClass('opened');
+                $('html').addClass('menu-opened');
+                return false;
+            });
+
+            $(document).on('click', '.sidebar-overlay', function () {
+                $('html').removeClass('menu-opened');
+                $(this).removeClass('opened');
+                $('main-wrapper').removeClass('slide-nav');
+            });
+
+            $(document).on('click', '#menu_close', function () {
+                $('html').removeClass('menu-opened');
+                $('.sidebar-overlay').removeClass('opened');
+                $('main-wrapper').removeClass('slide-nav');
+            });
+        },
         methods:{
             async logout() {
                 try{
@@ -162,33 +190,6 @@ export default {
                     this.loading = false;
                 }
             },
-        },
-        mounted() {
-            $(window).scroll(function(){
-            var sticky = $('.header'),
-            scroll = $(window).scrollTop();
-                if (scroll >= 50) sticky.addClass('fixed');
-                else sticky.removeClass('fixed');
-        });
-            $('body').append('<div class="sidebar-overlay"></div>');
-            $(document).on('click', '#mobile_btn', function () {
-                $('main-wrapper').toggleClass('slide-nav');
-                $('.sidebar-overlay').toggleClass('opened');
-                $('html').addClass('menu-opened');
-                return false;
-            });
-
-            $(document).on('click', '.sidebar-overlay', function () {
-                $('html').removeClass('menu-opened');
-                $(this).removeClass('opened');
-                $('main-wrapper').removeClass('slide-nav');
-            });
-
-            $(document).on('click', '#menu_close', function () {
-                $('html').removeClass('menu-opened');
-                $('.sidebar-overlay').removeClass('opened');
-                $('main-wrapper').removeClass('slide-nav');
-            });
         },
 }
 </script>

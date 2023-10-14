@@ -12,7 +12,7 @@
 							<h3>::: Nyangkul Data dulu :::</h3>
 							<hr>
 						</div>
-					    <div v-else class="col-lg-4 col-md-4 col-sm-6" id="item" v-for="item in paginatedSeksi" :key="item.id">
+					    <div v-for="item in paginatedSeksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6">
 							<div class="card aos aos-init aos-animate" data-aos="fade-up">
 				    			<div class="blog-widget">
 									<div class="blog-img">
@@ -30,7 +30,7 @@
 										<div class="card-body">
 											<div class="blogfeaturelink">
 											    <div class="grid-author">
-												    <img :src="$assets+'/img/profiles/avatar-01.jpg'" alt="author">
+												    <img :src="item.ppkepala ?? $assets+'/img/profiles/avatar-01.jpg'" alt="author">
                                                 </div>
 												<div class="blog-features">
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.kode }}</span></a>
@@ -69,7 +69,7 @@
 									<li class="justify-content-center pagination-center"> 
 										<div class="pagelink">
 										    <ul>
-												<li class="page-item" v-for="page in displayedPages" :key="page" :class="{'active': currentPage === page}">
+												<li v-for="page in displayedPages" :key="page" class="page-item" :class="{'active': currentPage === page}">
 													<a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
 												</li>
 												<li class="page-item" :class="{'disabled': currentPage === totalPages}">
@@ -122,6 +122,9 @@ export default {
         	return id => `/${this.navid}/${id}`;
     	},
 	},
+	created() {
+		this.getSeksi()
+	},
 	methods: {
 		async getSeksi() {
 			this.loading = true;
@@ -145,9 +148,6 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-	},
-	created() {
-		this.getSeksi()
 	}
 }
 </script>

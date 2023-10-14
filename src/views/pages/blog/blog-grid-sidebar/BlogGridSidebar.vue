@@ -5,7 +5,7 @@
 		        <div class="row">
 			        <div class="col-lg-8">
 			            <div class="row">
-			               <div class="col-lg-6 col-md-6 d-lg-flex" v-for="item in BlogGridSidebar" :key="item.id">
+			               <div v-for="item in BlogGridSidebar" :key="item.id" class="col-lg-6 col-md-6 d-lg-flex">
 			                  <div class="blog grid-blog">
 								<div class="blog-image">
 									<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>

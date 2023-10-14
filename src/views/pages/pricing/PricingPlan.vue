@@ -11,7 +11,7 @@
 				</div>
 				<div class="container">
 					<div class="row">
-					    <div class="col-lg-3 d-flex col-md-6" v-for="item in IndexPricing" :key="item.id">
+					    <div v-for="item in IndexPricing" :key="item.id" class="col-lg-3 d-flex col-md-6">
 						    <div class="price-card flex-fill">
 								<div class="price-head">
 									<div class="price-level">

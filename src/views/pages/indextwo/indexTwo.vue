@@ -29,6 +29,6 @@
 </template>
 <script>
     export default {
-        name: 'index-2'
+        name: 'Index2'
     }
 </script>

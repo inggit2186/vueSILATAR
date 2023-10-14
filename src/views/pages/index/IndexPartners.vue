@@ -5,7 +5,7 @@
 		        <p class="partners-heading">Over 5,26,000+ Sponsers being contact with us</p>	
 				
 					<Carousel :autoplay="3000" :loop="true" :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
-                		<Slide class="partnerslist d-flex" v-for="item in IndexPartners" :key="item.id">	
+                		<Slide v-for="item in IndexPartners" :key="item.id" class="partnerslist d-flex">	
 							<li class="carousel__item item">
 								<a href="javascript:void(0);">
 									<img class="img-fluid" :src="import(`../../../assets/img/partners/${item.img}`)" alt="partners">
@@ -30,6 +30,11 @@ import "vue3-carousel/dist/carousel.css";
 
 
 export default {
+	components: {
+    Carousel,
+    Slide,
+	Navigation
+  },
 	data() {
 		return {
 			IndexPartners: IndexPartners,
@@ -56,10 +61,5 @@ export default {
             }
 		}
 	},
-	components: {
-    Carousel,
-    Slide,
-	Navigation
-  },
 }
 </script>

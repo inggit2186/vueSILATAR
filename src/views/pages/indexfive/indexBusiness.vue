@@ -73,7 +73,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3" v-for="item in IndexCities" :key="item.id">
+					<div v-for="item in IndexCities" :key="item.id" class="col-md-3">
 						<div class="city-box aos" data-aos="fade-up">
 							<div class="citi-img">
 								<a href="#">
@@ -109,6 +109,12 @@
 	import IndexBusiness from '../../../assets/json/indexBusiness.json'
 	import IndexCities from '../../../assets/json/indexCities.json'
 	export default {
+		components: {
+			Carousel,
+			Slide,
+			Pagination,
+			Navigation,
+		},
 		data() {
 			return {
 				IndexBusiness: IndexBusiness,
@@ -130,12 +136,6 @@
 					}
 				},
 			}
-		},
-		components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
 		},
 	}
 </script>

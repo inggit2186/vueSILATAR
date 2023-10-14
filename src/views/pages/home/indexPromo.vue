@@ -11,7 +11,7 @@
                     <div class="recommended-carousel">
                         <div class="recommended-slider owl-carousel owl-theme">
                             <Carousel  :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
-                                <Slide class="carousel__slide recommended-widget" v-for="item in ThreePromo" :key="item.id">
+                                <Slide v-for="item in ThreePromo" :key="item.id" class="carousel__slide recommended-widget">
                                     <div class="recommended-widget">
                                         <div class="img-blk">
                                             <a href="javascript:void(0);">
@@ -114,6 +114,12 @@ import ThreePromo from '../../../assets/json/indexThreePromo.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
     export default {
+        components: {
+            Carousel,
+            Slide,
+            Pagination,
+            Navigation,
+        },
         data() {
             return {
                 ThreePromo: ThreePromo,
@@ -134,12 +140,6 @@ import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
                     }
                 },
             }
-        },
-        components: {
-            Carousel,
-            Slide,
-            Pagination,
-            Navigation,
         },
     }
 </script>

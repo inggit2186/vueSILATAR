@@ -13,7 +13,7 @@
 							<div class="interset-btn">						
 								<div class="status-toggle d-inline-flex align-items-center">
 									Monthly
-									<input type="checkbox" id="status_1" class="check">
+									<input id="status_1" type="checkbox" class="check">
 									<label for="status_1" class="checktoggle">checkbox</label>
 									Yearly
 								</div>

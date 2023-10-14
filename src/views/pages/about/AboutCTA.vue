@@ -81,6 +81,12 @@
 
 
 	export default {
+		components: {
+		Carousel,
+		Slide,
+		Pagination,
+		Navigation,
+	},
 		data() {
 			return {
 				IndexClient: IndexClient,
@@ -103,12 +109,6 @@
 				}
 			}
 		},
-		components: {
-		Carousel,
-		Slide,
-		Pagination,
-		Navigation,
-	},
 	}
 </script>
 

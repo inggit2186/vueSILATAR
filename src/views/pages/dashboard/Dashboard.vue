@@ -16,6 +16,7 @@
 
 <script>
 export default {
+    name: 'Dashboard',
     data() {
         return {
             title: "Dashboard",
@@ -24,6 +25,5 @@ export default {
             name: "/",
         }
     },
-    name: 'dashboard',
 }
 </script>

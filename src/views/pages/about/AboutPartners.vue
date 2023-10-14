@@ -30,6 +30,11 @@ import "vue3-carousel/dist/carousel.css";
 
 
 export default {
+	components: {
+    Carousel,
+    Slide,
+	Navigation
+  },
 	data() {
 		return {
 			IndexPartners: IndexPartners,
@@ -56,10 +61,5 @@ export default {
             }
 		}
 	},
-	components: {
-    Carousel,
-    Slide,
-	Navigation
-  },
 }
 </script>

@@ -16,7 +16,7 @@
 					</div>
 				</div> 									
 				<div class="row">
-                    <div class="col-lg-3 col-md-6 d-flex aos" data-aos="fade-up" v-for="item in IndexFourBlog" :key="item.id">
+                    <div v-for="item in IndexFourBlog" :key="item.id" class="col-lg-3 col-md-6 d-flex aos" data-aos="fade-up">
 						<div class="blog grid-blog blog-four flex-fill">
 						    <div class="blog-image">
 								<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>

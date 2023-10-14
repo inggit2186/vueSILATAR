@@ -24,7 +24,8 @@
 					            <Slide v-for="item in IndexDestination" :key="item.id">
                                     <div class="destination-widget">
                                         <a href="javascript:;" class="desti-link">
-                                            <img :src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid"
+                                            <img
+:src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid"
                                                 alt="find your destination">
                                             <div class="desti-country-list">
                                                 <span class="desti-btn">{{ item.country }}</span>
@@ -146,6 +147,12 @@ import IndexDestination from '../../../assets/json/indexDestination.json'
 import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 
 export default {
+    components: {
+		Carousel,
+	    Slide,
+		Pagination,
+		Navigation,
+	},
     data() {
         return {
             IndexDestination: IndexDestination,
@@ -176,12 +183,6 @@ export default {
 			},
         };
     },
-    components: {
-		Carousel,
-	    Slide,
-		Pagination,
-		Navigation,
-	},
 };
 </script>
 

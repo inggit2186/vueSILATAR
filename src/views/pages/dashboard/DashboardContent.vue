@@ -5,12 +5,13 @@
 			<userMenu />
 			<div class="dashboard-details">
 				<div class="row">
-					<div class="col-lg-3 col-md-3 " v-for="item in Dashboard" :key="item.id">
+					<div v-for="item in Dashboard" :key="item.id" class="col-lg-3 col-md-3 ">
 						<div class="card dash-cards">
 							<div class="card-body">
 								<div class="dash-top-content">
 									<div class="dashcard-img">
-										<img :src="$assets+'/img/icons/'+item.image" class="img-fluid"
+										<img
+:src="$assets+'/img/icons/'+item.image" class="img-fluid"
 											alt="">
 									</div>
 								</div>
@@ -33,7 +34,8 @@
 								<div class="card-dropdown">
 									<ul>
 										<li class="nav-item dropdown has-arrow logged-item">
-											<router-link to="#" class="dropdown-toggle pageviews-link"
+											<router-link
+to="#" class="dropdown-toggle pageviews-link"
 												data-bs-toggle="dropdown" aria-expanded="false">
 												<span>This week</span>
 											</router-link>
@@ -47,7 +49,8 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<apexchart type="radar" height="350" 
+								<apexchart
+type="radar" height="350" 
 									:options="radarChart.chart"
 									:series="radarChart.series">
 								</apexchart>
@@ -61,7 +64,8 @@
 								<div class="card-dropdown">
 									<ul>
 										<li class="nav-item dropdown has-arrow logged-item">
-											<router-link to="#" class="dropdown-toggle pageviews-link"
+											<router-link
+to="#" class="dropdown-toggle pageviews-link"
 												data-bs-toggle="dropdown" aria-expanded="false">
 												<span>All Listing</span>
 											</router-link>
@@ -75,11 +79,12 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<ul class="review-list" v-for="item in DashboardReview" :key="item.id">
+								<ul v-for="item in DashboardReview" :key="item.id" class="review-list">
 									<li class="review-box">
 										<div class="review-profile">
 											<div class="review-img">
-												<img :src="$assets+'/img/profiles/'+item.image"
+												<img
+:src="$assets+'/img/profiles/'+item.image"
 													class="img-fluid" alt="img">
 											</div>
 										</div>

@@ -3,7 +3,7 @@
 		<div class="bloglist-section blog-gridpage">
 		    <div class="container">
 		        <div class="row">
-		            <div class="col-lg-4 col-md-4 d-lg-flex" v-for="item in BlogGrid" :key="item.id">
+		            <div v-for="item in BlogGrid" :key="item.id" class="col-lg-4 col-md-4 d-lg-flex">
 				      <div class="blog grid-blog">
 						<div class="blog-image">
 		    				<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>

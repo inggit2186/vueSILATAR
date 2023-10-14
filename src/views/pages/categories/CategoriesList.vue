@@ -1,22 +1,57 @@
 <template>
     <!-- Categories Section -->
 		<div class="categorieslist-section">
-            <div class="container">
-		        <div class="row">
-			       <div class="col-lg-3 col-md-4" v-for="item in paginatedLayanan" :key="item.id">
-				    	<div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-		    				   <img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
-							   <h6>{{ item.nama }}</h6>
-							   <span class="ads">{{ item.output }}</span>
-							   <span>{{ item.deskripsi }}</span>
-							</a>								   
-					   </div>
-				   </div>
+            <div class="container text-center">
+		        <div class="row" :disabled="loading">
+					<div v-if="loading" class="text-center">
+						<hr>
+						<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
+						<br>
+						<b-spinner variant="success" label="Spinning"></b-spinner>
+						<h3>::: Nyangkul Data dulu :::</h3>
+						<hr>
+					</div>
+					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4">
+							<div class="categories-content">
+								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+								<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
+								<h6>{{ item.nama }}</h6>
+								<span class="ads">{{ item.output }}</span>
+								<span>{{ item.deskripsi }}</span>
+								</a>								   
+						</div>
+					</div>
+
+				   <!--Pagination--> 
+					<div class="blog-pagination">
+						<nav>
+							<ul class="pagination">
+								<li class="page-item previtem" :class="{'disabled': currentPage === 1}">
+									<a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+								</li>
+								<li class="justify-content-center pagination-center"> 
+									<div class="pagelink">
+										<ul>
+											<li v-for="page in displayedPages" :key="page" class="page-item" :class="{'active': currentPage === page}">
+												<a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+											</li>
+											<li class="page-item" :class="{'disabled': currentPage === totalPages}">
+												<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">...</a>
+											</li>
+										</ul>
+									</div>													
+								</li>													
+								<li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
+									<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!--/Pagination-->
 				</div>
 			</div>
 		</div>
-		<!-- /Categories Section -->
+		<!-- /Categories Section -->	
 </template>
 
 <script>
@@ -44,6 +79,10 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
+	},
+	created() {
+		this.getLayanan(),
+		this.random = this.randNo();
 	},
 	methods: {
 		async getLayanan() {
@@ -73,10 +112,6 @@ export default {
 		randNo() {
         	return Math.floor(Math.random() * 28) + 1;
     	}
-	},
-	created() {
-		this.getLayanan(),
-		this.random = this.randNo();
 	}
 }
 </script>

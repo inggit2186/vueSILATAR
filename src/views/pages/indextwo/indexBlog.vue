@@ -51,7 +51,8 @@
 					        <Slide v-for="item in IndexLatestBlog" :key="item.id">
                                 <div class="blog grid-blog blog-two">
                                     <div class="blog-image">
-                                        <router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.image}`)"
+                                        <router-link to="/blog-details"><img
+class="img-fluid" :src="import(`../../../assets/img/blog/${item.image}`)"
                                                 alt="Post Image"></router-link>
                                     </div>
                                     <div class="blog-content">
@@ -84,6 +85,12 @@ import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
 import IndexTwoFeedback from '../../../assets/json/indexTwoFeedback.json'
 import IndexLatestBlog from '../../../assets/json/indexLatestBlog.json'
 export default {
+    components: {
+			Carousel,
+			Slide,
+			Pagination,
+			Navigation,
+		},
     data() {
         return {
             IndexTwoFeedback: IndexTwoFeedback,
@@ -115,12 +122,6 @@ export default {
 			},
         }
     },
-    components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
-		},
 }
 </script>
 

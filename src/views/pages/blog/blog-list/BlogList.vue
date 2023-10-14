@@ -5,7 +5,7 @@
 		        <div class="row">
 			        <div class="col-lg-8">
 						<div class="bloglist-widget">
-						    <div class="blog grid-blog" v-for="item in BlogList" :key="item.id">
+						    <div v-for="item in BlogList" :key="item.id" class="blog grid-blog">
 								<div class="blog-image">
 									<router-link to="blog-details"><img class="img-fluid" :src="import(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
 								</div>
