@@ -18,7 +18,7 @@
 				    <router-link to="/categories" class="category-links">
 					        <h5>{{ item.title }}</h5>
 						    <span>{{ item.text}}</span>
-						    <img :src="require(`../../../assets/img/icons/${item.img}`)" alt="icons" />
+						    <img :src="import(`../../../assets/img/icons/${item.img}`)" alt="icons" />
 					</router-link> 
 				</div>
 				

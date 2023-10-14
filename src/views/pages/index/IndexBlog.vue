@@ -19,7 +19,7 @@
                     <div class="col-lg-4 col-md-4 d-flex" v-for="item in IndexBlog" :key="item.id">
 						    <div class="blog grid-blog">
 						     	<div class="blog-image">
-									<router-link to="/blog-details"><img class="img-fluid" :src="require(`../../../assets/img/blog/${item.img1}`)" alt="Post Image" /></router-link>
+									<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.img1}`)" alt="Post Image" /></router-link>
 								</div>
 								<div class="blog-content">
 									<p class="blog-category">
@@ -29,7 +29,7 @@
 										<li>
 											<div class="post-author">
 												<div class="post-author-img">
-													<img :src="require(`../../../assets/img/profiles/${item.img2}`)" alt="Post Author">
+													<img :src="import(`../../../assets/img/profiles/${item.img2}`)" alt="Post Author">
 												</div>
 												<a href="javascript:void(0);" class="mb-0"> <span> {{ item.name }} </span></a>
 											</div>

@@ -117,7 +117,7 @@
       try {
 		this.loading = true;
 
-        const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/login', {
+        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/login', {
           email: this.email,
           password: this.password,
         });

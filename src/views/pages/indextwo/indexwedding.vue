@@ -88,7 +88,7 @@
 							<div class="carousel__item" >
 								<div class="popular-wrap">
 									<div class="popular-img">
-										<img :src="require(`../../../assets/img/service/${item.image}`)" class="img-fluid" alt="icons">
+										<img :src="import(`../../../assets/img/service/${item.image}`)" class="img-fluid" alt="icons">
 										<router-link to="/listing-grid-sidebar" class="btn">{{ item.title }}</router-link>
 									</div>
 								</div>

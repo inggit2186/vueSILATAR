@@ -36,7 +36,7 @@
                                 <div class="venue-item">
                                     <div class="venue-image">
                                         <router-link to="/service-details">
-                                            <img class="img-fluid" :src="require(`../../../assets/img/venues/${item.image}`)" alt="Image">
+                                            <img class="img-fluid" :src="import(`../../../assets/img/venues/${item.image}`)" alt="Image">
                                         </router-link>
                                     </div>
                                     <div class="venue-content">

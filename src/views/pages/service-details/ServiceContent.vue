@@ -110,7 +110,7 @@
 								    <div class="col-lg-3 col-md-3 col-sm-3" v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
 										<div class="gallery-widget">	
 											<a href="javascript:void()" data-fancybox="gallery1">
-												<img class="img-fluid" alt="Image" :src="require(`../../../assets/img/gallery/${src.src}`)">
+												<img class="img-fluid" alt="Image" :src="import(`../../../assets/img/gallery/${src.src}`)">
 											</a>
 										</div>								
 									</div>

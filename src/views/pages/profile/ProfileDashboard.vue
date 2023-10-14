@@ -216,11 +216,11 @@
 </template>
 
 <script>
-const image = require(`@/assets/img/profile-img.jpg`)
+const image = import(`@/assets/img/profile-img.jpg`)
 	export default {
 		 data() {
 		const user = JSON.parse(localStorage.getItem('user'))
-		const pp = process.env.VUE_APP_ST_URL+'/'+user.noid+'/'+user.pp
+		const pp = import.meta.env.VITE_APP_ST_URL+'/'+user.noid+'/'+user.pp
 
 		 return {
 			loadingpp: false,
@@ -273,7 +273,7 @@ const image = require(`@/assets/img/profile-img.jpg`)
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
 
-				const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/updatePP',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePP',{
 					filex: this.imageUrl
 				}, {headers})
 				let user = JSON.parse(localStorage.getItem('user'));
@@ -297,7 +297,7 @@ const image = require(`@/assets/img/profile-img.jpg`)
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
 
-				const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/saveProfil',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/saveProfil',{
 					nama: this.user.name,
 					telp: this.user.telp,
 					email: this.user.email,
@@ -352,7 +352,7 @@ const image = require(`@/assets/img/profile-img.jpg`)
 									'Authorization': `Bearer ${localStorage.getItem('token')}`
 								};
 
-					const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/updatePassword',{
+					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePassword',{
 						oldpw: this.oldpw,
 						password: this.password,
 					}, {headers})

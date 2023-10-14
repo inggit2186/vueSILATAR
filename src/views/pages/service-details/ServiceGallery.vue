@@ -3,7 +3,7 @@
 		<div class="bannergallery-section">
 		     <div class="gallery-slider d-flex">
                     <div class="gallery-widget" v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">   
-							<img class="img-fluid" alt="Image" :src="require(`../../../assets/img/gallery/gallery1/${src.src}`)">
+							<img class="img-fluid" alt="Image" :src="import(`../../../assets/img/gallery/gallery1/${src.src}`)">
 						
 					</div>	
 					<vue-easy-lightbox

@@ -21,7 +21,7 @@
 							<div class="cowork-box">
 								<router-link to="/service-details">
 									<div class="cowork-img">
-										<img :src="require(`../../../assets/img/${item.img}`)" class="img-fluid" alt="img">
+										<img :src="import(`../../../assets/img/${item.img}`)" class="img-fluid" alt="img">
 									</div>
 								</router-link>
 								<div class="cowork-info">
@@ -61,7 +61,7 @@
 											<div class="item">
 											<div class="cat-wrap">
 												<div class="cat-img">
-													<img :src="require(`../../../assets/img/icons/${item.img}`)" class="img-fluid" alt="img">
+													<img :src="import(`../../../assets/img/icons/${item.img}`)" class="img-fluid" alt="img">
 												</div>
 												<h5>{{ item.title }}</h5>
 												<span>{{ item.count }}</span>

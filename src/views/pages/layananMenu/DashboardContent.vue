@@ -6,7 +6,7 @@
 				    <div class="row" :disabled="loading">
 						<div v-if="loading" class="text-center">
 							<hr>
-							<b-img :src="require(`../../../assets/img/loading.gif`)" v-bind="mainProps" rounded alt="loading-gif"></b-img>
+							<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 							<br>
 							<b-spinner variant="success" label="Spinning"></b-spinner>
 							<h3>::: Nyangkul Data dulu :::</h3>
@@ -17,7 +17,7 @@
 				    			<div class="blog-widget">
 									<div class="blog-img">
 										<router-link :to="routeSeksi(item.id)">
-											<img :src="require(`../../../assets/img/list/listgrid-1.jpg`)" class="img-fluid" alt="blog-img">
+											<img :src="$assets+'/img/list/listgrid-1.jpg'" class="img-fluid" alt="blog-img">
                                         </router-link>
 					    				<div class="fav-item">
 											<span class="Featured-text">{{item.kategori.toUpperCase()}}</span>
@@ -30,7 +30,7 @@
 										<div class="card-body">
 											<div class="blogfeaturelink">
 											    <div class="grid-author">
-												    <img :src="require(`../../../assets/img/profiles/avatar-01.jpg`)" alt="author">
+												    <img :src="$assets+'/img/profiles/avatar-01.jpg'" alt="author">
                                                 </div>
 												<div class="blog-features">
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.kode }}</span></a>
@@ -130,7 +130,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(process.env.VUE_APP_API_URL+'/getSeksi',{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getSeksi',{headers})
 				this.seksi = response.data.data
 		
 			} catch (error) {

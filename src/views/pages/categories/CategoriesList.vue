@@ -6,7 +6,7 @@
 			       <div class="col-lg-3 col-md-4" v-for="item in paginatedLayanan" :key="item.id">
 				    	<div class="categories-content">
 							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-		    				   <img :src="require('../../../assets/img/icons/category-'+randNo()+'.svg')" alt="car1">
+		    				   <img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
 							   <h6>{{ item.nama }}</h6>
 							   <span class="ads">{{ item.output }}</span>
 							   <span>{{ item.deskripsi }}</span>
@@ -54,7 +54,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(process.env.VUE_APP_API_URL+'/getLayanan/'+sid,{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getLayanan/'+sid,{headers})
 				this.layanan = response.data.data
 				console.log(this.layanan)
 		

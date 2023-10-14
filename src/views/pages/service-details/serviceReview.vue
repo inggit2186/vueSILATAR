@@ -33,7 +33,7 @@
                             <div class="row">
                                 <div class="col-lg-3  col-md-3 col-sm-3"  v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
                                     <div class="review-gallery">
-                                        <img class="img-fluid" alt="Image" :src="require(`../../../assets/img/gallery/${src.src}`)">
+                                        <img class="img-fluid" alt="Image" :src="import(`../../../assets/img/gallery/${src.src}`)">
                                     </div>
                                 </div>
                                 <vue-easy-lightbox

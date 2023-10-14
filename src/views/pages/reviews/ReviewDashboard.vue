@@ -29,7 +29,7 @@
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="require(`../../../assets/img/${item.src}`)" class="img-fluid" alt="img">
+											<img :src="import(`../../../assets/img/${item.src}`)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">
@@ -65,7 +65,7 @@
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="require(`../../../assets/img/${item.src2}`)" class="img-fluid" alt="img">
+											<img :src="import(`../../../assets/img/${item.src2}`)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">
@@ -87,7 +87,7 @@
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="require(`../../../assets/img/${item.src3}`)" class="img-fluid" alt="img">
+											<img :src="import(`../../../assets/img/${item.src3}`)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">

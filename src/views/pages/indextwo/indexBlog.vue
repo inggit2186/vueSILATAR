@@ -17,7 +17,7 @@
                                         <span class="testi-icon"><i class="fa-solid fa-quote-left"></i></span>
                                     </div>
                                     <div class="testimonial-user-info">
-                                        <img class="img-fluid" :src="require(`../../../assets/img/profiles/${item.image}`)" alt="Post Image">
+                                        <img class="img-fluid" :src="import(`../../../assets/img/profiles/${item.image}`)" alt="Post Image">
                                         <div class="testimonial-user">
                                             <h6>{{ item.name }}</h6>
                                             <p>{{ item.location }}</p>
@@ -51,7 +51,7 @@
 					        <Slide v-for="item in IndexLatestBlog" :key="item.id">
                                 <div class="blog grid-blog blog-two">
                                     <div class="blog-image">
-                                        <router-link to="/blog-details"><img class="img-fluid" :src="require(`../../../assets/img/blog/${item.image}`)"
+                                        <router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.image}`)"
                                                 alt="Post Image"></router-link>
                                     </div>
                                     <div class="blog-content">

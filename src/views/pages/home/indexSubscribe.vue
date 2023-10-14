@@ -14,7 +14,7 @@
 									<div class="blog-slide">
 										<div class="blog grid-blog">
 											<div class="blog-image">
-												<router-link to="/blog-details"><img class="img-fluid" :src="require(`../../../assets/img/blog/${item.image}`)" alt="Post Image"></router-link>
+												<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.image}`)" alt="Post Image"></router-link>
 												<div :class="item.class">
 													<p>{{item.badge}}</p>
 												</div>
@@ -24,7 +24,7 @@
 													<li>
 														<div class="post-author">
 															<div class="post-author-img">
-																<img :src="require(`../../../assets/img/profiles/${item.profile}`)" alt="Post Author">
+																<img :src="import(`../../../assets/img/profiles/${item.profile}`)" alt="Post Author">
 															</div>
 															<a href="javascript:void(0);" class="mb-0"> <span> {{item.name}} </span></a>
 														</div>

@@ -10,7 +10,7 @@
 				    			<div class="blog-widget">
 									<div class="blog-img">
 										<router-link to="service-details">
-											<img :src="require(`../../../assets/img/list/${item.img1}`)" class="img-fluid" alt="blog-img">
+											<img :src="import(`../../../assets/img/list/${item.img1}`)" class="img-fluid" alt="blog-img">
                                         </router-link>
 					    				<div class="fav-item">
 											<span class="Featured-text">Featured</span>
@@ -23,14 +23,14 @@
 										<div class="card-body">
 											<div class="blogfeaturelink">
 											    <div class="grid-author">
-												<img :src="require(`../../../assets/img/profiles/${item.img2}`)" alt="author">	
+												<img :src="import(`../../../assets/img/profiles/${item.img2}`)" alt="author">	
 												</div>
 												<div class="blog-features">
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.text }}</span></a>
 												</div>																	  
 												<div class="blog-author text-end"> 
 													<span>  
-														<img :src="require(`../../../assets/img/${item.eye}`)" alt="electronics">4000  
+														<img :src="import(`../../../assets/img/${item.eye}`)" alt="electronics">4000  
 													</span>
 												</div>
 											</div> 

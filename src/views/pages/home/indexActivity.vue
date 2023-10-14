@@ -12,7 +12,7 @@
 								<div class="shadow-box d-flex">
 									<div class="flex-shrink-0">
 										<div class="icon-blk rounded-circle overflow-hidden">
-											<img :src="require(`../../../assets/img/${item.image}`)" alt="Dreamstrip Activities">
+											<img :src="import(`../../../assets/img/${item.image}`)" alt="Dreamstrip Activities">
 											
 										</div>
 									</div>

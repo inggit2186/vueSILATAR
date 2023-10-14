@@ -4,7 +4,6 @@ import { router } from './router';
 import App from "./App.vue";
 import {BootstrapVue3, BToastPlugin, BModal} from 'bootstrap-vue-3'
 import VueApexCharts from "vue3-apexcharts";
-import VueSelect from 'vue3-select2-component'
 import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
 import VueEasyLightbox from "vue-easy-lightbox";
@@ -138,11 +137,13 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-  
+const assetSrc = new URL(`@/assets`, import.meta.url).href;
+
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$swal = Swal;
 app.config.globalProperties.$toast = Toast;
+app.config.globalProperties.$assets = assetSrc;
 app.component('layouts',Header)
 app.component('navbar',Navbar)
 app.component('usernavbar',UserNavbar)
@@ -241,7 +242,6 @@ app.component('servicereview',ServiceReview)
 app.component('breadcrumb',BreadCrumb)
 app.component('aboutbreadcrumb',AboutBreadcrumb)
 
-app.component('vue-select', VueSelect)
 .use(BootstrapVue3)
 .use(BToastPlugin)
 .use(Antd)

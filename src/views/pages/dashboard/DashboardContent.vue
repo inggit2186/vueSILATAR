@@ -10,7 +10,7 @@
 							<div class="card-body">
 								<div class="dash-top-content">
 									<div class="dashcard-img">
-										<img :src="require(`../../../assets/img/icons/${item.image}`)" class="img-fluid"
+										<img :src="$assets+'/img/icons/'+item.image" class="img-fluid"
 											alt="">
 									</div>
 								</div>
@@ -79,7 +79,7 @@
 									<li class="review-box">
 										<div class="review-profile">
 											<div class="review-img">
-												<img :src="require(`../../../assets/img/profiles/${item.image}`)"
+												<img :src="$assets+'/img/profiles/'+item.image"
 													class="img-fluid" alt="img">
 											</div>
 										</div>
@@ -136,7 +136,7 @@ export default {
                         'Accept': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     };
-                    const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/logout', {}, { headers });
+                    const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/logout', {}, { headers });
                    if(response.data.success == true){
                     localStorage.clear();
                     this.$toast.fire({

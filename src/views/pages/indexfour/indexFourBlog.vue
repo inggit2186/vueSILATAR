@@ -19,7 +19,7 @@
                     <div class="col-lg-3 col-md-6 d-flex aos" data-aos="fade-up" v-for="item in IndexFourBlog" :key="item.id">
 						<div class="blog grid-blog blog-four flex-fill">
 						    <div class="blog-image">
-								<router-link to="/blog-details"><img class="img-fluid" :src="require(`../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
+								<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
 							</div>
 							<div class="blog-content">
 						     	<h3 class="blog-title"><router-link to="/blog-details">{{ item.title }}</router-link></h3>
@@ -27,7 +27,7 @@
 									<li>
 										<div class="post-author">
 											<div class="post-author-img">
-												<img :src="require(`../../../assets/img/profiles/${item.img2}`)" alt="Post Author">
+												<img :src="import(`../../../assets/img/profiles/${item.img2}`)" alt="Post Author">
 											</div>
 											<div>
 												<a href="javascript:void(0);"> <span>{{ item.name }}</span></a>

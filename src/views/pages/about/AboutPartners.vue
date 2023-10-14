@@ -8,7 +8,7 @@
                 		<Slide  v-for="item in IndexPartners" :key="item.id">	
 							<li class="carousel__item item">
 								<a href="javascript:void(0);">
-									<img class="img-fluid" :src="require(`../../../assets/img/partners/${item.img}`)" alt="partners">
+									<img class="img-fluid" :src="import(`../../../assets/img/partners/${item.img}`)" alt="partners">
 								</a>
 							</li>
 						</Slide> 

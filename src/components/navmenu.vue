@@ -101,7 +101,7 @@ export default {
     data() {
         if (localStorage.getItem('user')) {
             const user = JSON.parse(localStorage.getItem('user'))
-            const pp = process.env.VUE_APP_ST_URL+'/'+user.noid+'/'+user.pp
+            const pp = import.meta.env.VITE_APP_ST_URL+'/'+user.noid+'/'+user.pp
             
             return {
                 user: user || {},
@@ -140,7 +140,7 @@ export default {
                         'Accept': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     };
-                    const response = await this.$axios.post(process.env.VUE_APP_API_URL+'/logout', {}, { headers });
+                    const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/logout', {}, { headers });
                    if(response.data.success == true){
                     localStorage.clear();
                     this.$toast.fire({

@@ -41,7 +41,7 @@
 					  <div class="listingtable-img">
 							<router-link to="/service-details">
 								<img class="img-fluid avatar-img"
-									:src="require(`../../../assets/img/list/${record.image}`)" alt="">
+									:src="import(`../../../assets/img/list/${record.image}`)" alt="">
 							</router-link>
 						</div>
                       </template>

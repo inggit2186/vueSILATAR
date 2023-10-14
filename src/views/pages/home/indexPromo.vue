@@ -15,7 +15,7 @@
                                     <div class="recommended-widget">
                                         <div class="img-blk">
                                             <a href="javascript:void(0);">
-                                                <img :src="require(`../../../assets/img/recommended/${item.image}`)" class="img-fluid" alt="List 1">
+                                                <img :src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid" alt="List 1">
                                             </a>
                                             <div :class="item.class">
                                                 <p>{{ item.badge }}</p>

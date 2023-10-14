@@ -42,7 +42,7 @@
 								<div class="blog-widget">
 									<div class="blog-img">
 										<router-link to="service-details">
-											<img :src="require(`../../../../assets/img/blog/${item.image}`)" class="img-fluid"
+											<img :src="import(`../../../../assets/img/blog/${item.image}`)" class="img-fluid"
 												alt="blog-img">
 										</router-link>
 										<div class="fav-item">
@@ -63,7 +63,7 @@
 												</div>
 												<div class="blog-author">
 													<div class="blog-author-img">
-														<img :src="require(`../../../../assets/img/profiles/${item.author}`)"
+														<img :src="import(`../../../../assets/img/profiles/${item.author}`)"
 															alt="author">
 													</div>
 													<a href="javascript:void(0)">{{item.name}}</a>
@@ -261,14 +261,14 @@ import Slider from "@vueform/slider";
 import ListingMapList from '../../../../assets/json/listingMapList.json'
 
 const icons = {
-	'default': require('@/assets/img/icons/marker.png'),
-	'icon2': require('@/assets/img/icons/marker1.png'),
-	'icon3': require('@/assets/img/icons/marker2.png'),
-	'icon4': require('@/assets/img/icons/marker3.png'),
-	'icon5': require('@/assets/img/icons/marker4.png'),
-	'icon6': require('@/assets/img/icons/marker5.png'),
-	'icon7': require('@/assets/img/icons/marker6.png'),
-	'icon8': require('@/assets/img/icons/marker7.png')
+	'default': import('@/assets/img/icons/marker.png'),
+	'icon2': import('@/assets/img/icons/marker1.png'),
+	'icon3': import('@/assets/img/icons/marker2.png'),
+	'icon4': import('@/assets/img/icons/marker3.png'),
+	'icon5': import('@/assets/img/icons/marker4.png'),
+	'icon6': import('@/assets/img/icons/marker5.png'),
+	'icon7': import('@/assets/img/icons/marker6.png'),
+	'icon8': import('@/assets/img/icons/marker7.png')
 };
 const locations = [
 			{
@@ -419,7 +419,7 @@ export default {
 
 		function setInfo(marker) {
 		const content = `
-			<div class="profile-widget" style="width: 276px; background: url(${require(`@/assets/img/${marker.image}`)}) center center / cover no-repeat; position: relative; padding: 90px 0; display: inline-block; border-radius: 10px;">
+			<div class="profile-widget" style="width: 276px; background: url(${import(`@/assets/img/${marker.image}`)}) center center / cover no-repeat; position: relative; padding: 90px 0; display: inline-block; border-radius: 10px;">
 				<div class="pro-content">
 					<h3 class="title">
 						<a href="javascript:void(0)">${marker.doc_name}</a>

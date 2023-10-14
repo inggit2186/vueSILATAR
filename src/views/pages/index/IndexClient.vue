@@ -22,7 +22,7 @@
 									<div class="testimonial-info">
 										<div class="testimonialslider-heading d-flex">
 											<div class="testi-img">
-												<img :src="require(`../../../assets/img/${item.img}`)" class="img-fluid" alt="testi-img" />
+												<img :src="import(`../../../assets/img/${item.img}`)" class="img-fluid" alt="testi-img" />
 											</div>
 											<div class="testi-author">
 												<h6>{{ item.name }}</h6>

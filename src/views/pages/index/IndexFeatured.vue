@@ -24,7 +24,7 @@
 										<div class="blog-widget">
 											<div class="blog-img">
 												<router-link to="service-details">
-													<img :src="require(`../../../assets/img/featured/${item.img1}`)"
+													<img :src="import(`../../../assets/img/featured/${item.img1}`)"
 														class="img-fluid" alt="blog-img" />
 												</router-link>
 												<div class="fav-item">
@@ -38,7 +38,7 @@
 												<div class="card-body">
 													<div class="blogfeaturelink">
 														<div class="grid-author">
-															<img :src="require(`../../../assets/img/profiles/${item.img2}`)"
+															<img :src="import(`../../../assets/img/profiles/${item.img2}`)"
 																alt="author" />
 														</div>
 														<div class="blog-features">

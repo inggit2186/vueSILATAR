@@ -18,7 +18,7 @@
 						<div class="item">
 							<div class="celebrate-wrap aos" data-aos="fade-up">
 								<div class="celebrate-img">
-									<img :src="require(`../../../assets/img/${item.image}`)" class="img-fluid" alt="img">
+									<img :src="import(`../../../assets/img/${item.image}`)" class="img-fluid" alt="img">
 									<div class="play-btn">
 									<a href="https://youtu.be/txNwby8qPlg" data-fancybox="" class="play-icon"><i class="fa-solid fa-play"></i></a>
 										
@@ -56,7 +56,7 @@
 					<div class="wedding-wrap aos" data-aos="fade-up" v-for="item in IndexTwoCategory" :key="item.id">
 						<div class="wedding-img">
 							<router-link to="/categories">
-								<img class="img-fluid" :src="require(`../../../assets/img/service/${item.image}`)" alt="locations">
+								<img class="img-fluid" :src="import(`../../../assets/img/service/${item.image}`)" alt="locations">
 							</router-link>
 						</div>
 						<div class="wedding-content">
@@ -82,7 +82,7 @@
 						</div>
 						<div class="wedding-img align-right">
 							<router-link to="/categories">
-								<img class="img-fluid" :src="require(`../../../assets/img/service/${item.image}`)" alt="locations">
+								<img class="img-fluid" :src="import(`../../../assets/img/service/${item.image}`)" alt="locations">
 							</router-link>
 						</div>
 					</div>

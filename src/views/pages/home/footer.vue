@@ -117,7 +117,7 @@
 										<h5>Gallery</h5>
 										<ul class="gallery-blk d-flex align-items-center">
 											<li v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
-												<img :src="require(`../../../assets/img/gallery/${src.src}`)" alt="">
+												<img :src="import(`../../../assets/img/gallery/${src.src}`)" alt="">
 											</li>
 											<vue-easy-lightbox
 												:visible="visible"

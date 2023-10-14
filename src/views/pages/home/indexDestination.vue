@@ -24,7 +24,7 @@
 					            <Slide v-for="item in IndexDestination" :key="item.id">
                                     <div class="destination-widget">
                                         <a href="javascript:;" class="desti-link">
-                                            <img :src="require(`../../../assets/img/recommended/${item.image}`)" class="img-fluid"
+                                            <img :src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid"
                                                 alt="find your destination">
                                             <div class="desti-country-list">
                                                 <span class="desti-btn">{{ item.country }}</span>

@@ -6,7 +6,7 @@
                     <div class="nexttrip blog-widget">
                         <div class="img-blk">
                             <router-link to="/blog-details">
-                                <img :src="require(`../../../assets/img/${item.image}`)" class="img-fluid" alt="List 1">
+                                <img :src="import(`../../../assets/img/${item.image}`)" class="img-fluid" alt="List 1">
                             </router-link>
                         </div>
                         <div class="content-blk">

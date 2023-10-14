@@ -6,7 +6,7 @@
 				    <div :class="item.class" v-for="item in AboutPopular" :key="item.id">
 					    <div class="aboutlocation-details usa">
 						<div class="aboutloc-img">
-						    <img :src="require(`../../../assets/img/locations/${item.img}`)" alt="">
+						    <img :src="import(`../../../assets/img/locations/${item.img}`)" alt="">
 						</div>
 						<router-link to="/listing-grid-sidebar">					   				    
 	                        <div class="aboutlocations-info">

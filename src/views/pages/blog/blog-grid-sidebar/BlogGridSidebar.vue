@@ -8,7 +8,7 @@
 			               <div class="col-lg-6 col-md-6 d-lg-flex" v-for="item in BlogGridSidebar" :key="item.id">
 			                  <div class="blog grid-blog">
 								<div class="blog-image">
-									<router-link to="/blog-details"><img class="img-fluid" :src="require(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
+									<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
 								</div>
 								<div class="blog-content">
 		         					<p class="blog-category">
@@ -18,7 +18,7 @@
 										<li>
 											<div class="post-author">
 											    <div class="post-author-img">
-													<img :src="require(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
+													<img :src="import(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
 												</div>
 												<a href="javascript:void(0)"> <span>{{ item.name}}</span></a>
 											</div>

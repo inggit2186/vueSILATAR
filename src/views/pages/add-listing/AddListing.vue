@@ -397,8 +397,8 @@
 </template>
 
 <script>
-const img1 = require(`@/assets/img/mediaimg-2.jpg`)
-const img2 = require(`@/assets/img/mediaimg-1.jpg`)
+const img1 = import(`@/assets/img/mediaimg-2.jpg`)
+const img2 = import(`@/assets/img/mediaimg-1.jpg`)
 export default {
 	data() {
 		return {

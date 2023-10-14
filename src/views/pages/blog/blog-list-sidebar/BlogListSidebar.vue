@@ -9,7 +9,7 @@
 							        <div class="blog-widget">
 							            <div class="blog-img">
 										    <router-link to="blog-details">
-												<img :src="require(`../../../../assets/img/blog/${item.img1}`)" class="img-fluid" alt="blog-img">
+												<img :src="import(`../../../../assets/img/blog/${item.img1}`)" class="img-fluid" alt="blog-img">
                                             </router-link>
                                             <div class="blog-category">
 											   <a href="javascript:void(0)"><span>Health</span></a><a href="javascript:void(0)"><span>Care</span></a>
@@ -21,7 +21,7 @@
 												    <li>
 														<div class="post-author">
 														 <div class="post-author-img">
-															<img :src="require(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
+															<img :src="import(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
 														</div>
 														<a href="javascript:void(0)"><span> {{ item.name }} </span></a>
 														</div>
