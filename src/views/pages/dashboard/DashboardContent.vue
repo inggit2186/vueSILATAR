@@ -11,7 +11,7 @@
 								<div class="dash-top-content">
 									<div class="dashcard-img">
 										<img
-:src="$assets+'/img/icons/'+item.image" class="img-fluid"
+											:src="$assets+'/img/icons/'+item.image" class="img-fluid"
 											alt="">
 									</div>
 								</div>

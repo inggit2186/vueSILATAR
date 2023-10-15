@@ -3,8 +3,10 @@
         <layouts></layouts>
 
         <div class="page-wrapper">
-            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            <listgrid />
+            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
+            <router-view :key="$route.fullPath">
+            <LayananMenu />
+            </router-view>
             <foot /> 
 
             <scroll />
@@ -13,14 +15,18 @@
 </template>
 
 <script>
+import LayananMenu from './layananMenu.vue';
+
 export default {
     data() {
         return {
             title: "Unit Kerja",
             text: "Home",
             text1: "Unit Kerja",
+            text2: "Pelayanan",
             name: "/",
-        }
+        };
     },
+    components: { LayananMenu }
 }
 </script>

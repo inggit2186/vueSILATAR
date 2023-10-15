@@ -110,6 +110,15 @@ import IndexFiveClient from './views/pages/indexfive/indexClient.vue'
 import IndexFiveFooter from './views/pages/indexfive/footer.vue'
 import ServiceReview from './views/pages/service-details/serviceReview.vue'
 
+//Pelayanan
+import pelayananList from './views/pages/layananMenu/pelayananList.vue'
+import layananMenu from './views/pages/layananMenu/layananMenu.vue'
+import satkerList from './views/pages/satuanKerja/satkerList.vue'
+import KantorData from './views/pages/satuanKerja/kantorData.vue'
+import satkerMenu from './components/satkerMenu.vue'
+import detailSatker from './views/pages/satuanKerja/detailSatker.vue'
+import detailList from './views/pages/satuanKerja/detailList.vue'
+
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
 import AboutBreadcrumb from './components/breadcrumb/AboutBreadcrumb.vue'
@@ -237,6 +246,15 @@ app.component('Indexfivespace',IndexFiveSpace)
 app.component('Indexfiveclient',IndexFiveClient)
 app.component('Indexfivefooter',IndexFiveFooter)
 app.component('Servicereview',ServiceReview)
+
+//Pelayanan
+app.component('pelayananList',pelayananList)
+app.component('layananMenu',layananMenu)
+app.component('satkerList', satkerList)
+app.component('KantorData', KantorData)
+app.component('satkermenu',satkerMenu)
+app.component('DetailSatker',detailSatker)
+app.component('DetailList',detailList)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

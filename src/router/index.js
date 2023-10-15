@@ -39,6 +39,9 @@ import IndexFour from '../views/pages/indexfour/indexFour.vue'
 import IndexFive from '../views/pages/indexfive/indexFive.vue'
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
+import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
+import satkerList from '@/views/pages/satuanKerja/satkerList.vue';
+import detailSatker from '@/views/pages/satuanKerja/detailSatker.vue';
 
 const routes = [
     {
@@ -47,13 +50,28 @@ const routes = [
         component: IndexThree
     },
     {
-        path: '/UnitKerja/:id',
+        path: '/UnitKerja',
         name: 'Unit Kerja',
         component: layananMenu
     },
     {
+        path: '/satuanKerja/:id',
+        name: 'Satuan Kerja',
+        component: satkerList
+    },
+    {
+        path: '/satker/:id',
+        name: 'Detail Satker',
+        component: detailSatker
+    },
+    {
+        path:'/Pelayanan/:id',
+        name: 'Menu Pelayanan',
+        component: pelayananList
+    },
+    {
         path:'/Layanan/:id',
-        name: 'Layanan Seksi',
+        name: 'Layanan Umum',
         component: Categories
     },
     {
@@ -63,7 +81,7 @@ const routes = [
     },
     {
         path: '/add-listing',
-        name: 'add-listing',
+        name: 'Add Listing',
         component: Listing
     },
     {
@@ -106,7 +124,7 @@ const routes = [
     },
     {
         path: '/contact',
-        name: 'contact',
+        name: 'Kontak Kami',
         component: Contact
     },
     {
@@ -240,6 +258,11 @@ const routes = [
         meta: {
             userLogout: true
           }
+    },
+    {
+        path: '/**',
+        name: 'Not Found',
+        component: Error404
     }
    
 

@@ -18,9 +18,9 @@
 export default {
     data() {
         return {
-            title: "Contact Us",
+            title: "Kontak Kami",
             text: "Home",
-            text1: "Contact Us",
+            text1: "Kontak Kami",
             name: "/",
         }
     },

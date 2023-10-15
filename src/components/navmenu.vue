@@ -13,7 +13,10 @@ class="has-submenu megamenu active"
                 <router-link to="/">Home</router-link>
             </li>
             <li :class="{'active': currentPath == 'layananMenu'}">
-                <router-link to="/UnitKerja/Layanan">Layanan</router-link>
+                <router-link to="/UnitKerja">Pelayanan</router-link>
+            </li>
+            <li :class="{'active': currentPath == 'satuanKerja/getSeksi'}">
+                <router-link to="/satuanKerja/getSeksi">Satuan Kerja</router-link>
             </li>
             <!--
             <li class="has-submenu" :class=" ListingsMenu ? 'active' : 'notactive'">

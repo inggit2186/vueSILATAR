@@ -3,6 +3,27 @@
 		<div class="categorieslist-section">
             <div class="container text-center">
 		        <div class="row" :disabled="loading">
+                    <div v-if="!loading && kepala != '<NoData>'" class="col-lg-3 col-md-4 centered">
+                        <div class="PTSP categories-content">
+                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                            <img :src="satker.kepalapp" style="width:75%;border-radius: 50%;" alt="car1">
+                            <h5>{{ kepala.name }}</h5>
+                            <h7><i-healthicons-city-worker/>KEPALA</h7>
+                            <span style="font-size:14px">{{ kepala.pekerjaan }}</span>
+                            </a>								   
+                        </div>
+                    </div>
+                    <div v-if="!loading && kaur != '<NoData>'" class="col-lg-3 col-md-4 centered">
+                        <div class="PTSP categories-content">
+                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                            <img :src="satker.kaurpp" style="width:75%;border-radius: 50%;" alt="car1">
+                            <h5>{{ kaur.name }}</h5>
+                            <h7><i-healthicons-city-worker-outline/>KAUR</h7>
+                            <span style="font-size:14px">{{ kaur.pekerjaan }}</span>
+                            </a>								   
+                        </div>
+                    </div>
+                    <hr/>
 					<div v-if="loading" class="text-center">
 						<hr>
 						<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
@@ -14,10 +35,10 @@
 					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
 							<div class="categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
-								<h6>{{ item.nama }}</h6>
-								<span class="ads">{{ item.output }}</span>
-								<span>{{ item.deskripsi }}</span>
+								<img :src="item.pp" style="width:50%;border-radius: 50%;" alt="car1">
+								<h6>{{ item.name }}</h6>
+								<span class="ads">{{ item.nomor_induk }}</span>
+								<span>{{ item.pekerjaan }}</span>
 								</a>								   
 						</div>
 					</div>
@@ -93,8 +114,14 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getLayanan/'+sid,{headers})
-				this.layanan = response.data.data
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getPegawai/'+sid,{headers})
+				const response2 = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getSatkerDetail/'+sid,{headers})
+				
+                this.layanan = response.data.data
+                this.satker = response2.data.data
+                this.kepala = response2.data.kepala
+                this.kaur = response2.data.kaur
+
 				console.log(this.layanan)
 		
 			} catch (error) {

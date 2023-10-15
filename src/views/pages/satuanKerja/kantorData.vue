@@ -1,9 +1,20 @@
 <template>
     <!-- Bookmark Content -->
     <div class="dashboard-content">		
-			<div class="container">			
+			<div class="container">	
+                <satkermenu />		
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
+						<div v-if="!loading && this.nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
+							<div class="PTSP categories-content">
+								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
+								<h5>H. AMRIL, S.Ag, MM</h5>
+								<span style="font-size:14px">KEPALA KANTOR<br>Kementerian Agama Kab.Tanah Datar</span>
+								</a>								   
+							</div>
+						</div>
+						<hr/>
 						<div v-if="loading" class="text-center">
 							<hr>
 							<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
@@ -36,7 +47,7 @@
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.kode }}</span></a>
 												</div>																	  
 												<div class="blog-author text-end"> 
-													<span> <i class="feather-eye"></i>4000</span>
+													<span> <i class="feather-user"></i>{{ item.jml }}</span>
 												</div>
 											</div> 
 											<h6><router-link :to="routeSeksi(item.id)">{{ item.nama }}</router-link></h6>																	 
@@ -98,7 +109,8 @@ export default {
 	data() {
 			return {
 				loading: false,
-				itemsPerPage: 10,
+				nav: this.nav,
+				itemsPerPage: 9,
         		currentPage: 1,
 				seksi: []
 			}
@@ -118,21 +130,23 @@ export default {
             return Math.ceil(this.seksi.length / this.itemsPerPage);
         },
 		routeSeksi() {
-        	return id => `/Pelayanan/${id}`;
+        	return id => `/Satker/${id}`;
     	},
 	},
 	created() {
-		this.getSeksi()
+		this.getSeksi(),
+		this.nav = this.$route.params.id
 	},
 	methods: {
 		async getSeksi() {
 			this.loading = true;
 			try{
+				const navid = this.$route.params.id
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getSeksi',{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/'+navid,{headers})
 				this.seksi = response.data.data
 		
 			} catch (error) {

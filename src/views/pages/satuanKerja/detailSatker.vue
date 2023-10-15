@@ -3,9 +3,11 @@
         <layouts></layouts>
 
         <div class="page-wrapper">
-            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            <listgrid />
-            <foot /> 
+            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
+
+            <DetailList />
+
+            <foot />
 
             <scroll />
         </div>
@@ -16,9 +18,10 @@
 export default {
     data() {
         return {
-            title: "Unit Kerja",
+            title: "Layanan",
             text: "Home",
-            text1: "Unit Kerja",
+            text1: "Satuan Kerja",
+            text2: "Detail Satker",
             name: "/",
         }
     },

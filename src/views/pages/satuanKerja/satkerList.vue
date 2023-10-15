@@ -4,7 +4,9 @@
 
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            <listgrid />
+            <route-view :key="$route.fullPath">
+            <KantorData />
+            </route-view>
             <foot /> 
 
             <scroll />
@@ -16,9 +18,9 @@
 export default {
     data() {
         return {
-            title: "Unit Kerja",
+            title: "Satuan Kerja",
             text: "Home",
-            text1: "Unit Kerja",
+            text1: "Satuan Kerja",
             name: "/",
         }
     },

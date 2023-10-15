@@ -14766,3 +14766,7 @@ textarea.form-control {
         left: 4%;
     }
 }
+.centered {
+    margin: 0 auto;
+    text-align: center;
+  }
