@@ -1,11 +1,16 @@
 <template>
-    <!-- Bookmark Content -->
-    <div class="dashboard-content">		
-			<div class="container">	
-                <satkermenu />		
+    <div class="main-wrapper">
+        <div class="page-wrapper">
+            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
+            <div class="dashboard-content">		
+			<div class="container">
+                <div  class="pagination">
+                    <a class="page-link" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                </div>
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
-						<div v-if="!loading && this.nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
+						<div v-if="!loading" class="col-lg-3 col-md-4 centered">
+                            <router-link :to="addTamu('197304241998031008')">
 							<div class="PTSP categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
@@ -13,6 +18,7 @@
 								<span style="font-size:14px">KEPALA KANTOR<br>Kementerian Agama Kab.Tanah Datar</span>
 								</a>								   
 							</div>
+                            </router-link>
 						</div>
 						<hr/>
 						<div v-if="loading" class="text-center">
@@ -20,14 +26,14 @@
 							<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 							<br>
 							<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-							<h3>::: Nyangkul Data dulu :::</h3>
+							<h3>:::Mohon Tunggu Sebentar :::</h3>
 							<hr>
 						</div>
-					    <div v-for="item in paginatedSeksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6 centered">
+					    <div v-for="item in seksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6 centered">
 							<div class="card aos aos-init aos-animate" data-aos="fade-up">
 				    			<div class="blog-widget">
 									<div class="blog-img">
-										<router-link :to="routeSeksi(item.id)">
+										<router-link :to="listPetugas(item.id)">
 											<img :src="$assets+'/img/list/listgrid-1.jpg'" class="img-fluid" alt="blog-img">
                                         </router-link>
 					    				<div class="fav-item">
@@ -50,7 +56,7 @@
 													<span> <i class="feather-user"></i>{{ item.jml }}</span>
 												</div>
 											</div> 
-											<h6><router-link :to="routeSeksi(item.id)">{{ item.nama }}</router-link></h6>																	 
+											<h6><router-link :to="listPetugas(item.id)">{{ item.nama }}</router-link></h6>																	 
 											<div class="blog-location-details">
 												<div class="location-info">
 												   <i class="feather-map-pin"></i> {{ item.alamat }}
@@ -69,84 +75,50 @@
 								</div> 
 							</div>
 						</div>
-						
-						 <!--Pagination--> 
-						<div class="blog-pagination">
-						    <nav>
-							    <ul class="pagination">
-								    <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
-										<a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
-									</li>
-									<li class="justify-content-center pagination-center"> 
-										<div class="pagelink">
-										    <ul>
-												<li v-for="page in displayedPages" :key="page" class="page-item" :class="{'active': currentPage === page}">
-													<a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-												</li>
-												<li class="page-item" :class="{'disabled': currentPage === totalPages}">
-													<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">...</a>
-											   </li>
-									       </ul>
-									    </div>													
-									</li>													
-									<li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
-										<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
-									</li>
-								</ul>
-							</nav>
-						</div>
-						<!--/Pagination-->	
-						
-					</div>						
-				</div>
-			</div>		
-	</div>		
-		<!-- /Bookmark Content -->
+                            </div>						
+                        </div>
+                    </div>		
+            </div>
+            <foot /> 
+
+            <scroll />
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-	data() {
-			return {
-				loading: false,
-				nav: this.nav,
-				itemsPerPage: 9,
-        		currentPage: 1,
-				seksi: []
-			}
-	},
-	computed: {
-    	paginatedSeksi() {
-			const start = (this.currentPage - 1) * this.itemsPerPage;
-			const end = start + this.itemsPerPage;
-			return this.seksi.slice(start, end);
-		},
-		displayedPages() {
-			const start = Math.max(this.currentPage - 1, 1);
-			const end = Math.min(start + 2, this.totalPages);
-			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-		},
-		totalPages() {
-            return Math.ceil(this.seksi.length / this.itemsPerPage);
-        },
-		routeSeksi() {
-        	return id => `/Satker/${id}`;
+    data() {
+        return {
+            title: "Kantor Kementerian Agama Kab.Tanah Datar",
+            text: "Home",
+            text1: "Buku Tamu",
+            name: "/",
+            loading: false,
+            seksi: []
+        }
+    },
+    computed: {
+        addTamu() {
+        	return id => `/bukutamu/${this.nav}/asn/${id}`;
     	},
-	},
-	created() {
+        listPetugas() {
+            return id => `/bukutamu/${this.nav}/${id}`;
+        },
+    },
+    created() {
 		this.getSeksi(),
 		this.nav = this.$route.params.id
 	},
-	methods: {
+    methods: {
 		async getSeksi() {
 			this.loading = true;
 			try{
-				const navid = this.$route.params.id
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/'+navid,{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getSeksi',{headers})
 				this.seksi = response.data.data
 		
 			} catch (error) {
@@ -158,17 +130,6 @@ export default {
 				this.loading = false
 			}
 		},
-		changePage(pageNumber) {
-			this.currentPage = pageNumber;
-		},
 	}
 }
 </script>
-
-<style>
-.PTSP img{
-	width: 100%;
-    height: 100%;
-    margin-bottom: 5px;
-}
-</style>

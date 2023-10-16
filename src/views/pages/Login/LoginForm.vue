@@ -115,7 +115,7 @@ v-else v-model="password"
 			this.showPassword = !this.showPassword;
 		},
 		async login() {
-      try {
+    try {
 		this.loading = true;
 
         const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/login', {

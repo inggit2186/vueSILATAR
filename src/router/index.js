@@ -38,16 +38,47 @@ import IndexThree from '../views/pages/home/indexTemplate.vue'
 import IndexFour from '../views/pages/indexfour/indexFour.vue'
 import IndexFive from '../views/pages/indexfive/indexFive.vue'
 
+
+
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
 import satkerList from '@/views/pages/satuanKerja/satkerList.vue';
 import detailSatker from '@/views/pages/satuanKerja/detailSatker.vue';
+import menuList from '@/views/pages/InternalKantor/menuList.vue'
+import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
+import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
+import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
 
 const routes = [
     {
         path: '/',
         name: 'index',
         component: IndexThree
+    },
+    {
+        path: '/internal',
+        name: 'Internal Kantor',
+        component: menuList
+    },
+    {
+        path: '/bukutamu',
+        name: 'Kategori Tamu',
+        component: kategoriTamu
+    },
+    {
+        path: '/bukutamu/:id',
+        name: 'Buku Tamu',
+        component: internalSatkerVue
+    },
+    {
+        path: '/bukutamu/:cat/:id',
+        name: 'Tamu Baru',
+        component: addBukuTamuVue
+    },
+    {
+        path: '/bukutamu/:cat/:tipe/:id',
+        name: 'Tamu Baru',
+        component: addBukuTamuVue
     },
     {
         path: '/UnitKerja',

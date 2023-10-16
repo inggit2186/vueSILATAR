@@ -2,7 +2,7 @@
 import { createApp } from 'vue';
 import { router } from './router';
 import App from "./App.vue";
-import {BootstrapVue3, BToastPlugin, BModal} from 'bootstrap-vue-3'
+import {BootstrapVue3, BToastPlugin} from 'bootstrap-vue-3'
 import VueApexCharts from "vue3-apexcharts";
 import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
@@ -118,6 +118,10 @@ import KantorData from './views/pages/satuanKerja/kantorData.vue'
 import satkerMenu from './components/satkerMenu.vue'
 import detailSatker from './views/pages/satuanKerja/detailSatker.vue'
 import detailList from './views/pages/satuanKerja/detailList.vue'
+import menuList from './views/pages/InternalKantor/menuList.vue'
+import kategoriTamu from './views/pages/InternalKantor/kategoriTamu.vue'
+import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
+import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -255,6 +259,10 @@ app.component('KantorData', KantorData)
 app.component('satkermenu',satkerMenu)
 app.component('DetailSatker',detailSatker)
 app.component('DetailList',detailList)
+app.component('MenuList',menuList)
+app.component('KategoriTamu', kategoriTamu)
+app.component('InternalSarker',internalSatker)
+app.component('addBukuTamu',addBukuTamu)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
