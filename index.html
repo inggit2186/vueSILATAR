@@ -14,8 +14,17 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=" GOOGLE_MAP_KEY></script>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app" v-cloak></div>
   </body>
 </html>
-
+<style>
+  [v-cloak] > * { display:none; }
+  [v-cloak]::before { 
+  content: "";
+  display: block;
+  height: 100vh;
+  background-color: brown;
+  background: url('/waiting.gif') no-repeat center fixed;
+  background-size: cover;
+}
+</style>

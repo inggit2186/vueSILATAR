@@ -17,7 +17,7 @@
 				    			<div class="blog-widget">
 									<div class="blog-img">
 										<router-link :to="routeSeksi(item.id)">
-											<img :src="$assets+'/img/list/listgrid-1.jpg'" class="img-fluid" alt="blog-img">
+											<img :src="$assets+'/img/seksi/'+item.imgid+'.png'" class="img-fluid" alt="blog-img" @error="handleBrokenImage(item)" />
                                         </router-link>
 					    				<div class="fav-item">
 											<span class="Featured-text">{{item.kategori.toUpperCase()}}</span>
@@ -146,6 +146,9 @@ export default {
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+		handleBrokenImage(item) {
+			item.imgid = Math.floor(Math.random() * (416 - 405 + 1)) + 405;
 		},
 	}
 }

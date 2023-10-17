@@ -7,6 +7,10 @@
                 <div  class="pagination">
                     <a class="page-link" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
+				<hr/>
+				<div class="text-center">
+					<h1><i-line-md-reddit-loop/> Kemanakah Tujuan Anda?</h1>
+				</div>
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
 						<div v-if="!loading" class="col-lg-3 col-md-4 centered">
@@ -31,11 +35,10 @@
 						</div>
 					    <div v-for="item in seksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6 centered">
 							<div class="card aos aos-init aos-animate" data-aos="fade-up">
-				    			<div class="blog-widget">
+				    			<router-link :to="listPetugas(item.id)">
+								<div class="blog-widget">
 									<div class="blog-img">
-										<router-link :to="listPetugas(item.id)">
-											<img :src="$assets+'/img/list/listgrid-1.jpg'" class="img-fluid" alt="blog-img">
-                                        </router-link>
+											<img :src="$assets+'/img/seksi/'+item.imgid+'.png'" class="img-fluid" alt="blog-img" @error="handleBrokenImage(item)">
 					    				<div class="fav-item">
 											<span class="Featured-text">{{item.kategori.toUpperCase()}}</span>
 												<a href="javascript:void(0)" class="fav-icon">
@@ -55,15 +58,11 @@
 												<div class="blog-author text-end"> 
 													<span> <i class="feather-user"></i>{{ item.jml }}</span>
 												</div>
-											</div> 
-											<h6><router-link :to="listPetugas(item.id)">{{ item.nama }}</router-link></h6>																	 
-											<div class="blog-location-details">
-												<div class="location-info">
-												   <i class="feather-map-pin"></i> {{ item.alamat }}
-												</div>
-												<div class="location-info">
-													<i class="fa-solid fa-calendar-days"></i> {{ item.kode }}
-												</div>
+											</div>
+											<div class="blog-location-details"> 								
+											<div class="location-info">
+												<i class="feather-map-pin"></i> {{ item.alamat }}
+											</div>
 											</div>
 											<div class="amount-details">
 												<div class="ratings">
@@ -72,7 +71,8 @@
 											</div>	
 										</div>	
 									</div>			 
-								</div> 
+								</div>
+								</router-link>
 							</div>
 						</div>
                             </div>						
@@ -103,12 +103,13 @@ export default {
         	return id => `/bukutamu/${this.nav}/asn/${id}`;
     	},
         listPetugas() {
-            return id => `/bukutamu/${this.nav}/${id}`;
+            return id => `/guest/${this.nav}/${id}`;
         },
     },
     created() {
-		this.getSeksi(),
+		this.getSeksi()
 		this.nav = this.$route.params.id
+		window.scrollTo(0,0)
 	},
     methods: {
 		async getSeksi() {
@@ -130,6 +131,9 @@ export default {
 				this.loading = false
 			}
 		},
-	}
+		handleBrokenImage(item) {
+			item.imgid = Math.floor(Math.random() * (416 - 405 + 1)) + 405;
+		},
+	},
 }
 </script>

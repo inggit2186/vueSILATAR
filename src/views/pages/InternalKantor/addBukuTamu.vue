@@ -20,7 +20,7 @@
 							    <h4>Basic Detail</h4>							
 							</div>
                             <div class="card-body">
-							    <div class="form-group" v-if="this.cat == 'pegawai'">
+							    <div v-if="cat == 'pegawai'" class="form-group">
 								    <label class="col-form-label">Nomor Induk Pegawai (NIP) <span>*</span></label>								    
 									<b-form-input id="nip" v-model="nip" type="number" class="form-control pass-input" placeholder="NIP" required />									   
 								</div>
@@ -73,6 +73,7 @@ export default {
     },
     created() {
         this.cat = this.$route.params.cat
+        window.scrollTo(0,0)
     },
     methods: {
         async addDetailTamu() {

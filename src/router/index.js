@@ -48,6 +48,7 @@ import menuList from '@/views/pages/InternalKantor/menuList.vue'
 import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
 import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
 import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
+import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
 
 const routes = [
     {
@@ -71,9 +72,9 @@ const routes = [
         component: internalSatkerVue
     },
     {
-        path: '/bukutamu/:cat/:id',
-        name: 'Tamu Baru',
-        component: addBukuTamuVue
+        path: '/guest/:nav/:id',
+        name: 'Petugas Tamu',
+        component: listPetugasVue
     },
     {
         path: '/bukutamu/:cat/:tipe/:id',
@@ -291,8 +292,8 @@ const routes = [
           }
     },
     {
-        path: '/**',
-        name: 'Not Found',
+        path: '/:pathMatch(.*)*',
+        name: '404',
         component: Error404
     }
    

@@ -5,7 +5,7 @@
                 <satkermenu />		
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
-						<div v-if="!loading && this.nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
+						<div v-if="!loading && nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
 							<div class="PTSP categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
@@ -28,7 +28,7 @@
 				    			<div class="blog-widget">
 									<div class="blog-img">
 										<router-link :to="routeSeksi(item.id)">
-											<img :src="$assets+'/img/list/listgrid-1.jpg'" class="img-fluid" alt="blog-img">
+											<img :src="$assets+'/img/seksi/'+item.imgid+'.png'" class="img-fluid" alt="blog-img" @error="handleBrokenImage(item)">
                                         </router-link>
 					    				<div class="fav-item">
 											<span class="Featured-text">{{item.kategori.toUpperCase()}}</span>
@@ -112,6 +112,7 @@ export default {
 				nav: this.nav,
 				itemsPerPage: 9,
         		currentPage: 1,
+				imgid: null,
 				seksi: []
 			}
 	},
@@ -160,6 +161,9 @@ export default {
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+		handleBrokenImage(item) {
+			item.imgid = Math.floor(Math.random() * (416 - 405 + 1)) + 405;
 		},
 	}
 }

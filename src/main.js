@@ -122,6 +122,7 @@ import menuList from './views/pages/InternalKantor/menuList.vue'
 import kategoriTamu from './views/pages/InternalKantor/kategoriTamu.vue'
 import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
 import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
+import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -263,6 +264,7 @@ app.component('MenuList',menuList)
 app.component('KategoriTamu', kategoriTamu)
 app.component('InternalSarker',internalSatker)
 app.component('addBukuTamu',addBukuTamu)
+app.component('ListPetugas',listPetugas)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
