@@ -5,8 +5,8 @@
             
             <div class="dashboard-content">		
 			<div class="container">
-                <div  class="pagination">
-                    <a class="page-link" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                <div  ref="scroll1st" class="pagination">
+                    <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
                 <b-form @submit.prevent="addDetailTamu">
@@ -62,7 +62,7 @@
 export default {
     data() {
         return {
-            title: "Kantor Kementerian Agama Kab.Tanah Datar",
+            title: "Registrasi Tamu",
             text: "Home",
             text1: "Detail Tamu",
             nip: null,
@@ -73,7 +73,9 @@ export default {
     },
     created() {
         this.cat = this.$route.params.cat
-        window.scrollTo(0,0)
+        this.$nextTick(() => {
+            this.$refs.scroll1st.scrollIntoView();
+        });
     },
     methods: {
         async addDetailTamu() {
@@ -115,8 +117,12 @@ export default {
                         console.log(response.data.data)
 
                         this.$swal.fire({
-                            title: response.data.message,
+                            title: 'Welcome!',
+                            text: response.data.message,
                             icon: 'success',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
                         })
                         this.$router.push('/internal');
                     }else{

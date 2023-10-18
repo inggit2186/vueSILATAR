@@ -2,7 +2,7 @@
 import { createApp } from 'vue';
 import { router } from './router';
 import App from "./App.vue";
-import {BootstrapVue3, BToastPlugin} from 'bootstrap-vue-3'
+import {BootstrapVue3, BToastPlugin} from 'bootstrap-vue-3';
 import VueApexCharts from "vue3-apexcharts";
 import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
@@ -12,6 +12,7 @@ import AOS from 'aos'
 import VueCarousel from 'vue-carousel';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import StarRating from 'vue-star-rating'
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -123,6 +124,7 @@ import kategoriTamu from './views/pages/InternalKantor/kategoriTamu.vue'
 import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
 import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
 import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
+import rateUs from './views/pages/InternalKantor/rateUs.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -265,6 +267,8 @@ app.component('KategoriTamu', kategoriTamu)
 app.component('InternalSarker',internalSatker)
 app.component('addBukuTamu',addBukuTamu)
 app.component('ListPetugas',listPetugas)
+app.component('RateUs',rateUs)
+app.component('star-rating',StarRating)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

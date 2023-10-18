@@ -4,8 +4,8 @@
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             <div class="dashboard-content">		
 			<div class="container">
-                <div  class="pagination">
-                    <a class="page-link" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                <div ref="scroll1st" class="pagination">
+                    <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
 				<hr/>
 				<div class="text-center">
@@ -90,7 +90,7 @@
 export default {
     data() {
         return {
-            title: "Kantor Kementerian Agama Kab.Tanah Datar",
+            title: "Unit Kerja",
             text: "Home",
             text1: "Buku Tamu",
             name: "/",
@@ -109,7 +109,9 @@ export default {
     created() {
 		this.getSeksi()
 		this.nav = this.$route.params.id
-		window.scrollTo(0,0)
+		this.$nextTick(() => {
+			this.$refs.scroll1st.scrollIntoView();
+		});
 	},
     methods: {
 		async getSeksi() {

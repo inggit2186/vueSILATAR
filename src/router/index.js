@@ -49,6 +49,7 @@ import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
 import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
 import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
 import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
+import rateUsVue from '@/views/pages/InternalKantor/rateUs.vue';
 
 const routes = [
     {
@@ -80,6 +81,11 @@ const routes = [
         path: '/bukutamu/:cat/:tipe/:id',
         name: 'Tamu Baru',
         component: addBukuTamuVue
+    },
+    {
+        path: '/rateUs',
+        name: 'Rate Us',
+        component: rateUsVue
     },
     {
         path: '/UnitKerja',

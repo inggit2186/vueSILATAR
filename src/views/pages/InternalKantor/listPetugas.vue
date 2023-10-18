@@ -7,8 +7,8 @@
             <!-- Categories Section -->
 		<div class="categorieslist-section">
             <div class="container text-center">
-                <div  class="pagination">
-                    <a class="page-link" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                <div ref="scroll1st" class="pagination">
+                    <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
                 <div class="text-center">
@@ -19,7 +19,7 @@
                         <router-link :to="addTamuSatker(satker.id)">
                         <div class="categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                            <img :src="$assets+'/img/icons/marker7.png'" style="width:50%;border-radius: 50%;" alt="car1">
+                            <img :src="$assets+'/img/ikon/505.png'" style="width:50%;border-radius: 50%;" alt="car1">
                             <h6>Langsung ke Bagian Seksi</h6>
                             <h7><i-ic-baseline-badge /> {{ satker.nama ?? satker.instansi }}</h7>
                             <span style="font-size:14px">Jika Anda ingin bertamu ke bagian Seksi / tanpa ke salah satu spesifik orang</span>
@@ -115,7 +115,7 @@
 export default {
     data() {
         return {
-            title: "Kantor Kementerian Agama Kab.Tanah Datar",
+            title: "Daftar Pegawai",
             text: "Home",
             text1: "Satuan Kerja",
             text2: "Daftar Pegawai",
@@ -152,7 +152,9 @@ export default {
 		this.getLayanan()
 		this.random = this.randNo()
         this.nav = this.$route.params.nav
-        window.scrollTo(0,0)
+        this.$nextTick(() => {
+			this.$refs.scroll1st.scrollIntoView();
+		});
 	},
 	methods: {
 		async getLayanan() {

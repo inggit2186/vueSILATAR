@@ -137,6 +137,7 @@ export default {
 	created() {
 		this.getSeksi(),
 		this.nav = this.$route.params.id
+		window.scrollTo(0,0)
 	},
 	methods: {
 		async getSeksi() {

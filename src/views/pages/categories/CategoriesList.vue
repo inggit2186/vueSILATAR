@@ -83,6 +83,7 @@ export default {
 	created() {
 		this.getLayanan(),
 		this.random = this.randNo();
+		window.scrollTo(0,0)
 	},
 	methods: {
 		async getLayanan() {

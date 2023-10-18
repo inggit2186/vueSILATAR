@@ -3656,8 +3656,9 @@ a:hover, a:focus {
     color: #fff;
 }
 .breadcrumb-bar {
-    background: #384b5c;
-	padding: 170px 0 90px;
+    background: url('../img/header4.png') no-repeat center;
+    background-size: 100%;
+	padding: 170px 0 60px;
 	position: relative;
 	z-index: 1;
 	width: 100%;
@@ -4498,7 +4499,7 @@ a:hover, a:focus {
     margin-bottom: 25px;
 }
 .categorieslist-section {
-    padding: 70px 0 45px;
+    padding: 15px 0 45px;
 	background: #f9fafc;
 }
 .categorieslastsec.categories-content {
@@ -13495,7 +13496,7 @@ textarea.form-control {
 	.time-box {
 		width: 120px;
 		display: inline-block;
-		float: unset;
+		float: none;
 	}
 	.time-box:last-child {
 		width: 120px;

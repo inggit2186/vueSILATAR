@@ -7,8 +7,7 @@
                         <router-link :to="routeLayanan()">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                            <img :src="$assets+'/img/icons/category-3.svg'" alt="car1">
-                            <h6>Layanan Umum</h6>
+                            <img :src="$assets+'/img/ikon/506.png'" style="width:100%;" alt="car1">
                             <span>Untuk Pelayanan Umum Kantor Kementerian Agama Kab.Tanah Datar</span>
                             </a>								   
                         </div>
@@ -17,8 +16,7 @@
                     <div class="col-lg-4 col-md-4 centered">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                            <img :src="$assets+'/img/icons/category-13.svg'" alt="car1">
-                            <h6>Satu Data</h6>
+                            <img :src="$assets+'/img/ikon/507.png'" style="width:100%;" alt="car1">
                             <span>Halaman Kumpulan Data Kantor Kementerian Agama Kab.Tanah Datar</span>
                             </a>								   
                         </div>
@@ -26,8 +24,7 @@
                     <div class="col-lg-4 col-md-4 centered">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                            <img :src="$assets+'/img/icons/category-6.svg'" alt="car1">
-                            <h6>Appointment</h6>
+                            <img :src="$assets+'/img/ikon/508.png'" style="width:100%;" alt="car1">
                             <span>Rencanakan Pertemuan Anda dengan Pejabat/Staff Kantor</span>
                             </a>								   
                         </div>
@@ -47,6 +44,7 @@ export default {
 	},
     created() {
         this.navid = this.$route.params.id
+        window.scrollTo(0,0)
     }
 }
 </script>
