@@ -18,6 +18,7 @@
 import LayananMenu from './layananMenu.vue';
 
 export default {
+    components: { LayananMenu },
     data() {
         return {
             title: "Unit Kerja",
@@ -27,6 +28,5 @@ export default {
             name: "/",
         };
     },
-    components: { LayananMenu }
 }
 </script>

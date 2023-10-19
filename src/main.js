@@ -125,6 +125,8 @@ import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
 import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
 import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
 import rateUs from './views/pages/InternalKantor/rateUs.vue'
+import layananDetail from './views/pages/layananMenu/layananDetail.vue'
+import addRequest from './views/pages/layananMenu/addRequest.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -269,6 +271,8 @@ app.component('addBukuTamu',addBukuTamu)
 app.component('ListPetugas',listPetugas)
 app.component('RateUs',rateUs)
 app.component('star-rating',StarRating)
+app.component('LayananDetail',layananDetail)
+app.component('AddRequest',addRequest)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

@@ -12,7 +12,7 @@
                         </span>
                     </a>
                     <router-link to="/" class="navbar-brand logo">
-                        <img src="../assets/img/logo.svg" class="img-fluid" alt="Logo">
+                        <img src="../assets/img/logo.png" style="width:450px" class="img-fluid" alt="Logo">
                     </router-link>
                     <router-link to="/" class="navbar-brand logo-small">
 							<img src="../assets/img/logo.png" class="img-fluid" alt="Logo">

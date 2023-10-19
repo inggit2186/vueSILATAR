@@ -12,14 +12,16 @@
 						<hr>
 					</div>
 					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
-							<div class="categories-content">
-								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
-								<h6>{{ item.nama }}</h6>
-								<span class="ads">{{ item.output }}</span>
-								<span>{{ item.deskripsi }}</span>
-								</a>								   
+						<router-link :to="tujuLayanan(item.id)">
+						<div class="categories-content">
+							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+							<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
+							<h6>{{ item.nama }}</h6>
+							<span class="ads">{{ item.output }}</span>
+							<span>{{ item.deskripsi }}</span>
+							</a>								   
 						</div>
+						</router-link>
 					</div>
 
 				   <!--Pagination--> 
@@ -79,6 +81,9 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
+		tujuLayanan() {
+        	return id => `/LayananDetail/${id}`
+    	},	
 	},
 	created() {
 		this.getLayanan(),

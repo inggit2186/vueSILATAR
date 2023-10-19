@@ -50,6 +50,7 @@ Version      : 1.0
 
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sassy+Frass&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio&display=swap');
 
 body {
 	background-color: #ffffff;
@@ -106,6 +107,29 @@ ul {
 	margin: 0;
 }
 
+.headerMobile{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    display:none;
+    background: url('../img/header-detail.png') no-repeat center;
+    background-size: 100%;
+    height: 150px;
+    border-radius: 25px;
+}
+.headerMobile h2 {
+    color: white;
+    font-family:'Antonio', 'Sans Serif';
+    font-size: 3vw;
+    font-weight: bold;
+    width:50vw;
+    margin: 0 auto;
+    padding-top: 75px;
+    text-transform: uppercase;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+}
 /*-----------------
     2. Bootstrap Classes
 -----------------------*/
@@ -3506,7 +3530,7 @@ a:hover, a:focus {
 }
 .sideauthor-info p.authorname {
 	margin: 0 0 6px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
 	color: #09153C;
 }
@@ -13880,6 +13904,12 @@ textarea.form-control {
     .section-blk.blog-block .testim-slider .carousel .carousel__prev {
         top: 540px;
     }
+    .headerDetail {
+        display: none;
+    }
+    .headerMobile {
+        display: block;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -14771,3 +14801,37 @@ textarea.form-control {
     margin: 0 auto;
     text-align: center;
   }
+  
+    .headerDetail {
+        background: url('../img/header-detail.png') no-repeat center;
+        background-size: 100%;
+        border-radius: 25px;
+        padding: 170px 0 60px;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+    }
+    .headerDetail h3 {
+        color: white;
+        font-family:'Antonio', 'Sans Serif';
+        font-size: 2vw;
+        word-wrap: break-word;
+        font-weight: bold;
+        max-width: 35vw;
+        width:100vw;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-transform: uppercase;
+        -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+          text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #e60073, 0 0 9px #e60073, 0 0 11px #e60073, 0 0 13px #e60073, 0 0 15px #e60073;
+        }
+        to {
+          text-shadow: 0 0 5px #fff, 0 0 7px #ff4da6, 0 0 9px #ff4da6, 0 0 11px #ff4da6, 0 0 13px #ff4da6, 0 0 15px #ff4da6, 0 0 17px #ff4da6;
+        }
+      }

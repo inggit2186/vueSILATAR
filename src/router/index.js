@@ -50,6 +50,8 @@ import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
 import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
 import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
 import rateUsVue from '@/views/pages/InternalKantor/rateUs.vue';
+import layananDetailVue from '@/views/pages/layananMenu/layananDetail.vue';
+import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
 
 const routes = [
     {
@@ -276,9 +278,17 @@ const routes = [
           }
     },
     {
-        path: '/service-details',
-        name: 'service-details',
-        component: Service
+        path: '/LayananDetail/:id',
+        name: 'Detail Layanan',
+        component: layananDetailVue,
+    },
+    {
+        path: '/request/:id',
+        name: 'Add Request',
+        component: addRequestVue,
+        meta: {
+            requiresAuth: true
+          }
     },
     {
         path: '/signup',

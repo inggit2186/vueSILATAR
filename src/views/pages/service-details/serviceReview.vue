@@ -11,7 +11,7 @@
                     <li class="review-box ">
                         <div class="review-profile">
                             <div class="review-img">
-                                <img src="../../../assets/img/profiles/avatar-11.jpg" class="img-fluid" alt="img">
+                                <img :src="$assets+'/img/profiles/avatar-11.jpg'" class="img-fluid" alt="img">
                             </div>
                         </div>
                         <div class="review-details">
@@ -55,7 +55,7 @@
                     <li class="review-box">
                         <div class="review-profile">
                             <div class="review-img">
-                                <img src="../../../assets/img/profiles/avatar-02.jpg" class="img-fluid" alt="img">
+                                <img :src="$assets+'/img/profiles/avatar-02.jpg'" class="img-fluid" alt="img">
                             </div>
                         </div>
                         <div class="review-details">
@@ -79,7 +79,7 @@
                     <li class="review-box">
                         <div class="review-profile">
                             <div class="review-img">
-                                <img src="../../../assets/img/profiles/avatar-01.jpg" class="img-fluid" alt="img">
+                                <img :src="$assets+'/img/profiles/avatar-01.jpg'" class="img-fluid" alt="img">
                             </div>
                         </div>
                         <div class="review-details">
