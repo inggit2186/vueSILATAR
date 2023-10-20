@@ -13,6 +13,7 @@ import VueCarousel from 'vue-carousel';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import StarRating from 'vue-star-rating'
+import pdfjsLib from 'pdfjs-dist'
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -127,6 +128,7 @@ import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
 import rateUs from './views/pages/InternalKantor/rateUs.vue'
 import layananDetail from './views/pages/layananMenu/layananDetail.vue'
 import addRequest from './views/pages/layananMenu/addRequest.vue'
+import uploadSyarat from './views/pages/layananMenu/uploadSyarat.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -273,6 +275,7 @@ app.component('RateUs',rateUs)
 app.component('star-rating',StarRating)
 app.component('LayananDetail',layananDetail)
 app.component('AddRequest',addRequest)
+app.component('UploadSyarat',uploadSyarat)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
@@ -283,6 +286,7 @@ app.component('Aboutbreadcrumb',AboutBreadcrumb)
 .use(Antd)
 .use(AOS.init())
 app.use(VueEasyLightbox);
+app.use(pdfjsLib);
 app.use(CoolLightBox);
 app.use(VueApexCharts);
 app.use(VueCarousel);

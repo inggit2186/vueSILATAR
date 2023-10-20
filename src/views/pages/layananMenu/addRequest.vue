@@ -10,7 +10,7 @@
                     <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
-                <b-form @submit.prevent="addDetailTamu">
+                <b-form @submit.prevent="addRequest">
                 <div v-if="loading" class="text-center">
                     <hr>
                     <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
@@ -23,11 +23,15 @@
 				    <div class="messages-form">
 					    <div class="card">
                             <div class="card-header text-center">
-							    <h3>~ {{ layanan.nama }} ~</h3>							
+							    <h3>:: Form Request ::</h3>							
 							</div>
 						    <div class="card-header">
 							    <h4>Basic Detail</h4>							
 							</div>
+                                <div class="form-group">
+								    <label class="col-form-label">Layanan <span>*</span></label>								    
+									<b-form-input id="layanan.nama" v-model="layanan.nama" type="text" class="form-control pass-input" placeholder="Layanan" readonly />									   
+								</div>
                             <div class="card-body">
 							    <div v-if="user.asn == 'pns' || user.asn == 'pppk'" class="form-group">
 								    <label class="col-form-label">Nomor Induk Pegawai (NIP) <span>*</span></label>								    
@@ -43,7 +47,7 @@
                                 </div>
 								<div class="form-group">
 								    <label class="col-form-label">Keterangan/Deskripsi <span>*</span></label>
-								   	<b-form-textarea id="tujuan" v-model="keterangan" rows="6" class="form-control listingdescription" placeholder="Keterangan atau Deskripsi Tambahan"></b-form-textarea>												
+								   	<b-form-textarea id="deskripsi" v-model="deskripsi" rows="6" class="form-control listingdescription" placeholder="Keterangan atau Deskripsi Tambahan"></b-form-textarea>												
 								</div>
                             </div>
                         </div>
@@ -94,7 +98,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getLayananDetail/'+sid,{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getLayananDetail/'+sid,{},{headers})
 				this.layanan = response.data.data
 				this.syarat = response.data.syarat
 
@@ -107,47 +111,46 @@ export default {
 				this.loading = false
 			}
 		},
-        async addDetailTamu() {
-            try {
-                this.loading = true;
-
-                const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-                
-                let response = null;
-
-                    response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addTamu', {
-                        kategori: cat,
-                    },{headers});
-                
-                    if(response.data.success === true) {
-                        console.log(response.data.data)
-
-                        this.$swal.fire({
-                            title: 'Welcome!',
-                            text: response.data.message,
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                        })
-                    }else{
-                        this.$toast.fire({
-                            title: response.data.message,
-                            icon: 'error',
-                        })
-                    }
-                } catch (error) {
-                    this.$toast.fire({
-                            title: error,
-                            icon: 'error',
-                        })
-                } finally {
-                    this.loading = false;
+        async addRequest() {
+            this.$swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Pastikan anda sudah Membaca & Menyiapkan File Syarat yang ditentukan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Lanjutkan!',
+                showLoaderOnConfirm: true,
+                preConfirm: (addRequest) => {
+                    const sid = this.$route.params.id
+                    const headers = {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        };
+                    return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addRequest',{
+                        layananid: sid,
+                        judul: this.layanan.nama,
+                        deskripsi: this.deskripsi
+                    },{headers})
+                    .then(response => {
+                        if (!response.data.success) {
+                        throw new Error(response.data.message)
+                        }
+                        return response.data
+                    })
+                    .catch(error => {
+                        this.$swal.showValidationMessage(
+                        `Request failed: ${error}`
+                        )
+                    })
+                },
+                allowOutsideClick: () => !this.$swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$router.push('/uploadsyarat/'+result.value.data);
                 }
-            },
+                })
+            }
     }
 }
 </script>

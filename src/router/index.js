@@ -52,6 +52,7 @@ import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
 import rateUsVue from '@/views/pages/InternalKantor/rateUs.vue';
 import layananDetailVue from '@/views/pages/layananMenu/layananDetail.vue';
 import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
+import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
 
 const routes = [
     {
@@ -286,6 +287,14 @@ const routes = [
         path: '/request/:id',
         name: 'Add Request',
         component: addRequestVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/uploadsyarat/:id',
+        name: 'Upload Syarat',
+        component: uploadSyaratVue,
         meta: {
             requiresAuth: true
           }
