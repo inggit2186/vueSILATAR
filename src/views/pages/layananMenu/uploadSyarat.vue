@@ -37,7 +37,7 @@
                                                 <img :src="imageUrl[item.id]" alt="">
                                                 <br/>
                                                 <br/>
-                                                <BButton @click="openModal(item.id)">Launch centered modal</BButton>
+                                                <BButton @click="openFile(item.fileUrl)">Modal</BButton>
 
                                                 <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
                                                     <p class="my-4">Vertically centered modal!</p>
@@ -148,9 +148,22 @@ export default {
 				this.loadingfile[itemId] = false
 			}
 		},
-        openModal(item) {
-            this.modalItem = item;
-            this.modal1 = ref(false)
+        openFile(item) {
+            this.$swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html:
+                    '<object src="https://docs.google.com/gview?embedded=true&url='+ item +'" type="application/pdf" width="100%" height="600px" />',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Great!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                    '<i class="fa fa-thumbs-down"></i>',
+                cancelButtonAriaLabel: 'Thumbs down'
+            })
         },
     }
 }
