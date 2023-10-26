@@ -11,18 +11,33 @@
 						<h3>::: Nyangkul Data dulu :::</h3>
 						<hr>
 					</div>
-					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
-						<router-link :to="tujuLayanan(item.id)">
-						<div class="categories-content">
-							<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-							<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
-							<h6>{{ item.nama }}</h6>
-							<span class="ads">{{ item.output }}</span>
-							<span>{{ item.deskripsi }}</span>
-							</a>								   
+						<div v-else-if="!loading">
+							<div class="col-lg-3 col-md-4 centered">
+								<router-link :to="tujuLayanan('999')">
+								<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
+									<h6>Layanan Persuratan Lainnya</h6>
+									<span class="ads">Surat Masuk</span>
+									<span>Untuk Layanan Persuratan diluar Kategori / Lainnya</span>
+									</a>								   
+								</div>
+								</router-link>
+							</div>
+							<hr/>
 						</div>
-						</router-link>
-					</div>
+						<div v-for="item in paginatedLayanan" :key="item.id" class="col-lg-3 col-md-4 centered">
+							<router-link :to="tujuLayanan(item.id)">
+							<div class="categories-content">
+								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+								<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
+								<h6>{{ item.nama }}</h6>
+								<span class="ads">{{ item.output }}</span>
+								<span>{{ item.deskripsi }}</span>
+								</a>								   
+							</div>
+							</router-link>
+						</div>
 
 				   <!--Pagination--> 
 					<div class="blog-pagination">
@@ -82,7 +97,7 @@ export default {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
 		tujuLayanan() {
-        	return id => `/LayananDetail/${id}`
+        	return id => `/LayananDetail/${this.$route.params.id}/${id}`
     	},	
 	},
 	created() {
@@ -100,8 +115,15 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getLayanan/'+sid,{headers})
-				this.layanan = response.data.data
-				console.log(this.layanan)
+				
+				if(response.data.success == true){
+					this.layanan = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
 		
 			} catch (error) {
 				this.$toast.fire({

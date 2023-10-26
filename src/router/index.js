@@ -279,12 +279,12 @@ const routes = [
           }
     },
     {
-        path: '/LayananDetail/:id',
+        path: '/LayananDetail/:xid/:id',
         name: 'Detail Layanan',
         component: layananDetailVue,
     },
     {
-        path: '/request/:id',
+        path: '/request/:xid/:id',
         name: 'Add Request',
         component: addRequestVue,
         meta: {
