@@ -122,8 +122,6 @@ export default {
                 this.satker = response2.data.data
                 this.kepala = response2.data.kepala
                 this.kaur = response2.data.kaur
-
-				console.log(this.layanan)
 		
 			} catch (error) {
 				this.$toast.fire({

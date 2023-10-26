@@ -58,7 +58,7 @@ v-else v-model="password"
 								</div>
 								<b-button variant="primary w-100 login-btn" type="submit" :disabled="loading">
 									<span v-if="!loading">Masuk</span>
-									<span v-else><i class="fa fa-spinner fa-spin"></i>  Assalamualaikum...</span>
+									<span v-else><i-svg-spinners-bars-scale-middle />  Assalamualaikum...</span>
 								</b-button>
 								<div class="register-link text-center">
 									<p>Belum Punya Akun? <router-link class="forgot-link" to="/signup">REGISTRASI</router-link></p>

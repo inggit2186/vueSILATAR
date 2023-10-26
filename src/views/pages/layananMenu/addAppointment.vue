@@ -1,6 +1,7 @@
 <template>
     <div class="main-wrapper">
         <div class="page-wrapper">
+            <layouts></layouts>
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -20,19 +21,9 @@
 							    <h4>Basic Detail</h4>							
 							</div>
                             <div class="card-body">
-							    <div v-if="cat == 'pegawai'" class="form-group">
-								    <label class="col-form-label">Nomor Induk Pegawai (NIP) <span>*</span></label>								    
-									<b-form-input id="nip" v-model="nip" type="number" class="form-control pass-input" placeholder="NIP" required />									   
-								</div>
-                                <div v-else>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Nama Lengkap <span>*</span></label>								    
-                                        <b-form-input id="nama" v-model="nama" type="text" class="form-control pass-input" placeholder="Nama Lengkap" required />									   
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Asal (Instansi/Domisili) <span>*</span></label>								    
-                                        <b-form-input id="asal" v-model="asal" type="text" class="form-control pass-input" placeholder="Asal Instansi/Domisili" required />									   
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tanggal & Jam Temu (Appointment) <span>*</span></label>								    
+                                    <VueDatePicker v-model="date" model-type="MM/dd/yyyy HH:mm" :min-date="new Date()" placeholder="Pilih Tanggal & Jam" :flow="['calendar', 'time']" />									   
                                 </div>
 								<div class="form-group">
 								    <label class="col-form-label">Maksud Tujuan <span>*</span></label>
@@ -43,7 +34,7 @@
                         <div class="centered">
                             <b-button variant="primary" type="submit" :disabled="loading"> 
                                 <span v-if="!loading"> Kirim</span>
-                                <span v-else><i-svg-spinners-bars-scale-middle />  Assalamualaikum Wr.Wb....</span>
+                                <span v-else><i-svg-spinners-6-dots-scale-middle />  Assalamualaikum Wr.Wb....</span>
                             </b-button>						
                         </div>
                     </div>			
@@ -59,6 +50,8 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
     data() {
         return {
@@ -66,6 +59,7 @@ export default {
             text: "Home",
             text1: "Detail Tamu",
             nip: null,
+            date: null,
             tujuan: null,
             name: "/",
             loading: false
@@ -73,16 +67,17 @@ export default {
     },
     created() {
         this.cat = this.$route.params.cat
+        this.date = new Date()
         this.$nextTick(() => {
             this.$refs.scroll1st.scrollIntoView();
         });
+
     },
     methods: {
         async addDetailTamu() {
             try {
                 this.loading = true;
-                const cat = this.$route.params.cat
-                const tipe = this.$route.params.tipe
+                const tipe = this.$route.params.xid
                 const id = this.$route.params.id
 
                 const headers = {
@@ -92,26 +87,12 @@ export default {
                 
                 let response = null;
 
-                if(cat === 'pegawai'){
-                    response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addTamu', {
-                        kategori: cat,
-                        tipe: tipe,
-                        nip: this.nip,
-                        idtujuan: id,
-                        tujuan: this.tujuan,
-                        status: "on site"
-                    },{headers});
-                }else{
-                    response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addTamu', {
-                        kategori: cat,
-                        tipe: tipe,
-                        nama: this.nama,
-                        asal: this.asal,
-                        idtujuan: id,
-                        tujuan: this.tujuan,
-                        status: "on site"
-                    },{headers});
-                }
+                response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addAppointment', {
+                    tipe: tipe,
+                    date: this.date,
+                    idtujuan: id,
+                    tujuan: this.tujuan,
+                },{headers});
                 
                     if(response.data.success === true) {
                         console.log(response.data.data)
@@ -124,13 +105,14 @@ export default {
                             timer: 5000,
                             timerProgressBar: true,
                         })
-                        this.$router.push('/internal');
+                        this.$router.push('/UnitKerja');
                     }else{
                         this.$toast.fire({
                             title: response.data.message,
                             icon: 'error',
                         })
                     }
+
                 } catch (error) {
                     this.$toast.fire({
                             title: error,

@@ -127,7 +127,7 @@
                         <div class="centered">
                             <b-button variant="primary" type="submit" :disabled="loading"> 
                                 <span v-if="!loading"> Kirim</span>
-                                <span v-else><i class="fa fa-spinner fa-spin"></i> Mengirimkan Bintangnya...</span>
+                                <span v-else><i-svg-spinners-bars-scale-middle /> Mengirimkan Bintangnya...</span>
                             </b-button>						
                         </div>
                     </div>			

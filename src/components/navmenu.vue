@@ -2,7 +2,7 @@
     <div class="main-menu-wrapper">
         <div class="menu-header">
             <router-link to="/" class="menu-logo">
-                <img src="../assets/img/logo.svg" class="img-fluid" alt="Logo">
+                <img src="../assets/img/logo.png" class="img-fluid" alt="Logo">
             </router-link>
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
@@ -87,7 +87,7 @@ class="has-submenu megamenu active"
                     <img :src="pp" alt="">
                     <span>{{user.name}}</span>
                 </a>
-                <span v-else><i class="fa fa-spinner fa-spin"></i>  Good Bye...</span>
+                <span v-else><i-svg-spinners-bars-scale-middle />  Good Bye...</span>
                 <div class="dropdown-menu dropdown-menu-end">
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profile Settings</router-link>

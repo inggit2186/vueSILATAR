@@ -49,10 +49,12 @@ import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
 import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
 import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
 import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
+import listPetugas2Vue from '@/views/pages/layananMenu/listPetugas2';
 import rateUsVue from '@/views/pages/InternalKantor/rateUs.vue';
 import layananDetailVue from '@/views/pages/layananMenu/layananDetail.vue';
 import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
 import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
+import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
 
 const routes = [
     {
@@ -295,6 +297,22 @@ const routes = [
         path: '/uploadsyarat/:id',
         name: 'Upload Syarat',
         component: uploadSyaratVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/Appointment/:id',
+        name: 'List Pegawai Kantor',
+        component: listPetugas2Vue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/Appointment/:xid/:id',
+        name: 'Add Appointment',
+        component: addAppointmentVue,
         meta: {
             requiresAuth: true
           }

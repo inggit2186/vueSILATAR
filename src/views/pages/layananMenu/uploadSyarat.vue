@@ -42,7 +42,7 @@
                                     </BButton>
                                 </div>
                                 <h6>No Request : {{ request.no_req }} </h6>							
-                                <h6>Seksi : {{ request.no_req }} </h6>							
+                                <h6>Seksi : {{ request.seksi }} </h6>							
                                 <h6>Layanan : {{ request.judul }} </h6>							
                                 <h6>Status : <BBadge v-if="request.status == 'DRAFT'" variant="light">{{ request.status }}</BBadge>
                                             <BBadge v-else-if="request.status == 'UNCHECK'" variant="info">{{ request.status }}</BBadge>

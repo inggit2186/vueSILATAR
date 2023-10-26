@@ -2,6 +2,7 @@
     <div class="main-wrapper">
 
         <div class="page-wrapper">
+            <layouts></layouts>
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
 
             <!-- Categories Section -->
@@ -142,16 +143,16 @@ export default {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
         addTamu() {
-        	return id => `/bukutamu/${this.nav}/asn/${id}`;
+        	return id => `/Appointment/asn/${id}`;
     	},
         addTamuSatker() {
-            return id => `/bukutamu/${this.nav}/satker/${id}`;
+            return id => `/Appointment/satker/${id}`;
         },
 	},
 	created() {
 		this.getLayanan()
 		this.random = this.randNo()
-        this.nav = this.$route.params.nav
+        this.nav = this.$route.params.id
         this.$nextTick(() => {
 			this.$refs.scroll1st.scrollIntoView();
 		});

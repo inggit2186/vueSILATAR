@@ -34,7 +34,7 @@
             <li>
                 <b-button variant="primary w-70 logout-btn" :disabled="loading" @click="logout()">
                     <span v-if="!loading"><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
-                    <span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp; Good Bye...</span>
+                    <span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Good Bye...</span>
                 </b-button>
             </li>
         </ul>

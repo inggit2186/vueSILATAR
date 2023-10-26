@@ -14,6 +14,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import StarRating from 'vue-star-rating'
 import pdfjsLib from 'pdfjs-dist'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import VueCryptojs from 'vue-cryptojs';
+import { Pagination } from 'ant-design-vue';
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -125,10 +128,12 @@ import kategoriTamu from './views/pages/InternalKantor/kategoriTamu.vue'
 import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
 import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
 import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
+import listPetugas2 from './views/pages/layananMenu/listPetugas2.vue'
 import rateUs from './views/pages/InternalKantor/rateUs.vue'
 import layananDetail from './views/pages/layananMenu/layananDetail.vue'
 import addRequest from './views/pages/layananMenu/addRequest.vue'
 import uploadSyarat from './views/pages/layananMenu/uploadSyarat.vue'
+import addAppointment from './views/pages/layananMenu/addAppointment.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -145,6 +150,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'ant-design-vue/dist/antd.css';
 import './assets/css/feather.css';
 import './assets/css/style.css';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const Toast = Swal.mixin({
     toast: true,
@@ -271,15 +277,18 @@ app.component('KategoriTamu', kategoriTamu)
 app.component('InternalSarker',internalSatker)
 app.component('addBukuTamu',addBukuTamu)
 app.component('ListPetugas',listPetugas)
+app.component('ListPetugas2',listPetugas2)
 app.component('RateUs',rateUs)
 app.component('star-rating',StarRating)
 app.component('LayananDetail',layananDetail)
 app.component('AddRequest',addRequest)
 app.component('UploadSyarat',uploadSyarat)
+app.component('AddAppointment',addAppointment)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
 app.component('Aboutbreadcrumb',AboutBreadcrumb)
+app.component('VueDatePicker',VueDatePicker)
 
 .use(BootstrapVue3)
 .use(BToastPlugin)
@@ -287,7 +296,9 @@ app.component('Aboutbreadcrumb',AboutBreadcrumb)
 .use(AOS.init())
 app.use(VueEasyLightbox);
 app.use(pdfjsLib);
+app.use(VueCryptojs);
 app.use(CoolLightBox);
+app.use(Pagination);
 app.use(VueApexCharts);
 app.use(VueCarousel);
 app.use(router).mount('#app');

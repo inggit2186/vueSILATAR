@@ -21,10 +21,10 @@
 												<input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
 												<label for="file" class="file-upload" :disable="loadingpp">
 													<span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
-													<span v-else style="color: aliceblue;" ><i class="fa fa-spinner fa-spin"></i>&nbsp; JNE Berangkaattt... </span>
+													<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
 												</label>												
 											</div>	
-											<span>Max file size: 10 MB</span>
+											<span>Max file size: 2 MB</span>
 										</div>                                        									
                                         <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>										
 									</div>
@@ -127,7 +127,7 @@
 									<div class="text-center">
 									<b-button variant="primary" type="submit" :disabled="loadingpf"> 
 										<span v-if="!loadingpf"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Update Profil</span>
-										<span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp; Ke Dukcapil Dulu Gan...</span>
+										<span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Ke Dukcapil Dulu Gan...</span>
 									</b-button>
 									</div>
 								</div>
@@ -203,7 +203,7 @@ v-else v-model="password2"
 										    </div>	
                                             <b-button variant="primary" type="submit" :disabled="loadingpw"> 
 												<span v-if="!loadingpw"><i class="fa fa-lock" aria-hidden="true"></i> &nbsp; Ganti Password</span>
-												<span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp; Ganti Kuncinya dulu...</span>
+												<span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Ganti Kuncinya dulu...</span>
 											</b-button>											
 									   </b-form>								
 									</div>  									

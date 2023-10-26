@@ -22,12 +22,14 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 centered">
+                        <router-link :to="routeAppoint()">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="$assets+'/img/ikon/508.png'" style="width:100%;" alt="car1">
                             <span>Rencanakan Pertemuan Anda dengan Pejabat/Staff Kantor</span>
                             </a>								   
                         </div>
+                        </router-link>
                     </div>
 				</div>
 			</div>
@@ -38,9 +40,11 @@
 export default {
     computed: {
 		routeLayanan() {
-			console.log(this.navid)
-        	return id => `/Layanan/${this.navid}`
+			return id => `/Layanan/${this.navid}`
     	},
+        routeAppoint() {
+            return id => `/Appointment/${this.navid}`
+        }
 	},
     created() {
         this.navid = this.$route.params.id

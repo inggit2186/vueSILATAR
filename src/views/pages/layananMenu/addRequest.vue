@@ -54,7 +54,7 @@
                         <div class="centered">
                             <b-button variant="primary" type="submit" :disabled="loading"> 
                                 <span v-if="!loading"> Kirim</span>
-                                <span v-else><i class="fa fa-spinner fa-spin"></i>  Assalamualaikum Wr.Wb....</span>
+                                <span v-else><i-svg-spinners-6-dots-scale-middle />  Assalamualaikum Wr.Wb....</span>
                             </b-button>						
                         </div>
                     </div>			
