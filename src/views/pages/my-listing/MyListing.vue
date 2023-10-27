@@ -10,69 +10,79 @@
 						<!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
 								class="fa-solid fa-plus"></i> Add Listing</router-link> -->
 					</div>
-					<div class="card-body">
-						<div class="listing-search">
-							<div class="filter-content form-group">
-								<div class="group-img">
-									<input type="text" class="form-control" placeholder="Search...">
-									<i class="feather-search"></i>
-								</div>
+				<div class="card-body">
+					<div class="listing-search">
+						<div class="filter-content form-group">
+							<div class="group-img">
+								<input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+								<i class="feather-search"></i>
 							</div>
 						</div>
-						<div class="table-responsive">
-				<a-table
-                    class="stripped table-hover listing-table datatable"
-                    :columns="columns"
-                    :data-source="ptsp"
-                  >
-                    <template #bodyCell="{ column, record }">
-                      <template
-                        v-if="column.key === 'image'"
-                      >
-					  <div class="listingtable-img">
-							<router-link to="/service-details">
-								<img
-                  class="img-fluid avatar-img centered"
-									:src="$assets+'/img/seksi/'+record.dept_id+'.png'" style="width: 90%;" alt="">
-							</router-link>
-						</div>
-                      </template>
-                      <template v-else-if="column.key === 'id'">
-						<h6>
-							<router-link to="/service-details">{{record.judul}}</router-link>
-						</h6>
-						<div class="listingtable-rate">
-							<a href="javascript:void(0)" class="cat-icon"><i
-									class="fa-regular fa-circle-stop"></i>  {{ record.no_surat }} </a>
-						</div>
-						<p>{{ record.deskripsi }}</p>
-                      </template>
-                      <template v-else-if="column.key === 'status'">
-                        <span class="status-text">{{record.status}}</span>
-                      </template>
-					  <template v-else-if="column.key === 'tanggal'">
-                        <span class="cat-icon">{{record.tanggal}}</span>
-                      </template>
-                      <template v-else-if="column.key === 'action'">
-                        <div class="action">
-							<a href="javascript:void(0)" class="action-btn btn-view"><i
-									class="feather-eye"></i></a>
-							<a href="javascript:void(0)" class="action-btn btn-edit"><i
-									class="feather-edit-3"></i></a>
-							<a href="javascript:void(0)" class="action-btn btn-trash"><i
-									class="feather-trash-2"></i></a>
-						</div>
-                      </template>
-                    </template>
-                  </a-table>
-				  <a-pagination
-					style="margin-top: 16px;"
-					:current="current"
-					:total="total"
-					:pageSize="pageSize"
-					@change="handleChange"
-					/>
 					</div>
+					<div class="table-responsive">
+						<table class="table table-hover centered">
+							<thead>
+								<tr>
+									<th v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+										{{ column.name }}
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="item in paginatedItem" :key="item.id">
+									<td><a href="#">{{ item.tanggal }} </a></td>
+									<td>
+										{{ item.dept }}<br/>
+										<span style="font-size: smaller;"><i-tabler-number />{{ item.no_req }}	</span>
+									</td>
+									<td>
+										<u>{{ item.judul }}</u><br/>
+										<span style="font-size: small;"><i-bx-comment-detail /> {{ item.deskripsi }}</span>
+									</td>
+									<td>
+										<BBadge v-if="item.status == 'DRAFT'" variant="light">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'UNCHECK'" variant="info">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'PENDING'" variant="warning">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'DIPROSES'" variant="success">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'SUKSES'" variant="primary">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">{{ item.status }}</BBadge>
+										<BBadge v-else-if="item.status == 'BATAL'" variant="dark">{{ item.status }}</BBadge>
+										<br/>
+										<span style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span>
+									</td>
+									<td><BButton pill size="sm" variant="outline-primary"><i-ph-eye-fill /> Detail</BButton></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!--Pagination--> 
+					<div class="blog-pagination">
+						<nav>
+							<ul class="pagination">
+								<li class="page-item previtem" :class="{'disabled': currentPage === 1}">
+									<a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+								</li>
+								<li class="justify-content-center pagination-center"> 
+									<div class="pagelink">
+										<ul>
+											<li v-for="page in displayedPages" :key="page" class="page-item" :class="{'active': currentPage === page}">
+												<a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+											</li>
+											<li class="page-item" :class="{'disabled': currentPage === totalPages}">
+												<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">...</a>
+											</li>
+										</ul>
+									</div>													
+								</li>													
+								<li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
+									<a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<!--/Pagination-->
 
 				</div>
 			</div>
@@ -82,75 +92,54 @@
 <!-- /Dashboard Content -->
 </template>
 <script>
-const columns = [
-  {
-    title: "Unit Kerja",
-    dataIndex: "Unit Kerja",
-    key: "UnitKerja",
-	sorter: {
-      compare: (a, b) => {
-        a = a.dept.toLowerCase();
-        b = b.dept.toLowerCase();
-        return a > b ? -1 : b > a ? 1 : 0;
-      },
-    },
-  },
-  {
-    title: "Details",
-    dataIndex: "Details",
-	key: "id",
-    sorter: {
-      compare: (a, b) => {
-        a = a.judul.toLowerCase();
-        b = b.judul.toLowerCase();
-        return a > b ? -1 : b > a ? 1 : 0;
-      },
-    },
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-	key: "status",
-    sorter: {
-      compare: (a, b) => {
-        a = a.status.toLowerCase();
-        b = b.status.toLowerCase();
-        return a > b ? -1 : b > a ? 1 : 0;
-      },
-    },
-  },
-  {
-    title: "Tanggal",
-    dataIndex: "Tanggal",
-    key: "tanggal",
-    sorter: {
-      compare: (a, b) => {
-        a = a.tanggal.toLowerCase();
-        b = b.tanggal.toLowerCase();
-        return a > b ? -1 : b > a ? 1 : 0;
-      },
-    },
-  },
-  {
-    title: "Action",
-    key: "action",
-    class: "text-end",
-    sorter: true,
-  },
-];
+import { Empty } from 'ant-design-vue';
 
 export default {
 	data() {
 		return {
-			
-			Newest: ["Newest", "Newest", "Oldest"],
-      		ptsp: [],
-			columns,
+			columns: [
+				{ name: 'Tanggal', data: 'tanggal' },
+				{ name: 'Unit Kerja', data: 'dept' },
+				{ name: 'Judul Request', data: 'judul' },
+				{ name: 'Status', data: 'status' },
+				{ name: 'Action', data: 'action' },
+			],
+			keyword: '',
+			currentSort: '',
+      		currentSortDir: 'asc',
 			loading: false,
-			current: 1,
-      		pageSize: 10,
-      		total: 100,
+			itemsPerPage: 12,
+        	currentPage: 1,
+			ptsp: [],
+			ptsp0: [],
 		};
+	},
+	computed: {
+		tableHeader() {
+			return this.columns
+		},
+		sortedData() {
+			return this.ptsp.sort((a, b) => {
+				let modifier = 1;
+				if(this.currentSortDir === 'desc') modifier = -1;
+				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+				if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+				return 0;
+			});
+			},
+    	paginatedItem() {
+			const start = (this.currentPage - 1) * this.itemsPerPage;
+			const end = start + this.itemsPerPage;
+			return this.ptsp.slice(start, end);
+		},
+		displayedPages() {
+			const start = Math.max(this.currentPage - 1, 1);
+			const end = Math.min(start + 2, this.totalPages);
+			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+		},
+		totalPages() {
+            return Math.ceil(this.ptsp.length / this.itemsPerPage);
+        },
 	},
   created() {
 		this.getPTSP(),
@@ -167,8 +156,8 @@ export default {
 				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getPTSP',{headers})
 				
 				if(response.data.success == true){
-					console.log(response.data.data)
-          this.ptsp = response.data.data
+          			this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -185,9 +174,38 @@ export default {
 				this.loading = false
 			}
 		},
-		handleChange(current) {
-      this.current = current;
-    },
+		sortTable(column) {
+			if (this.currentSort === column) {
+				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
+			} else {
+				this.currentSort = column;
+				this.currentSortDir = 'asc';
+			}
+
+			this.ptsp.sort((a, b) => {
+				let modifier = 1;
+				if (this.currentSortDir === 'desc') modifier = -1;
+				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+				if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+				return 0;
+			});
+		},
+		filterTable() {
+			if (this.keyword === '' || this.keyword == null) {
+				this.ptsp = this.ptsp0;
+			} else {
+				this.ptsp = this.ptsp0.filter((item) => {
+					return item.judul.toLowerCase().includes(this.keyword.toLowerCase()) || 
+					item.no_req.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.dept.toLowerCase().includes(this.keyword.toLowerCase());
+				});
+			}
+		},
+		changePage(pageNumber) {
+			this.currentPage = pageNumber;
+		},
   }
 }
 </script>

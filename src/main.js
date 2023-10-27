@@ -16,7 +16,6 @@ import StarRating from 'vue-star-rating'
 import pdfjsLib from 'pdfjs-dist'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import VueCryptojs from 'vue-cryptojs';
-import { Pagination } from 'ant-design-vue';
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -298,7 +297,6 @@ app.use(VueEasyLightbox);
 app.use(pdfjsLib);
 app.use(VueCryptojs);
 app.use(CoolLightBox);
-app.use(Pagination);
 app.use(VueApexCharts);
 app.use(VueCarousel);
 app.use(router).mount('#app');
