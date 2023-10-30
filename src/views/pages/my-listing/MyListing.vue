@@ -51,7 +51,10 @@
 										<br/>
 										<span style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span>
 									</td>
-									<td><BButton pill size="sm" variant="outline-primary"><i-ph-eye-fill /> Detail</BButton></td>
+									<td>
+										<BButton v-if="item.status == 'DRAFT'" pill size="sm" variant="danger" @click.prevent="deleteRequest(item.no_req)"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
+										<BButton pill size="sm" variant="outline-primary" :to="`/uploadsyarat/${item.no_req}`"><b><i-ph-eye-fill /> DETAIL</b></BButton>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -153,7 +156,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getPTSP',{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myRequest',{headers})
 				
 				if(response.data.success == true){
           			this.ptsp0 = response.data.data
@@ -206,6 +209,55 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
+		deleteRequest(noreq) {
+			this.$swal.fire({
+					title: 'Apakah anda yakin?',
+					text: "Data akan dihapus secara permanen!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, Lanjut Hapus!'
+					}).then((result) => {
+					if (result.isConfirmed) {
+						this.prosesDelete(noreq)
+					}
+			})
+		},
+		async prosesDelete(noreq) {
+			this.loadingdel = true;
+			try{
+				console.log(noreq)
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/delMyReq',{
+					noreq: noreq
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+					this.getPTSP()
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingdel = false
+			}
+		}
   }
 }
 </script>

@@ -13,7 +13,7 @@
             </li>
             <li :class="{ active: $route.name === 'My Listing' }">
                 <router-link to="my-listing">
-                    <i class="feather-list"></i> <span>My Listing</span>
+                    <i class="feather-list"></i> <span>My Request</span>
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Bookmarks' }">

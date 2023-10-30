@@ -12,9 +12,6 @@ class="has-submenu megamenu active"
             :class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
                 <router-link to="/">Home</router-link>
             </li>
-            <li :class="{'active': currentPath == 'layananMenu'}">
-                <router-link to="/UnitKerja">Pelayanan</router-link>
-            </li>
             <li :class="{'active': currentPath == 'satuanKerja/getSeksi'}">
                 <router-link to="/satuanKerja/getSeksi">Satuan Kerja</router-link>
             </li>
@@ -80,7 +77,7 @@ class="has-submenu megamenu active"
         </div>
         <div v-else class="nav header-navbar-rht">
             <li class="nav-item">
-                <router-link class="nav-link header-login add-listing" to="add-listing"><i class="fa-solid fa-plus"></i> Add Listing</router-link>
+                <router-link class="nav-link header-login add-listing" to="/UnitKerja"><i class="fa-solid fa-plus"></i> Pelayanan</router-link>
             </li>
             <li class="nav-item dropdown has-arrow logged-item" :disabled="loading">
                 <a v-if="!loading" href="#" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown" aria-expanded="false">

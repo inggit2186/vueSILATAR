@@ -18,7 +18,7 @@
 export default {
     data() {
         return {
-            title: "Create an Account",
+            title: "Buat Akun",
             text: "Home",
             text1: "Register",
             name: "/",
