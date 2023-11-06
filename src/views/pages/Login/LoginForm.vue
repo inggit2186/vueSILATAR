@@ -110,6 +110,9 @@ v-else v-model="password"
 			return this.showPassword ? "Hide" : "Show";
 		},
 	},
+	created() {
+		window.scrollTo(0,0)
+    },
 	methods: {
 		toggleShow() {
 			this.showPassword = !this.showPassword;

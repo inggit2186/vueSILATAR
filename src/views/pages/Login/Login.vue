@@ -24,6 +24,6 @@ export default {
             text1: "Login",
             name: "/",
         }
-    },
+    }
 }
 </script>
