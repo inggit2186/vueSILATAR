@@ -14,12 +14,14 @@
                         </router-link>
                     </div>
                     <div class="col-lg-4 col-md-4 centered">
+                        <router-link :to="routeSatuData()">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="$assets+'/img/ikon/507.png'" style="width:100%;" alt="car1">
                             <span>Halaman Kumpulan Data Kantor Kementerian Agama Kab.Tanah Datar</span>
                             </a>								   
                         </div>
+                        </router-link>
                     </div>
                     <div class="col-lg-4 col-md-4 centered">
                         <router-link :to="routeAppoint()">
@@ -42,6 +44,9 @@ export default {
 		routeLayanan() {
 			return id => `/Layanan/${this.navid}`
     	},
+        routeSatuData() {
+            return id => `/SatuData/${this.navid}`
+        },
         routeAppoint() {
             return id => `/Appointment/${this.navid}`
         }

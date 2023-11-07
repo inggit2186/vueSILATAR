@@ -133,6 +133,7 @@ import layananDetail from './views/pages/layananMenu/layananDetail.vue'
 import addRequest from './views/pages/layananMenu/addRequest.vue'
 import uploadSyarat from './views/pages/layananMenu/uploadSyarat.vue'
 import addAppointment from './views/pages/layananMenu/addAppointment.vue'
+import satuData from './views/pages/layananMenu/satuData.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -283,6 +284,7 @@ app.component('LayananDetail',layananDetail)
 app.component('AddRequest',addRequest)
 app.component('UploadSyarat',uploadSyarat)
 app.component('AddAppointment',addAppointment)
+app.component('SatuData',satuData)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

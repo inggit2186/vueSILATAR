@@ -55,6 +55,7 @@ import layananDetailVue from '@/views/pages/layananMenu/layananDetail.vue';
 import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
 import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
 import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
+import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
 
 const routes = [
     {
@@ -297,6 +298,14 @@ const routes = [
         path: '/uploadsyarat/:id',
         name: 'Upload Syarat',
         component: uploadSyaratVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/SatuData/:id',
+        name: 'Satu Data',
+        component: satuDataVue,
         meta: {
             requiresAuth: true
           }

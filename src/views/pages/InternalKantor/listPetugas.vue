@@ -122,7 +122,7 @@ export default {
             name: "/",
             loading: false,
             random: null,
-            itemsPerPage: 12,
+            itemsPerPage: 11,
             currentPage: 1,
             layanan: []
         }
