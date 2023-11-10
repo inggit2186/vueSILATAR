@@ -80,6 +80,24 @@
 									</div>										
 								</div>					
 							</div>
+                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING'">
+                                <div class="profile-content">
+                                    <div class="messages-form">
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h4>Data Input</h4>							
+                                            </div>
+                                            <div class="card-body">
+                                                <div v-for="inputx in input" :key="inputx.id" class="form-group">
+                                                    <label class="col-form-label">{{ inputx.syarat }} <span>*</span></label>								    
+                                                    <b-form-input v-if="inputx.type == 'input'" :id="inputx.syarat" :v-model="inputx.syarat" type="text" class="form-control pass-input" :placeholder="inputx.syarat" />
+                                                    <VueDatePicker v-else-if="inputx.type == 'date'" v-model="date" model-type="MM/dd/yyyy HH:mm" :min-date="new Date()" placeholder="Pilih Tanggal & Jam" :flow="['calendar', 'time']" />									   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>			
+                                </div>
+                            </div>
                             <div v-else class="text-center">
                                 <b-img :src="$assets+'/img/ikon/'+request.status+'.png'" v-bind="mainProps" rounded width="350%"></b-img>
                                 <hr>
@@ -108,7 +126,8 @@ export default {
             loadingRequest: false,
             loadingfile: [],
             imageUrl: [],
-            syarat: []
+            syarat: [],
+            input: [],
         }
     },
     created() {
@@ -133,6 +152,7 @@ export default {
                 if(response.data.success == true){
 				    this.request = response.data.data
                     this.syarat = response.data.syarat
+                    this.input = response.data.input
                 }else{
                     this.datax = true,
                     this.$toast.fire({
