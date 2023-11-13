@@ -89,9 +89,13 @@
                                             </div>
                                             <div class="card-body">
                                                 <div v-for="inputx in input" :key="inputx.id" class="form-group">
-                                                    <label class="col-form-label">{{ inputx.syarat }} <span>*</span></label>								    
-                                                    <b-form-input v-if="inputx.type == 'input'" :id="inputx.syarat" :v-model="inputx.syarat" type="text" class="form-control pass-input" :placeholder="inputx.syarat" />
-                                                    <VueDatePicker v-else-if="inputx.type == 'date'" v-model="date" model-type="MM/dd/yyyy HH:mm" :min-date="new Date()" placeholder="Pilih Tanggal & Jam" :flow="['calendar', 'time']" />									   
+                                                    <label class="col-form-label">{{ inputx.syarat }}<span>*</span></label>								    
+                                                    <b-form-input v-if="inputx.type == 'input'" v-model="formx.isi[inputx.id]" type="text" class="form-control pass-input" :placeholder="inputx.keterangan" >{{ inputx.filename }}</b-form-input>
+                                                    <VueDatePicker v-else-if="inputx.type == 'date'" v-model="formx.isi[inputx.id]" format="MM/dd/yyyy" :placeholder="inputx.keterangan" auto-apply />								   
+                                                    <VueDatePicker v-else-if="inputx.type == 'time'" v-model="formx.isi[inputx.id]" format="hh:mm" :placeholder="inputx.keterangan" time-picker />								   
+                                                    <b-form-select v-else-if="inputx.type == 'option'" v-model="formx.isi[inputx.id]" >
+                                                        <b-form-select-option v-for="item in JSON.parse(inputx.value)" :value="item">{{item}}</b-form-select-option>
+                                                    </b-form-select>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,10 +132,15 @@ export default {
             imageUrl: [],
             syarat: [],
             input: [],
+            itemxx:['ya','tidak'],
+            formx: {
+                isi: {}
+            }
         }
     },
     created() {
         this.getRequest(),
+        this.date = new Date(),
         this.$nextTick(() => {
             this.$refs.scroll1st.scrollIntoView();
         });
@@ -230,7 +239,9 @@ export default {
 				this.loadingRequest = true
 
                 const noreq = this.$route.params.id
-				const headers = {
+				
+                
+                const headers = {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
@@ -238,8 +249,11 @@ export default {
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
                     statusx: 'sending',
 					noreq: noreq,
+                    formx: this.formx.isi,
 				}, {headers})
 
+                console.log(this.formx.isi)
+                
                 if(response.data.success == true){
                     this.$toast.fire({
                         title: response.data.message,
