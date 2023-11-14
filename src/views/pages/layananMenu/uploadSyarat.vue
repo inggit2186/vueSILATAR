@@ -35,7 +35,18 @@
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                 </div>
-                                <div v-else-if="request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
+                                <div v-if="request.status == 'UNCHECK'" style="float:right;">
+                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                    </BButton>
+                                    <br/><br/>
+                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                    </BButton>
+                                </div>
+                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
                                     <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Proses Pembatalan....</b></span>
@@ -55,7 +66,7 @@
                                 </h6>							
 							</div>
                             <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING'">
-                                <span style="font-size: small;"><b><i>*) Wajib Diupload</i></b></span>
+                                <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
 							    <div class="row">
 									<div class="row">
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
@@ -88,13 +99,13 @@
                                                 <h4>Data Input</h4>							
                                             </div>
                                             <div class="card-body">
-                                                <div v-for="inputx in input" :key="inputx.id" class="form-group">
-                                                    <label class="col-form-label">{{ inputx.syarat }}<span>*</span></label>								    
-                                                    <b-form-input v-if="inputx.type == 'input'" v-model="formx.isi[inputx.id]" type="text" class="form-control pass-input" :placeholder="inputx.keterangan" >{{ inputx.filename }}</b-form-input>
-                                                    <VueDatePicker v-else-if="inputx.type == 'date'" v-model="formx.isi[inputx.id]" format="MM/dd/yyyy" :placeholder="inputx.keterangan" auto-apply />								   
-                                                    <VueDatePicker v-else-if="inputx.type == 'time'" v-model="formx.isi[inputx.id]" format="hh:mm" :placeholder="inputx.keterangan" time-picker />								   
-                                                    <b-form-select v-else-if="inputx.type == 'option'" v-model="formx.isi[inputx.id]" >
-                                                        <b-form-select-option v-for="item in JSON.parse(inputx.value)" :value="item">{{item}}</b-form-select-option>
+                                                <div v-for="input in input" :key="input.id" class="form-group">
+                                                    <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
+                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" />
+                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" />								   
+                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" />								   
+                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename" >
+                                                        <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
                                                     </b-form-select>
                                                 </div>
                                             </div>
@@ -132,9 +143,11 @@ export default {
             imageUrl: [],
             syarat: [],
             input: [],
-            itemxx:['ya','tidak'],
             formx: {
                 isi: {}
+            },
+            inputx: {
+                filename: []
             }
         }
     },
@@ -144,8 +157,6 @@ export default {
         this.$nextTick(() => {
             this.$refs.scroll1st.scrollIntoView();
         });
-        
-
     },
     methods: {
         async getRequest() {
@@ -249,17 +260,15 @@ export default {
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
                     statusx: 'sending',
 					noreq: noreq,
-                    formx: this.formx.isi,
+                    formx: this.input,
 				}, {headers})
-
-                console.log(this.formx.isi)
                 
                 if(response.data.success == true){
                     this.$toast.fire({
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    //this.$router.push('/my-listing')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -296,7 +305,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    this.$router.push('/my-listing')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
