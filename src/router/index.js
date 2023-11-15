@@ -57,6 +57,9 @@ import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
 import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
 import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
 
+//cPanel
+import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
+
 const routes = [
     {
         path: '/',
@@ -322,6 +325,14 @@ const routes = [
         path: '/Appointment/:xid/:id',
         name: 'Add Appointment',
         component: addAppointmentVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/admin',
+        name: 'Admin Panel',
+        component: AdminMenuVue,
         meta: {
             requiresAuth: true
           }

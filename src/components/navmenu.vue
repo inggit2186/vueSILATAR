@@ -7,13 +7,12 @@
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
         <ul class="navbar-nav main-nav my-2 my-lg-0">
-            <li
-class="has-submenu megamenu active"
+            <li class="has-submenu megamenu active"
             :class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
-                <router-link to="/">Home</router-link>
+                <router-link to="/"><i-fluent-home-person-24-filled /> &nbsp;Home</router-link>
             </li>
             <li :class="{'active': currentPath == 'satuanKerja/getSeksi'}">
-                <router-link to="/satuanKerja/getSeksi">Satuan Kerja</router-link>
+                <router-link to="/satuanKerja/getSeksi"><i-vaadin-office /> &nbsp;Satuan Kerja</router-link>
             </li>
             <!--
             <li class="has-submenu" :class=" ListingsMenu ? 'active' : 'notactive'">
@@ -66,19 +65,24 @@ class="has-submenu megamenu active"
             </li>
             -->
             <li :class="{'active': currentPath == 'contact'}">
-                <router-link to="/contact">Kontak Kami</router-link>
+                <router-link to="/contact"><i-gg-phone /> &nbsp;Kontak Kami</router-link>
+            </li>
+            <li :class="{'active': currentPath == 'UnitKerja'}">
+                <router-link to="/UnitKerja"><BBadge variant="warning" style="font-size: medium;"><i-ri-customer-service-2-fill /> &nbsp;Pelayanan</BBadge></router-link>
             </li>
         </ul>
     </div>
-    <div class="d-flex align-items-center block-e" :disabled="auth">
+    <div class="d-flex align-items-center block-e">
         <div v-if="!auth" class="cta-btn">
             <router-link to="/login" class="btn">LOGIN  / </router-link>
             <router-link to="/signup" class="btn ms-1">  DAFTAR</router-link>
         </div>
         <div v-else class="nav header-navbar-rht">
-            <li class="nav-item">
-                <router-link class="nav-link header-login add-listing" to="/UnitKerja"><i class="fa-solid fa-plus"></i> Pelayanan</router-link>
+            <!--
+            <li v-if="user.dept.kategori == 'kantor'" class="nav-item">
+                <router-link class="nav-link header-login add-listing" to="/UnitKerja"><i-wpf-administrator /> &nbsp;Admin</router-link>
             </li>
+            -->
             <li class="nav-item dropdown has-arrow logged-item" :disabled="loading">
                 <a v-if="!loading" href="#" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown" aria-expanded="false">
                     <img :src="pp" alt="">
@@ -86,6 +90,7 @@ class="has-submenu megamenu active"
                 </a>
                 <span v-else><i-svg-spinners-bars-scale-middle />  Good Bye...</span>
                 <div class="dropdown-menu dropdown-menu-end">
+                    <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: gray;color: aliceblue;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profile Settings</router-link>
                     <b-button class="dropdown-item" @click="logout()">
@@ -126,7 +131,7 @@ export default {
                 || this.$route.name == 'howitworks' || this.$route.name == 'terms-condition' || this.$route.name == 'privacy-policy' || this.$route.name == 'error-404' || this.$route.name == 'error-500';
             },
             UserMenu() {
-                return this.$route.name == 'dashboard' || this.$route.name == 'profile' || this.$route.name == 'my-listing' || this.$route.name == 'bookmarks' || this.$route.name == 'messages' || this.$route.name == 'reviews' || this.$route.name == 'add-listing';
+                return this.$route.name == 'admin' || this.$route.name == 'dashboard' || this.$route.name == 'profile' || this.$route.name == 'my-listing' || this.$route.name == 'bookmarks' || this.$route.name == 'messages' || this.$route.name == 'reviews' || this.$route.name == 'add-listing';
             },
             BlogMenu() {
                 return this.$route.name == 'blog-list' || this.$route.name == 'blog-grid' || this.$route.name == 'blog-details' || this.$route.name == 'blog-list-sidebar' || this.$route.name == 'blog-grid-sidebar';

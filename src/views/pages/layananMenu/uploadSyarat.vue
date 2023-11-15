@@ -30,7 +30,7 @@
 							    <h4>Upload File-File Syarat</h4>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="warning" @click="newRequest()" :disabled="loadingRequest">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
@@ -245,6 +245,46 @@ export default {
                 focusConfirm: false,
             })
         },
+        async newRequest() {
+            try{
+				this.loadingRequest = true
+
+                const noreq = this.$route.params.id
+				
+                
+                const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+                
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
+                    statusx: 'new',
+					noreq: noreq,
+                    formx: this.input,
+				}, {headers})
+                
+                if(response.data.success == true){
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+                    this.$router.push('/my-listing')  
+                }else{
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'error',
+                    })
+                }
+                
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingRequest = false
+			}
+        },
         async updateRequest() {
             try{
 				this.loadingRequest = true
@@ -268,7 +308,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    //this.$router.push('/my-listing')  
+                    this.$router.push('/my-listing')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,

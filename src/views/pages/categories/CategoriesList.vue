@@ -12,17 +12,40 @@
 						<hr>
 					</div>
 						<div v-else-if="!loading">
-							<div class="col-lg-3 col-md-4 centered">
-								<router-link :to="tujuLayanan('999')">
-								<div class="categories-content">
+							<div class="row">
+							<div class="col-lg-3 col-md-3 centered">
+								<router-link :to="tujuKonsultasi()">
+									<div class="categories-content">
 									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-									<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
-									<h6>Layanan Persuratan Lainnya</h6>
-									<span class="ads">Surat Masuk</span>
-									<span>Untuk Layanan Persuratan diluar Kategori / Lainnya</span>
+									<img :src="$assets+'/img/ikon/777.png'" style="width:80%;" alt="car1">
+									<h6>Konsultasi</h6>
+									<span>Layanan Konsultasi / Appointment Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
 									</a>								   
 								</div>
 								</router-link>
+							</div>
+							<div class="col-lg-3 col-md-3 centered">
+								<router-link :to="tujuLayanan('888')">
+									<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/ikon/888.png'" style="width:80%;" alt="car1">
+									<h6>Pengaduan</h6>
+									<span>Silahkan Buat Aduan kepada Kami jika ada yang kurang berkenan</span>
+									</a>								   
+								</div>
+								</router-link>
+							</div>
+							<div class="col-lg-3 col-md-3 centered">
+								<router-link :to="tujuLayanan('999')">
+									<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/ikon/999.png'" style="width:80%;" alt="car1">
+									<h6>Layanan Persuratan Lainnya</h6>
+									<span>Layanan Persuratan yang tidak didalam list layanan seksi</span>
+									</a>								   
+								</div>
+								</router-link>
+							</div>
 							</div>
 							<hr/>
 						</div>
@@ -30,9 +53,8 @@
 							<router-link :to="tujuLayanan(item.id)">
 							<div class="categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/icons/category-'+randNo()+'.svg'" alt="car1">
+								<img :src="$assets+'/img/ikon/'+item.id+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
 								<h6>{{ item.nama }}</h6>
-								<span class="ads">{{ item.output }}</span>
 								<span>{{ item.deskripsi }}</span>
 								</a>								   
 							</div>
@@ -76,10 +98,10 @@ export default {
 	data() {
 			return {
 				loading: false,
-				random: null,
 				itemsPerPage: 12,
         		currentPage: 1,
-				layanan: []
+				layanan: [],
+				submenu: []
 			}
 	},
 	computed: {
@@ -98,11 +120,13 @@ export default {
         },
 		tujuLayanan() {
         	return id => `/LayananDetail/${this.$route.params.id}/${id}`
+    	},
+		tujuKonsultasi() {
+        	return id => `/Appointment/${this.$route.params.id}`
     	},	
 	},
 	created() {
 		this.getLayanan(),
-		this.random = this.randNo();
 		window.scrollTo(0,0)
 	},
 	methods: {
@@ -118,6 +142,7 @@ export default {
 				
 				if(response.data.success == true){
 					this.layanan = response.data.data
+					this.submenu = response.data.submenu
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -137,9 +162,9 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-		randNo() {
-        	return Math.floor(Math.random() * 28) + 1;
-    	}
+		handleBrokenImage(item) {
+			item.id = 'o-'+(Math.floor(Math.random() * 16) + 1);
+		}
 	}
 }
 </script>
