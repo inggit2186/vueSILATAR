@@ -53,7 +53,7 @@
 							<router-link :to="tujuLayanan(item.id)">
 							<div class="categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/ikon/'+item.id+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
+								<img :src="$assets+'/img/ikon/'+item.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
 								<h6>{{ item.nama }}</h6>
 								<span>{{ item.deskripsi }}</span>
 								</a>								   
@@ -163,7 +163,7 @@ export default {
 			this.currentPage = pageNumber;
 		},
 		handleBrokenImage(item) {
-			item.id = 'o-'+(Math.floor(Math.random() * 16) + 1);
+			item.imgid = 'o-'+(Math.floor(Math.random() * 16) + 1);
 		}
 	}
 }

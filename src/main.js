@@ -137,6 +137,7 @@ import satuData from './views/pages/layananMenu/satuData.vue'
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
+import listRequest from './views/pages/adminpanel/listRequest.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -291,6 +292,7 @@ app.component('SatuData',satuData)
 
 //cPanel
 app.component('AdminMenu', adminMenu)
+app.component('ListRequest', listRequest)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

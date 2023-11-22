@@ -15,7 +15,7 @@
 							<hr>
 						</div>
                         <div v-else v-for="item in submenu" :key="item.id" class="col-lg-4 col-md-4 centered">
-                            <router-link to='/bukutamu'>
+                            <router-link :to='"/listreq/"+item.id'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/'+item.id+'.png'" style="width:100%;" alt="car1" @error="handleBrokenImage(item)">
@@ -27,7 +27,7 @@
                         </div>
                         <hr/>
                         <div class="col-lg-4 col-md-4 centered">
-                            <router-link to='/bukutamu'>
+                            <router-link to='/listreq/777'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/777.png'" style="width:100%;" alt="car1">
@@ -38,7 +38,7 @@
                             </router-link>
                         </div>
                         <div class="col-lg-4 col-md-4 centered">
-                            <router-link to='/bukutamu'>
+                            <router-link to='/listreq/888'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/888.png'" style="width:100%;" alt="car1">
@@ -49,7 +49,7 @@
                             </router-link>
                         </div>
                         <div class="col-lg-4 col-md-4 centered">
-                            <router-link to='/bukutamu'>
+                            <router-link to='/listreq/999'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/999.png'" style="width:100%;" alt="car1">

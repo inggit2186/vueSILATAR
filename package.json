@@ -63,6 +63,7 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@iconify-json/ant-design": "^1.1.10",
     "@iconify-json/bx": "^1.1.7",
     "@iconify-json/carbon": "^1.1.21",
     "@iconify-json/fa": "^1.1.5",
