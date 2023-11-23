@@ -60,6 +60,7 @@ import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
 //cPanel
 import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
 import ListRequestVue from '@/views/pages/adminpanel/listRequest.vue'
+import DetailRequestVue from '@/views/pages/adminpanel/detailRequest.vue'
 
 const routes = [
     {
@@ -342,6 +343,14 @@ const routes = [
         path: '/listreq/:id',
         name: 'Daftar Request',
         component: ListRequestVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/detailrequest/:id',
+        name: 'Detail Request',
+        component: DetailRequestVue,
         meta: {
             requiresAuth: true
           }

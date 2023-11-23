@@ -64,7 +64,7 @@
                                                 </td>
                                                 <td>
                                                     <BButton v-if="item.status == 'DRAFT'" pill size="sm" variant="danger" @click.prevent="deleteRequest(item.no_req)"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
-                                                    <BButton pill size="sm" variant="outline-primary" :to="`/uploadsyarat/${item.no_req}`"><b><i-ph-eye-fill /> DETAIL</b></BButton>
+                                                    <BButton pill size="sm" variant="outline-primary" :to="`/detailrequest/${item.no_req}`"><b><i-ph-eye-fill /> DETAIL</b></BButton>
                                                 </td>
                                             </tr>
                                         </tbody>

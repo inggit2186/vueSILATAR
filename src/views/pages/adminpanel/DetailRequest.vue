@@ -27,6 +27,8 @@
                     </div>
 				    <div v-else class="card media-section">
 						    <div class="card-header">
+							    <h4>DETAIL REQUEST</h4>
+                                <hr/>
                                 <div style="font-size:18px;float:right;">
                                         <BBadge v-if="request.status == 'DRAFT'" variant="light">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'UNCHECK'" variant="info">{{ request.status }}</BBadge>
@@ -36,31 +38,6 @@
                                         <BBadge v-else-if="request.status == 'SUKSES'" variant="primary">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'DITOLAK'" variant="danger">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'BATAL'" variant="dark">{{ request.status }}</BBadge>
-                                </div>
-							    <h4>Upload File-File Syarat</h4>
-                                <hr/>
-                                <div v-if="request.status == 'DRAFT'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="newRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                </div>
-                                <div v-if="request.status == 'UNCHECK'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                    <br/><br/>
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                </div>
-                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Proses Pembatalan....</b></span>
-                                    </BButton>
                                 </div>
                                 <table class="detailhead">
                                     <tr>
@@ -84,9 +61,6 @@
                                         <td>{{ request.deskripsi }}</td>
                                     </tr>
                                 </table>
-                                <br/>
-                                <div v-if="request.status == 'DRAFT'"></div>
-                                <div v-else>
                                 <hr/>
                                 <div v-if="request.layanan_id == '666'" class="step2">
                                 <ul>
@@ -218,7 +192,40 @@
                                 </ul>
                                 </div>
                                 <hr/>
-                                </div>				
+                                <div v-if="request.status == 'DRAFT'" class="centered">
+                                    <BButton block size="md" variant="warning" @click="newRequest()" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
+                                    </BButton>
+                                </div>
+                                <div v-if="request.status == 'UNCHECK'" class="centered">
+                                    <BButton block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
+                                    </BButton>
+                                    <br/><br/>
+                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    </BButton>
+                                </div>
+                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
+                                        <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
+                                            <span v-if="!loadingRequest"><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
+                                        </BButton>
+                                        <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
+                                            <span v-if="!loadingRequest"><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
+                                        </BButton>
+                                        <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                            <span v-if="!loadingRequest"><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
+                                        </BButton>
+                                        &nbsp;&nbsp;
+                                        <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                            <span v-if="!loadingRequest"><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
+                                        </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    </BButton>
+                                </div>
+                                <br/>
 							</div>
                             <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
                                 <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
@@ -578,12 +585,55 @@ export default {
 			} finally {
 				this.loadingkomen = false
 			}
+        },
+        async updatePTSP(st) {
+            try{
+				this.loadingRequest = true
+
+                const noreq = this.$route.params.id
+				const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+                
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePTSP',{
+                    statusx: st,
+					noreq: noreq,
+				}, {headers})
+
+                if(response.data.success == true){
+                    this.request = response.data.data
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+                    //this.$router.push('/my-listing')  
+                }else{
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'error',
+                    })
+                }
+                
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingRequest = false
+			}
         }
     }
 }
 </script>
 
 <style>
+.detailhead {
+    font-weight: 700;
+    font-size: large;
+}
+
 .comments {
   width: 430px;
   margin: 10px;
@@ -677,5 +727,86 @@ export default {
   
   right: -30px;
   top: 10px;
+}
+
+/*-------------STATUS BAR----------------*/
+
+.step2 ul {
+    display: flex;
+}
+
+.step2 ul li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+.step2 ul li .icons {
+    font-size: 25px;
+    color: #1b761b;
+    margin: 0 60px;
+}
+
+.step2 ul li .label {
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #1b761b;
+}
+
+.step2 ul li .step {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #d7d7c3;
+    margin: 16px 0 10px;
+    display: grid;
+    place-items: center;
+    color: ghostwhite;
+    position: relative;
+    cursor: pointer;
+}
+
+.step::after {
+    content: "";
+    position: absolute;
+    width: 197px;
+    height: 3px;
+    background-color: #d7d7c3;
+    right: 30px;
+}
+
+.first::after {
+    width: 0;
+    height: 0;
+}
+
+.step2 ul li .step .awesome {
+    display: none;
+}
+
+.step2 ul li .step p {
+    font-size: 15px;
+}
+
+.step2 ul li .active {
+    background-color: #1b761b;
+}
+
+.step2 li .active::after {
+    background-color: #1b761b;
+
+}
+
+.step2 ul li .active p {
+    display: none;
+}
+
+.step2 ul li .active .awesome {
+    display: flex;
 }
 </style>
