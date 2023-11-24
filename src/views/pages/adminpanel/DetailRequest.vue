@@ -193,44 +193,180 @@
                                 </div>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" class="centered">
+                                    <div v-if="!loadingRequest">
                                     <BButton block size="md" variant="warning" @click="newRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                     </BButton>
+                                    </div>
+                                    <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                    </div>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" class="centered">
-                                    <BButton block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
+                                    <div v-if="!loadingRequest">
+                                    <BButton block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                        <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
                                     </BButton>
                                     <br/><br/>
-                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    <BButton block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
                                     </BButton>
+                                    &nbsp;&nbsp; 
+                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    </BButton>
+                                    </div>
+                                    <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                    </div>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
-                                        <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
-                                        </BButton>
-                                        <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
-                                        </BButton>
-                                        <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
-                                        </BButton>
-                                        &nbsp;&nbsp;
-                                        <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
-                                        </BButton>
+                                    <div v-if="!loadingRequest">
+                                    <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
+                                        <span><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
+                                    </BButton>
+                                    <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
+                                        <span><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
+                                    </BButton>
+                                    <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                        <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
+                                    </BButton>
                                     &nbsp;&nbsp;
                                     <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                     </BButton>
+                                     </div>
+                                     <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar ya gan!.....</h4>
+                                    </div>
                                 </div>
                                 <br/>
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
-                                <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
+                            <div v-if="request.status == 'DIPROSES' || request.status == 'SUKSES'" class="card-body">
+                                <div class="profile-content">
+                                    <div class="messages-form">
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h3><u>Hasil Proses</u></h3>
+                                                <span><p style="font-size:smaller;font-style: italic;">Isi Jika Proses Request mempunyai hasil/keluaran Surat</p></span>							
+                                            </div>
+                                            <br/>
+                                            <div class="row">    
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nomor Surat</label>								    
+                                                        <b-form-input v-model="hasil.no_surat" type="text" class="form-control pass-input" placeholder="Nomor Surat Keluaran"></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Judul / Perihal</label>								    
+                                                        <b-form-input v-model="hasil.perihal" type="text" class="form-control pass-input" placeholder="Perihal Surat"></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Catatan / Deskripsi / Keterangan</label>								    
+                                                        <b-form-textarea v-model="hasil.keterangan" type="text" class="form-control pass-input" :placeholder="keterangan"></b-form-textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Hasil Surat / Surat Keluaran</h6>
+                                                            <img v-if="hasil.surat == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.surat)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div class="settings-upload-btn">
+                                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingHasil" @change="onFileChange($event)">
+                                                            <label v-if="!loadingHasil" for="file" class="file-upload">
+                                                                <span v-if="hasil.surat == null || hasil.surat == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                            </label>
+                                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Lampiran</h6>
+                                                            <img v-if="hasil.lampiran1 == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran1)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div class="settings-upload-btn">
+                                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingHasil" @change="onFileChange($event)">
+                                                            <label v-if="!loadingHasil" for="file" class="file-upload">
+                                                                <span v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                            </label>
+                                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Lampiran</h6>
+                                                            <img v-if="hasil.lampiran2 == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran2)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div class="settings-upload-btn">
+                                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingHasil" @change="onFileChange($event)">
+                                                            <label v-if="!loadingHasil" for="file" class="file-upload">
+                                                                <span v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                            </label>
+                                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>			
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="card-body">
+                                <div class="profile-content">
+                                    <div class="messages-form">
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h3><u>DETAIL DATA REQUEST</u></h3>							
+                                            </div>
+                                            <br/>
+                                            <div class="card-body">
+                                                <div v-for="input in input" :key="input.id" class="form-group">
+                                                    <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
+                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" readonly/>
+                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" readonly/>								   
+                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" readonly/>								   
+                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename">
+                                                        <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
+                                                    </b-form-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>			
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="card-body">
 							    <div class="row">
 									<div class="row">
+                                        <div class="card-header text-center">
+                                            <h4><u>SYARAT-SYARAT BERKAS</u></h4>							
+                                        </div>
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
                                             <div class="media-image" v-b-tooltip="item.keterangan">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
@@ -240,45 +376,12 @@
                                                     <p class="my-4">Cek File!</p>
                                                 </BModal>
                                                 <hr/>
-                                                <div class="settings-upload-btn">
-                                                    <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
-                                                    <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
-                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
-                                                        <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
-                                                    </label>
-                                                    <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
-                                                </div>
                                             </div>
                                         </div>
 									</div>										
 								</div>					
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
-                                <div class="profile-content">
-                                    <div class="messages-form">
-                                        <div class="card">
-                                            <div class="card-header text-center">
-                                                <h4>Data Input</h4>							
-                                            </div>
-                                            <div class="card-body">
-                                                <div v-for="input in input" :key="input.id" class="form-group">
-                                                    <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
-                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" />
-                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" />								   
-                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" />								   
-                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename" >
-                                                        <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
-                                                    </b-form-select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>			
-                                </div>
-                            </div>
-                            <div v-else>
-                                <div class="text-center">
-                                <b-img :src="$assets+'/img/ikon/'+request.status+'.png'" v-bind="mainProps" rounded width="350%"></b-img>
-                                </div>
+                            <div>
                                 <hr>
                                 <h2 class="text-center" style="font-weight: 700;"><i-ant-design-comment-outlined /> KOMENTAR</h2>
                                 <br/>
@@ -325,8 +428,10 @@ export default {
             name: "/",
             datax: false,
             loading: false,
+            loadinginput: false,
             loadingRequest: false,
             loadingkomen: false,
+            loadingHasil: false,
             loadingfile: [],
             imageUrl: [],
             syarat: [],
@@ -337,7 +442,13 @@ export default {
             },
             inputx: {
                 filename: []
-            }
+            },
+            perihal: null,
+            nosurathasil: null,
+            keterangan: null,
+            hasilFile: 'NONE',
+            hasilLampiran: 'NONE',
+            hasilLampiran2: 'NONE'
         }
     },
     created() {
@@ -363,6 +474,7 @@ export default {
                     this.syarat = response.data.syarat
                     this.input = response.data.input
                     this.komen = response.data.komen
+                    this.hasil = response.data.hasil
                 }else{
                     this.datax = true,
                     this.$toast.fire({
@@ -599,6 +711,9 @@ export default {
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePTSP',{
                     statusx: st,
 					noreq: noreq,
+                    nosurathasil: this.nosurathasil,
+                    perihal: this.perihal,
+                    keteranganhasil: this.keterangan 
 				}, {headers})
 
                 if(response.data.success == true){
@@ -623,7 +738,7 @@ export default {
 			} finally {
 				this.loadingRequest = false
 			}
-        }
+        },
     }
 }
 </script>
