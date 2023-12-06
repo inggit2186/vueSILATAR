@@ -381,7 +381,7 @@ const routes = [
 
 ]
 export const router = createRouter({
-    history: createWebHistory('vuejs'),
+    history: createWebHistory('/'),
     linkActiveClass: 'active',
     routes,
 });
