@@ -1,5 +1,6 @@
 <template>
     <div class="main-wrapper">
+		<layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             

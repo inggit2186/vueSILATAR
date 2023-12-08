@@ -140,7 +140,7 @@
                                     </li>
                                     <li>
                                         <i class="icons awesome fa-solid fa-thumbs-up"></i>
-                                        <div v-if="request.status == 'SUKSES'" class="step fifth active">
+                                        <div v-if="request.status == 'SUKSES' || request.status == 'DITOLAK' || request.status == 'BATAL'" class="step fifth active">
                                             <p>5</p>
                                             <i class="awesome fa-solid fa-check"></i>
                                         </div>
@@ -205,7 +205,7 @@
                                     </li>
                                     <li>
                                         <i class="icons awesome fa-solid fa-thumbs-up"></i>
-                                        <div v-if="request.status == 'SUKSES'" class="step fifth active">
+                                        <div v-if="request.status == 'SUKSES' || request.status == 'DITOLAK' || request.status == 'BATAL'" class="step fifth active">
                                             <p>5</p>
                                             <i class="awesome fa-solid fa-check"></i>
                                         </div>
@@ -241,6 +241,12 @@
                                                     </label>
                                                     <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                                 </div>
+                                                <br/>
+                                                <div>
+                                                    <BButton v-if="item.filename != null && item.filename != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile(item.id)">
+                                                        <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                                    </BButton>
+                                                </div>
                                             </div>
                                         </div>
 									</div>										
@@ -271,6 +277,65 @@
                             <div v-else>
                                 <div class="text-center">
                                 <b-img :src="$assets+'/img/ikon/'+request.status+'.png'" v-bind="mainProps" rounded width="350%"></b-img>
+                                </div>
+                                <hr>
+                                <div v-if="request.status == 'SUKSES' && hasil.no_surat" class="card-body">
+                                    <div class="profile-content">
+                                        <div class="messages-form">
+                                            <div class="card">
+                                                <div class="card-header text-center">
+                                                    <h3><u>Hasil Proses</u></h3>							
+                                                </div>
+                                                <br/>
+                                                <div class="row">    
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nomor Surat</label>								    
+                                                            <b-form-input v-model="hasil.no_surat" type="text" class="form-control pass-input" placeholder="Nomor Surat Keluaran" readonly></b-form-input>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Judul / Perihal</label>								    
+                                                            <b-form-input v-model="hasil.perihal" type="text" class="form-control pass-input" placeholder="Perihal Surat" readonly></b-form-input>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Catatan / Deskripsi / Keterangan</label>								    
+                                                            <b-form-textarea v-model="hasil.keterangan" type="text" class="form-control pass-input" :placeholder="keterangan" readonly></b-form-textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="hasil.surat && hasil.surat != null && hasil.surat != 'NONE'" class="col-lg-4 col-md-4 featured-img1 centered">
+                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                            <h6 class="media-title">Hasil Surat / Surat Keluaran</h6>
+                                                                <img v-if="hasil.surat == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                                <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.surat)" />
+                                                            <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                                <p class="my-4">Cek File!</p>
+                                                            </BModal>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="hasil.lampiran1 && hasil.lampiran1 != null && hasil.lampiran1 != 'NONE'" class="col-lg-4 col-md-4 featured-img1 centered">
+                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                            <h6 class="media-title">Lampiran</h6>
+                                                                <img v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                                <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran1)" />
+                                                            <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                                <p class="my-4">Cek File!</p>
+                                                            </BModal>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="hasil.lampiran2 && hasil.lampiran2 != 'NONE' && hasil.lampiran2 != null" class="col-lg-4 col-md-4 featured-img1 centered">
+                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                            <h6 class="media-title">Lampiran</h6>
+                                                                <img v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                                <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran2)" />
+                                                            <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                                <p class="my-4">Cek File!</p>
+                                                            </BModal>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>			
+                                    </div>
                                 </div>
                                 <hr>
                                 <h2 class="text-center" style="font-weight: 700;"><i-ant-design-comment-outlined /> KOMENTAR</h2>
@@ -356,6 +421,7 @@ export default {
                     this.syarat = response.data.syarat
                     this.input = response.data.input
                     this.komen = response.data.komen
+                    this.hasil = response.data.hasil
                 }else{
                     this.datax = true,
                     this.$toast.fire({
@@ -420,13 +486,45 @@ export default {
 			}
 		},
         openFile(item) {
-            this.$swal.fire({
-                width: "50%",
-                html:
-                    '<iframe src="'+ item +'" type="application/pdf" width="100%" height="600px" />',
-                showCloseButton: true,
-                focusConfirm: false,
-            })
+            let frame = null;
+            let isPDF = item.toLowerCase().endsWith('.pdf');
+            let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
+            
+            if(isWord){
+                frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+            }else{
+                frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+            }
+
+            if (window.innerWidth < 768) {
+                this.$swal.fire({
+                    width: "100%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }else{
+                this.$swal.fire({
+                    width: "50%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }
         },
         async newRequest() {
             try{
@@ -444,6 +542,7 @@ export default {
                     statusx: 'new',
 					noreq: noreq,
                     formx: this.input,
+                    baseurl: window.location.origin,
 				}, {headers})
                 
                 if(response.data.success == true){
@@ -578,6 +677,49 @@ export default {
 			} finally {
 				this.loadingkomen = false
 			}
+        },
+        async deleteFile(itemid){
+            console.log(itemid)
+            this.$swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda Tidak bisa untuk Membatalkannya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Ya, Hapus File ini!",
+                preConfirm: async (deleteFile) => {
+                    try {
+                        const noreq = this.$route.params.id
+                        const headers = {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    };
+                        
+                        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteSyarat',{
+                            noreq: noreq,
+                            id: itemid,
+                        }, {headers})
+
+                        if(response.data.success == true){
+                            this.syarat = response.data.syarat
+                        }
+                    } catch (error) {
+                    this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$toast.fire({
+                    title: "File Telah Dihapus!",
+                    icon: "success"
+                    });
+                }
+            });
         }
     }
 }

@@ -62,7 +62,7 @@
                                     </tr>
                                 </table>
                                 <hr/>
-                                <div v-if="request.layanan_id == '666'" class="step2">
+                                <div v-if="request.layanan_id == '666'" class="step2 d-none d-md-block">
                                 <ul>
                                     <li>
                                         <i class="icons awesome fa-solid fa-person-walking"></i>
@@ -114,7 +114,7 @@
                                     </li>
                                     <li>
                                         <i class="icons awesome fa-solid fa-thumbs-up"></i>
-                                        <div v-if="request.status == 'SUKSES'" class="step fifth active">
+                                        <div v-if="request.status == 'SUKSES' || request.status == 'DITOLAK' || request.status == 'BATAL'" class="step fifth active">
                                             <p>5</p>
                                             <i class="awesome fa-solid fa-check"></i>
                                         </div>
@@ -127,7 +127,7 @@
                                 </ul>
                                 </div>
                                 
-                                <div v-else class="step2">
+                                <div v-else class="step2 d-none d-md-block">
                                     <ul>
                                     <li>
                                         <i class="icons awesome fa-solid fa-person-walking"></i>
@@ -179,7 +179,7 @@
                                     </li>
                                     <li>
                                         <i class="icons awesome fa-solid fa-thumbs-up"></i>
-                                        <div v-if="request.status == 'SUKSES'" class="step fifth active">
+                                        <div v-if="request.status == 'SUKSES' || request.status == 'DITOLAK' || request.status == 'BATAL'" class="step fifth active">
                                             <p>5</p>
                                             <i class="awesome fa-solid fa-check"></i>
                                         </div>
@@ -193,44 +193,235 @@
                                 </div>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" class="centered">
+                                    <div v-if="!loadingRequest">
                                     <BButton block size="md" variant="warning" @click="newRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                     </BButton>
+                                    </div>
+                                    <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                    </div>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" class="centered">
-                                    <BButton block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
+                                    <div v-if="!loadingRequest">
+                                    <BButton block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                        <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
                                     </BButton>
-                                    <br/><br/>
-                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
                                     </BButton>
-                                </div>
-                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
-                                        <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
-                                        </BButton>
-                                        <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
-                                        </BButton>
-                                        <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
-                                        </BButton>
-                                        &nbsp;&nbsp;
-                                        <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
-                                            <span v-if="!loadingRequest"><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
-                                        </BButton>
                                     &nbsp;&nbsp;
                                     <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                        <span><b><i-ooui-cancel /> &nbsp;&nbsp;BATAL</b></span>
                                     </BButton>
+                                    </div>
+                                    <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                    </div>
+                                </div>
+                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
+                                    <div v-if="!loadingRequest">
+                                    <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
+                                        <span><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
+                                    </BButton>
+                                    <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
+                                        <span><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
+                                    </BButton>
+                                    <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                        <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
+                                    </BButton>
+                                     </div>
+                                     <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar ya gan!.....</h4>
+                                    </div>
+                                </div>
+                                <div v-else-if="request.status == 'SUKSES' || request.status == 'BATAL' || request.status == 'DITOLAK'" class="centered">
+                                    <div v-if="!loadingRequest">
+                                    <BButton v-if="request.step == 4" block size="md" variant="dark" @click="updatePTSP('ubah')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-comment-edit-20-filled /> &nbsp;&nbsp;UBAH</b></span>
+                                    </BButton>
+                                     </div>
+                                     <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar ya gan!.....</h4>
+                                    </div>
                                 </div>
                                 <br/>
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
-                                <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
+                            <div v-if="request.status == 'DIPROSES' || request.status == 'SUKSES'" class="card-body">
+                                <div class="profile-content">
+                                    <div class="messages-form">
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h3><u>Hasil Proses</u></h3>
+                                                <span><p style="font-size:smaller;font-style: italic;">Isi Jika Proses Request mempunyai hasil/keluaran Surat</p></span>							
+                                            </div>
+                                            <br/>
+                                            <div class="row">    
+                                                <div v-if="request.status != 'SUKSES'" class="card-body">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nomor Surat</label>								    
+                                                        <b-form-input v-model="hasil.no_surat" type="text" class="form-control pass-input" placeholder="Nomor Surat Keluaran"></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Judul / Perihal</label>								    
+                                                        <b-form-input v-model="hasil.perihal" type="text" class="form-control pass-input" placeholder="Perihal Surat"></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Catatan / Deskripsi / Keterangan</label>								    
+                                                        <b-form-textarea v-model="hasil.keterangan" type="text" class="form-control pass-input" :placeholder="keterangan"></b-form-textarea>
+                                                    </div>
+                                                </div>
+                                                <div v-else-if="request.status == 'SUKSES'" class="card-body">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Nomor Surat</label>								    
+                                                        <b-form-input v-model="hasil.no_surat" type="text" class="form-control pass-input" placeholder="Nomor Surat Keluaran" readonly></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Judul / Perihal</label>								    
+                                                        <b-form-input v-model="hasil.perihal" type="text" class="form-control pass-input" placeholder="Perihal Surat" readonly></b-form-input>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Catatan / Deskripsi / Keterangan</label>								    
+                                                        <b-form-textarea v-model="hasil.keterangan" type="text" class="form-control pass-input" :placeholder="keterangan" readonly></b-form-textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Hasil Surat / Surat Keluaran</h6>
+                                                            <img v-if="hasil.surat == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.surat)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div v-if="request.status != 'SUKSES'">
+                                                            <div class="settings-upload-btn">
+                                                                <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['surat']" @change="onFileHasil('surat',$event)">
+                                                                <label v-if="!loadingfile['surat']" for="file" class="file-upload">
+                                                                    <span v-if="hasil.surat == null || hasil.surat == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                    <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                                </label>
+                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                            </div>
+                                                            <br/>
+                                                            <div>
+                                                                <BButton v-if="hasil.surat != null && hasil.surat != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile('surat')">
+                                                                    <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                                                </BButton>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Lampiran</h6>
+                                                            <img v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran1)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div v-if="request.status != 'SUKSES'">
+                                                            <div  class="settings-upload-btn">
+                                                                <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['lampiran1']" @change="onFileHasil('lampiran1',$event)">
+                                                                <label v-if="!loadingfile['lampiran1']" for="file" class="file-upload">
+                                                                    <span v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                    <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                                </label>
+                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                            </div>
+                                                            <br/>
+                                                            <div>
+                                                                <BButton v-if="hasil.lampiran1 != null && hasil.lampiran1 != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile('lampiran1')">
+                                                                    <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                                                </BButton>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 featured-img1 centered">
+                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <h6 class="media-title">Lampiran</h6>
+                                                            <img v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran2)" />
+                                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                                            <p class="my-4">Cek File!</p>
+                                                        </BModal>
+                                                        <hr/>
+                                                        <div v-if="request.status != 'SUKSES'" >
+                                                            <div class="settings-upload-btn">
+                                                                <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['lampiran2']" @change="onFileHasil('lampiran2',$event)">
+                                                                <label v-if="!loadingfile['lampiran2']" for="file" class="file-upload">
+                                                                    <span v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                    <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                                </label>
+                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                            </div>
+                                                            <br/>
+                                                            <div>
+                                                                <BButton v-if="hasil.lampiran2 != null && hasil.lampiran2 != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile('lampiran2')">
+                                                                    <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                                                </BButton>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>			
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="card-body">
+                                <div class="profile-content">
+                                    <div class="messages-form">
+                                        <div class="card">
+                                            
+                                            <div class="card-header text-center">
+                                                <div style="font-size:18px;float:right;">
+                                                <BButton v-if="!edit" block size="md" variant="danger" @click="ubahReq()" :disabled="loadingRequest">
+                                                    <span><b><i-fa-solid-edit /> &nbsp;&nbsp;Ubah Data Pengajuan</b></span>
+                                                </BButton>
+                                                <BButton v-else block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                                    <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Perubahan Data</b></span>
+                                                    <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                                </BButton>
+                                            </div>
+                                                <h3><u>DETAIL DATA REQUEST</u></h3>							
+                                            </div>
+                                            <br/>
+                                            <div class="card-body">
+                                                <div v-for="input in input" :key="input.id" class="form-group">
+                                                    <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
+                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" :readonly="!edit"/>
+                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" :readonly="!edit"/>								   
+                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" :readonly="!edit"/>								   
+                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename">
+                                                        <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
+                                                    </b-form-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>			
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="card-body">
 							    <div class="row">
 									<div class="row">
+                                        <div class="card-header text-center">
+                                            <h4><u>SYARAT-SYARAT BERKAS</u></h4>							
+                                        </div>
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
                                             <div class="media-image" v-b-tooltip="item.keterangan">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
@@ -240,45 +431,28 @@
                                                     <p class="my-4">Cek File!</p>
                                                 </BModal>
                                                 <hr/>
-                                                <div class="settings-upload-btn">
-                                                    <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
-                                                    <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
-                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
-                                                        <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
-                                                    </label>
-                                                    <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                <div v-if="edit">
+                                                    <div class="settings-upload-btn">
+                                                        <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
+                                                        <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
+                                                            <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                            <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                                        </label>
+                                                        <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                    </div>
+                                                    <br/>
+                                                    <div>
+                                                        <BButton v-if="item.filename != null && item.filename != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteSyarat(item.id)">
+                                                            <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                                        </BButton>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 									</div>										
-								</div>					
+								</div>				
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
-                                <div class="profile-content">
-                                    <div class="messages-form">
-                                        <div class="card">
-                                            <div class="card-header text-center">
-                                                <h4>Data Input</h4>							
-                                            </div>
-                                            <div class="card-body">
-                                                <div v-for="input in input" :key="input.id" class="form-group">
-                                                    <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
-                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" />
-                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" />								   
-                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" />								   
-                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename" >
-                                                        <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
-                                                    </b-form-select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>			
-                                </div>
-                            </div>
-                            <div v-else>
-                                <div class="text-center">
-                                <b-img :src="$assets+'/img/ikon/'+request.status+'.png'" v-bind="mainProps" rounded width="350%"></b-img>
-                                </div>
+                            <div>
                                 <hr>
                                 <h2 class="text-center" style="font-weight: 700;"><i-ant-design-comment-outlined /> KOMENTAR</h2>
                                 <br/>
@@ -323,21 +497,31 @@ export default {
             text: "Home",
             text1: "Upload Syarat",
             name: "/",
+            edit: false,
             datax: false,
             loading: false,
+            loadinginput: false,
             loadingRequest: false,
             loadingkomen: false,
+            loadingHasil: false,
             loadingfile: [],
             imageUrl: [],
             syarat: [],
             komen: [],
             input: [],
+            hasil:[],
             formx: {
                 isi: {}
             },
             inputx: {
                 filename: []
-            }
+            },
+            perihal: null,
+            nosurathasil: null,
+            keterangan: null,
+            hasilFile: 'NONE',
+            hasilLampiran: 'NONE',
+            hasilLampiran2: 'NONE'
         }
     },
     created() {
@@ -348,6 +532,9 @@ export default {
         });
     },
     methods: {
+        ubahReq() {
+            this.edit = true
+        },
         async getRequest() {
 			this.loading = true;
 			try{
@@ -363,6 +550,7 @@ export default {
                     this.syarat = response.data.syarat
                     this.input = response.data.input
                     this.komen = response.data.komen
+                    this.hasil = response.data.hasil
                 }else{
                     this.datax = true,
                     this.$toast.fire({
@@ -390,6 +578,18 @@ export default {
                 this.uploadSyarat(itemId)
             }
 
+            reader.readAsDataURL(file)
+		},
+        onFileHasil(itemId, event) {
+		    const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                this.fileUrl = event.target.result
+                this.fileSize = file.size
+                this.fileName = file.name
+                this.uploadHasil(itemId)
+            }
             reader.readAsDataURL(file)
 		},
         async uploadSyarat(itemId) {
@@ -426,14 +626,96 @@ export default {
 				this.loadingfile[itemId] = false
 			}
 		},
+        async uploadHasil(itemId) {
+			if(!this.hasil.no_surat || this.hasil.no_surat === null){
+				this.$toast.fire({
+					title: 'Nomor Surat Mohon Diisi Terlebih Dahulu',
+					icon: 'error',
+				})
+            }else if(!this.hasil.perihal || this.hasil.perihal === null){
+                this.$toast.fire({
+					title: 'Judul/Perihal Surat Mohon Diisi Terlebih Dahulu',
+					icon: 'error',
+				})
+            }else{
+                try{
+                    this.loadingfile[itemId] = true
+
+                    const noreq = this.$route.params.id
+                    const headers = {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                };
+                    
+                    const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadFileHasil',{
+                        noreq: noreq,
+                        id: itemId,
+                        nosurathasil: this.hasil.no_surat,
+                        perihal: this.hasil.perihal,
+                        keteranganhasil: this.hasil.keterangan,
+                        filex: this.fileUrl,
+                        size: this.fileSize
+                    }, {headers})
+
+                    if(response.data.success == true){
+                        this.$toast.fire({
+                            title: response.data.message,
+                            icon: 'success',
+                        })
+                        this.hasil = response.data.hasil
+                    }
+                    
+                } catch (error) {
+                    this.$toast.fire({
+                        title: error,
+                        icon: 'error',
+                    })
+                } finally {
+                    this.loadingfile[itemId] = false
+                }
+            }
+		},
         openFile(item) {
-            this.$swal.fire({
-                width: "50%",
-                html:
-                    '<iframe src="'+ item +'" type="application/pdf" width="100%" height="600px" />',
-                showCloseButton: true,
-                focusConfirm: false,
-            })
+            
+            let frame = null;
+            let isPDF = item.toLowerCase().endsWith('.pdf');
+            let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
+            
+            if(isWord){
+                frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+            }else{
+                frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+            }
+
+            if (window.innerWidth < 768) {
+                this.$swal.fire({
+                    width: "100%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }else{
+                this.$swal.fire({
+                    width: "50%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }
         },
         async newRequest() {
             try{
@@ -489,6 +771,7 @@ export default {
                 
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
                     statusx: 'sending',
+                    notifx: 'no',
 					noreq: noreq,
                     formx: this.input,
 				}, {headers})
@@ -498,7 +781,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/my-listing')  
+                    this.edit = false 
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -595,10 +878,14 @@ export default {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
+                console.log(this.hasil)
                 
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePTSP',{
                     statusx: st,
 					noreq: noreq,
+                    nosurathasil: this.hasil.no_surat,
+                    perihal: this.hasil.perihal,
+                    keteranganhasil: this.hasil.keterangan 
 				}, {headers})
 
                 if(response.data.success == true){
@@ -623,6 +910,91 @@ export default {
 			} finally {
 				this.loadingRequest = false
 			}
+        },
+        async deleteFile(itemid){
+            this.$swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda Tidak bisa untuk Membatalkannya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Ya, Hapus File ini!",
+                preConfirm: async (deleteFile) => {
+                    try {
+                        const noreq = this.$route.params.id
+                        const headers = {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    };
+                        
+                        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteFile',{
+                            noreq: noreq,
+                            id: itemid,
+                        }, {headers})
+
+                        if(response.data.success == true){
+                            this.hasil = response.data.hasil
+                        }
+                    } catch (error) {
+                    this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$toast.fire({
+                    title: "File Telah Dihapus!",
+                    icon: "success"
+                    });
+                }
+            });
+        },
+        async deleteSyarat(itemid){
+            console.log(itemid)
+            this.$swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda Tidak bisa untuk Membatalkannya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Ya, Hapus File ini!",
+                preConfirm: async (deleteSyarat) => {
+                    try {
+                        const noreq = this.$route.params.id
+                        const headers = {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    };
+                        
+                        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteSyarat',{
+                            noreq: noreq,
+                            id: itemid,
+                        }, {headers})
+
+                        if(response.data.success == true){
+                            this.syarat = response.data.syarat
+                        }
+                    } catch (error) {
+                    this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$toast.fire({
+                    title: "File Telah Dihapus!",
+                    icon: "success"
+                    });
+                }
+            });
         }
     }
 }
