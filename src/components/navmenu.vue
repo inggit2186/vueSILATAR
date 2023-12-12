@@ -70,6 +70,16 @@
             <li :class="{'active': currentPath == 'UnitKerja'}">
                 <router-link to="/UnitKerja"><BBadge variant="warning" style="font-size: medium;"><i-ri-customer-service-2-fill /> &nbsp;Pelayanan</BBadge></router-link>
             </li>
+            <li v-if="auth && user.dept.kategori == 'kantor'" :class="{'active': currentPath == 'Admin Panel'}" class="d-block d-sm-none">
+                <router-link to="/admin"><BBadge variant="danger" style="font-size: medium;"><i-wpf-administrator /> &nbsp;Admin Panel</BBadge></router-link>
+            </li>
+            <li v-if="auth && user.dept.kategori == 'kantor'" :class="{'active': currentPath == 'Profile'}" class="d-block d-sm-none">
+                <router-link to="/dashboard"><BBadge variant="success" style="font-size: medium;"><i class="feather-grid"></i> &nbsp;Profil</BBadge></router-link>
+            </li>
+            <li v-if="!auth" class="d-block d-sm-none" style="padding:5% 5% 5% 5%;">
+                <lu><router-link to="/login"><BBadge variant="danger" style="font-size: medium;float: left;"><i-solar-login-3-bold /> &nbsp;LOGIN</BBadge></router-link></lu>
+                <lu><router-link to="/signup"><BBadge variant="dark" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></lu>
+            </li>
         </ul>
     </div>
     <div class="d-flex align-items-center block-e">
@@ -138,12 +148,20 @@ export default {
             }
         },
         mounted() {
+            let lastroute = this.$router.options.history.state.back
+
+            if(this.$route.path != lastroute){
+                $('html').removeClass('menu-opened');
+                $('.sidebar-overlay').removeClass('opened');
+                $('main-wrapper').removeClass('slide-nav');
+            }
+            
             $(window).scroll(function(){
-            var sticky = $('.header'),
-            scroll = $(window).scrollTop();
-                if (scroll >= 50) sticky.addClass('fixed');
-                else sticky.removeClass('fixed');
-        });
+                var sticky = $('.header'),
+                scroll = $(window).scrollTop();
+                    if (scroll >= 50) sticky.addClass('fixed');
+                    else sticky.removeClass('fixed');
+            });
             $('body').append('<div class="sidebar-overlay"></div>');
             $(document).on('click', '#mobile_btn', function () {
                 $('main-wrapper').toggleClass('slide-nav');
@@ -163,6 +181,7 @@ export default {
                 $('.sidebar-overlay').removeClass('opened');
                 $('main-wrapper').removeClass('slide-nav');
             });
+            
         },
         methods:{
             async logout() {

@@ -1,6 +1,6 @@
-<template>
+<template >
     		<!-- Breadscrumb Section -->
-		<div class="breadcrumb-bar">
+		<div class="breadcrumb-bar d-none d-md-block">
 			<div class="container">
 				<div class="row align-items-center text-center">
 		    		<div class="col-md-12 col-12">

@@ -7,19 +7,20 @@
 						<div class="login-wrap password-form">
 							
 							<div class="login-header">
-								<h3>Forgot Password</h3>
-								<p>Enter your email and we will send you a link to reset your password.</p>								
+								<h3>Lupa Password</h3>
+								<p>Masukkan alamat E-mail atau NIP Anda yang terdaftar.</p>								
 							</div>
 							
 							<!-- Login Form -->
-							<b-form action="login">
+							<b-form @submit.prevent="forgotPass">
 								<div class="form-group group-img">
 								    <div class="group-img">
 										<i class="feather-mail"></i>
-										<b-form-input type="text" class="form-control" placeholder="Email Address" />
+										<b-form-input v-model="email" type="text" class="form-control" placeholder="NIP / Email Address" :disabled="loading"/>
 									</div>
 								</div>
-								<b-button variant="primary w-100 login-btn" type="submit">Submit</b-button>									
+								<b-button v-if="!loading" variant="primary w-100 login-btn" type="submit"><b><i-icomoon-free-next /> KIRIM</b></b-button>
+								<b-button v-else variant="primary w-100 login-btn" type="submit"><b><i-svg-spinners-bars-scale-middle /> &nbsp;Ubek-Ubek Berkas Dulu....</b></b-button>								
 							</b-form>
 							<router-link to="/" class="back-home"><i class="fas fa-regular fa-arrow-left me-1"></i> Back to Home</router-link>		
 							<!-- /Login Form -->
@@ -37,8 +38,48 @@
 export default {
 	data() {
 		return {
-			
+			loading: false,
+			email: null
 		}
 	},
+	methods: {
+		async forgotPass() {
+			try{
+					this.loading = true
+					
+					const headers = {
+									'Content-Type': 'application/json',
+									'Authorization': `Bearer ${localStorage.getItem('token')}`
+								};
+
+					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/lupaPass',{
+						nip: this.email
+					}, {headers})
+					
+					if(response.data.success == true){
+						
+						this.$swal.fire({
+						title: 'Reset Password Berhasil',
+						html: response.data.message,
+						icon: 'success',
+						})
+						this.$router.push('/login')
+					}else{
+						this.$toast.fire({
+						title: response.data.message,
+						icon: 'error',
+						})
+					}
+					
+				} catch (error) {
+					this.$toast.fire({
+						title: error,
+						icon: 'error',
+					})
+				} finally {
+					this.loading = false
+				}
+		}
+	}
 }
 </script>
