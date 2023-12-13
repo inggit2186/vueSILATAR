@@ -38,7 +38,7 @@ import IndexThree from '../views/pages/home/indexTemplate.vue'
 import IndexFour from '../views/pages/indexfour/indexFour.vue'
 import IndexFive from '../views/pages/indexfive/indexFive.vue'
 
-
+import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -256,6 +256,14 @@ const routes = [
         path: '/my-listing',
         name: 'My Listing',
         component: MyListing,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/user-appointment',
+        name: 'User Appointment',
+        component: JanjiTemu,
         meta: {
             requiresAuth: true
           }

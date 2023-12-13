@@ -13,9 +13,15 @@
             </li>
             <li :class="{ active: $route.name === 'My Listing' }">
                 <router-link to="my-listing">
-                    <i class="feather-list"></i> <span>My Request</span>
+                    <i class="feather-list"></i> <span>Layanan</span>
                 </router-link>
             </li>
+            <li :class="{ active: $route.name === 'User Appointment' }">
+                <router-link to="user-appointment">
+                    <i-icon-park-solid-appointment /> <span>Appointment</span>
+                </router-link>
+            </li>
+        <!--
             <li :class="{ active: $route.name === 'Bookmarks' }">
                 <router-link to="bookmarks">
                     <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
@@ -31,6 +37,7 @@
                     <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
                 </router-link>
             </li>
+        -->
             <li>
                 <b-button variant="primary w-70 logout-btn" :disabled="loading" @click="logout()">
                     <span v-if="!loading"><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>

@@ -54,7 +54,6 @@ import BlogList from './views/pages/blog/blog-list/BlogList.vue'
 import BookContent from './views/pages/bookmarks/BookmarkContent.vue'
 import CategoriesList from './views/pages/categories/CategoriesList.vue'
 import ContactInfo from './views/pages/contact/ContactInformation.vue'
-import Dashboard from './views/pages/dashboard/DashboardContent.vue'
 import FaqContent from './views/pages/faq/FaqContent.vue'
 import ForgotPassword from './views/pages/forgot-password/ForgotPassword.vue'
 import Gallerypage from './views/pages/gallery/GalleryPage.vue'
@@ -66,12 +65,9 @@ import ListContent from './views/pages/list/listing-list-sidebar/ListContent.vue
 import ListMapContent from './views/pages/list/listingmap-grid/ListingmapContent.vue'
 import ListinglistContent from './views/pages/list/listingmap-list/ListingListContent.vue'
 import LoginForm from './views/pages/Login/LoginForm.vue'
-import MessageContent from './views/pages/messages/MessageContent.vue'
-import MyListing from './views/pages/my-listing/MyListing.vue'
 import PricingPlan from './views/pages/pricing/PricingPlan.vue'
 import PrivacyPolicy from './views/pages/privacy-policy/PrivacyTerms.vue'
-import ProfileDashboard from './views/pages/profile/ProfileDashboard.vue'
-import ReviewDashboard from './views/pages/reviews/ReviewDashboard.vue'
+
 import ServiceGallery from './views/pages/service-details/ServiceGallery.vue'
 import ServiceDescription from './views/pages/service-details/ServiceDescription.vue'
 import ServiceContent from './views/pages/service-details/ServiceContent.vue'
@@ -113,6 +109,14 @@ import IndexFiveSpace from './views/pages/indexfive/indexSpace.vue'
 import IndexFiveClient from './views/pages/indexfive/indexClient.vue'
 import IndexFiveFooter from './views/pages/indexfive/footer.vue'
 import ServiceReview from './views/pages/service-details/serviceReview.vue'
+
+//profil
+import MessageContent from './views/pages/messages/MessageContent.vue'
+import MyListing from './views/pages/my-listing/MyListing.vue'
+import Dashboard from './views/pages/dashboard/DashboardContent.vue'
+import ProfileDashboard from './views/pages/profile/ProfileDashboard.vue'
+import ReviewDashboard from './views/pages/reviews/ReviewDashboard.vue'
+import JanjiTemu from './views/pages/profile/JanjiTemu.vue'
 
 //Pelayanan
 import pelayananList from './views/pages/layananMenu/pelayananList.vue'
@@ -210,7 +214,6 @@ app.component('Bloglist',BlogList)
 app.component('Bookmarkcontent',BookContent)
 app.component('Categorieslist',CategoriesList)
 app.component('Contactinformation',ContactInfo)
-app.component('Dashboardcontent',Dashboard)
 app.component('Faqcontent',FaqContent)
 app.component('Forgotpassword',ForgotPassword)
 app.component('Gallerypage',Gallerypage)
@@ -223,11 +226,8 @@ app.component('Listmapcontent',ListMapContent)
 app.component('Litinglistcontent',ListinglistContent)
 app.component('Loginform',LoginForm)
 app.component('Messagecontent',MessageContent)
-app.component('Mylisting',MyListing)
 app.component('Pricingplan',PricingPlan)
 app.component('Privacypolicy',PrivacyPolicy)
-app.component('Profiledashboard',ProfileDashboard)
-app.component('Reviewdashboard',ReviewDashboard)
 app.component('Servicegallery',ServiceGallery)
 app.component('Servicedescription',ServiceDescription)
 app.component('Servicecontent',ServiceContent)
@@ -268,6 +268,13 @@ app.component('Indexfivespace',IndexFiveSpace)
 app.component('Indexfiveclient',IndexFiveClient)
 app.component('Indexfivefooter',IndexFiveFooter)
 app.component('Servicereview',ServiceReview)
+
+//profil
+app.component('Profiledashboard',ProfileDashboard)
+app.component('Reviewdashboard',ReviewDashboard)
+app.component('Mylisting',MyListing)
+app.component('Dashboardcontent',Dashboard)
+app.component('JanjiTemu',JanjiTemu)
 
 //Pelayanan
 app.component('pelayananList',pelayananList)

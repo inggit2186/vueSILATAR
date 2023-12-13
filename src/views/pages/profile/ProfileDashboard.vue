@@ -41,8 +41,8 @@
 												    <div class="form-group">
 														<label class="col-form-label">Handphone / Whatsapp</label>
 														<div class="pass-group group-img">
-															<span class="lock-icon"><i class="feather-phone-call"></i></span>
-															<b-form-input id="telp" v-model="user.telp" type="tel" class="form-control" placeholder="Nomor Kontak" />													
+															<span class="lock-icon"><i class="feather-phone-call" style="font-size:medium;padding-left: 5%;">&nbsp;+62</i></span>
+															<b-form-input id="telp" v-model="user.telp" type="tel" class="form-control"  style="padding-left: 14%;" placeholder="Nomor Kontak" />													
 														</div>
 													</div>
 												 </div>
@@ -312,17 +312,16 @@ const image = import(`@/assets/img/profile-img.jpg`)
 				}, {headers})
 				
 				if(response.data.success == true){
-					let user = JSON.parse(localStorage.getItem('user'));
-					user.name = this.user.name;
-					user.telp= this.user.telp;
-					user.email= this.user.email;
-					user.pekerjaan= this.user.pekerjaan;
-					user.bio= this.user.bio;
-					user.facebook= this.user.facebook;
-					user.twitter= this.user.twitter;
-					user.linkedin= this.user.linkedin;
-					user.instagram= this.user.instagram;
-					localStorage.setItem('user', JSON.stringify(user));
+					this.user.name = response.data.user.name;
+					this.user.telp = response.data.user.telp;
+					this.user.email= response.data.user.email;
+					this.user.pekerjaan= response.data.user.pekerjaan;
+					this.user.bio= response.data.user.bio;
+					this.user.facebook= response.data.user.facebook;
+					this.user.twitter= response.data.user.twitter;
+					this.user.linkedin= response.data.user.linkedin;
+					this.user.instagram= response.data.user.instagram;
+					localStorage.setItem('user', JSON.stringify(this.user));
 					
 					this.$toast.fire({
 					title: response.data.message,

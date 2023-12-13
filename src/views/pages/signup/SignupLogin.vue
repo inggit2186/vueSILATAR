@@ -257,8 +257,9 @@
 					
 					if(response.data.success == true){
 						
-						this.$toast.fire({
-						title: response.data.message,
+						this.$swal.fire({
+						title: 'Pendaftaran Berhasil!',
+						html: response.data.message,
 						icon: 'success',
 						})
 						this.$router.push('/login')

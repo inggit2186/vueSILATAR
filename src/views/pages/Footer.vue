@@ -1,6 +1,7 @@
 <template>
     <!-- Footer -->
 		<footer class="footer">
+			<!--
 		    <div class="container">
 			   	<div class="stay-tuned">
 			        <h3>Stay Tuned With Us</h3>
@@ -16,7 +17,7 @@
                     </b-form>					
 				</div>			
 			</div>
-		
+			-->
 			<!-- Footer Top -->
 			<div class="footer-top aos" data-aos="fade-up">
 				<div class="container">
@@ -25,24 +26,24 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget">
 								<div class="footer-logo">
-									<router-link to="#"><img src="../../assets/img/footerlogo.svg" alt="logo"></router-link>
+									<router-link to="#"><img src="../../assets/img/logo.png" alt="logo" style="max-width: 80%;"></router-link>
 								</div>
 								<div class="footer-content">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt et magna aliqua.  </p>
+									<p>Website Sistem Layanan dan Administrasi Tanah Datar (SILATAR) Kantor Kementerian Agama Kabupaten Tanah Datar.  </p>
 								</div>
 								<div class="social-icon">
 									<ul>
 										<li>
-											<router-link to="#" target="_blank"><i class="fab fa-facebook-f"></i> </router-link>
+											<a href="https://www.facebook.com/kemenagtanahdatar.kemenagtd.5" target="_blank"><i class="fab fa-facebook-f"></i> </a>
 										</li>
 										<li>
-											<router-link to="#" target="_blank"><i class="fab fa-twitter"></i> </router-link>
+											<a href="https://twitter.com/KemenagTD" target="_blank"><i class="fab fa-twitter"></i> </a>
 										</li>
 										<li>
-											<router-link to="#" target="_blank"><i class="fab fa-instagram"></i></router-link>
+											<a href="https://www.instagram.com/kemenagtd/" target="_blank"><i class="fab fa-instagram"></i></a>
 										</li>
 										<li>
-											<router-link to="#" target="_blank"><i class="fab fa-linkedin-in"></i></router-link>
+											<a href="https://id.linkedin.com/in/ridho-saputra-a325a825a" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 										</li>
 									</ul>
                                 </div>								
@@ -55,20 +56,17 @@
 								<h2 class="footer-title">About us</h2>
 								<ul>
 									<li>
-										<router-link to="/about">Our product</router-link>
+										<a href="https://tanahdatar.kemenag.go.id" target="_blank">Website Resmi</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Documentation</a>
+										<router-link to="/satuanKerja/getSeksi">Satuan Kerja</router-link>
 									</li>
 									<li>
-										<router-link to="/service-details">Our Services</router-link>
+										<router-link to="/UnitKerja">Layanan Kita</router-link>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Get Started Us</a>
-									</li>
-									<li>
-										<router-link to="/contact">Contact Us</router-link>
-									</li>									
+										<router-link to="/contact">Kontak Kami</router-link>
+									</li>							
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -79,20 +77,20 @@
 								<h2 class="footer-title">Quick links</h2>
 								<ul>
 									<li>
-										<a href="javascript:void(0)">Market Place</a>
+										<a href="https://kemenag.go.id/" target="_blank">Kementerian Agama RI</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Documentation</a>
+										<a href="https://www.bkn.go.id/" target="_blank">Badan Kepegawaian Negara</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Customers</a>
+										<a href="https://sumbar.kemenag.go.id/" target="_blank">Kanwil Kemenag Sumbar</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Carriers</a>
+										<a href="https://haji.kemenag.go.id/petugas" target="_blank">Petugas Haji</a>
 									</li>
 									<li>
-										<router-link to="blog-list">Our Blog</router-link>
-									</li>									
+										<a href="https://www.tanahdatar.go.id/" target="_blank">Pemda Tanah Datar</a>
+									</li>							
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
@@ -100,22 +98,22 @@
 						<div class="col-lg-2 col-md-6">
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">Top Cities</h2>
+								<h2 class="footer-title">Kankemenag</h2>
 								<ul>
 									<li>
-										<a href="javascript:void(0)">Manhatten</a>
+										<a href="https://tanahdatar.kemenag.go.id" target="_blank">Tanah Datar</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Los Angeles</a>
+										<a href="https://padang.kemenag.go.id" target="_blank">Padang</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Houston</a>
+										<a href="https://agam.kemenag.go.id" target="_blank">Agam</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Chicago</a>
+										<a href="https://pariamankota.kemenag.go.id" target="_blank">Kota Pariaman</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)">Alabama</a>
+										<a href="https://pasaman.kemenag.go.id" target="_blank">Pasaman</a>
 									</li>									
 								</ul>
 							</div>
@@ -124,15 +122,15 @@
 						<div class="col-lg-3 col-md-6">
 							<!-- Footer Widget -->
 							<div class="footer-widget">
-								<h2 class="footer-title">Communication</h2>
+								<h2 class="footer-title">Kontak Kita</h2>
 								<div class="footer-contact-info">
 										<div class="footer-address">
 											<img src="../../assets/img/call-calling.svg" alt="Callus">
-											<p><span>Call Us</span> <br> +017 123 456 78	 </p>
+											<p><span>Nomor Kontak</span> <br>  (0752) 71033	 </p>
 										</div>
 										<div class="footer-address">
 											<img src="../../assets/img/sms-tracking.svg" alt="Callus">
-											<p><span>Send Message</span> <br> listee@example.com	 </p>
+											<p><span>Alamat Email</span> <br>  tanahdtr@kemenag.go.id	 </p>
 										</div>							
 								</div>																
 							</div>
@@ -143,35 +141,22 @@
 					<!-- Footer Counter Section-->
 					<div class="footercount">
 						    <div class="row">
-							         <div class="col-lg-3 col-md-3">
+							         <div class="col-lg-4 col-md-4">
 									    <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">25,329,532</p>										
+											<p class="visitors-value">25.909</p>										
 										</div>									 
 									 </div>
-									  <div class="col-lg-3 col-md-3">
+									  <div class="col-lg-4 col-md-4">
 									      <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">25,329,53264546</p>										
+											<p class="visitors-value">34.903</p>										
 										</div>									 
 									 </div> 
-									 <div class="col-lg-3 col-md-3">
+									 <div class="col-lg-4 col-md-4">
 									     <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">25,329,53264546</p>										
-										</div>									 
-									 </div>
-									  <div class="col-lg-3 col-md-3">
-									    <div class="vistors-details">
-										    <p>We Accept</p>
-											<ul class="d-flex">
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/amex-pay.svg" alt="amex"></a></li>
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/apple-pay.svg" alt="pay"></a></li>
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/gpay.svg" alt="gpay"></a></li>
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/master.svg" alt="paycard"></a></li>
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/phone.svg" alt="spay"></a></li>
-												<li><a href="javascript:void(0)"><img class="img-fluid" src="../../assets/img/visa.svg" alt="visa"></a></li>
-											</ul>										   								
+											<p class="visitors-value">22.909</p>										
 										</div>									 
 									 </div>
 							</div>
@@ -190,7 +175,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="copyright-text">
-									<p class="mb-0">All Copyrights Reserved © {{ new Date().getFullYear() }} - Listee.</p>          
+									<p class="mb-0">All Copyrights Reserved © {{ new Date().getFullYear() }} - Ridho Saputra@Kankemenag Kab.Tanah Datar.</p>          
 								</div>
 							</div>
 							<div class="col-md-6">

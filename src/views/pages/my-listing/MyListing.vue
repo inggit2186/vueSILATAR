@@ -28,8 +28,16 @@
 									</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr v-for="item in paginatedItem" :key="item.id">
+							<tbody v-if="loading">
+								<tr>
+									<td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+								</tr>
+							</tbody>
+							<tbody v-if="!loading">
+								<tr v-if="this.ptsp.length == 0">
+									<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+								</tr>
+								<tr v-else v-for="item in paginatedItem" :key="item.id">
 									<td><a href="#">{{ item.tanggal }} </a></td>
 									<td>
 										{{ item.dept }}<br/>
