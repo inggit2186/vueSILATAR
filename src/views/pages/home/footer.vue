@@ -6,22 +6,22 @@
 					<div class="col-sm-12">
 						<div class="top-foo-widget">
 							<div class="help-info">
-								<p>Toll Free Customer Care   +(1) 123 456 7890</p>
-								<p>Need live support? listee@example.com</p>
+								<p>Customer Care   (0752) 71033</p>
+								<p>Need live support? tanahdtr@kemenag.go.id</p>
 							</div>
 							<div class="social-info">
 								<ul class="d-flex">
 									<li>
-										<a href="javscript:;"><i class="fab fa-facebook-f"></i></a>
+										<a href="https://www.facebook.com/kemenagtanahdatar.kemenagtd.5" target="_blank"><i class="fab fa-facebook-f"></i> </a>
 									</li>
 									<li>
-										<a href="javscript:;"><i class="fab fa-twitter"></i></a>
+										<a href="https://twitter.com/KemenagTD" target="_blank"><i class="fab fa-twitter"></i> </a>
 									</li>
 									<li>
-										<a href="javscript:;"><i class="fab fa-linkedin-in"></i></a>
+										<a href="https://www.instagram.com/kemenagtd/" target="_blank"><i class="fab fa-instagram"></i></a>
 									</li>
 									<li>
-										<a href="javscript:;"><i class="fab fa-youtube"></i></a>
+										<a href="https://id.linkedin.com/in/ridho-saputra-a325a825a" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -36,20 +36,17 @@
 													<h5>About us</h5>
 													<ul>
 														<li>
-															<router-link to="/about">Our product</router-link>
+															<a href="https://tanahdatar.kemenag.go.id" target="_blank">Website Resmi</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Documentation</a>
+															<router-link to="/satuanKerja/getSeksi">Satuan Kerja</router-link>
 														</li>
 														<li>
-															<router-link to="/service-details">Our Services</router-link>
+															<router-link to="/UnitKerja">Layanan Kita</router-link>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Get Started Us</a>
-														</li>
-														<li>
-															<router-link to="contact">Contact Us</router-link>
-														</li>									
+															<router-link to="/contact">Kontak Kami</router-link>
+														</li>								
 													</ul>
 												</div>
 											</div>
@@ -58,19 +55,19 @@
 													<h5>Quick links</h5>
 													<ul>
 														<li>
-															<a href="javascript:void(0)">Market Place</a>
+															<a href="https://kemenag.go.id/" target="_blank">Kementerian Agama RI</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Documentation</a>
+															<a href="https://www.bkn.go.id/" target="_blank">Badan Kepegawaian Negara</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Customers</a>
+															<a href="https://sumbar.kemenag.go.id/" target="_blank">Kanwil Kemenag Sumbar</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Carriers</a>
+															<a href="https://haji.kemenag.go.id/petugas" target="_blank">Petugas Haji</a>
 														</li>
 														<li>
-															<router-link to="/blog-list">Our Blog</router-link>
+															<a href="https://www.tanahdatar.go.id/" target="_blank">Pemda Tanah Datar</a>
 														</li>									
 													</ul>
 												</div>
@@ -79,32 +76,33 @@
 												<div class="col-style">
 													<h5>Services</h5>
 													<ul>
-														<li><router-link to="/service-details">Hotel</router-link></li>
-														<li><router-link to="/service-details">Activity Finder</router-link></li>
-														<li><router-link to="/service-details">Flight finder</router-link></li>
-														<li><router-link to="/service-details">Holiday Rental</router-link></li>
-														<li><router-link to="/service-details">Travel Agents</router-link></li>
+														<li><router-link to="/Pelayanan/4">Subbagian Tata Usaha</router-link></li>
+														<li><router-link to="/Pelayanan/8">Seksi BIMAS</router-link></li>
+														<li><router-link to="/Pelayanan/5">Seksi PAIS</router-link></li>
+														<li><router-link to="/Pelayanan/6">Seksi PD PONTREN</router-link></li>
+														<li><router-link to="/Pelayanan/7">Seksi PENMAD</router-link></li>
+														<li><router-link to="/Pelayanan/9">Seksi PHU</router-link></li>
 													</ul>
 												</div>
 											</div>
 											<div class="col-auto col-md-3">
 												<div class="col-style">
-													<h5>Destinations</h5>
+													<h5>Kankemenag</h5>
 													<ul>
 														<li>
-															<a href="javascript:void(0)">Manhatten</a>
+															<a href="https://tanahdatar.kemenag.go.id" target="_blank">Tanah Datar</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Los Angeles</a>
+															<a href="https://padang.kemenag.go.id" target="_blank">Padang</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Houston</a>
+															<a href="https://agam.kemenag.go.id" target="_blank">Agam</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Chicago</a>
+															<a href="https://pariamankota.kemenag.go.id" target="_blank">Kota Pariaman</a>
 														</li>
 														<li>
-															<a href="javascript:void(0)">Alabama</a>
+															<a href="https://pasaman.kemenag.go.id" target="_blank">Pasaman</a>
 														</li>	
 													</ul>
 												</div>
@@ -126,52 +124,13 @@
 												@hide="handleHide"
 											></vue-easy-lightbox>
 										</ul>	
-										<ul class="navbar-nav selection-list mt-4">
-											<li class="nav-item dropdown">
-												<div class="lang-select">
-													<span class="select-icon"><i class="feather-globe"></i></span>
-													<vue-select 
-														:class="select"
-														:options="India"
-														placeholder="India"
-													/>
-													
-												</div>
-											</li>
-											<li class="nav-item dropdown">
-												<div class="lang-select">
-													<span class="select-icon"><i class="fa-solid fa-coins"></i></span>
-													<vue-select 
-														:class="select"
-														:options="Currency"
-														placeholder="Euro"
-													/>		
-												</div>	
-											</li>
-										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="btm-foo-widget">
 							<div class="copy-info">
-								<p class="mb-0">Copyright  © {{ new Date().getFullYear() }} Listee. All rights are reserved</p>          
-							</div>
-							<div class="payment-info">
-								<ul class="d-flex">
-									<li>
-										<img class="img-fluid" src="../../../assets/img/icons/visa-01.svg" alt="visa">
-									</li>
-									<li>
-										<img class="img-fluid" src="../../../assets/img/icons/master-01.svg" alt="paycard">
-									</li>
-									<li>
-										<img class="img-fluid" src="../../../assets/img/icons/discover.svg" alt="spay">
-									</li>
-									<li>
-										<img class="img-fluid" src="../../../assets/img/icons/stripe.svg" alt="spay">
-									</li>
-								</ul>
+								<p class="mb-0">Copyright  © {{ new Date().getFullYear() }} Ridho Saputra@Kankemenag Tanah Datar. All rights are reserved</p>          
 							</div>
 						</div>
 					</div>			

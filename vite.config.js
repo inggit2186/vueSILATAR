@@ -25,4 +25,5 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   base: '/v2/',
+  assetsInclude: 'assets/'
 })

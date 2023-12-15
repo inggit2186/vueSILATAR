@@ -23,7 +23,7 @@
 							<img src="../../../assets/img/bg/cloud-02.png" alt="" class="cloud-two">
 						</div>
 						<div class="ban-image-02">
-							<img src="../../../assets/img/banner-02.png" alt="">
+							<img src="../../../assets/img/banner-02.png" width="66%" style="float: right;" alt="">
 						</div>
 						<div class="ban-image-03">
 							<img src="../../../assets/img/bg/plane.png" alt="">
@@ -33,7 +33,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="banner-btm-img-blk">
-							<img src="../../../assets/img/banner-btm-img.png" alt="">
+							<img src="../../../assets/img/banner-btm-img.png" width="28%" alt="">
 						</div>
 						<!--
 						<div class="banner-btm">

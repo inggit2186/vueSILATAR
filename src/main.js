@@ -172,7 +172,7 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-const assetSrc = new URL(`./assets`, import.meta.url).href;
+const assetSrc = new URL(`${window.location.origin}/v2/assets`, import.meta.url).href;
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
