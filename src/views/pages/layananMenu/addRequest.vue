@@ -122,6 +122,7 @@ export default {
                 confirmButtonText: 'Lanjutkan!',
                 showLoaderOnConfirm: true,
                 preConfirm: (addRequest) => {
+                    const cid = this.$route.params.cid
                     const xid = this.$route.params.xid
                     const sid = this.$route.params.id
                     const headers = {
@@ -129,6 +130,7 @@ export default {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         };
                     return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addRequest',{
+                        kategori: cid,
                         deptid: xid,
                         layananid: sid,
                         judul: this.layanan.nama,

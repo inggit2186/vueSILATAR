@@ -148,7 +148,7 @@ export default {
     },
     computed: {
 		addRequest() {
-        	return id => `/request/${this.$route.params.xid}/${this.navid}`
+        	return id => `/request/${this.$route.params.cid}/${this.$route.params.xid}/${this.navid}`
     	},
 	},
     created() {

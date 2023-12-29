@@ -91,6 +91,7 @@ import IndexTestimonial from './views/pages/home/indexTestimonial.vue'
 import IndexPrice from './views/pages/home/indexPrice.vue'
 import IndexSubscribe from './views/pages/home/indexSubscribe.vue'
 import IndexActivity from './views/pages/home/indexActivity'
+import IndexDesc from './views/pages/home/IndexDesc.vue'
 import NavThreeFooter from './views/pages/home/footer.vue'
 
 import IndexNow from './views/pages/indexfour/indexNow.vue'
@@ -138,6 +139,8 @@ import addRequest from './views/pages/layananMenu/addRequest.vue'
 import uploadSyarat from './views/pages/layananMenu/uploadSyarat.vue'
 import addAppointment from './views/pages/layananMenu/addAppointment.vue'
 import satuData from './views/pages/layananMenu/satuData.vue'
+import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
+import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -242,7 +245,9 @@ app.component('Indextimeline',IndexTimeline)
 app.component('Weddingindexblog',WeddingIndexBlog)
 app.component('Indexappointment',IndexAppointment)
 app.component('Weddingfooter',WeddingFooter)
+
 app.component('Indexhome',IndexHome)
+app.component('IndexDesc',IndexDesc)
 app.component('Indexthreedestination',IndexThreeDestination)
 app.component('Indexoffer',IndexOffer)
 app.component('Indexpromo',IndexPromo)
@@ -251,6 +256,7 @@ app.component('Indexprice',IndexPrice)
 app.component('Indexsubscribe',IndexSubscribe)
 app.component('Indexactivity',IndexActivity)
 app.component('Navbarthreefooter',NavThreeFooter)
+
 app.component('Indexnow',IndexNow)
 app.component('Indexcowork',IndexCowork)
 app.component('Indexspace',IndexSpace)
@@ -297,6 +303,8 @@ app.component('AddRequest',addRequest)
 app.component('UploadSyarat',uploadSyarat)
 app.component('AddAppointment',addAppointment)
 app.component('SatuData',satuData)
+app.component('PengaduanMenu',pengaduanMenu)
+app.component('PersuratanMenu',persuratanMenu)
 
 //cPanel
 app.component('AdminMenu', adminMenu)

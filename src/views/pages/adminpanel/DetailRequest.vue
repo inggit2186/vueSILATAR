@@ -62,7 +62,7 @@
                                     </tr>
                                 </table>
                                 <hr/>
-                                <div v-if="request.layanan_id == '666'" class="step2 d-none d-md-block">
+                                <div v-if="request.alur == '2'" class="step2 d-none d-md-block">
                                 <ul>
                                     <li>
                                         <i class="icons awesome fa-solid fa-person-walking"></i>

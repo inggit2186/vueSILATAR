@@ -25,7 +25,7 @@
 								</router-link>
 							</div>
 							<div class="col-lg-3 col-md-3 centered">
-								<router-link :to="tujuLayanan('888')">
+								<router-link :to="tujuPengaduan()">
 									<div class="categories-content">
 									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 									<img :src="$assets+'/img/ikon/888.png'" style="width:80%;" alt="car1">
@@ -36,7 +36,7 @@
 								</router-link>
 							</div>
 							<div class="col-lg-3 col-md-3 centered">
-								<router-link :to="tujuLayanan('999')">
+								<router-link :to="tujuPersuratan()">
 									<div class="categories-content">
 									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 									<img :src="$assets+'/img/ikon/999.png'" style="width:80%;" alt="car1">
@@ -119,10 +119,16 @@ export default {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
 		tujuLayanan() {
-        	return id => `/LayananDetail/${this.$route.params.id}/${id}`
+        	return id => `/LayananDetail/Personal/${this.$route.params.id}/${id}`
     	},
 		tujuKonsultasi() {
         	return id => `/Appointment/${this.$route.params.id}`
+    	},
+		tujuPersuratan() {
+        	return id => `/Persuratan/${this.$route.params.id}`
+    	},	
+		tujuPengaduan() {
+        	return id => `/Pengaduan/${this.$route.params.id}`
     	},	
 	},
 	created() {

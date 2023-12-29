@@ -5,6 +5,8 @@
         <div class="page-wrapper">
             <indexhome />
 
+            <IndexDesc />
+
             <navbarthreefooter />
 
         </div>

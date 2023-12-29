@@ -56,6 +56,8 @@ import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
 import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
 import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
 import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
+import pengaduanMenuVue from '@/views/pages/layananMenu/pengaduanMenu.vue'
+import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 
 //cPanel
 import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
@@ -127,6 +129,16 @@ const routes = [
         path: '/about',
         name: 'about',
         component: About
+    },
+    {
+        path: '/Persuratan/:id',
+        name: 'Persuratan',
+        component: persuratanMenuVue
+    },
+    {
+        path: '/Pengaduan/:id',
+        name: 'Pengaduan',
+        component: pengaduanMenuVue
     },
     {
         path: '/add-listing',
@@ -295,12 +307,12 @@ const routes = [
           }
     },
     {
-        path: '/LayananDetail/:xid/:id',
+        path: '/LayananDetail/:cid/:xid/:id',
         name: 'Detail Layanan',
         component: layananDetailVue,
     },
     {
-        path: '/request/:xid/:id',
+        path: '/request/:cid/:xid/:id',
         name: 'Add Request',
         component: addRequestVue,
         meta: {
