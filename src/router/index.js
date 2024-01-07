@@ -38,7 +38,9 @@ import IndexThree from '../views/pages/home/indexTemplate.vue'
 import IndexFour from '../views/pages/indexfour/indexFour.vue'
 import IndexFive from '../views/pages/indexfive/indexFive.vue'
 
+//profil
 import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
+import UserData from '../views/pages/profile/UserData.vue'
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -297,6 +299,11 @@ const routes = [
         meta: {
             requiresAuth: true
           }
+    },
+    {
+        path: '/userdata',
+        name: 'Data Pegawai',
+        component: UserData,
     },
     {
         path: '/reviews',
