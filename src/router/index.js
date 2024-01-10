@@ -45,6 +45,7 @@ import UserData from '../views/pages/profile/UserData.vue'
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
 import satkerList from '@/views/pages/satuanKerja/satkerList.vue';
+import detailPegawai from '@/views/pages/satuanKerja/asnList.vue'
 import detailSatker from '@/views/pages/satuanKerja/detailSatker.vue';
 import menuList from '@/views/pages/InternalKantor/menuList.vue'
 import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
@@ -116,6 +117,11 @@ const routes = [
         path: '/satker/:id',
         name: 'Detail Satker',
         component: detailSatker
+    },
+    {
+        path: '/ASN/:id',
+        name: 'Detail Pegawai',
+        component: detailPegawai
     },
     {
         path:'/Pelayanan/:id',

@@ -3,8 +3,15 @@
         <layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            
-            <div class="dashboard-content">		
+            <div v-if="loading" class="text-center">
+                <hr>
+                <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
+                <br>
+                <i-svg-spinners-bars-scale style="font-size: 2em;"/>
+                <h3>::: Nyangkul Data dulu :::</h3>
+                <hr>
+            </div>
+            <div v-else class="dashboard-content">		
 			<div class="container">
 				<div class="profile-content">
 				    <div class="card media-section">
@@ -1094,62 +1101,57 @@ export default {
         });
     },
     methods: {
-        opener(){
-            this.$swal.fire({
-				input: "text",
-				inputLabel: "NIP / NIPPPK",
-				inputPlaceholder: "Masukkan NIP/NIPPPK Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Masukkan NIP/NIPPPK Anda Disini"
-				},
-				showConfirmButton: true,
-                confirmButtonColor: '#3085d6',
-				showDenyButton: false,
-                allowOutsideClick: false,
-				confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;LANJUTKAN!`,
-                showLoaderOnConfirm: true,
-				returnInputValueOnDeny: true,
-				preConfirm: (nip) => {
-                    const headers = {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        };
-                    return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekpegawai',{
-                        nip: nip,
-                    },{headers})
-                    .then(response => {
-                        if (!response.data.success) {
-                        throw new Error(response.data.message)
-                        }
-                        return response.data
-                    })
-                    .catch(error => {
-                        this.$swal.showValidationMessage(
-                        `Request failed: ${error}`
-                        )
-                    })
-                }
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    this.user = result.value.user
-                    this.files = result.value.files
-                    this.pendidikan0 = result.value.pendidikan
-                    this.pendidikan = result.value.pendidikan
-                    this.pekerjaan0 = result.value.pekerjaan
-                    this.pekerjaan = result.value.pekerjaan
-                    this.userdefault = result.value
+        async opener(){
+            try{
+                this.loading = true
+				const nip = this.$route.params.id
+                const headers = {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    };
+                const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekpegawai',{
+                    nip: nip,
+                },{headers})
+                
+                if (!response.data.success) {
+                    throw new Error(response.data.message)
+                }else{
+                    this.user =response.data.user
+                    this.files = response.data.files
+                    this.pendidikan0 = response.data.pendidikan
+                    this.pendidikan = response.data.pendidikan
+                    this.pekerjaan0 = response.data.pekerjaan
+                    this.pekerjaan = response.data.pekerjaan
+                    this.userdefault = response.data.user
                     this.imageFoto= this.user.foto
                     this.imageUrl= this.user.avatar
-                    this.listj= result.value.listj
-                    this.listd= result.value.listd
+                    this.listj= response.data.listj
+                    this.listd= response.data.listd
                 }
-                })
+
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
         },
         changedetail(id){
-            this.detail = id;
-            this.$nextTick(() => {
-                this.$refs.scroll1st.scrollIntoView();
-            });
+            const xuser = JSON.parse(localStorage.getItem('user'))
+
+            if(xuser.role == 'admin' || xuser.role == 'kepala' || xuser.role == 'kasubbag' || xuser.dept_id == 4){
+                    this.detail = id;
+                    this.$nextTick(() => {
+                    this.$refs.scroll1st.scrollIntoView();
+                });
+            }else{
+                this.$toast.fire({
+                        title: "Anda Tidak Memiliki Akses Untuk Mengakses Bagian Ini !",
+                        icon: "warning"
+                    });
+            }
         },
 
         onFileSelected(event) {

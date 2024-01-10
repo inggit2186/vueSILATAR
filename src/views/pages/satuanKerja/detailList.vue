@@ -4,24 +4,30 @@
             <div class="container text-center">
 		        <div class="row" :disabled="loading">
                     <div v-if="!loading && kepala != '<NoData>'" class="col-lg-3 col-md-4 centered">
+						<router-link :to="routeASN(kepala.nipx)">
                         <div class="PTSP categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="satker.kepalapp" style="width:75%;border-radius: 50%;" alt="car1">
                             <h5>{{ kepala.name }}</h5>
+							<span class="ads">{{ kepala.nipx }}</span>
                             <h7><i-healthicons-city-worker/>KEPALA</h7>
                             <span style="font-size:14px">{{ kepala.pekerjaan }}</span>
                             </a>								   
                         </div>
+						</router-link>
                     </div>
                     <div v-if="!loading && kaur != '<NoData>'" class="col-lg-3 col-md-4 centered">
+						<router-link :to="routeASN(kaur.nomor_nipx)">
                         <div class="PTSP categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="satker.kaurpp" style="width:75%;border-radius: 50%;" alt="car1">
                             <h5>{{ kaur.name }}</h5>
+							<span class="ads">{{ kaur.nipx }}</span>
                             <h7><i-healthicons-city-worker-outline/>KAUR</h7>
                             <span style="font-size:14px">{{ kaur.pekerjaan }}</span>
                             </a>								   
                         </div>
+						</router-link>
                     </div>
                     <hr/>
 					<div v-if="loading" class="text-center">
@@ -33,6 +39,7 @@
 						<hr>
 					</div>
 					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
+							<router-link :to="routeASN(item.nomor_induk)">
 							<div class="categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="item.pp" style="width:50%;border-radius: 50%;" alt="car1">
@@ -40,7 +47,8 @@
 								<span class="ads">{{ item.nomor_induk }}</span>
 								<span>{{ item.pekerjaan }}</span>
 								</a>								   
-						</div>
+							</div>
+							</router-link>
 					</div>
 
 				   <!--Pagination--> 
@@ -100,6 +108,9 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
+		routeASN() {
+        	return id => `/ASN/${id}`;
+    	},
 	},
 	created() {
 		this.getLayanan(),

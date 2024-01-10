@@ -124,6 +124,7 @@ import UserData from './views/pages/profile/UserData.vue'
 import pelayananList from './views/pages/layananMenu/pelayananList.vue'
 import layananMenu from './views/pages/layananMenu/layananMenu.vue'
 import satkerList from './views/pages/satuanKerja/satkerList.vue'
+import asnList from './views/pages/satuanKerja/asnList.vue'
 import KantorData from './views/pages/satuanKerja/kantorData.vue'
 import satkerMenu from './components/satkerMenu.vue'
 import detailSatker from './views/pages/satuanKerja/detailSatker.vue'
@@ -288,6 +289,7 @@ app.component('UserData',UserData)
 app.component('pelayananList',pelayananList)
 app.component('layananMenu',layananMenu)
 app.component('satkerList', satkerList)
+app.component('asnList', asnList)
 app.component('KantorData', KantorData)
 app.component('satkermenu',satkerMenu)
 app.component('DetailSatker',detailSatker)

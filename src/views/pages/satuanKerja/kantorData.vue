@@ -6,6 +6,7 @@
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
 						<div v-if="!loading && nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
+							<router-link to="/ASN/197304241998031008">
 							<div class="PTSP categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
@@ -13,6 +14,7 @@
 								<span style="font-size:14px">KEPALA KANTOR<br>Kementerian Agama Kab.Tanah Datar</span>
 								</a>								   
 							</div>
+							</router-link>
 						</div>
 						<hr/>
 						<div v-if="loading" class="text-center">
