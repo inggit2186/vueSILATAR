@@ -101,6 +101,7 @@
                 <span v-else><i-svg-spinners-bars-scale-middle />  Good Bye...</span>
                 <div class="dropdown-menu dropdown-menu-end">
                     <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: gray;color: aliceblue;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
+                    <b-button class="dropdown-item" @click="personalFile()" style="background-color: seagreen;color: aliceblue;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profile Settings</router-link>
                     <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; My Request</router-link>
@@ -186,6 +187,13 @@ export default {
             
         },
         methods:{
+            personalFile() {
+                this.$swal.fire({
+                    title: 'Under Construction!',
+                    html: 'Mohon Maaf... Halaman Sedang dalam Perbaikan!',
+                    icon: 'info',
+                })
+            },
             async logout() {
                 try{
                     this.loading = true

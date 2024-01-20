@@ -16,6 +16,7 @@ import StarRating from 'vue-star-rating'
 import pdfjsLib from 'pdfjs-dist'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import VueCryptojs from 'vue-cryptojs';
+import VueSignaturePad from 'vue-signature-pad';
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -148,6 +149,7 @@ import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
 import listRequest from './views/pages/adminpanel/listRequest.vue'
 import detailRequest from './views/pages/adminpanel/detailRequest.vue'
+import detailTamu from './views/pages/tamu/detailTamu.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -314,6 +316,7 @@ app.component('PersuratanMenu',persuratanMenu)
 app.component('AdminMenu', adminMenu)
 app.component('ListRequest', listRequest)
 app.component('DetailRequest', detailRequest)
+app.component('DetailTamu', detailTamu)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
@@ -325,6 +328,7 @@ app.component('VueDatePicker',VueDatePicker)
 .use(Antd)
 .use(AOS.init())
 app.use(VueEasyLightbox);
+app.use(VueSignaturePad);
 app.use(pdfjsLib);
 app.use(VueCryptojs);
 app.use(CoolLightBox);

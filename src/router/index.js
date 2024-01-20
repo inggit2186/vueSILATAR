@@ -66,6 +66,7 @@ import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
 import ListRequestVue from '@/views/pages/adminpanel/listRequest.vue'
 import DetailRequestVue from '@/views/pages/adminpanel/detailRequest.vue'
+import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
 
 const routes = [
     {
@@ -284,6 +285,14 @@ const routes = [
         path: '/user-appointment',
         name: 'User Appointment',
         component: JanjiTemu,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/detailtamu/:id',
+        name: 'Detail Tamu',
+        component: DetailTamu,
         meta: {
             requiresAuth: true
           }

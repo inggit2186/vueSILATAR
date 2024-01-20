@@ -99,7 +99,7 @@ export default {
                         nip: this.nip,
                         idtujuan: id,
                         tujuan: this.tujuan,
-                        status: "on site"
+                        status: "ON SITE"
                     },{headers});
                 }else{
                     response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addTamu', {
@@ -109,7 +109,7 @@ export default {
                         asal: this.asal,
                         idtujuan: id,
                         tujuan: this.tujuan,
-                        status: "on site"
+                        status: "ON SITE"
                     },{headers});
                 }
                 

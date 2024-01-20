@@ -55,14 +55,14 @@
                                                     {{ item.tujuan }}<br/>
                                                 </td>
                                                 <td>
-                                                    <BBadge v-if="item.status == 'appointment'" variant="light">DIAJUKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'on site'" variant="info">DI LOKASI</BBadge>
-                                                    <BBadge v-else-if="item.status == 'pending'" variant="warning">PENDING</BBadge>
-                                                    <BBadge v-else-if="item.status == 'diterima'" variant="secondary">DITERIMA</BBadge>
-                                                    <BBadge v-else-if="item.status == 'sukses'" variant="primary">SUKSES</BBadge>
-                                                    <BBadge v-else-if="item.status == 'ditolak'" variant="danger">DITOLAK</BBadge>
-                                                    <BBadge v-else-if="item.status == 'batal'" variant="danger">DIBATALKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'expired'" variant="dark">KADALUARSA</BBadge>
+                                                    <BBadge v-if="item.status == 'APPOINTMENT'" variant="light">DIAJUKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'ON SITE'" variant="info">DI LOKASI</BBadge>
+                                                    <BBadge v-else-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'SUKSES'" variant="primary">SUKSES</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
+                                                    <BBadge v-else-if="item.status == 'BATAL'" variant="danger">DIBATALKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'EXPIRED'" variant="dark">KADALUARSA</BBadge>
                                                     <br/>
                                                     <span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
 													<span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.onstaff }}	</i></span>
@@ -255,7 +255,7 @@ export default {
 				}).then((result) => {
 					/* Read more about isConfirmed, isDenied below */
 					if (result.isDenied) {
-						this.updateTamu(id,result.value,'batal')
+						this.updateTamu(id,result.value,'BATAL')
 					};
 				});
 		},
