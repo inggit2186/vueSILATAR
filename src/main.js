@@ -28,6 +28,7 @@ import NavbarFour from './components/navbarFour.vue'
 import NavbarFive from './components/navbarFive.vue'
 import NavMenu from './components/navmenu.vue'
 import userMenu from './components/userMenu.vue'
+import kinerjaMenu from './components/kinerjaMenu.vue'
 
 // Page Components
 import Header from './views/layouts/header.vue'
@@ -200,6 +201,7 @@ app.component('Navbarfour',NavbarFour)
 app.component('Navbarfive',NavbarFive)
 app.component('Navmenu',NavMenu)
 app.component('UserMenu',userMenu)
+app.component('KinerjaMenu',kinerjaMenu)
 
 app.component('Indexcategory',IndexCategory)
 app.component('Indexexplore',IndexExplore)

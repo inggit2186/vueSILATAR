@@ -73,8 +73,11 @@
             <li v-if="auth && user.dept.kategori == 'kantor'" :class="{'active': currentPath == 'Admin Panel'}" class="d-block d-sm-none">
                 <router-link to="/admin"><BBadge variant="danger" style="font-size: medium;"><i-wpf-administrator /> &nbsp;Admin Panel</BBadge></router-link>
             </li>
-            <li v-if="auth && user.dept.kategori == 'kantor'" :class="{'active': currentPath == 'Profile'}" class="d-block d-sm-none">
+            <li v-if="auth" :class="{'active': currentPath == 'Profile'}" class="d-block d-sm-none">
                 <router-link to="/dashboard"><BBadge variant="success" style="font-size: medium;"><i class="feather-grid"></i> &nbsp;Profil</BBadge></router-link>
+            </li>
+            <li v-if="auth" :class="{'active': currentPath == 'Kinerja Harian'}" class="d-block d-sm-none">
+                <router-link to="/kinerja-harian"><BBadge variant="success" style="font-size: medium;"><i-mdi-worker /> &nbsp;Kinerja</BBadge></router-link>
             </li>
             <li v-if="!auth" class="d-block d-sm-none" style="padding:5% 5% 5% 5%;">
                 <lu><router-link to="/login"><BBadge variant="danger" style="font-size: medium;float: left;"><i-solar-login-3-bold /> &nbsp;LOGIN</BBadge></router-link></lu>
@@ -103,9 +106,10 @@
                     <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: gray;color: aliceblue;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
                     <b-button class="dropdown-item" @click="personalFile()" style="background-color: seagreen;color: aliceblue;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
-                    <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profile Settings</router-link>
-                    <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; My Request</router-link>
+                    <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profil</router-link>
+                    <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; Layanan</router-link>
                     <router-link class="dropdown-item" to="/user-appointment"><i-icon-park-solid-appointment />&nbsp; Appointment</router-link>
+                    <router-link class="dropdown-item" to="/kinerja-harian"><i-mdi-worker />&nbsp; Laporan Kinerja</router-link>
                     <b-button class="dropdown-item" @click="logout()">
                         <span><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
                     </b-button>

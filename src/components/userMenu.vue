@@ -11,11 +11,6 @@
                     <i class="fa-solid fa-user"></i> <span>Profile</span>
                 </router-link>
             </li>
-            <li :class="{ active: $route.name === 'Kinerja Harian' }">
-                <router-link to="kinerja-harian">
-                    <i-icon-park-solid-appointment /> <span>Laporan Kinerja</span>
-                </router-link>
-            </li>
             <li :class="{ active: $route.name === 'My Listing' }">
                 <router-link to="my-listing">
                     <i class="feather-list"></i> <span>Layanan</span>
