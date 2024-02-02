@@ -8,10 +8,10 @@
                 <div class="dashboard-content">
                     <div class="container">
                         <userMenu />
-                        <div class="dash-listingcontent dashboard-info">
-                            <div class="dash-cards card">
+                        <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
+                            <div ref="scroll1st" class="dash-cards card">
                                 <div class="card-header">
-                                    <h4>Daftar Request</h4>
+                                    <h4>Laporan Kinerja Harian</h4>
                                     <!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
                                             class="fa-solid fa-plus"></i> Add Listing</router-link> -->
                                 </div>
@@ -19,6 +19,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
+                                            <a class="btn btn-danger" href="#" @click="changedetail(2)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
@@ -33,39 +34,23 @@
                                                 </th>
                                             </tr>
                                         </thead>
-										<tbody v-if="loading">
+                                        <tbody v-if="loading">
                                             <tr>
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.ptsp.length == 0">
+											<tr v-if="this.kinerja.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="item in paginatedItem" :key="item.id">
-                                                <td><a href="#">{{ item.tanggal }} </a><br/><b>{{ item.jam }}</b></td>
+                                                <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td>
-                                                    <BBadge v-if="item.tipe == 'asn'" pill variant="primary" style="font-size: small;"> {{ item.staff }} </BBadge>
-                                                    <BBadge pill v-else variant="secondary" style="font-size: small;"> {{ item.staff }} </BBadge>
+                                                   {{ item.kegiatan }}<br/>
+                                                   <span style="font-size: small;"><i-bx-comment-detail /> {{ item.deskripsi }}</span>
                                                 </td>
                                                 <td>
-                                                    {{ item.tujuan }}<br/>
-                                                </td>
-                                                <td>
-                                                    <BBadge v-if="item.status == 'APPOINTMENT'" variant="light">DIAJUKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'ON SITE'" variant="info">DI LOKASI</BBadge>
-                                                    <BBadge v-else-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
-                                                    <BBadge v-else-if="item.status == 'SUKSES'" variant="primary">SUKSES</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
-                                                    <BBadge v-else-if="item.status == 'BATAL'" variant="danger">DIBATALKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'EXPIRED'" variant="dark">KADALUARSA</BBadge>
-                                                    <br/>
-                                                    <span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
-													<span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.onstaff }}	</i></span>
-                                                </td>
-                                                <td>
-                                                    {{ item.komen }}<br/>
+                                                    {{ item.volume }}<br/>
                                                 </td>
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
@@ -106,6 +91,50 @@
                             </div>
                         </div>
                     </div>
+
+                    <div v-else-if="detail == 2" class="card-body">
+                        <div ref="scroll1st" class="container">
+                            <div  ref="scroll1st" class="pagination">
+                                <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                            </div>
+                            <hr/>
+                            <b-form @submit.prevent="addKinerja">
+                            <div class="profile-content">
+                                <div class="messages-form">
+                                    <div class="card">
+                                        <div class="card-header text-center">
+                                            <h2>::: Laporan Kegiatan :::</h2>							
+                                        </div>
+                                        <div class="card-header">
+                                            <h4>Detail Kegiatan Harian</h4>							
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Tanggal <span>*</span></label>								    
+                                                <VueDatePicker v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" required />									   
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
+												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
+                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="max-width: 80%;float:left;"/>
+													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="max-width: 19%;float:right;" />
+													<br/>				   
+													<br/>				   
+												</div>
+											</div>
+                                        </div>
+                                    </div>
+                                    <div class="centered">
+                                        <b-button variant="primary" type="submit" :disabled="loading"> 
+                                            <span v-if="!loading"> Simpan</span>
+                                            <span v-else><i-svg-spinners-bars-scale-middle />  Mengirim Laporan....</span>
+                                        </b-button>						
+                                    </div>
+                                </div>			
+                            </div>
+                            </b-form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /Dashboard Content -->
@@ -126,13 +155,16 @@ export default {
             text1: "Daftar Appointment",
             name: "/",
 			columns2: [
-				{ name: 'Tanggal', data: 'waktu' },
-				{ name: 'Tujuan', data: 'name' },
-				{ name: 'Deskripsi', data: 'tujuan' },
-				{ name: 'Status', data: 'status' },
-				{ name: 'Komentar', data: 'komen' },
+				{ name: 'Tanggal', data: 'tanggal' },
+				{ name: 'Kegiatan', data: 'kegiatan' },
+				{ name: 'Volume', data: 'volume' },
 				{ name: 'Action', data: 'action' },
 			],
+			kegiatan: [{
+				id: 'kinerja0',
+				kegiatan: '',
+			}],
+			counter:0,
 			keyword: '',
 			currentSort: '',
       		currentSortDir: 'asc',
@@ -140,8 +172,10 @@ export default {
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
-			ptsp: [],
-			ptsp0: [],
+			kinerja: [],
+			kinerja0: [],
+			tanggal: [],
+            detail: 1
         }
     },
     computed: {
@@ -149,7 +183,7 @@ export default {
 			return this.columns
 		},
 		sortedData() {
-			return this.ptsp.sort((a, b) => {
+			return this.kinerja.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -160,7 +194,7 @@ export default {
     	paginatedItem() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.ptsp.slice(start, end);
+			return this.kinerja.slice(start, end);
 		},
 		displayedPages() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -168,26 +202,39 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages() {
-            return Math.ceil(this.ptsp.length / this.itemsPerPage);
+            return Math.ceil(this.kinerja.length / this.itemsPerPage);
         },
 	},
   created() {
-		this.getPTSP(),
+		this.getKegiatan(),
 		window.scrollTo(0,0)
 	},
   methods: {
-		async getPTSP() {
+        changedetail(id){
+            this.detail = id;
+            this.$nextTick(() => {
+                this.$refs.scroll1st.scrollIntoView();
+            });
+        },
+		clone(){
+			this.kegiatan.push({
+				id: `kinerja${++this.counter}`,
+				kegiatan: '',
+			});
+		},
+		async getKegiatan() {
 			this.loading = true;
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myAppointment',{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myKinerja',{headers})
 				
 				if(response.data.success == true){
-          			this.ptsp0 = response.data.data
-          			this.ptsp = response.data.data
+                    console.log(response.data)
+          			this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -212,7 +259,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.ptsp.sort((a, b) => {
+			this.kinerja.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -222,9 +269,9 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.ptsp = this.ptsp0;
+				this.kinerja = this.kinerja0;
 			} else {
-				this.ptsp = this.ptsp0.filter((item) => {
+				this.kinerja = this.kinerja0.filter((item) => {
 					return item.tujuan.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.staff.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
@@ -256,18 +303,17 @@ export default {
 					};
 				});
 		},
-		async updateTamu(id,komen,st){
-			this.loadingaksi[id] = true
+		async addKinerja(){
+			this.loading = true
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateTamu',{
-					id: id,
-                    sender: 'user',
-					komen: komen,
-					status: st,
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKinerja',{
+                    tanggal: this.tanggal,
+                    formx: this.kegiatan,
+					n: this.counter
 				},{headers})
 				
 				if(response.data.success == true){
@@ -275,11 +321,11 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
-					this.ptsp0 = response.data.data
-          			this.ptsp = response.data.data	
+					this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data	
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -290,7 +336,7 @@ export default {
 					icon: 'error',
 				})
 			} finally {
-				this.loadingaksi[id] = false
+				this.loading = false
 			}
 		},
   }

@@ -120,6 +120,10 @@ import ProfileDashboard from './views/pages/profile/ProfileDashboard.vue'
 import ReviewDashboard from './views/pages/reviews/ReviewDashboard.vue'
 import JanjiTemu from './views/pages/profile/JanjiTemu.vue'
 import UserData from './views/pages/profile/UserData.vue'
+import KegiatanHarian from './views/pages/profile/KegiatanHarian.vue'
+
+//satudata
+import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
 
 //Pelayanan
 import pelayananList from './views/pages/layananMenu/pelayananList.vue'
@@ -286,6 +290,10 @@ app.component('Mylisting',MyListing)
 app.component('Dashboardcontent',Dashboard)
 app.component('JanjiTemu',JanjiTemu)
 app.component('UserData',UserData)
+app.component('KegiatanHarian',KegiatanHarian)
+
+//satudata
+app.component('SatuDataHome',SatudataHome)
 
 //Pelayanan
 app.component('pelayananList',pelayananList)

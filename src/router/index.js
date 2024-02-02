@@ -41,6 +41,10 @@ import IndexFive from '../views/pages/indexfive/indexFive.vue'
 //profil
 import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
 import UserData from '../views/pages/profile/UserData.vue'
+import KegiatanHarian from '../views/pages/profile/KegiatanHarian.vue'
+
+//satudata
+import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -316,9 +320,22 @@ const routes = [
           }
     },
     {
+        path: '/kinerja-harian',
+        name: 'Kinerja Harian',
+        component: KegiatanHarian,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
         path: '/userdata',
         name: 'Data Pegawai',
         component: UserData,
+    },
+    {
+        path: '/satudata',
+        name: 'Satu Data',
+        component: SatudataHome,
     },
     {
         path: '/reviews',
@@ -350,8 +367,8 @@ const routes = [
           }
     },
     {
-        path: '/SatuData/:id',
-        name: 'Satu Data',
+        path: '/satkerdata/:id',
+        name: 'Satker Data',
         component: satuDataVue,
         meta: {
             requiresAuth: true

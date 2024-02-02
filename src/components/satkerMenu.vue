@@ -27,7 +27,7 @@
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Lainnya' }">
-                <router-link to="Lainnya">
+                <router-link to="/Satker/999">
                     <i class="fas fa-solid fa-heart"></i> <span>Swasta / Lainnya</span>
                 </router-link>
             </li>

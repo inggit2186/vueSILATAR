@@ -59,6 +59,44 @@
                             </div>
                             </router-link>
                         </div>
+                        <hr/>
+                        <div v-for="itemx in paginatedLayanan" :key="itemx.id" class="col-lg-3 col-md-4 centered">
+							<router-link :to='"/listreq/"+itemx.id'>
+							<div class="categories-content">
+								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+								<img :src="$assets+'/img/ikon/'+itemx.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(itemx)">
+								<h6>{{ itemx.nama }}</h6>
+								<span>{{ itemx.deskripsi }}</span>
+								</a>								   
+							</div>
+							</router-link>
+						</div>
+                        <!--Pagination--> 
+                        <div class="blog-pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
+                                        <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                                    </li>
+                                    <li class="justify-content-center pagination-center"> 
+                                        <div class="pagelink">
+                                            <ul>
+                                                <li v-for="page in displayedPages" :key="page" class="page-item" :class="{'active': currentPage === page}">
+                                                    <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+                                                </li>
+                                                <li class="page-item" :class="{'disabled': currentPage === totalPages}">
+                                                    <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">...</a>
+                                                </li>
+                                            </ul>
+                                        </div>													
+                                    </li>													
+                                    <li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
+                                        <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/Pagination-->
                     </div>
                 </div>
             </div>
@@ -80,11 +118,29 @@ export default {
             text1: "Buku Tamu",
             name: "/",
             loading: false,
-            submenu: []
+            itemsPerPage: 12,
+        	currentPage: 1,
+            submenu: [],
+            layanan: []
         };
     },
     created() {
         this.getSubMenu()
+    },
+    computed: {
+        paginatedLayanan() {
+			const start = (this.currentPage - 1) * this.itemsPerPage;
+			const end = start + this.itemsPerPage;
+			return this.layanan.slice(start, end);
+		},
+		displayedPages() {
+			const start = Math.max(this.currentPage - 1, 1);
+			const end = Math.min(start + 2, this.totalPages);
+			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+		},
+		totalPages() {
+            return Math.ceil(this.layanan.length / this.itemsPerPage);
+        },
     },
     methods: {
         async getSubMenu() {
@@ -96,7 +152,9 @@ export default {
 					};
 				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getSubmenu',{headers})
 				this.submenu = response.data.data
-                console.log(this.submenu)
+                this.layanan = response.data.data2
+
+                console.log(this.layanan)
 			} catch (error) {
 				this.$toast.fire({
 					title: error,
@@ -106,9 +164,12 @@ export default {
 				this.loading = false
 			}
 		},
-        handleBrokenImage(item) {
-			item.layanan_id = 'o-1';
+        changePage(pageNumber) {
+			this.currentPage = pageNumber;
 		},
+        handleBrokenImage(itemx) {
+			itemx.imgid = 'o-'+(Math.floor(Math.random() * 16) + 1);
+		}
     }
 }
 </script>

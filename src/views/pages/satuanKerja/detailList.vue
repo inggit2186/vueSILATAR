@@ -46,6 +46,7 @@
 								<h6>{{ item.name }}</h6>
 								<span class="ads">{{ item.nomor_induk }}</span>
 								<span>{{ item.pekerjaan }}</span>
+								<BBadge v-if="this.$route.params.id == 999" pill variant="warning" style="font-size: x-small;">{{ item.satker }}</BBadge>
 								</a>								   
 							</div>
 							</router-link>

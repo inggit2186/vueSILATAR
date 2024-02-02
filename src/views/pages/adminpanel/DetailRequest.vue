@@ -591,7 +591,19 @@ export default {
                 this.fileUrl = event.target.result
                 this.fileSize = file.size
                 this.fileName = file.name
-                this.uploadSyarat(itemId)
+                if(file.size > 1046000){
+                    this.$toast.fire({
+                        title: "File Tidak Boleh lebih dari 1MB !",
+                        icon: "warning"
+                    });
+                }else if(file.type != 'application/pdf'){
+                    this.$toast.fire({
+                        title: "File harus tipe .PDF !",
+                        icon: "warning"
+                    });
+                }else{
+                    this.uploadSyarat(itemId)
+                }
             }
 
             reader.readAsDataURL(file)
