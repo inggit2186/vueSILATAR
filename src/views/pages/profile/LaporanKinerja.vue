@@ -16,17 +16,18 @@
 								<div class="card-body">
 									<div class="row centered">
 										<div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered" style="margin-bottom: 3%;">
-											<div class="media-image" v-b-tooltip="'Upload Hasil Scan Dokumennya'">
+											<div class="media-image" v-b-tooltip="'Upload Laporan CKH Anda'">
 												<h6 class="media-title">{{ item.nama }}</h6>
-													<img v-if="item.filename == null || item.filename == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
-													<img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.filename)" />
+													<img v-if="item.status == 'KOSONG'" :src="$assets+'/img/ikon/filenotfound.png'" />
+													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.filename)" />
+													<img v-else :src="$assets+'/img/ikon/'+item.status+'.png'" alt="" @click="openFile(item.filename)" />
 												<BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
 													<p class="my-4">Cek File!</p>
 												</BModal>
 												<br/>
 												<br/>
 												<div class="settings-upload-btn">
-													<div v-if="item.status == 'DITERIMA'">
+													<div v-if="item.status == 'DISETUJUI'">
 														<BButton block size="lg" variant="success" style="margin-top: 5px;" disabled>
 															<span><i-noto-v1-ok-hand /> Disetujui</span>
 														</BButton>
@@ -211,6 +212,89 @@ export default {
 			} finally {
 				this.loadingfile[itemId] = false
 			}
+        },
+		openFile(item) {
+            
+            let frame = null;
+            let isPDF = item.toLowerCase().endsWith('.pdf');
+            let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
+            
+            if(isWord){
+                frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+            }else{
+                frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+            }
+
+            if (window.innerWidth < 768) {
+                this.$swal.fire({
+                    width: "100%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }else{
+                this.$swal.fire({
+                    width: "50%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }
+        },
+		async deleteFile(itemid){
+            this.$swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda Tidak bisa untuk Membatalkannya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Ya, Hapus File ini!",
+                preConfirm: async (deleteFile) => {
+                    try {
+                        const headers = {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    };
+                        
+                        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteCKH',{
+                            id: itemid,
+                        }, {headers})
+
+                        if(response.data.success == true){
+							const itemIndex = this.files.findIndex(files => files.id === itemid)
+        					this.files[itemIndex] = response.data.file;
+                        }
+                    } catch (error) {
+                    this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => this.$swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$toast.fire({
+                    title: "File Telah Dihapus!",
+                    icon: "success"
+                    });
+                }
+            });
         },
   }
 }
