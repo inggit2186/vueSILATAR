@@ -6,8 +6,8 @@
                     <i-mdi-work /> <span>Kinerja Harian</span>
                 </router-link>
             </li>
-            <li :class="{ active: $route.name === 'Kinerja Harian' }">
-                <router-link to="kinerja-harian">
+            <li :class="{ active: $route.name === 'Laporan Kinerja' }">
+                <router-link to="laporankinerja">
                     <i-ic-baseline-work-history /> <span>Laporan Kinerja Bulanan</span>
                 </router-link>
             </li>

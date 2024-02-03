@@ -42,6 +42,7 @@ import IndexFive from '../views/pages/indexfive/indexFive.vue'
 import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
 import UserData from '../views/pages/profile/UserData.vue'
 import KegiatanHarian from '../views/pages/profile/KegiatanHarian.vue'
+import LaporanKinerja from '../views/pages/profile/LaporanKinerja.vue'
 
 //satudata
 import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
@@ -323,6 +324,14 @@ const routes = [
         path: '/kinerja-harian',
         name: 'Kinerja Harian',
         component: KegiatanHarian,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/laporankinerja',
+        name: 'Laporan Kinerja',
+        component: LaporanKinerja,
         meta: {
             requiresAuth: true
           }
