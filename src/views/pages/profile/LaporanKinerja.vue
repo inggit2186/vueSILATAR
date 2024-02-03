@@ -11,26 +11,48 @@
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="card-header centered">
-                                    <h4>:: Upload Laporan Kinerja Bulanan ::</h4>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 featured-img1 centered">
-                                            <div class="settings-upload-btn">
-                                                <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['januari']" @change="onFileHasil('januari',$event)">
-                                                <label v-if="!loadingfile['januari']" for="file" class="file-upload">
-                                                    <span v-if="januari == null || januari == 'NONE'"><i-ph-upload-fill /> Upload File</span>
-                                                    <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
-                                                </label>
-                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
-                                            </div>
-                                            <br/>
-                                            <div>
-                                                <BButton v-if="januari != null && januari != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile('januari')">
-                                                    <span><i-fluent-delete-off-24-filled /> Delete File</span>
-                                                </BButton>
-                                            </div>
-                                        </div>
+									<h4>Laporan Kinerja Bulanan Tahun 2024</h4>
+								</div>
+								<div class="card-body">
+									<div class="row centered">
+										<div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered" style="margin-bottom: 3%;">
+											<div class="media-image" v-b-tooltip="'Upload Hasil Scan Dokumennya'">
+												<h6 class="media-title">{{ item.nama }}</h6>
+													<img v-if="item.filename == null || item.filename == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+													<img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.filename)" />
+												<BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+													<p class="my-4">Cek File!</p>
+												</BModal>
+												<br/>
+												<br/>
+												<div class="settings-upload-btn">
+													<div v-if="item.status == 'DITERIMA'">
+														<BButton block size="lg" variant="success" style="margin-top: 5px;" disabled>
+															<span><i-noto-v1-ok-hand /> Disetujui</span>
+														</BButton>
+													</div>
+													<div v-else>
+														<input id="file" type="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
+														<label v-if="!loadingfile[item.id]" for="file" class="file-upload">
+															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Upload File</span>
+															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+														</label>
+														<label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+													</div>
+												</div>
+												<br/>
+												<div>
+													<BButton v-if="item.status == 'DIKIRIM' || item.status == 'DITOLAK'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile(item.id)">
+														<span><i-fluent-delete-off-24-filled /> Delete File</span>
+													</BButton>
+													<br/>
+													<span v-if="item.status == 'DITOLAK'" style="font-size: small;font-style: italic;"><b>*{{ item.alasan }}</b></span>
+												</div>
+												<hr/>
+											</div>
+										</div>
 									</div>
-                                </div>
+								</div>
                             <div class="card-body">
                                 
                             </div>
@@ -51,21 +73,24 @@
 export default {
     data() {
         return {
-            title: "Daftar Appointment",
+            title: "Laporan Kinerja",
             text: "User",
-            text1: "Daftar Appointment",
+            text1: "Laporan Kinerja",
             name: "/",
-			columns2: [
-				{ name: 'Tanggal', data: 'tanggal' },
-				{ name: 'Kegiatan', data: 'kegiatan' },
-				{ name: 'Volume', data: 'volume' },
-				{ name: 'Action', data: 'action' },
+			files: [
+				{ id: 1, nama: 'Januari', filename: null, status: "KOSONG" },
+				{ id: 2, nama: 'Februari', filename: null, status: "KOSONG" },
+				{ id: 3, nama: 'Maret', filename: null, status: "KOSONG" },
+				{ id: 4, nama: 'April', filename: null, status: "KOSONG" },
+				{ id: 5, nama: 'Mei', filename: null, status: "KOSONG" },
+				{ id: 6, nama: 'Juni', filename: null, status: "KOSONG" },
+				{ id: 7, nama: 'Juli', filename: null, status: "KOSONG" },
+				{ id: 8, nama: 'Agustus', filename: null, status: "KOSONG" },
+				{ id: 9, nama: 'September', filename: null, status: "KOSONG" },
+				{ id: 10, nama: 'Oktober', filename: null, status: "KOSONG" },
+				{ id: 11, nama: 'November', filename: null, status: "KOSONG" },
+				{ id: 12, nama: 'Desember', filename: null, status: "KOSONG" },
 			],
-			kegiatan: [{
-				id: 'kinerja0',
-				kegiatan: '',
-			}],
-			counter:0,
 			keyword: '',
 			currentSort: '',
       		currentSortDir: 'asc',
@@ -80,63 +105,25 @@ export default {
             januari: null,
         }
     },
-    computed: {
-		tableHeader() {
-			return this.columns
-		},
-		sortedData() {
-			return this.kinerja.sort((a, b) => {
-				let modifier = 1;
-				if(this.currentSortDir === 'desc') modifier = -1;
-				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-				if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-				return 0;
-			});
-			},
-    	paginatedItem() {
-			const start = (this.currentPage - 1) * this.itemsPerPage;
-			const end = start + this.itemsPerPage;
-			return this.kinerja.slice(start, end);
-		},
-		displayedPages() {
-			const start = Math.max(this.currentPage - 1, 1);
-			const end = Math.min(start + 2, this.totalPages);
-			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-		},
-		totalPages() {
-            return Math.ceil(this.kinerja.length / this.itemsPerPage);
-        },
-	},
   created() {
-		this.getKegiatan(),
+		this.getFiles();
 		window.scrollTo(0,0)
 	},
   methods: {
-        changedetail(id){
-            this.detail = id;
-            this.$nextTick(() => {
-                this.$refs.scroll1st.scrollIntoView();
-            });
-        },
-		clone(){
-			this.kegiatan.push({
-				id: `kinerja${++this.counter}`,
-				kegiatan: '',
-			});
-		},
-		async getKegiatan() {
-			this.loading = true;
+	async getFiles(){
+		this.loading = true;
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myKinerja',{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myCKH',{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
-          			this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data
+					response.data.file.forEach((value, index) => {
+						let itemIndex = this.files.findIndex(files => files.id === value.id)
+						this.files[itemIndex] = value;
+					});
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -153,94 +140,78 @@ export default {
 				this.loading = false
 			}
 		},
-		sortTable(column) {
-			if (this.currentSort === column) {
-				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
-			} else {
-				this.currentSort = column;
-				this.currentSortDir = 'asc';
-			}
+	changedetail(id){
+		this.detail = id;
+		this.$nextTick(() => {
+			this.$refs.scroll1st.scrollIntoView();
+		});
+	},
+	onFileChange(itemId, event) {
+		    const file = event.target.files[0];
+            const reader = new FileReader();
 
-			this.kinerja.sort((a, b) => {
-				let modifier = 1;
-				if (this.currentSortDir === 'desc') modifier = -1;
-				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-				if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-				return 0;
-			});
-		},
-		filterTable() {
-			if (this.keyword === '' || this.keyword == null) {
-				this.kinerja = this.kinerja0;
-			} else {
-				this.kinerja = this.kinerja0.filter((item) => {
-					return item.tujuan.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.staff.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.jam.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.onstaff.toLowerCase().includes(this.keyword.toLowerCase());
-				});
-			}
-		},
-		changePage(pageNumber) {
-			this.currentPage = pageNumber;
-		},
-		aksiTamu(id) {
-			this.$swal.fire({
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: false,
-				showDenyButton: true,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;BATALKAN`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isDenied) {
-						this.updateTamu(id,result.value,'BATAL')
-					};
-				});
-		},
-		async addKinerja(){
-			this.loading = true
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKinerja',{
-                    tanggal: this.tanggal,
-                    formx: this.kegiatan,
-					n: this.counter
-				},{headers})
-				
-				if(response.data.success == true){
+            reader.onload = (event) => {
+                this.fileUrl = event.target.result
+                this.fileSize = file.size
+                this.fileName = file.name
+                
+                
+				if(file.size > 520000){
 					this.$toast.fire({
-						title: response.data.message,
-						icon: 'success',
-					})
-					this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data	
+						title: "File Tidak Boleh lebih dari 500 KB !",
+						icon: "warning"
+					});
+				}else if(file.type != 'application/pdf'){
+					this.$toast.fire({
+						title: "File harus tipe .PDF !",
+						icon: "warning"
+					});
 				}else{
-					this.$toast.fire({
-						title: response.data.message,
-						icon: 'error',
-					})
+					this.uploadDoc(itemId)
 				}
-		
+                
+            }
+
+            reader.readAsDataURL(file)
+		},
+		async uploadDoc(itemId) {
+            try{
+                this.loadingfile[itemId] = true
+				const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+                
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadCKH',{
+                    id: itemId,
+                    filex: this.fileUrl,
+                    size: this.fileSize
+				}, {headers})
+
+                if(response.data.success == true){
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+                    const itemIndex = this.files.findIndex(files => files.id === itemId)
+        			this.files[itemIndex] = response.data.file;
+					console.log(this.files)
+                }else{
+					this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'danger',
+                    })
+				}
+                
 			} catch (error) {
 				this.$toast.fire({
 					title: error,
 					icon: 'error',
 				})
 			} finally {
-				this.loading = false
+				this.loadingfile[itemId] = false
 			}
-		},
+        },
   }
 }
 </script>
