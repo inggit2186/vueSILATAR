@@ -18,9 +18,9 @@
 										<div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered" style="margin-bottom: 3%;">
 											<div class="media-image" v-b-tooltip="'Upload Laporan CKH Anda'">
 												<h5 class="media-title"><u><b>{{ item.nama }}</b></u></h5>
-													<img v-if="item.status == 'KOSONG'" :src="$assets+'/assets/img/ikon/filenotfound.png'" style="max-width: 170px;"/>
-													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.filename)" />
-													<img v-else :src="$assets+'/img/ikon/'+item.status+'.png'" alt="" @click="openFile(item.filename)" />
+													<img v-if="item.status == 'KOSONG'" :src="$assets+'/img/ikon/filenotfound.png'" style="max-width: 170px;"/>
+													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" style="max-width: 170px;" alt="" @click="openFile(item.filename)" />
+													<img v-else :src="$assets+'/img/ikon/'+item.status+'.png'" style="max-width: 170px;" alt="" @click="openFile(item.filename)" />
 												<BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
 													<p class="my-4">Cek File!</p>
 												</BModal>
