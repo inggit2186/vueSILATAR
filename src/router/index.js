@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router';
+import Swal from 'sweetalert2';
 
 import Index from '../views/pages/index/index.vue'
 import About from '../views/pages/about/about.vue'
@@ -72,6 +73,8 @@ import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
 import ListRequestVue from '@/views/pages/adminpanel/listRequest.vue'
 import DetailRequestVue from '@/views/pages/adminpanel/detailRequest.vue'
 import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
+import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
+import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
 
 const routes = [
     {
@@ -299,7 +302,7 @@ const routes = [
         name: 'Detail Tamu',
         component: DetailTamu,
         meta: {
-            requiresAuth: true
+            requiresAdmin: true
           }
     },
     {
@@ -404,7 +407,7 @@ const routes = [
         name: 'Admin Panel',
         component: AdminMenuVue,
         meta: {
-            requiresAuth: true
+            requiresAdmin: true
           }
     },
     {
@@ -412,7 +415,7 @@ const routes = [
         name: 'Daftar Request',
         component: ListRequestVue,
         meta: {
-            requiresAuth: true
+            requiresAdmin: true
           }
     },
     {
@@ -420,7 +423,23 @@ const routes = [
         name: 'Detail Request',
         component: DetailRequestVue,
         meta: {
-            requiresAuth: true
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/verifckh',
+        name: 'Laporan CKH',
+        component: VerifCKH,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/verifckh/:xid/:id',
+        name: 'Verifikasi CKH',
+        component: adminSatker,
+        meta: {
+            requiresAdmin: true
           }
     },
     {
@@ -465,7 +484,29 @@ router.beforeEach((to, from, next) => {
            query: { redirect: to.fullPath }
          });
        }
-    }else if (to.matched.some(record => record.meta.userLogout)) {
+    }else if (to.matched.some(record => record.meta.requiresAdmin)) {
+        // Check if the user is logged in
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            if(userData.rtoken == "09e093049ee30" || userData.rtoken == "09dsao090ed22"){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.userLogout)) {
         
         localStorage.clear()
         next({

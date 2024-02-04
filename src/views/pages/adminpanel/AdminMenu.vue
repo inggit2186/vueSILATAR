@@ -27,7 +27,7 @@
                         </div>
                         <hr/>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/listreq/777'>
+                            <router-link to='/verifckh'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">

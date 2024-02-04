@@ -156,6 +156,9 @@ import adminMenu from './views/pages/adminpanel/adminMenu.vue'
 import listRequest from './views/pages/adminpanel/listRequest.vue'
 import detailRequest from './views/pages/adminpanel/detailRequest.vue'
 import detailTamu from './views/pages/tamu/detailTamu.vue'
+import verifCKH from './views/pages/adminpanel/LaporanKinerja.vue'
+import adminSatker from './views/pages/adminpanel/SatuanKerja.vue'
+import listSatker from './views/pages/adminpanel/ListSatker.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -329,6 +332,9 @@ app.component('AdminMenu', adminMenu)
 app.component('ListRequest', listRequest)
 app.component('DetailRequest', detailRequest)
 app.component('DetailTamu', detailTamu)
+app.component('VerifCKH',verifCKH)
+app.component('adminSatker',adminSatker)
+app.component('ListSatker',listSatker)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

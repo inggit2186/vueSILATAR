@@ -9,7 +9,15 @@
                     <div class="container">
                         <kinerjaMenu />
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
-                            <div ref="scroll1st" class="dash-cards card">
+                            <div v-if="loading" class="text-center">
+								<hr>
+								<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
+								<br>
+								<i-svg-spinners-bars-scale style="font-size: 2em;"/>
+								<h3>::: Nyangkul Data dulu :::</h3>
+								<hr>
+							</div>
+							<div v-else ref="scroll1st" class="dash-cards card">
                                 <div class="card-header centered">
 									<h4>Laporan Kinerja Bulanan Tahun 2024</h4>
 								</div>

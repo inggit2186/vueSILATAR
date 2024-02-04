@@ -210,9 +210,17 @@
 		},
 	},
 	created() {
+		this.opener()
 		this.date = new Date()
 	},
 	methods: {
+		opener() {
+			this.$swal.fire({
+				title: 'SEKILAS INFO!',
+				html: '<p style="font-size: 16px">Pendaftaran Khusus Pengguna Publik dan ASN yang berada Diluar Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</p><hr/><p style="font-size: 15px">Bagi ASN Kankemenag Kab.Tanah Datar (<i>terdaftar di SIMPEG</i>) <b>otomatis sudah mempunyai Akun SILATAR</b><br/>Silahkan Klik <i>"Lupa Password"</i> jika Anda tidak ingat Password Anda</p>',
+				icon: 'info',
+			})
+		},
 		toggleShow() {
 		 	this.showPassword = !this.showPassword;
 		},
