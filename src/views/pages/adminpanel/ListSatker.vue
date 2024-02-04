@@ -133,12 +133,13 @@ export default {
             return Math.ceil(this.seksi.length / this.itemsPerPage);
         },
 		routeSeksi() {
-        	return id => `/Satker/${id}`;
+        	return id => `/ckh/${this.bln}/${id}`;
     	},
 	},
 	created() {
 		this.getSeksi(),
 		this.nav = this.$route.params.id
+		this.bln = this.$route.params.xid
 		window.scrollTo(0,0)
 	},
 	methods: {
