@@ -46,11 +46,9 @@
 											<tr v-else v-for="item in paginatedItem" :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td>
-                                                   {{ item.kegiatan }}<br/>
-                                                   <span style="font-size: small;"><i-bx-comment-detail /> {{ item.deskripsi }}</span>
-                                                </td>
-                                                <td>
-                                                    {{ item.volume }}<br/>
+                                                   <div v-for="kerja in item.kegiatan" :key="kerja.id">
+													{{ kerja.kegiatan }}  <b>({{ kerja.volume }} {{ kerja.satuan }})</b><br/>
+												   </div>
                                                 </td>
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
@@ -116,8 +114,17 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
 												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
-                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="max-width: 80%;float:left;"/>
-													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="max-width: 19%;float:right;" />
+                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="max-width: 70%;float:left;margin-right: 0.5%;"/>
+													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="max-width: 9%;float:left;" />
+													<b-form-select id="satuan" v-model="kegiatan.satuan" class="form-control pass-input" placeholder="Satuan" style="max-width: 20%;float:right;">
+														<b-form-select-option value="" disabled selected>--Pilih Salah Satu--</b-form-select-option>
+														<b-form-select-option value="Dokumen">Dokumen</b-form-select-option>
+														<b-form-select-option value="Kegiatan">Kegiatan</b-form-select-option>
+														<b-form-select-option value="Kali">Kali</b-form-select-option>
+														<b-form-select-option value="Laporan">Laporan</b-form-select-option>
+														<b-form-select-option value="Modul">Modul</b-form-select-option>
+														<b-form-select-option value="Orang">Orang</b-form-select-option>
+													</b-form-select>
 													<br/>				   
 													<br/>				   
 												</div>
@@ -157,7 +164,6 @@ export default {
 			columns2: [
 				{ name: 'Tanggal', data: 'tanggal' },
 				{ name: 'Kegiatan', data: 'kegiatan' },
-				{ name: 'Volume', data: 'volume' },
 				{ name: 'Action', data: 'action' },
 			],
 			kegiatan: [{
@@ -284,25 +290,6 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-		aksiTamu(id) {
-			this.$swal.fire({
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: false,
-				showDenyButton: true,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;BATALKAN`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isDenied) {
-						this.updateTamu(id,result.value,'BATAL')
-					};
-				});
-		},
 		async addKinerja(){
 			this.loading = true
 			try{
@@ -322,7 +309,8 @@ export default {
 						icon: 'success',
 					})
 					this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data	
+          			this.kinerja = response.data.data
+					this.changedetail(1)
 				}else{
 					this.$toast.fire({
 						title: response.data.message,
