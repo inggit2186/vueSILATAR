@@ -16,7 +16,7 @@
 								<div class="card-body">
 									<div class="row centered">
 										<div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered" style="margin-bottom: 3%;">
-											<div class="media-image" v-b-tooltip="'Upload Laporan CKH Anda'">
+											<div class="media-image" v-b-tooltip="item.alasan">
 												<h5 class="media-title"><u><b>{{ item.nama }}</b></u></h5>
 													<img v-if="item.status == 'KOSONG'" :src="$assets+'/img/ikon/filenotfound.png'" style="max-width: 170px;"/>
 													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" style="max-width: 170px;" alt="" @click="openFile(item.filename)" />
@@ -42,13 +42,9 @@
 													</div>
 												</div>
 												<br/>
-												<div>
-													<BButton v-if="item.status == 'DIKIRIM' || item.status == 'DITOLAK'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile(item.id)">
-														<span><i-fluent-delete-off-24-filled /> Delete File</span>
-													</BButton>
-													<br/>
-													<span v-if="item.status == 'DITOLAK'" style="font-size: small;font-style: italic;"><b>*{{ item.alasan }}</b></span>
-												</div>
+												<BButton v-if="item.status == 'DIKIRIM' || item.status == 'DITOLAK'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile(item.id)">
+													<span><i-fluent-delete-off-24-filled /> Delete File</span>
+												</BButton>
 												<hr/>
 											</div>
 										</div>
@@ -79,18 +75,18 @@ export default {
             text1: "Laporan Kinerja",
             name: "/",
 			files: [
-				{ id: 1, nama: 'Januari', filename: null, status: "KOSONG" },
-				{ id: 2, nama: 'Februari', filename: null, status: "KOSONG" },
-				{ id: 3, nama: 'Maret', filename: null, status: "KOSONG" },
-				{ id: 4, nama: 'April', filename: null, status: "KOSONG" },
-				{ id: 5, nama: 'Mei', filename: null, status: "KOSONG" },
-				{ id: 6, nama: 'Juni', filename: null, status: "KOSONG" },
-				{ id: 7, nama: 'Juli', filename: null, status: "KOSONG" },
-				{ id: 8, nama: 'Agustus', filename: null, status: "KOSONG" },
-				{ id: 9, nama: 'September', filename: null, status: "KOSONG" },
-				{ id: 10, nama: 'Oktober', filename: null, status: "KOSONG" },
-				{ id: 11, nama: 'November', filename: null, status: "KOSONG" },
-				{ id: 12, nama: 'Desember', filename: null, status: "KOSONG" },
+				{ id: 1, nama: 'Januari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 2, nama: 'Februari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 3, nama: 'Maret', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 4, nama: 'April', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 5, nama: 'Mei', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 6, nama: 'Juni', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 7, nama: 'Juli', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 8, nama: 'Agustus', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 9, nama: 'September', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 10, nama: 'Oktober', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 11, nama: 'November', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 12, nama: 'Desember', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
 			],
 			keyword: '',
 			currentSort: '',
