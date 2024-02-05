@@ -2,7 +2,40 @@
     <!-- Bookmark Content -->
     <div class="dashboard-content">		
 			<div class="container">	
-                <satkermenu />		
+                <div class="">
+					<ul class="dashborad-menus">
+						<li v-if="user.dept_id == 4" :class="{ active: $route.path === '/verifckh/'+bln+'/getSeksi' }">
+							<router-link to="getSeksi">
+								<i class="feather-grid"></i> <span>Kantor</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 8" :class="{ active: $route.path === '/verifckh/'+bln+'/getKUA' }">
+							<router-link to="getKUA">
+								<i class="fa-solid fa-user"></i> <span>KUA</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMIN' }">
+							<router-link to="getMIN">
+								<i class="feather-list"></i> <span>MIN</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMTsN' }">
+							<router-link to="getMTsN">
+								<i class="fas fa-solid fa-heart"></i> <span>MTsN</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMAN' }">
+							<router-link to="getMAN">
+								<i class="fas fa-solid fa-heart"></i> <span>MAN</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 7 || user.dept_id == 5" :class="{ active: $route.name === 'Lainnya' }">
+							<router-link :to="routeSeksi('999')">
+								<i class="fas fa-solid fa-heart"></i> <span>Swasta / Lainnya</span>
+							</router-link>
+						</li>
+					</ul>
+				</div>		
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
 						<div v-if="!loading && nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
@@ -109,9 +142,11 @@
 <script>
 export default {
 	data() {
+		const user = JSON.parse(localStorage.getItem('user'))
 			return {
 				loading: false,
 				nav: this.nav,
+				user: user,
 				itemsPerPage: 9,
         		currentPage: 1,
 				imgid: null,

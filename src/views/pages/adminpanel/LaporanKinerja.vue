@@ -63,7 +63,21 @@ export default {
 	},
 	methods: {
         tujuLayanan(id) {
-            return "/verifckh/"+id+"/getSeksi";
+            const user = JSON.parse(localStorage.getItem('user'))
+            if(user.dept_id == 4){
+                return "/verifckh/"+id+"/getSeksi";
+            }else if(user.dept_id == 8){
+                return "/verifckh/"+id+"/getKUA";
+            }else if(user.dept_id == 7){
+                return "/verifckh/"+id+"/getMIN";
+            }else if(user.dept_id == 5){
+                return "/ckh/"+id+"/999"
+            }else{
+                this.$toast.fire({
+						title: "Anda Tidak Memiliki Akses ke Bagian Ini!!",
+						icon: 'error',
+					})
+            }
         },
 	}
 }

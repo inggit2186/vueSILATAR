@@ -1,13 +1,12 @@
 <template>
     <div class="main-wrapper">
-        <usernavbar />
+		<layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
-                        <userMenu />
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
                                 <div class="card-header">
