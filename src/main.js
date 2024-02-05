@@ -159,6 +159,7 @@ import detailTamu from './views/pages/tamu/detailTamu.vue'
 import verifCKH from './views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from './views/pages/adminpanel/SatuanKerja.vue'
 import listSatker from './views/pages/adminpanel/ListSatker.vue'
+import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -335,6 +336,8 @@ app.component('DetailTamu', detailTamu)
 app.component('VerifCKH',verifCKH)
 app.component('adminSatker',adminSatker)
 app.component('ListSatker',listSatker)
+app.component('RekapKinerja',rekapKinerja)
+
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

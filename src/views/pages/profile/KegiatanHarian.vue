@@ -51,7 +51,7 @@
 												   </div>
                                                 </td>
                                                 <td>
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="deleteAksi(item.tanggal)"><b><i-ph-trash-fill /> DELETE</b></BButton>
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
@@ -96,7 +96,7 @@
                                 <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                             </div>
                             <hr/>
-                            <b-form @submit.prevent="addKinerja">
+                            <b-form ref="kinerja" @submit.prevent="addKinerja">
                             <div class="profile-content">
                                 <div class="messages-form">
                                     <div class="card">
@@ -111,7 +111,7 @@
                                                 <label class="col-form-label">Tanggal <span>*</span></label>								    
                                                 <VueDatePicker v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" required />									   
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
 												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
                                                 	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="max-width: 70%;float:left;margin-right: 0.5%;"/>
@@ -124,6 +124,26 @@
 														<b-form-select-option value="Laporan">Laporan</b-form-select-option>
 														<b-form-select-option value="Modul">Modul</b-form-select-option>
 														<b-form-select-option value="Orang">Orang</b-form-select-option>
+														<b-form-select-option value="Data">Data</b-form-select-option>
+													</b-form-select>
+													<br/>				   
+													<br/>				   
+												</div>
+											</div>
+											<div class="form-group d-block d-sm-none">
+                                                <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
+												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
+                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="margin-bottom: 5px;"/>
+													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="margin-bottom: 5px;" />
+													<b-form-select id="satuan" v-model="kegiatan.satuan" class="form-control pass-input" placeholder="Satuan" style="margin-bottom: 5px;">
+														<b-form-select-option value="" disabled selected>--Pilih Salah Satu--</b-form-select-option>
+														<b-form-select-option value="Dokumen">Dokumen</b-form-select-option>
+														<b-form-select-option value="Kegiatan">Kegiatan</b-form-select-option>
+														<b-form-select-option value="Kali">Kali</b-form-select-option>
+														<b-form-select-option value="Laporan">Laporan</b-form-select-option>
+														<b-form-select-option value="Modul">Modul</b-form-select-option>
+														<b-form-select-option value="Orang">Orang</b-form-select-option>
+														<b-form-select-option value="Data">Data</b-form-select-option>
 													</b-form-select>
 													<br/>				   
 													<br/>				   
@@ -228,7 +248,23 @@ export default {
 				kegiatan: '',
 			});
 		},
-		async deleteAksi(id) {
+		delAksi(tgl){
+			this.$swal.fire({
+					title: 'Apakah anda yakin?',
+					text: "Data akan dihapus secara permanen!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+                    showLoaderOnConfirm: true,
+					confirmButtonText: 'Yes, Lanjut Hapus!'
+					}).then((result) => {
+					if (result.isConfirmed) {
+						this.deleteAksi(tgl)
+					}
+			})
+		},
+		async deleteAksi(tgl) {
 			this.loading = true;
 			try{
 				const headers = {
@@ -236,8 +272,9 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 
+					console.log(tgl)
 					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteKinerjaHarian',{
-						tanggal: this.tanggal,
+						tgl: tgl,
 					},{headers})
 
 				if(response.data.success == true){
@@ -336,12 +373,18 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
+					
 					this.$toast.fire({
 						title: response.data.message,
 						icon: 'success',
 					})
 					this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
+					this.tanggal = null
+					this.kegiatan = [{
+						id: 'kinerja0',
+						kegiatan: '',
+					}],
 					this.changedetail(1)
 				}else{
 					this.$toast.fire({

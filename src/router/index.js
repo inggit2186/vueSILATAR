@@ -75,6 +75,7 @@ import DetailRequestVue from '@/views/pages/adminpanel/detailRequest.vue'
 import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
 import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
+import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
 
 const routes = [
     {
@@ -438,6 +439,14 @@ const routes = [
         path: '/verifckh/:xid/:id',
         name: 'Verifikasi CKH',
         component: adminSatker,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/ckh/:xid/:id',
+        name: 'Rekap CKH',
+        component: rekapKinerja,
         meta: {
             requiresAdmin: true
           }
