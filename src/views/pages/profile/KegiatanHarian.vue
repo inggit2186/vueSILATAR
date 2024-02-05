@@ -53,7 +53,7 @@
                                                     {{ item.volume }}<br/>
                                                 </td>
                                                 <td>
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="deleteAksi(item.tanggal)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
@@ -222,6 +222,38 @@ export default {
 				kegiatan: '',
 			});
 		},
+		async deleteAksi(id) {
+			this.loading = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+
+					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteKinerjaHarian',{
+						tanggal: this.tanggal,
+					},{headers})
+
+				if(response.data.success == true){
+                    console.log(response.data)
+          			this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
 		async getKegiatan() {
 			this.loading = true;
 			try{
@@ -283,25 +315,6 @@ export default {
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
-		},
-		aksiTamu(id) {
-			this.$swal.fire({
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: false,
-				showDenyButton: true,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;BATALKAN`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isDenied) {
-						this.updateTamu(id,result.value,'BATAL')
-					};
-				});
 		},
 		async addKinerja(){
 			this.loading = true
