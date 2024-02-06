@@ -76,6 +76,7 @@ import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
 import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
 import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
+import allRekapKinerja from '@/views/pages/adminpanel/AllRekapKinerja.vue'
 
 const routes = [
     {
@@ -450,6 +451,11 @@ const routes = [
         meta: {
             requiresAdmin: true
           }
+    },
+    {
+        path: '/allRekapKinerja/:id',
+        name: 'All Rekap CKH',
+        component: allRekapKinerja,
     },
     {
         path: '/signup',

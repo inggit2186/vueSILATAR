@@ -1,6 +1,5 @@
 <template>
     <div class="main-wrapper">
-		<layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
@@ -43,8 +42,14 @@
 											</tr>
 											<tr v-else v-for="item in paginatedItem" :key="item.id">
                                                 <td>
+													<span style="font-size: small;"> {{ item.nip }} </span>
+												</td>
+												<td>
                                                     <BBadge pill variant="info" style="font-size: medium;margin-bottom: 2px;"> {{ item.nama }} </BBadge><br/>
-                                                    <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>
+                                                    <BBadge pill variant="secondary" style="font-size: small;"> {{ item.dept }} </BBadge>
+                                                </td>
+												<td>
+                                                    {{ item.bank }}
                                                 </td>
                                                 <td>
                                                     <BBadge v-if="item.status == 'DIKIRIM'" variant="light">DIAJUKAN</BBadge>
@@ -56,11 +61,6 @@
                                                     <span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
 													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.petugas }}	</i></span><br/>
 													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mingcute-comment-fill /><i> {{ item.alasan }}	</i></span>
-                                                </td>
-                                                <td>
-                                                    <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.id,item.filename)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
-                                                    <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -117,9 +117,10 @@ export default {
             text1: "Rekap Kinerja ASN",
             name: "/",
 			columns2: [
+				{ name: 'NIP', data: 'nip' },
 				{ name: 'Nama', data: 'name' },
+				{ name: 'Bank', data: 'bank' },
 				{ name: 'Status', data: 'status' },
-				{ name: 'Action', data: 'action' },
 			],
 			keyword: '',
 			currentSort: '',
@@ -167,7 +168,6 @@ export default {
 	},
   methods: {
 		async getPTSP() {
-            this.xid = this.$route.params.xid
             this.sid = this.$route.params.id
 			this.loading = true;
 			try{
@@ -175,8 +175,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
-					xid: this.xid,
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/allRekapKinerja',{
 					id: this.sid,
 				},{headers})
 				
@@ -231,106 +230,6 @@ export default {
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
-		},
-        aksiStatus(id,file) {
-            let frame = null;
-            let isPDF = file.toLowerCase().endsWith('.pdf');
-            let isWord = file.toLowerCase().endsWith('.doc') || file.toLowerCase().endsWith('.docx');
-            
-            if(isWord){
-                frame = '<iframe src="https://docs.google.com/gview?url='+ file +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
-            }else{
-                frame = '<iframe src="'+ file +'" width="100%" height="550"></iframe>'
-            }
-
-            if (window.innerWidth < 768) {
-                this.$swal.fire({
-                width: "100%",
-                html: frame,
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: true,
-				showDenyButton: true,
-                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isConfirmed) {
-						this.updateStatus(id,result.value,'DISETUJUI')
-					}
-                    else if (result.isDenied) {
-						this.updateStatus(id,result.value,'DITOLAK')
-					};
-				});
-            }else{
-                this.$swal.fire({
-                width: "50%",
-                html: frame,
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: true,
-				showDenyButton: true,
-                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isConfirmed) {
-						this.updateStatus(id,result.value,'DISETUJUI')
-					}
-                    else if (result.isDenied) {
-						this.updateStatus(id,result.value,'DITOLAK')
-					};
-				});
-            }
-
-        },
-		async updateStatus(id,komen,st){
-			this.loadingaksi[id] = true
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateStatusKinerja',{
-					id: id,
-					komen: komen,
-					status: st,
-                    xid: this.xid,
-                    sid: this.sid
-				},{headers})
-				
-				if(response.data.success == true){
-					this.$toast.fire({
-						title: response.data.message,
-						icon: 'success',
-					})
-					this.ptsp0 = response.data.data
-          			this.ptsp = response.data.data	
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loadingaksi[id] = false
-			}
 		},
   }
 }

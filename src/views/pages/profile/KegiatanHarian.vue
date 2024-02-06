@@ -19,7 +19,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
@@ -43,7 +43,7 @@
 											<tr v-if="this.kinerja.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="item in paginatedItem" :key="item.id">
+											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td>
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
@@ -51,6 +51,7 @@
 												   </div>
                                                 </td>
                                                 <td>
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',index)"><b><i-fa-edit /> EDIT</b></BButton>&nbsp;
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
@@ -90,9 +91,9 @@
                         </div>
                     </div>
 
-                    <div v-else-if="detail == 2" class="card-body">
-                        <div ref="scroll1st" class="container">
-                            <div  ref="scroll1st" class="pagination">
+                    <div ref="scroll1st" v-else-if="detail == 2" class="card-body">
+                        <div class="container">
+                            <div  class="pagination">
                                 <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                             </div>
                             <hr/>
@@ -104,12 +105,13 @@
                                             <h2>::: Laporan Kegiatan :::</h2>							
                                         </div>
                                         <div class="card-header">
-                                            <h4>Detail Kegiatan Harian</h4>							
+                                            <h4>{{ this.status }} Detail Kegiatan Harian</h4>							
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label class="col-form-label">Tanggal <span>*</span></label>								    
-                                                <VueDatePicker v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" required />									   
+                                                <VueDatePicker v-if="this.status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" readonly/>								   
+                                                <VueDatePicker v-else v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" required/>								   
                                             </div>
                                             <div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
@@ -201,7 +203,8 @@ export default {
 			kinerja: [],
 			kinerja0: [],
 			tanggal: [],
-            detail: 1
+            detail: 1,
+            status: null,
         }
     },
     computed: {
@@ -236,11 +239,24 @@ export default {
 		window.scrollTo(0,0)
 	},
   methods: {
-        changedetail(id){
-            this.detail = id;
-            this.$nextTick(() => {
-                this.$refs.scroll1st.scrollIntoView();
-            });
+        changedetail(id,st,xid){
+			console.log(st)
+            if(st === 'Edit'){
+				console.log(st)
+				this.status = st,
+				this.detail = id;
+				this.tanggal = this.kinerja[xid].tgl;
+				this.kegiatan = this.kinerja[xid].kegiatan;
+			}else{
+				this.status = st,
+				this.detail = id;
+				this.kegiatan = [{
+						id: 'kinerja0',
+						kegiatan: '',
+					}],
+				this.tanggal = null
+			}
+            window.scrollTo(0,0)
         },
 		clone(){
 			this.kegiatan.push({
@@ -367,6 +383,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKinerja',{
+					status: this.status,
                     tanggal: this.tanggal,
                     formx: this.kegiatan,
 					n: this.counter
