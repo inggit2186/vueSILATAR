@@ -45,7 +45,7 @@
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
-                                                <td>
+                                                <td style="font-size: small;">
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
 													{{ kerja.kegiatan }}  <b>({{ kerja.volume }} {{ kerja.satuan }})</b><br/>
 												   </div>
