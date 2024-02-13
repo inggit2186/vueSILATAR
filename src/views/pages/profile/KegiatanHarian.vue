@@ -10,17 +10,34 @@
                         <kinerjaMenu />
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
-                                <div class="card-header">
-                                    <h4>Laporan Kinerja Harian</h4>
-                                    <!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
-                                            class="fa-solid fa-plus"></i> Add Listing</router-link> -->
-                                </div>
+                                <div class="d-none d-sm-block">
+									<div class="card-header">
+										<h4>Laporan Kinerja Harian</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Ngumpulin...</b></a>
+									</div>
+								</div>
+								<div class="d-block d-sm-none">
+									<div>
+										<h4>Laporan Kinerja Harian</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Ngumpulin...</b></a>
+									</div>
+								</div>
+								<hr/>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-                                        <div class="group-img">
+										<div class="group-img d-none d-sm-block">
                                             <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <i class="feather-search"></i>
+                                        </div>
+										<div class="group-img d-block d-sm-none">
+                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 10px;" placeholder="Search...">
+                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:10px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -183,6 +200,7 @@ export default {
             text: "User",
             text1: "Daftar Appointment",
             name: "/",
+			bulan: null,
 			columns2: [
 				{ name: 'Tanggal', data: 'tanggal' },
 				{ name: 'Kegiatan', data: 'kegiatan' },
@@ -197,6 +215,7 @@ export default {
 			currentSort: '',
       		currentSortDir: 'asc',
 			loading: false,
+			loadingrekap: false,
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
@@ -205,6 +224,7 @@ export default {
 			tanggal: [],
             detail: 1,
             status: null,
+			rekapstatus: 0,
         }
     },
     computed: {
@@ -315,12 +335,18 @@ export default {
 		},
 		async getKegiatan() {
 			this.loading = true;
+			const today = new Date();
+			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
+			this.bulan = date;
+			this.rekapstatus = 0;
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myKinerja',{headers})
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myKinerja',{
+					bulan : this.bulan
+				},{headers})
 				
 				if(response.data.success == true){
                     console.log(response.data)
@@ -340,6 +366,77 @@ export default {
 				})
 			} finally {
 				this.loading = false
+			}
+		},
+		async get2Kegiatan() {
+			this.rekapstatus = 1;
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.loading = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myKinerja',{
+					bulan : date
+				},{headers})
+				
+				if(response.data.success == true){
+                    console.log(response.data)
+          			this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
+		async rekapKinerja() {
+			let date;
+			if(this.rekapstatus == 0){
+				date = this.bulan
+			}else{
+				date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			}
+			this.loadingrekap = true;
+
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapBulanan',{
+					bulan : date
+				},{headers})
+				
+				if(response.data.success == true){
+                    console.log(response.data)
+          			this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingrekap = false
 			}
 		},
 		sortTable(column) {
