@@ -423,6 +423,40 @@ export default {
                     console.log(response.data)
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
+					let item = response.data.file
+					console.log(item)
+					
+					let frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+
+			if (window.innerWidth < 768) {
+                this.$swal.fire({
+                    width: "100%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }else{
+                this.$swal.fire({
+                    width: "50%",
+                    html: frame,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Tutup',
+                    confirmButtonText: "Download"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(item,'_blank');
+                    }
+                });
+            }
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
