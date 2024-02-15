@@ -28,6 +28,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "bootstrap-vue-3": "^0.4.10",
+    "bottom-navigation-vue": "^3.3.5",
     "cli-progress": "^3.11.2",
     "feather-icons": "^4.29.0",
     "handsontable": "^12.2.0",

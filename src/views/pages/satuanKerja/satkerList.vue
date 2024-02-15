@@ -1,5 +1,5 @@
 <template>
-    <div class="main-wrapper">
+    <div class="main-wrapper" style="width: 94%;">
         <layouts></layouts>
 
         <div class="page-wrapper">

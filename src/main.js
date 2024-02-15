@@ -17,6 +17,7 @@ import pdfjsLib from 'pdfjs-dist'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import VueCryptojs from 'vue-cryptojs';
 import VueSignaturePad from 'vue-signature-pad';
+import bottomNavigationVue from "bottom-navigation-vue";
 
 // Header Components
 import Navbar from './components/navbar.vue'
@@ -177,11 +178,12 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'ant-design-vue/dist/antd.css';
 import './assets/css/feather.css';
 import './assets/css/style.css';
-import '@vuepic/vue-datepicker/dist/main.css'
+import '@vuepic/vue-datepicker/dist/main.css';
+import "bottom-navigation-vue/dist/style.css";
 
 const Toast = Swal.mixin({
     toast: true,
-    position: 'bottom',
+    position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -352,6 +354,7 @@ app.component('VueDatePicker',VueDatePicker)
 .use(AOS.init())
 app.use(VueEasyLightbox);
 app.use(VueSignaturePad);
+app.use(bottomNavigationVue);
 app.use(pdfjsLib);
 app.use(VueCryptojs);
 app.use(CoolLightBox);

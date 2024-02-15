@@ -515,6 +515,8 @@ export default {
             if (window.innerWidth < 768) {
                 this.$swal.fire({
                     width: "100%",
+					allowEscapeKey: true,
+					allowOutsideClick: true,
                     html: frame,
                     showCloseButton: true,
                     focusConfirm: false,

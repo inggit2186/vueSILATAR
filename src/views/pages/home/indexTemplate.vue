@@ -1,5 +1,5 @@
 <template>
-    <div class="main-wrapper">
+    <div class="main-wrapper" style="width: 94%;">
         <navbarthree></navbarthree>
         
         <div class="page-wrapper">

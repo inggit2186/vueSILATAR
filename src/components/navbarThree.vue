@@ -1,18 +1,17 @@
 <template>
     <header class="header header-three">
         <div class="container">
-            <nav class="navbar navbar-expand-lg header-nav" 
-                   >
+            <nav class="navbar navbar-expand-lg header-nav">
                 <div class="navbar-header">
                     <a id="mobile_btn" href="javascript:void(0);">
-                        <span class="bar-icon">
+                        <span class="bar-icon d-none d-sm-block">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
                     </a>
                     <router-link to="/" class="navbar-brand logo">
-                        <img src="../assets/img/logo.png" style="width:250px" class="img-fluid" alt="Logo">
+                        <img src="../assets/img/logo.png" style="width:200px" class="img-fluid" alt="Logo">
                     </router-link>
                     <router-link to="/" class="navbar-brand logo-small">
 							<img src="../assets/img/logo.png" class="img-fluid" alt="Logo">

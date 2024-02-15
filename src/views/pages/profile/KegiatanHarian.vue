@@ -15,7 +15,7 @@
 										<h4>Laporan Kinerja Harian</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Ngumpulin...</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
@@ -23,7 +23,7 @@
 										<h4>Laporan Kinerja Harian</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Ngumpulin...</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<hr/>
@@ -36,8 +36,8 @@
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 10px;" placeholder="Search...">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:10px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
+                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:5px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -425,12 +425,14 @@ export default {
           			this.kinerja = response.data.data
 					let item = response.data.file
 					console.log(item)
-					
-					let frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+
+					let frame = '<iframe src="'+ item +'" width="100%" height="500"></iframe>'
 
 			if (window.innerWidth < 768) {
                 this.$swal.fire({
                     width: "100%",
+					allowEscapeKey: true,
+					allowOutsideClick: true,
                     html: frame,
                     showCloseButton: true,
                     focusConfirm: false,

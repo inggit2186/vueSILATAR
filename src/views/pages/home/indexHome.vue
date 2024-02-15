@@ -6,8 +6,10 @@
 					<div class="banner-info-blk">
 						<div class="row">
 							<div class="col-md-12 col-lg-5">
-								<div class="banner-content-blk">
-									<h1><b>SILATAR</b><br></h1><h3>Kantor Kementerian Agama<br>Kab.Tanah Datar</h3>
+								<div class="banner-content-blk centered">
+									<h1><b>SILATAR</b></h1><br/>
+									<img src="../../../assets/img/mhome.png" class="centered d-block d-sm-none" style="width: 70%"/><br/>
+									<h3>Kantor Kementerian Agama<br>Kab.Tanah Datar</h3>
 									<hr>
 									<h5>Sistem Informasi Layanan dan <br>Administrasi Tanah Datar</h5>
 								</div>

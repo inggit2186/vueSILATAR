@@ -34,9 +34,9 @@
 						</div>
 					</div>
 					<hr/>
-					<div class="col-md-7 aos" data-aos="fade-up" style="margin-top: 60px;">
-						<div >
-							<img src="../../../assets/img/grafitikasi.png" style="width:150%;padding-left: 30%;"/>
+					<div class="col-md-7 aos centered" data-aos="fade-up" style="margin-top: 60px;">
+						<div>
+							<img src="../../../assets/img/grafitikasi.png" style="width:100%;"/>
 						</div>
 					</div>
 				</div>			   
