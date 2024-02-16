@@ -136,7 +136,12 @@ v-else v-model="password"
 					title: response.data.message,
 					icon: 'success',
 				})
-				this.$router.push('/dashboard');
+				
+				let searchParams = new URLSearchParams(window.location.search);
+
+				if (searchParams.has("redirect")) {
+					this.$router.push({ path: `${searchParams.get("redirect")}` });
+				} else this.$router.push({ path: "/dashboard" });
 			}else{
 				this.$toast.fire({
 					title: response.data.message,

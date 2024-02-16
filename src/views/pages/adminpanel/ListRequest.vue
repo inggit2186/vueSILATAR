@@ -11,8 +11,9 @@
                             <div class="dash-cards card">
                                 <div class="card-header">
                                     <h4>Daftar Request</h4>
-                                    <!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
-                                            class="fa-solid fa-plus"></i> Add Listing</router-link> -->
+										<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+										<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+										<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
                                 </div>
                             <div class="card-body">
                                 <div class="listing-search">
@@ -192,6 +193,8 @@ export default {
         	currentPage: 1,
 			ptsp: [],
 			ptsp0: [],
+			rekapstatus: 0,
+			bulan: null,
         }
     },
     computed: {
@@ -229,6 +232,11 @@ export default {
 		async getPTSP() {
             const id = this.$route.params.id;
 			this.loading = true;
+			const today = new Date();
+			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
+			this.bulan = date;
+			this.rekapstatus = 0;
+
 			try{
 				const headers = {
 						'Content-Type': 'application/json',

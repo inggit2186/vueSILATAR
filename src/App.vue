@@ -2,7 +2,7 @@
   <div v-if="loading" class="opening"></div>
   <div v-else id="app">
     <router-view />
-    <CurvedBottomNavigation v-if="!auth" class="d-block d-sm-none" :options="options" v-model="selected" />
+    <CurvedBottomNavigation v-if="!auth" class="d-block d-sm-none" :options="options2" v-model="selected" />
     <CurvedBottomNavigation v-else-if="auth && user.dept.kategori == 'kantor'" class="d-block d-sm-none" :options="options3" v-model="selected" />
     <CurvedBottomNavigation v-else class="d-block d-sm-none" :options="options2" v-model="selected" />
   </div>
@@ -24,12 +24,6 @@ export default {
       user: user,
       auth: auth,
       selected: 1,
-      options: [
-        { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
-        { id: 2, icon: "fas fa-rocket", title: "LAYANAN", path: "/UnitKerja"},
-        { id: 3, icon: "fas fa-building", title: "SATKER", path: "/satuanKerja/getSeksi"},
-        { id: 4, icon: "fas fa-sign-in", title: "LOGIN", path: "/login"},
-      ],
       options2: [
         { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
         {

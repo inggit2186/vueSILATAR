@@ -226,12 +226,12 @@ export default {
             if(isWord){
                 frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
             }else{
-                frame = '<iframe src="'+ item +'" width="100%" height="500"></iframe>'
+                frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
             }
 
             if (window.innerWidth < 768) {
                 this.$swal.fire({
-                    width: "100%",
+                    width: "100%",	
 					allowEscapeKey: true,
 					allowOutsideClick: true,
                     html: frame,
