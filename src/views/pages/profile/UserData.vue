@@ -44,6 +44,14 @@
                                             </a>								   
                                         </div>
                                     </div>
+                                    <div class="col-lg-4 col-md-4 centered" @click.prevent="changedetail(4)">
+                                        <div class="listMenu categories-content">
+                                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                            <img :src="$assets+'/img/ikon/515.png'" style="width:100%;" alt="car1">
+                                            <span><b>Data Riwayat Pangkat/Golongan</b></span>
+                                            </a>								   
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -439,6 +447,95 @@
                                                         </td>
                                                         <td>
                                                             <BButton pill size="sm" variant="danger" @click.prevent="deleteDoc(item.id,'pekerjaan')"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
+                                                            <BButton pill size="sm" variant="outline-primary" @click.prevent="jDetail(item.id)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
+                                                        </td>
+                                                    </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!--Pagination--> 
+                                        <div class="blog-pagination">
+                                            <nav>
+                                                <ul class="pagination">
+                                                    <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
+                                                        <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                                                    </li>
+                                                    <li class="justify-content-center pagination-center"> 
+                                                        <div class="pagelink">
+                                                            <ul>
+                                                                <li v-for="page in displayedPages3" :key="page" class="page-item" :class="{'active': currentPage === page}">
+                                                                    <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+                                                                </li>
+                                                                <li class="page-item" :class="{'disabled': currentPage === totalPages3}">
+                                                                    <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">...</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>													
+                                                    </li>													
+                                                    <li class="page-item nextlink" :class="{'disabled': currentPage === totalPages3}">
+                                                        <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <!--/Pagination-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!------------------------------------------------------------------------------------------------>
+                        <div v-else-if="detail == 4" ref="scroll1st">
+                            <div  ref="scroll1st" class="pagination">
+                                <a class="btn btn-primary" href="#" @click="changedetail(0)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                            </div><hr/>
+                            <div class="dash-listingcontent dashboard-info">
+                                <div class="dash-cards card">
+                                    <div class="card-body">
+                                        <div class="listing-search">
+                                            <div class="filter-content form-group">
+                                                <div class="group-img">
+                                                    <a class="btn btn-danger" href="#" @click="gDetail('new')" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable4" >
+                                                    <i class="feather-search"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover centered">
+                                                <thead>
+                                                    <tr>
+                                                        <th v-for="column in columns4" :key="column.name" style="max-width: 20px;" @click="sortTable3(column.data)">
+                                                            {{ column.name }}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody v-if="pekerjaan.length == 0">
+                                                    <tr>
+                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody v-else>
+                                                    <template v-for="item in paginatedItem4" :key="item.id">
+                                                    <tr v-if="item.status != 99">
+                                                        <td>
+                                                            {{ item.jenis }}<br/>
+                                                        </td>
+                                                        <td>
+                                                            <BBadge pill variant="primary" style="font-size: small;"><b>{{ item.nomor }}</b></BBadge><br/>
+                                                            <span style="font-size: smaller;">{{ item.tanggal }}</span>
+                                                        </td>
+                                                        <td>
+                                                            {{ item.jabatan }}<br/>
+                                                            <span style="font-size: smaller;">{{ item.satker }}</span>
+                                                        </td>
+                                                        <td>
+                                                            {{ item.golongan }}<br/>
+                                                        </td>
+                                                        <td>
+                                                            <BButton pill size="sm" variant="danger" @click.prevent="deleteDoc(item.id,'golongan')"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
                                                             <BButton pill size="sm" variant="outline-primary" @click.prevent="jDetail(item.id)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
                                                         </td>
                                                     </tr>
@@ -975,6 +1072,120 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div v-else-if="detail == 42" ref="scroll1st">
+                            <div class="pagination">
+                                <a class="btn btn-primary" href="#" @click="changedetail(2)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                            </div><hr/>
+                            <h3 class="centered"> :: Detail Golongan ::</h3>
+                            <br/>
+                            <div class="row centered">
+                                <div class="col-lg-3 col-md-3 featured-img1 centered">
+                                    <div class="media-image">
+                                        <h6 class="media-title">Scan File</h6>
+                                            <img v-if="datap.files == null || datap.files == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
+                                            <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(datap.files)" />
+                                        <BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
+                                            <p class="my-4">Cek File!</p>
+                                        </BModal>
+                                        <hr/>
+                                        <div class="settings-upload-btn">
+                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['ijazah']" @change="onFilePendidikan(datap.id,'ijazah',$event)">
+                                            <label v-if="!loadingfile['ijazah']" for="file" class="file-upload">
+                                                <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                            </label>
+                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                        </div>
+                                        <br/>
+                                        <div>
+                                            <BButton v-if="datap.files != null && datap.files != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteIjazah(datap.id)">
+                                                <span><i-fluent-delete-off-24-filled /> Delete File</span>
+                                            </BButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="card dash-cards">
+                                    <b-form @submit.prevent="updateGolongan">
+                                    <div class="card-body">
+                                        <div class="profile-form"> 
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Jenis SK</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-award" style="font-size:medium;"></i>
+                                                                <b-form-select id="telp" v-model="datap.jenis" class="form-control" style="padding-left:40px;">
+                                                                    <option value='0' disabled>--Pilih Salah Satu--</option>
+                                                                    <option value='SK Kenaikan Pangkat'>SK Kenaikan Pangkat</option>
+                                                                </b-form-select>													
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nomor SK</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-bookmark"></i>
+                                                                <b-form-input id="nomor" v-model="datap.nomor" type="text" class="form-control" placeholder="Nomor SK"/>													
+                                                            </div>
+                                                        </div>
+                                                    </div>											
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Tanggal SK</label>
+                                                            <div class="group-img">
+                                                                <i class="fa fa-bank"></i>
+                                                                <VueDatePicker v-model="datap.tanggal" format="dd MMMM yyyy" auto-apply placeholder="Tanggal SK" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Pangkat/Golongan</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-school"></i>
+                                                                <b-form-input id="golongan" v-model="datap.golongan" type="text" class="form-control" placeholder="Pangkat / Golongan"/>													
+                                                            </div>
+                                                        </div>
+                                                    </div>									
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nomor Ijazah</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-bookmark"></i>
+                                                                <b-form-input id="nomorijazah" v-model="datap.nomor_ijazah" type="text" class="form-control" placeholder="Nomor Ijazah"/>													
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Tanggal Ijazah</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-calender"></i>
+                                                                <VueDatePicker v-model="datap.tanggal_ijazah" format="dd MMMM yyyy" auto-apply placeholder="Tanggal Ijazah" />
+                                                            </div>
+                                                        </div>
+                                                    </div>											
+                                                </div>	
+                                        </div>
+                                        <br>
+                                        <div class="text-center">
+                                        <b-button variant="primary" type="submit" :disabled="loadingpd"> 
+                                            <span v-if="!loadingpd"><i class="fa fa-address-card" aria-hidden="true"></i><b>&nbsp; UPDATE</b></span>
+                                            <span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Ke Kemendikbud Dulu Gan...</span>
+                                        </b-button>
+                                        </div>
+                                    </div>
+                                </b-form>								
+                                </div>
+                            </div>
+                        </div>
                     </div>				
 				</div>
 			</div>
@@ -1017,6 +1228,13 @@ export default {
 				{ name: 'TMT Kerja', data: 'tmt' },
 				{ name: 'Action', data: 'action' },
 			],
+            columns4: [
+				{ name: 'Jenis SK', data: 'jenis_sk' },
+				{ name: 'Nomor', data: 'nomor' },
+				{ name: 'Unit Kerja', data: 'satker' },
+				{ name: 'Golongan', data: 'golongan' },
+				{ name: 'Action', data: 'action' },
+			],
             keyword: '',
 			currentSort: '',
       		currentSortDir: 'asc',
@@ -1032,6 +1250,9 @@ export default {
             pekerjaan: [],
 			pekerjaan0: [],
 			dataj: [],
+            golongan: [],
+			golongan0: [],
+			datag: [],
         }
     },
     computed: {
@@ -1085,6 +1306,30 @@ export default {
 		totalPages3() {
             return Math.ceil(this.pekerjaan.length / this.itemsPerPage);
         },
+//--------------------------------------------------------------------//
+        sortedData4() {
+			// eslint-disable-next-line vue/no-side-effects-in-computed-properties
+			return this.golongan.sort((a, b) => {
+				let modifier = 1;
+				if(this.currentSortDir === 'desc') modifier = -1;
+				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+				if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+				return 0;
+			});
+		},
+    	paginatedItem4() {
+			const start = (this.currentPage - 1) * this.itemsPerPage;
+			const end = start + this.itemsPerPage;
+			return this.golongan.slice(start, end);
+		},
+		displayedPages4() {
+			const start = Math.max(this.currentPage - 1, 1);
+			const end = Math.min(start + 2, this.totalPages);
+			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+		},
+		totalPages4() {
+            return Math.ceil(this.golongan.length / this.itemsPerPage);
+        },
 	},
     created() {
         this.opener(),
@@ -1137,11 +1382,14 @@ export default {
                     this.pendidikan = result.value.pendidikan
                     this.pekerjaan0 = result.value.pekerjaan
                     this.pekerjaan = result.value.pekerjaan
+                    this.golongan0 = result.value.golongan
+                    this.golongan = result.value.golongan
                     this.userdefault = result.value
                     this.imageFoto= this.user.foto
                     this.imageUrl= this.user.avatar
                     this.listj= result.value.listj
                     this.listd= result.value.listd
+                    console.log(result.value.golongan)
                 }
                 })
         },
@@ -1433,6 +1681,21 @@ export default {
             }
             
             this.changedetail(32)
+        },
+        gDetail(itemid){
+            if(itemid == 'new'){
+                this.datap = {
+                    id: 'new',
+                    satker: this.user.dept_id,
+                    jabatan: this.user.pekerjaan,
+                }
+            }else{
+                this.datap = this.golongan.find(obj => {
+                    return obj.id === itemid
+                })
+            }
+            
+            this.changedetail(42)
         },
         onFilePendidikan(itemId, tipe, event) {
             
