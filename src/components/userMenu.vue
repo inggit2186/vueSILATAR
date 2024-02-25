@@ -11,6 +11,11 @@
                     <i class="fa-solid fa-user"></i> <span>Profile</span>
                 </router-link>
             </li>
+            <li class="d-block d-sm-none">
+                <router-link to="userdata">
+                    <i-fluent-folder-16-filled /> <span>Personal File</span>
+                </router-link>
+            </li>
             <li :class="{ active: $route.name === 'My Listing' }">
                 <router-link to="my-listing">
                     <i class="feather-list"></i> <span>Layanan</span>
