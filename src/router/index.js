@@ -345,6 +345,9 @@ const routes = [
         path: '/userdata',
         name: 'Data Pegawai',
         component: UserData,
+        meta: {
+            requiresAuth: true
+          }
     },
     {
         path: '/satudata',

@@ -5,7 +5,15 @@
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
-			<div class="container">
+            <div v-if="loading" class="text-center">
+                <hr>
+                <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
+                <br>
+                <i-svg-spinners-bars-scale style="font-size: 2em;"/>
+                <h3>::: Nyangkul Data dulu :::</h3>
+                <hr>
+            </div>
+            <div v-else class="container">
 				<div class="profile-content">
 				    <div class="card media-section">
                         <div class="card-header">
@@ -428,11 +436,12 @@
                                                             <span style="font-size: smaller;">{{ item.ptgl_sk }}</span>
                                                         </td>
                                                         <td>
-                                                            {{ item.unitkerja }}<br/>
+                                                            {{ item.satker }}<br/>
                                                             <span style="font-size: smaller;">{{ this.user.instansi }}</span>
                                                         </td>
                                                         <td>
-                                                            {{ item.tjabatan }}<br/>
+                                                            <BBadge pill variant="warning" style="font-size: small;">{{ item.gol }}</BBadge>
+                                                            {{ item.tjabatan }}
                                                         </td>
                                                         <td>
                                                             {{ item.ptmt }}<br/>
@@ -539,7 +548,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.files != null && datap.files != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteIjazah(datap.id)">
+                                            <BButton v-if="datap.files != null && datap.files != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id,'ijazah')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -564,7 +573,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.files_transkrip != null && datap.files_transkrip != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteTranskrip(datap.id)">
+                                            <BButton v-if="datap.files_transkrip != null && datap.files_transkrip != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id,'transkrip')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -688,7 +697,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.file_sk != null && datap.file_sk != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deletePekerjaan(datap.id,'sk')">
+                                            <BButton v-if="datap.file_sk != null && datap.file_sk != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id,'sk')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -713,7 +722,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.file_spmt != null && datap.file_spmt != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deletePekerjaan(datap.id, 'spmt')">
+                                            <BButton v-if="datap.file_spmt != null && datap.file_spmt != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id, 'spmt')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -738,7 +747,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.file_spmj != null && datap.file_spmj != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deletePekerjaan(datap.id, 'spmj')">
+                                            <BButton v-if="datap.file_spmj != null && datap.file_spmj != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id, 'spmj')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -763,7 +772,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.file_spp != null && datap.file_spp != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deletePekerjaan(datap.id, 'spp')">
+                                            <BButton v-if="datap.file_spp != null && datap.file_spp != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id, 'spp')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -788,7 +797,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.file_kontrak != null && datap.file_kontrak != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deletePekerjaan(datap.id, 'kontrak')">
+                                            <BButton v-if="datap.file_kontrak != null && datap.file_kontrak != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id, 'kontrak')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -831,6 +840,41 @@
                                                                     <option value="Kakanwil">Kepala Kantor Wilayah Kemenag Provinsi</option>
                                                                     <option value="Kakankemenag">Kepala Kantor Kemenag Kabupaten</option>
                                                                     <option value="Kepala">Kepala Sekolah/Madrasah/KUA</option>
+                                                                </b-form-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Golongan / Ruang</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-pen"></i>
+                                                                <b-form-select id="golongan" v-model="datap.golongan" class="form-control" style="padding-left:40px">
+                                                                    <option value="" disabled>---Pilih Salah Satu---</option>
+                                                                    <option value="none" disabled>-----Golongan I (Juru)-----</option>
+                                                                    <option value="1a">I/a | Juru Muda</option>
+                                                                    <option value="1b">I/b | Juru Muda Tingkat 1</option>
+                                                                    <option value="1c">I/c | Juru</option>
+                                                                    <option value="1d">I/d | Juru Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan II (Pengatur)-----</option>
+                                                                    <option value="2a">II/a | Pengatur Muda</option>
+                                                                    <option value="2b">II/b | Pengatur Muda Tingkat 1</option>
+                                                                    <option value="2c">II/c | Pengatur</option>
+                                                                    <option value="2d">II/d | Pengatur Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan III (Penata)-----</option>
+                                                                    <option value="3a">III/a | Penata Muda</option>
+                                                                    <option value="3b">III/b | Penata Muda Tingkat 1</option>
+                                                                    <option value="3c">III/c | Penata</option>
+                                                                    <option value="3d">III/d | Penata Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan IV (Pembina)-----</option>
+                                                                    <option value="4a">IV/a | Pembina</option>
+                                                                    <option value="4b">IV/b | Pembina Tingkat 1</option>
+                                                                    <option value="4c">IV/c | Pembina Utama Muda</option>
+                                                                    <option value="4d">IV/d | Pembina Utama Madya</option>
+                                                                    <option value="4e">IV/e | Pembina Utama</option>
                                                                 </b-form-select>
                                                             </div>
                                                         </div>
@@ -941,12 +985,44 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
+                                                            <label class="col-form-label">Tanggal Mulai Bertugas di Unit Kerja</label>
+                                                            <div class="group-img">
+                                                                <i class="feather-business-time"></i>
+                                                                <VueDatePicker v-model="datap.tmt_satker" format="dd MMMM yyyy" auto-apply placeholder="Tanggal Mulai Melaksanakan Tugas di Unit Kerja" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
                                                             <label class="col-form-label">Jabatan</label>
                                                             <div class="group-img">
                                                                 <i class="fas fa-user-tag"></i>
-                                                                <b-form-select v-model="datap.jabatan" class="form-control" style="padding-left:40px">
+                                                                <b-form-select v-model="datap.jabatan" class="form-control" @input="gantiJabatan" style="padding-left:40px">
                                                                     <b-form-select-option v-for="list in listj" :value="list.jabatan">{{list.jabatan}}</b-form-select-option>
+                                                                    <b-form-select-option value="other">--Jabatan Lainnya--</b-form-select-option>
                                                                 </b-form-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="input-jabatan" class="col-lg-6 col-md-6" style="display:none;">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Kategori Jabatan</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-user-tag"></i>
+                                                                <b-form-select v-model="datap.kategori_jabatan" class="form-control" @input="inputJabatan" style="padding-left:40px">
+                                                                    <b-form-select-option value='' disabled selected>--Pilih Salahsatu--</b-form-select-option>
+                                                                    <b-form-select-option value="adm">Staff / Pegawai / Administrasi</b-form-select-option>
+                                                                    <b-form-select-option value="guru">Tenaga Guru</b-form-select-option>
+                                                                </b-form-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="nama-jabatan" class="col-lg-6 col-md-6" style="display:none;">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nama Jabatan</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-file-signature"></i>
+                                                                <b-form-input id="nama_jabatan" v-model="datap.nama_jabatan" type="text" class="form-control" placeholder="Nama Jabatan" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -955,12 +1031,22 @@
                                                             <label class="col-form-label">Unit Kerja</label>
                                                             <div class="group-img">
                                                                 <i class="fas fa-school"></i>
-                                                                <b-form-select v-model="datap.satker" class="form-control" style="padding-left:40px">
+                                                                <b-form-select v-model="datap.dept_id" class="form-control" @input="gantiSatker" style="padding-left:40px">
+                                                                    <b-form-select-option value="">--Pilih Salah Satu--</b-form-select-option>
                                                                     <b-form-select-option v-for="list in listd" :value="list.id">{{list.nama}}</b-form-select-option>
                                                                 </b-form-select>
                                                             </div>
                                                         </div>
-                                                    </div>										
+                                                    </div>
+                                                    <div v-if="datap.dept_id == 999" id="input-satker" class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nama Unit Kerja</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-file-signature"></i>
+                                                                <b-form-input id="satker" v-model="datap.satker" type="text" class="form-control" placeholder="Nama Unit Kerja" />
+                                                            </div>
+                                                        </div>
+                                                    </div>							
                                                 </div>
                                         </div>
                                         <br>
@@ -998,6 +1084,7 @@ export default {
             loadingpd: false,
             loadingfile: [],
             detail: 0,
+            userx: JSON.parse(localStorage.getItem('user')),
             user: [],
             files: [],
             userdefault: [],
@@ -1094,57 +1181,43 @@ export default {
         });
     },
     methods: {
-        opener(){
-            this.$swal.fire({
-				input: "text",
-				inputLabel: "NIP / NIPPPK",
-				inputPlaceholder: "Masukkan NIP/NIPPPK Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Masukkan NIP/NIPPPK Anda Disini"
-				},
-				showConfirmButton: true,
-                confirmButtonColor: '#3085d6',
-				showDenyButton: false,
-                allowOutsideClick: false,
-				confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;LANJUTKAN!`,
-                showLoaderOnConfirm: true,
-				returnInputValueOnDeny: true,
-				preConfirm: (nip) => {
-                    const headers = {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        };
-                    return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekpegawai',{
-                        nip: nip,
-                    },{headers})
-                    .then(response => {
-                        if (!response.data.success) {
-                        throw new Error(response.data.message)
-                        }
-                        return response.data
-                    })
-                    .catch(error => {
-                        this.$swal.showValidationMessage(
-                        `Request failed: ${error}`
-                        )
-                    })
-                }
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    this.user = result.value.user
-                    this.files = result.value.files
-                    this.pendidikan0 = result.value.pendidikan
-                    this.pendidikan = result.value.pendidikan
-                    this.pekerjaan0 = result.value.pekerjaan
-                    this.pekerjaan = result.value.pekerjaan
-                    this.userdefault = result.value
+        async opener(){
+            this.loading = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/cekPersonalFile',{headers})
+				
+				if(response.data.success == true){
+					this.user = response.data.user
+                    this.files = response.data.files
+                    this.pendidikan0 = response.data.pendidikan
+                    this.pendidikan = response.data.pendidikan
+                    this.pekerjaan0 = response.data.pekerjaan
+                    this.pekerjaan = response.data.pekerjaan
+                    this.userdefault = response.data.user
                     this.imageFoto= this.user.foto
                     this.imageUrl= this.user.avatar
-                    this.listj= result.value.listj
-                    this.listd= result.value.listd
-                }
-                })
-        },
+                    this.listj= response.data.listj
+                    this.listd= response.data.listd
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
         changedetail(id){
             this.detail = id;
             this.$nextTick(() => {
@@ -1616,6 +1689,30 @@ export default {
 				this.loadingpd = false
 			}
 		},
+        gantiJabatan(){
+            if(event.target.value == "other"){
+                this.datap.kategori_jabatan = ''
+                $('#input-jabatan').show()
+            }else{
+                $('#input-jabatan').hide()
+                $('#nama-jabatan').hide()
+            }
+        },
+        gantiSatker(){
+            if(event.target.value == 999){
+                this.datap.satker = ''
+                $('#input-satker').show()
+            }else{
+                $('#input-satker').hide()
+            }
+        },
+        inputJabatan(){
+            if(event.target.value != null && event.target.value != "x"){
+                $('#nama-jabatan').show()
+            }else{
+                $('#nama-jabatan').hide()
+            }
+        },
         async updatePekerjaan() {
         try {
             this.loadingpd = true
@@ -1630,6 +1727,7 @@ export default {
                     no_sk: this.datap.no_sk,
                     tgl_sk: this.datap.tgl_sk,
                     ttd_sk: this.datap.ttd_sk,
+                    golongan: this.datap.golongan,
                     no_spmt: this.datap.no_spmt,
                     no_spmj: this.datap.no_spmj,
                     no_spp: this.datap.no_spp,
@@ -1639,14 +1737,19 @@ export default {
                     tgl_spp: this.datap.tgl_spp,
                     tgl_kontrak: this.datap.tgl_kontrak,
                     jabatan: this.datap.jabatan,
+                    kategori_jabatan: this.datap.kategori_jabatan,
+                    nama_jabatan: this.datap.nama_jabatan,
+                    dept_id: this.datap.dept_id,
                     satker: this.datap.satker,
                     tmt: this.datap.tmt,
+                    tmt_satker: this.datap.tmt_satker,
                     keterangan: this.datap.keterangan,
 				}, {headers})
 				
 				if(response.data.success == true){
                     this.pekerjaan0 = response.data.pekerjaan
                     this.pekerjaan = response.data.pekerjaan
+                    this.listj= response.data.listj
 
 					this.$toast.fire({
                         title: response.data.message,
@@ -1751,12 +1854,25 @@ export default {
 					}
 			})
 		},
+        deleteFileDoc(item,tipe) {
+			this.$swal.fire({
+					title: 'Apakah anda yakin?',
+					text: "Data akan dihapus secara permanen!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+                    showLoaderOnConfirm: true,
+					confirmButtonText: 'Yes, Lanjut Hapus!'
+					}).then((result) => {
+					if (result.isConfirmed) {
+						this.deleteFilePJ(item,tipe)
+					}
+			})
+		},
 		async prosesDelete(item,tipe) {
 			this.loadingdel = true;
 			try{
-				console.log(this.user.id)
-				console.log(item)
-				console.log(tipe)
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -1793,7 +1909,51 @@ export default {
 			} finally {
 				this.loadingdel = false
 			}
-		}
+		},
+        async deleteFilePJ(itemId,tipe) {
+            try{
+                this.loadingfile[tipe] = true
+				const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/non/deleteFilePJ',{
+                    userid: this.user.id,
+                    id: itemId,
+                    tipe: tipe,
+				}, {headers})
+
+                if(response.data.success == true){
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+
+                    if(tipe == 'sk' || tipe == 'spmt' || tipe == 'spmj' || tipe == 'spp' || tipe == 'kontrak'){
+                        this.pekerjaan0 = response.data.pekerjaan
+                        this.pekerjaan = response.data.pekerjaan
+
+                        this.datap = this.pekerjaan.find(obj => {
+                            return obj.id === itemId
+                        })
+                    }else if(tipe == 'ijazah' || tipe == 'transkrip'){
+                        this.pendidikan0 = response.data.pendidikan
+                        this.pendidikan = response.data.pendidikan
+
+                        this.datap = this.pendidikan.find(obj => {
+                            return obj.id === itemId
+                        })
+                    }
+                }
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingfile[tipe] = false
+			}
+        },
     }
 }
 </script>

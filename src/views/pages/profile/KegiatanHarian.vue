@@ -424,7 +424,7 @@ export default {
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
 					let item = response.data.file
-					console.log(item)
+					console.log(response.data.message)
 
 					let frame = '<iframe src="'+ item +'" width="100%" height="500"></iframe>'
 
@@ -509,6 +509,7 @@ export default {
 		},
 		async addKinerja(){
 			this.loading = true
+			console.log(this.tanggal)
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
