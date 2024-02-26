@@ -77,6 +77,7 @@ import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
 import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from '@/views/pages/adminpanel/AllRekapKinerja.vue'
+import slipGaji from '@/views/pages/adminpanel/SlipGaji.vue'
 
 const routes = [
     {
@@ -451,6 +452,14 @@ const routes = [
         path: '/ckh/:xid/:id',
         name: 'Rekap CKH',
         component: rekapKinerja,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/slipgaji',
+        name: 'Slip Gaji',
+        component: slipGaji,
         meta: {
             requiresAdmin: true
           }

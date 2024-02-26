@@ -162,6 +162,7 @@ import adminSatker from './views/pages/adminpanel/SatuanKerja.vue'
 import listSatker from './views/pages/adminpanel/ListSatker.vue'
 import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from './views/pages/adminpanel/allRekapKinerja.vue'
+import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -341,7 +342,7 @@ app.component('adminSatker',adminSatker)
 app.component('ListSatker',listSatker)
 app.component('RekapKinerja',rekapKinerja)
 app.component('AllRekapKinerja',allRekapKinerja)
-
+app.component('SlipGaji',slipGaji)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

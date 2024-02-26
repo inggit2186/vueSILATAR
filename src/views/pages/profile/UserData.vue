@@ -125,7 +125,7 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Nomor Rekening (BSI)*</label>
+                                                            <label class="col-form-label">Nomor Rekening Gaji*</label>
                                                             <div class="group-img">
                                                                 <i class="fas fa-book-open"></i>
                                                                 <b-form-input id="kk" v-model="user.rekening" type="text" class="form-control" placeholder="Nomor Rekening" />
