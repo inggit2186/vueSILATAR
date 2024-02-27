@@ -124,6 +124,7 @@ import JanjiTemu from './views/pages/profile/JanjiTemu.vue'
 import UserData from './views/pages/profile/UserData.vue'
 import KegiatanHarian from './views/pages/profile/KegiatanHarian.vue'
 import LaporanKinerja from './views/pages/profile/LaporanKinerja.vue'
+import slipGajix from './views/pages/profile/SlipGajix.vue'
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -303,6 +304,7 @@ app.component('JanjiTemu',JanjiTemu)
 app.component('UserData',UserData)
 app.component('KegiatanHarian',KegiatanHarian)
 app.component('LaporanKinerja',LaporanKinerja)
+app.component('SlipGajix',slipGajix)
 
 //satudata
 app.component('SatuDataHome',SatudataHome)

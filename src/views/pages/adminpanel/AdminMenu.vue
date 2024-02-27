@@ -41,7 +41,7 @@
                             <router-link to='/slipgaji'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                                <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">
+                                <img :src="$assets+'/img/ikon/516.png'" style="width:100%;" alt="car1">
                                 <h6>Slip Gaji</h6>
                                 <span>Rekap Slip Gaji Pegawai Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</span>
                                 </a>								   

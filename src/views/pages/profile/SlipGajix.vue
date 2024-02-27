@@ -9,53 +9,23 @@
                     <div class="container">
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
-                                <div class="d-none d-sm-block">
+                                <div>
 									<div class="card-header">
 										<h4>Laporan Slip Gaji</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipGaji()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<!--
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
-											-->
-									</div>
-								</div>
-								<div class="d-block d-sm-none">
-									<div>
-										<h4>Laporan Slip Gaji</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipGaji()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-											<!--
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
-											-->
 									</div>
 								</div>
 								<hr/>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-										<div class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
-											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="image" class="hide-input image-upload" @change="onFile">
-											<label for="file" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
-												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
-											</label>
+										<div class="group-img d-none d-sm-block">
+                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <i class="feather-search"></i>
                                         </div>
-										<div class="group-img d-none d-sm-block" style="float: left;">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
-											<i class="feather-search"></i>
-										</div>
-										<div class="settings-upload-btn d-block d-sm-none">
-											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="image" class="hide-input image-upload" @change="onFile">
-											<label for="file" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
-												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
-											</label>
-                                        </div>
-										<br/>
 										<div class="group-img d-block d-sm-none">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
-											<i class="feather-search"></i>
-										</div>
+                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
+                                            <i class="feather-search"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -77,9 +47,9 @@
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
-                                                <td>{{ item.nip }}</td>
+                                                <td>{{ item.tanggal }}</td>
                                                 <td>{{ item.nama }}<br/>
-                                                    <small>{{ item.satker }}</small>
+                                                    <small>{{ item.nip }}</small>
                                                 </td>
                                                 <td>Rp. {{ item.gaji.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- <br/>
                                                     <small>{{ item.bank }}</small>
@@ -87,9 +57,7 @@
                                                 <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
                                                 <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
                                                 <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipGaji(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
-													<!-- <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',index)" style="margin-bottom: 5px;"><b><i-fa-edit /> EDIT</b></BButton><br/> -->
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipGaji(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
@@ -148,7 +116,7 @@ export default {
             name: "/",
 			bulan: null,
 			columns2: [
-				{ name: 'NIP', data: 'nip' },
+				{ name: 'Bulan', data: 'bulan' },
 				{ name: 'Nama', data: 'nama' },
 				{ name: 'Gaji', data: 'gaji' },
 				{ name: 'Potongan', data: 'potongan' },
@@ -164,7 +132,7 @@ export default {
 			currentSort: '',
       		currentSortDir: 'asc',
 			loading: false,
-			loadingfile: false,
+			loadingrekap: false,
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
@@ -208,55 +176,6 @@ export default {
 		window.scrollTo(0,0)
 	},
   methods: {
-		delAksi(tgl){
-			this.$swal.fire({
-					title: 'Apakah anda yakin?',
-					text: "Data akan dihapus secara permanen!",
-					icon: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-                    showLoaderOnConfirm: true,
-					confirmButtonText: 'Yes, Lanjut Hapus!'
-					}).then((result) => {
-					if (result.isConfirmed) {
-						this.deleteAksi(tgl)
-					}
-			})
-		},
-		async deleteAksi(tgl) {
-			this.loading = true;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-
-					console.log(tgl)
-					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteKinerjaHarian',{
-						tgl: tgl,
-					},{headers})
-
-				if(response.data.success == true){
-                    console.log(response.data)
-          			this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loading = false
-			}
-		},
 		async getSlipGaji() {
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
@@ -267,40 +186,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipGaji',{
-					bulan : this.bulan,
-				},{headers})
-				
-				if(response.data.success == true){
-                    this.slipgaji0 = response.data.data
-          			this.slipgaji = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loading = false
-			}
-		},
-        async get2SlipGaji() {
-			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-			this.loading = true;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipGaji',{
-					bulan : date
-				},{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getPersonSlipGaji',{headers})
 				
 				if(response.data.success == true){
                     this.slipgaji0 = response.data.data
@@ -386,54 +272,6 @@ export default {
 				})
 			} finally {
 				this.loadingaksi[itemid] = false
-			}
-		},
-
-		onFile(event) {
-		const file = event.target.files[0]
-		const reader = new FileReader()
-
-		reader.onload = (event) => {
-			this.fileUrl = event.target.result
-			this.fileName = file.name
-			this.uploadFile();
-		}
-
-		reader.readAsDataURL(file)
-		},
-		async uploadFile(){
-			const today = new Date();
-			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
-			this.bulan = date;
-			this.loadingfile = true;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadSlipGaji',{
-					filex: this.fileUrl,
-                    size: this.fileSize,
-					bulan: date
-				},{headers})
-				
-				if(response.data.success == true){
-                    this.slipgaji0 = response.data.data
-          			this.slipgaji = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loadingfile = false
 			}
 		},
 		sortTable(column) {

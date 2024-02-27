@@ -52,6 +52,16 @@
                                             </a>								   
                                         </div>
                                     </div>
+                                    <div class="col-lg-4 col-md-4 centered">
+                                        <router-link to='/cashbon'>
+                                        <div class="listMenu categories-content">
+                                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                            <img :src="$assets+'/img/ikon/516.png'" style="width:100%;" alt="car1">
+                                            <span><b>Data Riwayat Slip Gaji</b></span>
+                                            </a>								   
+                                        </div>
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
