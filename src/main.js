@@ -153,6 +153,7 @@ import satuData from './views/pages/layananMenu/satuData.vue'
 import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
 
+
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
 import listRequest from './views/pages/adminpanel/listRequest.vue'

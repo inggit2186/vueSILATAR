@@ -985,7 +985,16 @@
                                                                 <b-form-textarea id="nosk" v-model="datap.keterangan" type="text" class="form-control" placeholder="Deskripsikan sedikit tentang SK ini"></b-form-textarea>
                                                             </div>
                                                         </div>
-                                                    </div>											
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Masa Kerja Golongan (Dari SK Terakhir)</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-book"></i>
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja" type="number" class="form-control" placeholder="Masa Kerja Golongan" />
+                                                            </div>
+                                                        </div>
+                                                    </div>										
                                                 </div>
                                                 <hr/>
                                                 <div class="row">

@@ -81,14 +81,13 @@
                                                 <td>{{ item.nama }}<br/>
                                                     <small>{{ item.satker }}</small>
                                                 </td>
-                                                <td>Rp. {{ item.gaji.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- <br/>
+                                                <td>Rp. {{ item.gaji.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- <br/>
                                                     <small>{{ item.bank }}</small>
                                                 </td>
-                                                <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
-                                                <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
+                                                <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
+                                                <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
                                                 <td>
 													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipGaji(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
-													<!-- <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',index)" style="margin-bottom: 5px;"><b><i-fa-edit /> EDIT</b></BButton><br/> -->
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
@@ -226,36 +225,10 @@ export default {
 		},
 		async deleteAksi(tgl) {
 			this.loading = true;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-
-					console.log(tgl)
-					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteKinerjaHarian',{
-						tgl: tgl,
-					},{headers})
-
-				if(response.data.success == true){
-                    console.log(response.data)
-          			this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
+			this.$toast.fire({
+					title: 'Sedang Dalam Perbaikan',
 					icon: 'error',
 				})
-			} finally {
-				this.loading = false
-			}
 		},
 		async getSlipGaji() {
 			const today = new Date();
@@ -405,6 +378,7 @@ export default {
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
 			this.bulan = date;
+			console.log(this.fileUrl)
 			this.loadingfile = true;
 			try{
 				const headers = {
@@ -413,7 +387,6 @@ export default {
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadSlipGaji',{
 					filex: this.fileUrl,
-                    size: this.fileSize,
 					bulan: date
 				},{headers})
 				
@@ -444,7 +417,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.kinerja.sort((a, b) => {
+			this.slipgaji.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -454,15 +427,12 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.kinerja = this.kinerja0;
+				this.slipgaji = this.slipgaji0;
 			} else {
-				this.kinerja = this.kinerja0.filter((item) => {
-					return item.tujuan.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.staff.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.jam.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.onstaff.toLowerCase().includes(this.keyword.toLowerCase());
+				this.slipgaji = this.slipgaji0.filter((item) => {
+					return item.nip.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.nama.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.satker.toLowerCase().includes(this.keyword.toLowerCase());
 				});
 			}
 		},

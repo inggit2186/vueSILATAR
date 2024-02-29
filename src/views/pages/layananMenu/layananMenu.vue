@@ -45,7 +45,7 @@ export default {
 			return id => `/Layanan/${this.navid}`
     	},
         routeSatuData() {
-            return id => `/SatuData/${this.navid}`
+            return id => `/satkerdata/${this.navid}`
         },
         routeAppoint() {
             return id => `/Appointment/${this.navid}`

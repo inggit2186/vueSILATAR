@@ -495,12 +495,7 @@ export default {
 				this.kinerja = this.kinerja0;
 			} else {
 				this.kinerja = this.kinerja0.filter((item) => {
-					return item.tujuan.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.staff.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.jam.toLowerCase().includes(this.keyword.toLowerCase()) ||
-					item.onstaff.toLowerCase().includes(this.keyword.toLowerCase());
+					return item.tanggal.toLowerCase().includes(this.keyword.toLowerCase());
 				});
 			}
 		},
