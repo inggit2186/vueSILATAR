@@ -991,10 +991,19 @@
                                                             <label class="col-form-label">Masa Kerja Golongan (Dari SK Terakhir)</label>
                                                             <div class="group-img">
                                                                 <i class="fas fa-book"></i>
-                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja" type="number" class="form-control" placeholder="Masa Kerja Golongan" />
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja_tahun" type="number" class="form-control" placeholder="Tahun" style="width:49%;float:left;margin-right:2%;" /><b-form-input id="masa_kerja" v-model="datap.masa_kerja_bulan" type="number" class="form-control" placeholder="Bulan" style="width:49%;float:right" />
                                                             </div>
                                                         </div>
-                                                    </div>										
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">KGB Selanjutnya</label>
+                                                            <div class="group-img">
+                                                                <i class="feather-calender"></i>
+                                                                <VueDatePicker v-model="datap.next_kgb" month-picker auto-apply placeholder="KGB Selanjutnya" />
+                                                            </div>
+                                                        </div>
+                                                    </div>	
                                                 </div>
                                                 <hr/>
                                                 <div class="row">

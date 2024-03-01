@@ -523,6 +523,7 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
+					
 					this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
 					this.tanggal = null
