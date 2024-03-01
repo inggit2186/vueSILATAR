@@ -988,19 +988,14 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Masa Kerja Golongan (Dari SK Terakhir)</label>
-                                                            <div class="group-img">
-                                                                <i class="fas fa-book"></i>
-                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja_tahun" type="number" class="form-control" placeholder="Tahun" style="width:49%;float:left;margin-right:2%;" /><b-form-input id="masa_kerja" v-model="datap.masa_kerja_bulan" type="number" class="form-control" placeholder="Bulan" style="width:49%;float:right" />
+                                                            <label class="col-form-label">Masa Kerja Golongan (Dari SK Terakhir)</label><br/>
+                                                            <div class="group-img" style="width:25%;float:left;margin-right:5%">
+                                                                <span style="font-weight: 600;">Tahun</span>
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja.tahun" type="number" class="form-control" placeholder="Tahun" />
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label">KGB Selanjutnya</label>
-                                                            <div class="group-img">
-                                                                <i class="feather-calender"></i>
-                                                                <VueDatePicker v-model="datap.next_kgb" month-picker auto-apply placeholder="KGB Selanjutnya" />
+                                                            <div class="group-img" style="width:25%;float:left;">
+                                                                <span style="font-weight: 600;">Bulan</span>
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja.bulan" type="number" class="form-control" placeholder="Bulan" />
                                                             </div>
                                                         </div>
                                                     </div>	
@@ -2023,6 +2018,7 @@ export default {
                     satker: this.datap.satker,
                     tmt: this.datap.tmt,
                     tmt_satker: this.datap.tmt_satker,
+                    masa_kerja: this.datap.masa_kerja,
                     keterangan: this.datap.keterangan,
 				}, {headers})
 				
