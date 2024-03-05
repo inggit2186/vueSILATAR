@@ -52,6 +52,14 @@
                                             </a>								   
                                         </div>
                                     </div>
+                                    <div class="col-lg-4 col-md-4 centered" @click.prevent="changedetail(4)">
+                                        <div class="listMenu categories-content">
+                                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                            <img :src="$assets+'/img/ikon/KGB.png'" style="width:100%;" alt="car1">
+                                            <span><b>Data Riwayat Kenaikan Gaji Berkala</b></span>
+                                            </a>								   
+                                        </div>
+                                    </div>
                                     <div class="col-lg-4 col-md-4 centered">
                                         <router-link to='/cashbon'>
                                         <div class="listMenu categories-content">
@@ -508,7 +516,7 @@
                                         <div class="listing-search">
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
-                                                    <a class="btn btn-danger" href="#" @click="gDetail('new')" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                                    <a class="btn btn-danger" href="#" @click="kDetail('new')" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                                     <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable4" >
                                                     <i class="feather-search"></i>
                                                 </div>
@@ -523,7 +531,7 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody v-if="pekerjaan.length == 0">
+                                                <tbody v-if="kgb.length == 0">
                                                     <tr>
                                                         <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
                                                     </tr>
@@ -532,22 +540,20 @@
                                                     <template v-for="item in paginatedItem4" :key="item.id">
                                                     <tr v-if="item.status != 99">
                                                         <td>
-                                                            {{ item.jenis }}<br/>
+                                                            <BBadge pill variant="warning" style="font-size: small;">{{ item.no_kgb }}</BBadge>
                                                         </td>
                                                         <td>
-                                                            <BBadge pill variant="primary" style="font-size: small;"><b>{{ item.nomor }}</b></BBadge><br/>
-                                                            <span style="font-size: smaller;">{{ item.tanggal }}</span>
+                                                            Rp. {{ item.gaji_lama.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},-
                                                         </td>
                                                         <td>
-                                                            {{ item.jabatan }}<br/>
-                                                            <span style="font-size: smaller;">{{ item.satker }}</span>
+                                                            Rp. {{ item.gaji_baru.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},-
                                                         </td>
                                                         <td>
-                                                            {{ item.golongan }}<br/>
+                                                            {{ item.mulai_berlaku }}<br/>
                                                         </td>
                                                         <td>
-                                                            <BButton pill size="sm" variant="danger" @click.prevent="deleteDoc(item.id,'golongan')"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
-                                                            <BButton pill size="sm" variant="outline-primary" @click.prevent="jDetail(item.id)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
+                                                            <BButton pill size="sm" variant="danger" @click.prevent="deleteDoc(item.id,'kgb')"><b><i-fontisto-trash /> HAPUS</b></BButton>&nbsp;&nbsp;
+                                                            <BButton pill size="sm" variant="outline-primary" @click.prevent="kDetail(item.id)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
                                                         </td>
                                                     </tr>
                                                     </template>
@@ -1176,9 +1182,9 @@
 
                         <div v-else-if="detail == 42" ref="scroll1st">
                             <div class="pagination">
-                                <a class="btn btn-primary" href="#" @click="changedetail(2)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                                <a class="btn btn-primary" href="#" @click="changedetail(4)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                             </div><hr/>
-                            <h3 class="centered"> :: Detail Golongan ::</h3>
+                            <h3 class="centered"> :: Detail KGB ::</h3>
                             <br/>
                             <div class="row centered">
                                 <div class="col-lg-3 col-md-3 featured-img1 centered">
@@ -1191,8 +1197,8 @@
                                         </BModal>
                                         <hr/>
                                         <div class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['ijazah']" @change="onFilePendidikan(datap.id,'ijazah',$event)">
-                                            <label v-if="!loadingfile['ijazah']" for="file" class="file-upload">
+                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kgb']" @change="onFileKGB(datap.id,'kgb',$event)">
+                                            <label v-if="!loadingfile['kgb']" for="file" class="file-upload">
                                                 <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
@@ -1200,7 +1206,7 @@
                                         </div>
                                         <br/>
                                         <div>
-                                            <BButton v-if="datap.files != null && datap.files != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteIjazah(datap.id)">
+                                            <BButton v-if="datap.files != null && datap.files != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFileDoc(datap.id, 'kgb')">
                                                 <span><i-fluent-delete-off-24-filled /> Delete File</span>
                                             </BButton>
                                         </div>
@@ -1208,78 +1214,141 @@
                                 </div>
                                 <hr/>
                                 <div class="card dash-cards">
-                                    <b-form @submit.prevent="updateGolongan">
+                                    <b-form @submit.prevent="updateKGB">
                                     <div class="card-body">
                                         <div class="profile-form"> 
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Jenis SK</label>
+                                                            <label class="col-form-label">Nomor KGB</label>
                                                             <div class="pass-group group-img">
-                                                                <i class="fas fa-award" style="font-size:medium;"></i>
-                                                                <b-form-select id="telp" v-model="datap.jenis" class="form-control" style="padding-left:40px;">
-                                                                    <option value='0' disabled>--Pilih Salah Satu--</option>
-                                                                    <option value='SK Kenaikan Pangkat'>SK Kenaikan Pangkat</option>
-                                                                </b-form-select>													
+                                                                <i class="fas fa-bookmark"></i>
+                                                                <b-form-input id="nomor" v-model="datap.no_kgb" type="text" class="form-control" placeholder="Nomor KGB"/>													
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Nomor SK</label>
-                                                            <div class="pass-group group-img">
-                                                                <i class="fas fa-bookmark"></i>
-                                                                <b-form-input id="nomor" v-model="datap.nomor" type="text" class="form-control" placeholder="Nomor SK"/>													
+                                                            <label class="col-form-label">Tanggal Mulai Berlaku</label>
+                                                            <div class="group-img">
+                                                                <i class="fa fa-bank"></i>
+                                                                <VueDatePicker v-model="datap.tgl_berlaku" format="dd MMMM yyyy" auto-apply placeholder="Tanggal Mulai Berlaku" />
                                                             </div>
                                                         </div>
-                                                    </div>											
+                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Tanggal SK</label>
+                                                            <label class="col-form-label">Jabatan</label>
                                                             <div class="group-img">
-                                                                <i class="fa fa-bank"></i>
-                                                                <VueDatePicker v-model="datap.tanggal" format="dd MMMM yyyy" auto-apply placeholder="Tanggal SK" />
+                                                                <i class="fas fa-user-tag"></i>
+                                                                <b-form-select v-model="datap.jabatan" class="form-control" @input="gantiJabatan" style="padding-left:40px">
+                                                                    <b-form-select-option v-for="list in listj" :value="list.jabatan">{{list.jabatan}}</b-form-select-option>
+                                                                </b-form-select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Pangkat/Golongan</label>
-                                                            <div class="pass-group group-img">
-                                                                <i class="fas fa-school"></i>
-                                                                <b-form-input id="golongan" v-model="datap.golongan" type="text" class="form-control" placeholder="Pangkat / Golongan"/>													
+                                                            <label class="col-form-label">Golongan / Ruang</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-pen"></i>
+                                                                <b-form-select id="golongan" v-model="datap.golongan" class="form-control" style="padding-left:40px">
+                                                                    <option value="" disabled>---Pilih Salah Satu---</option>
+                                                                    <option value="none" disabled>-----Golongan I (Juru)-----</option>
+                                                                    <option value="1a">I/a | Juru Muda</option>
+                                                                    <option value="1b">I/b | Juru Muda Tingkat 1</option>
+                                                                    <option value="1c">I/c | Juru</option>
+                                                                    <option value="1d">I/d | Juru Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan II (Pengatur)-----</option>
+                                                                    <option value="2a">II/a | Pengatur Muda</option>
+                                                                    <option value="2b">II/b | Pengatur Muda Tingkat 1</option>
+                                                                    <option value="2c">II/c | Pengatur</option>
+                                                                    <option value="2d">II/d | Pengatur Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan III (Penata)-----</option>
+                                                                    <option value="3a">III/a | Penata Muda</option>
+                                                                    <option value="3b">III/b | Penata Muda Tingkat 1</option>
+                                                                    <option value="3c">III/c | Penata</option>
+                                                                    <option value="3d">III/d | Penata Tingkat 1</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan IV (Pembina)-----</option>
+                                                                    <option value="4a">IV/a | Pembina</option>
+                                                                    <option value="4b">IV/b | Pembina Tingkat 1</option>
+                                                                    <option value="4c">IV/c | Pembina Utama Muda</option>
+                                                                    <option value="4d">IV/d | Pembina Utama Madya</option>
+                                                                    <option value="4e">IV/e | Pembina Utama</option>
+                                                                </b-form-select>
                                                             </div>
                                                         </div>
                                                     </div>									
                                                 </div>
+                                                <hr/>
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Nomor Ijazah</label>
-                                                            <div class="pass-group group-img">
-                                                                <i class="fas fa-bookmark"></i>
-                                                                <b-form-input id="nomorijazah" v-model="datap.nomor_ijazah" type="text" class="form-control" placeholder="Nomor Ijazah"/>													
+                                                            <label class="col-form-label">Unit Kerja</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-school"></i>
+                                                                <b-form-select v-model="datap.dept_id" class="form-control" @input="gantiSatker" style="padding-left:40px">
+                                                                    <b-form-select-option value="">--Pilih Salah Satu--</b-form-select-option>
+                                                                    <b-form-select-option v-for="list in listd" :value="list.id">{{list.nama}}</b-form-select-option>
+                                                                </b-form-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div v-if="datap.dept_id == 999" id="input-satker" class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Nama Unit Kerja</label>
+                                                            <div class="group-img">
+                                                                <i class="fas fa-file-signature"></i>
+                                                                <b-form-input id="satker" v-model="datap.satker" type="text" class="form-control" placeholder="Nama Unit Kerja" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-form-label">Tanggal Ijazah</label>
-                                                            <div class="group-img">
-                                                                <i class="fas fa-calender"></i>
-                                                                <VueDatePicker v-model="datap.tanggal_ijazah" format="dd MMMM yyyy" auto-apply placeholder="Tanggal Ijazah" />
+                                                            <label class="col-form-label">Masa Kerja Golongan (Dari SK Terakhir)</label><br/>
+                                                            <div class="group-img" style="width:25%;float:left;margin-right:5%">
+                                                                <span style="font-weight: 600;">Tahun</span>
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja.tahun" type="number" class="form-control" placeholder="Tahun" />
+                                                            </div>
+                                                            <div class="group-img" style="width:25%;float:left;">
+                                                                <span style="font-weight: 600;">Bulan</span>
+                                                                <b-form-input id="masa_kerja" v-model="datap.masa_kerja.bulan" type="number" class="form-control" placeholder="Bulan" />
                                                             </div>
                                                         </div>
-                                                    </div>											
-                                                </div>	
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Gaji Lama</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-money-bill"></i>
+                                                                <b-form-input id="gaji_lama" v-model="datap.gaji_lama" type="number" class="form-control" placeholder="Gaji Lama"/>													
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Gaji Baru</label>
+                                                            <div class="pass-group group-img">
+                                                                <i class="fas fa-money-bill-wave"></i>
+                                                                <b-form-input id="gaji_baru" v-model="datap.gaji_baru" type="number" class="form-control" placeholder="Gaji Baru"/>													
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                         <br>
                                         <div class="text-center">
                                         <b-button variant="primary" type="submit" :disabled="loadingpd"> 
                                             <span v-if="!loadingpd"><i class="fa fa-address-card" aria-hidden="true"></i><b>&nbsp; UPDATE</b></span>
-                                            <span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Ke Kemendikbud Dulu Gan...</span>
+                                            <span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Ke Kemenkeu Dulu Gan...</span>
                                         </b-button>
                                         </div>
                                     </div>
@@ -1331,10 +1400,10 @@ export default {
 				{ name: 'Action', data: 'action' },
 			],
             columns4: [
-				{ name: 'Jenis SK', data: 'jenis_sk' },
-				{ name: 'Nomor', data: 'nomor' },
-				{ name: 'Unit Kerja', data: 'satker' },
-				{ name: 'Golongan', data: 'golongan' },
+				{ name: 'Nomor KGB', data: 'nomor_kgb' },
+				{ name: 'Gaji Lama', data: 'gaji_lama' },
+				{ name: 'Gaji Baru', data: 'gaji_baru' },
+				{ name: 'Mulai Berlaku', data: 'tgl_berlaku' },
 				{ name: 'Action', data: 'action' },
 			],
             keyword: '',
@@ -1352,9 +1421,8 @@ export default {
             pekerjaan: [],
 			pekerjaan0: [],
 			dataj: [],
-            golongan: [],
-			golongan0: [],
-			datag: [],
+            kgb: [],
+			kgb0: [],
         }
     },
     computed: {
@@ -1411,7 +1479,7 @@ export default {
 //--------------------------------------------------------------------//
         sortedData4() {
 			// eslint-disable-next-line vue/no-side-effects-in-computed-properties
-			return this.golongan.sort((a, b) => {
+			return this.kgb.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -1422,7 +1490,7 @@ export default {
     	paginatedItem4() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.golongan.slice(start, end);
+			return this.kgb.slice(start, end);
 		},
 		displayedPages4() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -1430,7 +1498,7 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages4() {
-            return Math.ceil(this.golongan.length / this.itemsPerPage);
+            return Math.ceil(this.kgb.length / this.itemsPerPage);
         },
 	},
     created() {
@@ -1457,6 +1525,8 @@ export default {
                     this.pendidikan = response.data.pendidikan
                     this.pekerjaan0 = response.data.pekerjaan
                     this.pekerjaan = response.data.pekerjaan
+                    this.kgb0 = response.data.kgb
+                    this.kgb = response.data.kgb
                     this.userdefault = response.data.user
                     this.imageFoto= this.user.foto
                     this.imageUrl= this.user.avatar
@@ -1758,8 +1828,10 @@ export default {
                     id: 'new',
                     satker: this.user.dept_id,
                     jabatan: this.user.pekerjaan,
+                    masa_kerja: []
                 }
             }else{
+                console.log(this.pekerjaan)
                 this.datap = this.pekerjaan.find(obj => {
                     return obj.id === itemid
                 })
@@ -1767,21 +1839,23 @@ export default {
             
             this.changedetail(32)
         },
-        gDetail(itemid){
+        kDetail(itemid){
             if(itemid == 'new'){
                 this.datap = {
                     id: 'new',
                     satker: this.user.dept_id,
                     jabatan: this.user.pekerjaan,
+                    masa_kerja: []
                 }
             }else{
-                this.datap = this.golongan.find(obj => {
+                this.datap = this.kgb.find(obj => {
                     return obj.id === itemid
                 })
             }
             
             this.changedetail(42)
         },
+
         onFilePendidikan(itemId, tipe, event) {
             
             const file = event.target.files[0];
@@ -1831,6 +1905,33 @@ export default {
                     });
                 }else{
                     this.uploadFilePJ(itemId,tipe)
+                }
+            }
+
+            reader.readAsDataURL(file)
+		},
+        onFileKGB(itemId, tipe, event) {
+            
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                this.fileUrl = event.target.result
+                this.fileSize = file.size
+                this.fileName = file.name
+                
+                if(file.size > 2560000){
+                    this.$toast.fire({
+                        title: "File Tidak Boleh lebih dari 2MB !",
+                        icon: "warning"
+                    });
+                }else if(file.type != 'application/pdf'){
+                    this.$toast.fire({
+                        title: "File harus tipe .PDF !",
+                        icon: "warning"
+                    });
+                }else{
+                    this.uploadFileKGB(itemId,tipe)
                 }
             }
 
@@ -1904,6 +2005,45 @@ export default {
                     }
 
                     this.datap = this.pekerjaan.find(obj => {
+                        return obj.id === itemId
+                    })
+                }
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingfile[tipe] = false
+			}
+        },
+        async uploadFileKGB(itemId,tipe) {
+            try{
+                this.loadingfile[tipe] = true
+				const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/non/uploadFileKGB',{
+                    userid: this.user.id,
+                    id: itemId,
+                    tipe: tipe,
+                    filex: this.fileUrl,
+                    size: this.fileSize
+				}, {headers})
+
+                if(response.data.success == true){
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+                    this.kgb0 = response.data.kgb
+                    this.kgb = response.data.kgb
+
+                    if(itemId == 'new'){
+                        itemId = response.data.update
+                    }
+                    this.datap = this.kgb.find(obj => {
                         return obj.id === itemId
                     })
                 }
@@ -2018,7 +2158,8 @@ export default {
                     satker: this.datap.satker,
                     tmt: this.datap.tmt,
                     tmt_satker: this.datap.tmt_satker,
-                    masa_kerja: this.datap.masa_kerja,
+                    masa_kerja_tahun: this.datap.masa_kerja.tahun,
+                    masa_kerja_bulan: this.datap.masa_kerja.bulan,
                     keterangan: this.datap.keterangan,
 				}, {headers})
 				
@@ -2038,6 +2179,59 @@ export default {
                         list.push(value+'<br/>');
                     });
                     
+                    this.$toast.fire({
+                        title: list,
+                        icon: 'error',
+                    })
+                }
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingpd = false
+			}
+		},
+        async updateKGB() {
+        try {
+            console.log(this.datap.id)
+            this.loadingpd = true
+				const headers = {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('token')}`
+							};
+
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/non/saveKGB',{
+					userid: this.user.id,
+                    id: this.datap.id,
+                    no_kgb: this.datap.no_kgb,
+                    tgl_berlaku: this.datap.tgl_berlaku,
+                    jabatan: this.datap.jabatan,
+                    golongan: this.datap.golongan,
+                    dept_id: this.datap.dept_id,
+                    satker: this.datap.satker,
+                    gaji_lama: this.datap.gaji_lama,
+                    gaji_baru: this.datap.gaji_baru,
+                    masa_kerja_tahun: this.datap.masa_kerja.tahun,
+                    masa_kerja_bulan: this.datap.masa_kerja.bulan,
+				}, {headers})
+				
+				if(response.data.success == true){
+                    this.kgb0 = response.data.kgb
+                    this.kgb = response.data.kgb
+
+					this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'success',
+                    })
+                    this.changedetail(4)
+				}else{
+                    let list=[];
+                    $.each(response.data.valid, function(key, value) {
+                        list.push(value+'<br/>');
+                    });
+
                     this.$toast.fire({
                         title: list,
                         icon: 'error',
@@ -2170,6 +2364,9 @@ export default {
                     }else if(tipe == 'pekerjaan'){
                         this.pekerjaan0 = response.data.pekerjaan
                         this.pekerjaan = response.data.pekerjaan
+                    }else if(tipe == 'kgb'){
+                        this.kgb0 = response.data.kgb
+                        this.kgb = response.data.kgb
                     }
 				}else{
 					this.$toast.fire({
@@ -2217,6 +2414,13 @@ export default {
                         this.pendidikan = response.data.pendidikan
 
                         this.datap = this.pendidikan.find(obj => {
+                            return obj.id === itemId
+                        })
+                    }else if(tipe == 'kgb'){
+                        this.kgb0 = response.data.kgb
+                        this.kgb = response.data.kgb
+
+                        this.datap = this.kgb.find(obj => {
                             return obj.id === itemId
                         })
                     }
