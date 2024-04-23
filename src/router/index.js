@@ -44,10 +44,17 @@ import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
 import UserData from '../views/pages/profile/UserData.vue'
 import KegiatanHarian from '../views/pages/profile/KegiatanHarian.vue'
 import LaporanKinerja from '../views/pages/profile/LaporanKinerja.vue'
+import KinerjaBawahan from '../views/pages/profile/KinerjaBawahan.vue'
 import slipGajix from '../views/pages/profile/SlipGajix.vue'
 
 //satudata
 import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
+
+//keuangan
+import keuanganMenu from '@/views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
+import presensiMenu from '@/views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
+import amprahGaji from '@/views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
+import amprahDoc from '@/views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -68,6 +75,7 @@ import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
 import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
 import pengaduanMenuVue from '@/views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
+import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
 
 //cPanel
 import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
@@ -160,6 +168,43 @@ const routes = [
         path: '/Pengaduan/:id',
         name: 'Pengaduan',
         component: pengaduanMenuVue
+    },
+    {
+        path: '/suratedaran/:id',
+        name: 'Peraturan Surat Edaran',
+        component: peraturanSE
+    },
+    {
+        path: '/keuangan',
+        name: 'Layanan Keuangan',
+        component: keuanganMenu,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/amprah',
+        name: 'Amprah',
+        component: amprahDoc,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/amprah/:id',
+        name: 'Amprah Gaji',
+        component: amprahGaji,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/presensi',
+        name: 'Rekap Presensi',
+        component: presensiMenu,
+        meta: {
+            requiresAuth: true
+          }
     },
     {
         path: '/add-listing',
@@ -339,6 +384,14 @@ const routes = [
         path: '/laporankinerja',
         name: 'Laporan Kinerja',
         component: LaporanKinerja,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/kinerjabawahan',
+        name: 'Kinerja Bawahan',
+        component: KinerjaBawahan,
         meta: {
             requiresAuth: true
           }

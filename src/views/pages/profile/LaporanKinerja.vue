@@ -24,7 +24,7 @@
 								<div class="card-body">
 									<div class="row centered">
 										<div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered" style="margin-bottom: 3%;">
-											<div class="media-image" v-b-tooltip="item.alasan">
+											<div class="media-image">
 												<h5 class="media-title"><u><b>{{ item.nama }}</b></u></h5>
 													<img v-if="item.status == 'KOSONG'" :src="$assets+'/img/ikon/filenotfound.png'" style="max-width: 170px;"/>
 													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" style="max-width: 170px;" alt="" @click="openFile(item.filename)" />
@@ -39,6 +39,8 @@
 														<BButton block size="lg" variant="success" style="margin-top: 5px;" disabled>
 															<span><i-noto-v1-ok-hand /> Disetujui</span>
 														</BButton>
+														<br/>
+														<span style="font-size: small;font-style: italic;font-weight: 700;"><i-mingcute-comment-fill /> {{ item.alasan }} </span>
 													</div>
 													<div v-else>
 														<input id="file" type="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
@@ -47,6 +49,8 @@
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
 														</label>
 														<label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+														<br/>
+														<span v-if="item.status != 'KOSONG' && item.status != 'DIKIRIM'" style="font-size: small;font-style: italic;font-weight: 700;"><i-mingcute-comment-fill /> {{ item.alasan }} </span>
 													</div>
 												</div>
 												<br/>

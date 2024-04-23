@@ -71,10 +71,55 @@ export default {
 					};
 				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/cekAuth',{headers})
         if(response.data.success == true){
-          this.$toast.fire({
-            title: response.data.message,
-            icon: 'success',
-          })
+          if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
+              this.$swal.fire({
+                title: 'SPT Pajak Tahunan!',
+                html: '<p style="font-size: 17px">Apakah Bpk/Ibu sudah Melaporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ?</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+                icon: 'question',
+                showConfirmButton: true,
+                showDenyButton: true,
+                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SUDAH DILAPORKAN`,
+                denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;BELUM DILAPORKAN`,
+                showLoaderOnConfirm: true,
+                allowOutsideClick: false,
+                preConfirm: async (addsppt) => {
+                  try {
+                    const response = this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
+                        userid: this.user.id,
+                        tahun:  this.user.sppt_tahun,
+                        status: 'sudah'
+                    },{headers});
+                    return response;
+                  } catch (error) {
+                    this.$swal.showValidationMessage(`
+                      Request failed: ${error}
+                    `);
+                  }
+                },
+                }).then((result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                    this.user.sppt= result.value.data.sppt;
+                    localStorage.setItem("user",JSON.stringify(this.user));
+                    this.$toast.fire({
+                      title: 'Terima Kasih telah melaporkan SPT Pajak Tahunan Anda !!!',
+                      icon: 'success',
+                    })
+                  }else{
+                    this.$swal.fire({
+                      title: 'Laporkan SPPT Tahun 2023!',
+                      html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+                      icon: 'warning',
+                      closeButton: true,
+                    })
+                  };
+                });
+            }else{
+              this.$toast.fire({
+                title: response.data.message,
+                icon: 'success',
+              })
+            }
         }else{
           this.$toast.fire({
             title: response.data.message,

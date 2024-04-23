@@ -12,6 +12,9 @@
 							<span class="ads">{{ kepala.nipx }}</span>
                             <h7><i-healthicons-city-worker/>KEPALA</h7>
                             <span style="font-size:14px">{{ kepala.pekerjaan }}</span>
+							<BBadge v-if="kepala.sppt && kepala.sppt.status == 'sudah'" variant="success">SPT Pajak 2023 <i-ci-check-all /></BBadge>
+							<BBadge v-else-if="!kepala.sppt" variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-else variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
                             </a>								   
                         </div>
 						</router-link>
@@ -25,6 +28,9 @@
 							<span class="ads">{{ kaur.nipx }}</span>
                             <h7><i-healthicons-city-worker-outline/>KAUR</h7>
                             <span style="font-size:14px">{{ kaur.pekerjaan }}</span>
+							<BBadge v-if="kaur.sppt && kaur.sppt.status == 'sudah'" variant="success">SPT Pajak 2023 <i-ci-check-all /></BBadge>
+							<BBadge v-else-if="!kaur.sppt" variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-else variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
                             </a>								   
                         </div>
 						</router-link>
@@ -47,6 +53,9 @@
 								<span class="ads">{{ item.nomor_induk }}</span>
 								<span>{{ item.pekerjaan }}</span>
 								<BBadge v-if="this.$route.params.id == 999" pill variant="warning" style="font-size: x-small;">{{ item.satker }}</BBadge>
+								<BBadge v-if="item.sppt && item.sppt.status == 'sudah'" variant="success">SPT Pajak 2023 <i-ci-check-all /></BBadge>
+								<BBadge v-else-if="!item.sppt" variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
+								<BBadge v-else variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
 								</a>								   
 							</div>
 							</router-link>

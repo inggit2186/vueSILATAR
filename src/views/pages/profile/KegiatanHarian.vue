@@ -68,7 +68,7 @@
 												   </div>
                                                 </td>
                                                 <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',index)"><b><i-fa-edit /> EDIT</b></BButton>&nbsp;
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><b><i-fa-edit /> EDIT</b></BButton>&nbsp;
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
@@ -260,9 +260,8 @@ export default {
 	},
   methods: {
         changedetail(id,st,xid){
-			console.log(st)
+			console.log(xid)
             if(st === 'Edit'){
-				console.log(st)
 				this.status = st,
 				this.detail = id;
 				this.tanggal = this.kinerja[xid].tgl;

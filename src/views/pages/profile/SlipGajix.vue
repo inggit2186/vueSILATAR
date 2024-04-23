@@ -208,7 +208,6 @@ export default {
 			}
 		},
 		async cetakSlipGaji(itemid) {
-			console.log(itemid)
 			this.loadingaksi[itemid] = true;
 			try{
 				const headers = {

@@ -124,6 +124,7 @@ import JanjiTemu from './views/pages/profile/JanjiTemu.vue'
 import UserData from './views/pages/profile/UserData.vue'
 import KegiatanHarian from './views/pages/profile/KegiatanHarian.vue'
 import LaporanKinerja from './views/pages/profile/LaporanKinerja.vue'
+import KinerjaBawahan from './views/pages/profile/KinerjaBawahan.vue'
 import slipGajix from './views/pages/profile/SlipGajix.vue'
 
 //satudata
@@ -152,7 +153,13 @@ import addAppointment from './views/pages/layananMenu/addAppointment.vue'
 import satuData from './views/pages/layananMenu/satuData.vue'
 import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
+import peraturanSE from './views/pages/layananMenu/peraturanSE.vue'
 
+//keuangan
+import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
+import presensiMenu from './views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
+import amprahDoc from './views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
+import amprahGaji from './views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -305,6 +312,7 @@ app.component('JanjiTemu',JanjiTemu)
 app.component('UserData',UserData)
 app.component('KegiatanHarian',KegiatanHarian)
 app.component('LaporanKinerja',LaporanKinerja)
+app.component('KinerjaBawahan',KinerjaBawahan)
 app.component('SlipGajix',slipGajix)
 
 //satudata
@@ -334,6 +342,13 @@ app.component('AddAppointment',addAppointment)
 app.component('SatuData',satuData)
 app.component('PengaduanMenu',pengaduanMenu)
 app.component('PersuratanMenu',persuratanMenu)
+app.component('PeraturanSE',peraturanSE)
+
+//Keuangan
+app.component('keuanganMenu', keuanganMenu)
+app.component('presensiMenu', presensiMenu)
+app.component('amprahGaji', amprahGaji)
+app.component('amprahDoc', amprahDoc)
 
 //cPanel
 app.component('AdminMenu', adminMenu)
