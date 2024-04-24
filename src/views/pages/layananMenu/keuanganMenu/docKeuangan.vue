@@ -11,14 +11,14 @@
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
-										<h4>Rekap Amprah {{ titleamprah }}</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Amprahgaji()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+										<h4>Rekap Dokumen {{ titleamprah }}</h4>
+											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Laporan Slip Gaji</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Amprahgaji()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply />
 									</div>
 								</div>
 								<hr/>
@@ -65,7 +65,7 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.amprahgaji.length == 0">
+											<tr v-if="this.dockeu.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
@@ -129,13 +129,14 @@
 export default {
     data() {
         return {
+            xid: this.$route.params.xid,
             navid: this.$route.params.id,
-            title: "Amprah Gaji",
+            title: "Dokumen Keuangan",
             titleamprah: null,
             text: "Setjen",
-            text1: "Amprah Gaji",
+            text1: "Dokumen Keuangan",
             name: "/",
-			bulan: null,
+			tahun: null,
             waktu: 'old',
 			columns2: [
 				{ name: 'Kategori', data: 'kategori' },
@@ -152,8 +153,8 @@ export default {
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
-			amprahgaji: [],
-			amprahgaji0: [],
+			dockeu: [],
+			dockeu0: [],
 			tanggal: [],
             detail: 1,
             status: null,
@@ -165,7 +166,7 @@ export default {
 			return this.columns
 		},
 		sortedData() {
-			return this.amprahgaji.sort((a, b) => {
+			return this.dockeu.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -176,7 +177,7 @@ export default {
     	paginatedItem() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.amprahgaji.slice(start, end);
+			return this.dockeu.slice(start, end);
 		},
 		displayedPages() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -184,11 +185,11 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages() {
-            return Math.ceil(this.amprahgaji.length / this.itemsPerPage);
+            return Math.ceil(this.dockeu.length / this.itemsPerPage);
         },
 	},
   created() {
-		this.getAmprahgaji(),
+		this.getDocKeu(),
 		window.scrollTo(0,0)
 	},
   methods: {
@@ -211,27 +212,24 @@ export default {
 		async deleteAksi(id) {
 			this.loadingaksi[id] = true;
 			let tanggalx
-			if(this.waktu == 'old'){
-                    tanggalx = this.bulan
-                }else{
-                    tanggalx = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-                }
-				console.log(id)
+            
+                tanggalx = this.tahun
+
 			try{
                 
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteAmprah',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteDocKeu',{
                     navid: this.navid,
-					bulan: tanggalx,
+					tahun: tanggalx,
 					id : id,
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.amprahgaji0 = response.data.data
-          			this.amprahgaji = response.data.data
+                    this.dockeu0 = response.data.data
+          			this.dockeu = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -249,10 +247,11 @@ export default {
 			}
 		},
 
-		async getAmprahgaji() {
+		async getDocKeu() {
 			const today = new Date();
-			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
-			this.bulan = date;
+			const date = today.getFullYear()-1;
+            console.log(date)
+			this.tahun = date;
 			this.loading = true;
 			try{
                 
@@ -260,14 +259,14 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getAmprahgaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
                     navid: this.navid,
-					bulan : this.bulan,
+					tahun : this.tahun,
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.amprahgaji0 = response.data.data
-          			this.amprahgaji = response.data.data
+                    this.dockeu0 = response.data.data
+          			this.dockeu = response.data.data
                     this.titleamprah = response.data.title
 				}else{
 					this.$toast.fire({
@@ -285,9 +284,8 @@ export default {
 				this.loading = false
 			}
 		},
-        async get2Amprahgaji() {
+        async get2DocKeu() {
 			this.waktu = 'new';
-            const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
 			this.loading = true;
             
 			try{
@@ -295,14 +293,14 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getAmprahgaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
                     navid: this.navid,
-					bulan : date
+					tahun : this.tahun
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.amprahgaji0 = response.data.data
-          			this.amprahgaji = response.data.data
+                    this.dockeu0 = response.data.data
+          			this.dockeu = response.data.data
                       this.titleamprah = response.data.title
 				}else{
 					this.$toast.fire({
@@ -336,31 +334,23 @@ export default {
 
 		async uploadFile(){
             let htmlx = null;
-            if(this.navid == 'tpg' || this.navid == 'selisihtukin'){
+            if(this.navid == 'dipa' || this.navid == 'pok'|| this.navid == 'tor'|| this.navid == 'rab'){
                 htmlx = ` <span style='font-size: 15px'>Kategori</span><br/>
                             <select style='font-size: 15px' id="kategori" class="swal2-input">
-                                <option  value="" disabled selected>--Pilih Kategori--</option>
-                                <option  value="PNS_PENMAD">PNS PENMAD</option>
-                                <option  value="PPPK_PENMAD">PPPK PENMAD</option>
-                                <option  value="PNS_PAI_PEMDA">PNS PAI PEMDA</option>
-                                <option  value="PNS_PAI_KEMENAG">PNS PAI KEMENAG</option>
-                                <option  value="PPPK_PAI_PEMDA">PPPK PAI PEMDA</option>
-                                <option  value="PPPK_PAI_KEMENAG">PPPK PAI KEMENAG</option>
+                                <option  value="${this.titleamprah}" selected>${this.titleamprah}</option>
                             </select><hr/>
-                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Keterangan</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="keterangan" class="swal2-textarea" rows=3></textarea></td></tr></table>
+                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
                     `;
-            }else{
+            }else if(this.navid == 'spmup' || this.navid == 'spmls'|| this.navid == 'sppls'|| this.navid == 'sppup'){
                 htmlx = ` <span style='font-size: 15px'>Kategori</span><br/>
                             <select style='font-size: 15px' id="kategori" class="swal2-input">
                                 <option  value="" disabled selected>--Pilih Kategori--</option>
-                                <option  value="PNS_KEAGAMAAN_BANK NAGARI">PNS Keagamaan • Bank Nagari</option>
-                                <option  value="PPPK_KEAGAMAAN_BANK NAGARI">PPPK Keagamaan • Bank Nagari</option>
-                                <option  value="PNS_KEPENDIDIKAN_BANK NAGARI">PNS Kependidikan • Bank Nagari</option>
-                                <option  value="PNS_KEPENDIDIKAN_BRI">PNS Kependidikan • BRI</option>
-                                <option  value="PNS_KEPENDIDIKAN_BSI">PNS Kependidikan • BSI</option>
-                                <option  value="PPPK_KEPENDIDIKAN_BSI">PPPK Kependidikan • BSI</option>
+                                <option  value="BELANJA_PEGAWAI">Belanja Pegawai</option>
+                                <option  value="BELANJA_BARANG">Belanja Barang</option>
+                                <option  value="BELANJA_MODAL">Belanja Modal</option>
+                                <option  value="BELANJA_BANTUAN_SOSIAL">Belanja Bantuan Sosial</option>
                             </select><hr/>
-                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Keterangan</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="keterangan" class="swal2-textarea" rows=3></textarea></td></tr></table>
+                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
                     `;
             }
 
@@ -375,32 +365,29 @@ export default {
                 confirmButtonText: 'Upload File!'
             }).then((result) => {
             if (result.isConfirmed) {
-                this.uploadAmprah('AmprahGaji',document.getElementById("kategori").value,document.getElementById("keterangan").value)      
+                this.uploadDocKeu('DocKeu',document.getElementById("kategori").value,document.getElementById("deskripsi").value)      
             }
             })
 		},
 
-        async uploadAmprah(status,kategori,keterangan){
+        async uploadDocKeu(status,kategori,deskripsi){
             try{
                 this.loadingfile = true
                 let tanggalx = null
 
-                if(this.waktu == 'old'){
-                    tanggalx = this.bulan
-                }else{
-                    tanggalx = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-                }
+                tanggalx = this.tahun
+                
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
                 
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadAmprah',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadDocKeu',{
                     navid: this.navid,
 					status: status,
                     kategori: kategori,
-                    keterangan: keterangan,
-                    bulan: tanggalx,
+                    deskripsi: deskripsi,
+                    tahun: tanggalx,
                     filex: this.fileUrl
 				},{headers})
 				
@@ -409,8 +396,8 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
-					this.amprahgaji0 = response.data.data
-          			this.amprahgaji = response.data.data	
+					this.dockeu0 = response.data.data
+          			this.dockeu = response.data.data	
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -481,7 +468,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.amprahgaji.sort((a, b) => {
+			this.dockeu.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -491,9 +478,9 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.amprahgaji = this.amprahgaji0;
+				this.dockeu = this.dockeu0;
 			} else {
-				this.amprahgaji = this.amprahgaji0.filter((item) => {
+				this.dockeu = this.dockeu0.filter((item) => {
 					return item.kategori.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.uploader.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.keterangan.toLowerCase().includes(this.keyword.toLowerCase());

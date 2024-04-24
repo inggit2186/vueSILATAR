@@ -8,7 +8,7 @@
                 <div class="categorieslist-section">
                     <div class="container ">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/gajiinduk">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -18,7 +18,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/gajisusulan">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -28,7 +28,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/kekurangangaji">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -38,7 +38,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/gajiterusan">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -48,7 +48,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/uangmakan">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -58,7 +58,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/tukin">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -68,7 +68,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/tpg">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -78,7 +78,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div class="col-lg-4 col-md-4 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/amprah/selisihtukin">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">

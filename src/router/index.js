@@ -55,6 +55,9 @@ import keuanganMenu from '@/views/pages/layananMenu/keuanganMenu/keuanganMenu.vu
 import presensiMenu from '@/views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
 import amprahGaji from '@/views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
 import amprahDoc from '@/views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
+import listKeuangan from '@/views/pages/layananMenu/keuanganMenu/ListKeuangan.vue';
+import docKeuangan from '@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue';
+import dipaList from '@/views/pages/layananMenu/keuanganMenu/dipaList.vue';
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -183,6 +186,30 @@ const routes = [
           }
     },
     {
+        path: '/dipa/:id',
+        name: 'Daftar Dokumen',
+        component: listKeuangan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/dipa/:xid/:id',
+        name: 'Dokumen DIPA',
+        component: docKeuangan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/dipa',
+        name: 'Daftar DIPA',
+        component: dipaList,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
         path: '/amprah',
         name: 'Amprah',
         component: amprahDoc,
@@ -198,6 +225,7 @@ const routes = [
             requiresAdmin: true
           }
     },
+
     {
         path: '/presensi',
         name: 'Rekap Presensi',

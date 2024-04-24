@@ -25,7 +25,7 @@
 							<img src="../../../assets/img/bg/cloud-02.png" alt="" class="cloud-two">
 						</div>
 						<div class="ban-image-02">
-							<img src="../../../assets/img/banner-02.png" width="66%" style="float: right;" alt="">
+							<img :src="imgz" style="float: right;width: 66%;" alt="opener">
 						</div>
 						<div class="ban-image-03">
 							<img src="../../../assets/img/bg/plane.png" alt="">
@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="banner-btm-img-blk">
-							<img src="../../../assets/img/banner-btm-img.png" width="28%" alt="">
+							<img src="../../../assets/img/banner-btm-img.png" style="width: 28%;" alt="">
 						</div>
 						<!--
 						<div class="banner-btm">
@@ -119,6 +119,31 @@
 
 <script>
 export default {
-    
+	data() {
+        return {
+			
+			imgz: null,
+		}
+	},
+	created(){
+		this.Imgopener();
+		window.scrollTo(0,0)
+	},
+	methods:{
+		Imgopener() {
+			const dt = new Date()
+			const index = dt.getDay()
+			let imgx = null
+
+			if(index == 4){
+				imgx = 'banner-03';
+			}else if(index == 5){
+				imgx = 'banner-04';
+			}else{
+				imgx = 'banner-02';
+			}
+			this.imgz = this.$assets+'/img/bg/'+imgx+'.png'
+		}
+	}
 }
 </script>

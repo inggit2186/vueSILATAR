@@ -160,6 +160,9 @@ import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vu
 import presensiMenu from './views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
 import amprahDoc from './views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
 import amprahGaji from './views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
+import dipaList from './views/pages/layananMenu/keuanganMenu/dipaList.vue';
+import listKeuangan from './views/pages/layananMenu/keuanganMenu/listKeuangan.vue';
+import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -349,6 +352,9 @@ app.component('keuanganMenu', keuanganMenu)
 app.component('presensiMenu', presensiMenu)
 app.component('amprahGaji', amprahGaji)
 app.component('amprahDoc', amprahDoc)
+app.component('dipaList',dipaList)
+app.component('docKeuangan',docKeuangan)
+app.component('listKeuangan',listKeuangan)
 
 //cPanel
 app.component('AdminMenu', adminMenu)
