@@ -222,6 +222,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteDocKeu',{
+                    dipa: this.xid,
                     navid: this.navid,
 					tahun: tanggalx,
 					id : id,
@@ -260,6 +261,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
+                    dipa: this.xid,
                     navid: this.navid,
 					tahun : this.tahun,
 				},{headers})
@@ -294,6 +296,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
+                    dipa: this.xid,
                     navid: this.navid,
 					tahun : this.tahun
 				},{headers})
@@ -383,6 +386,7 @@ export default {
 					};
                 
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadDocKeu',{
+                    dipa: this.xid,
                     navid: this.navid,
 					status: status,
                     kategori: kategori,
