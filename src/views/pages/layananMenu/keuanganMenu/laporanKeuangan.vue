@@ -7,17 +7,41 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
+                        <div class="">
+                            <ul class="dashborad-menus">
+                                <li :class="{ active: tipe === 'bulanan' }">
+                                    <a href="#" @click.prevent="changeDetail('bulanan')">
+                                        <i-bi-calendar-month-fill /> <span>Bulanan</span>
+                                    </a>
+                                </li>
+                                <li :class="{ active: tipe === 'triwulan' }">
+                                    <a href="#" @click.prevent="changeDetail('triwulan')">
+                                        <i-clarity-date-solid-badged /> <span>Triwulan</span>
+                                    </a>
+                                </li>
+                                <li :class="{ active: tipe === 'semester' }">
+                                    <a href="#" @click.prevent="changeDetail('semester')">
+                                        <i-clarity-date-solid-alerted /> <span>Semester</span>
+                                    </a>
+                                </li>
+                                <li :class="{ active: tipe === 'tahunan' }">
+                                    <a href="#" @click.prevent="changeDetail('tahunan')">
+                                        <i-iwwa-year /> <span>Tahunan</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
-										<h4>Rekap Dokumen {{ titleamprah }}</h4>
+										<h4>Laporan Keuangan Tahun {{ titleamprah }}</h4>
 											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
-										<h4>Rekap Dokumen {{ titleamprah }}</h4>
+										<h4>Laporan Keuangan Tahun {{ titleamprah }}</h4>
 											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply />
 									</div>
 								</div>
@@ -131,13 +155,15 @@ export default {
         return {
             xid: this.$route.params.xid,
             navid: this.$route.params.id,
-            title: "Dokumen Keuangan",
+            title: "Laporan Keuangan",
             titleamprah: null,
             text: "Setjen",
-            text1: "Dokumen Keuangan",
+            text1: "Laporan Keuangan",
             name: "/",
 			tahun: null,
             waktu: 'old',
+            tipe: 'bulanan',
+            index: null,
 			columns2: [
 				{ name: 'Kategori', data: 'kategori' },
 				{ name: 'Keterangan', data: 'keterangan' },   
@@ -193,6 +219,41 @@ export default {
 		window.scrollTo(0,0)
 	},
   methods: {
+        async changeDetail(index) {
+            this.tipe = index
+            this.loading = true;
+			try{
+                
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getLapKeu',{
+                    dipa: this.xid,
+                    tipe: index,
+					tahun : this.tahun,
+				},{headers})
+				
+				if(response.data.success == true){
+                    this.dockeu0 = response.data.data
+          			this.dockeu = response.data.data
+                    this.titleamprah = response.data.title
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+        },
 		delAksi(id){
 			this.$swal.fire({
 					title: 'Apakah anda yakin?',
@@ -212,18 +273,15 @@ export default {
 		async deleteAksi(id) {
 			this.loadingaksi[id] = true;
 			let tanggalx
-            
                 tanggalx = this.tahun
-
 			try{
-                
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteDocKeu',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteLapKeu',{
                     dipa: this.xid,
-                    navid: this.navid,
+                    tipe: this.tipe,
 					tahun: tanggalx,
 					id : id,
 				},{headers})
@@ -250,8 +308,8 @@ export default {
 
 		async getDocKeu() {
 			const today = new Date();
-			const date = today.getFullYear()-1;
-            console.log(date)
+			const date = today.getFullYear();
+
 			this.tahun = date;
 			this.loading = true;
 			try{
@@ -260,9 +318,9 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getLapKeu',{
                     dipa: this.xid,
-                    navid: this.navid,
+                    tipe: 'bulanan',
 					tahun : this.tahun,
 				},{headers})
 				
@@ -295,9 +353,9 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getDocKeu',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getLapKeu',{
                     dipa: this.xid,
-                    navid: this.navid,
+                    tipe: this.tipe,
 					tahun : this.tahun
 				},{headers})
 				
@@ -337,21 +395,49 @@ export default {
 
 		async uploadFile(){
             let htmlx = null;
-            if(this.navid == 'dipa' || this.navid == 'pok'|| this.navid == 'tor'|| this.navid == 'rab'){
-                htmlx = ` <span style='font-size: 15px'>Kategori</span><br/>
+            if(this.tipe == 'bulanan'){
+                htmlx = ` <span style='font-size: 15px'>Kategori/Kriteria</span><br/>
                             <select style='font-size: 15px' id="kategori" class="swal2-input">
-                                <option  value="${this.titleamprah}" selected>${this.titleamprah}</option>
+                                <option  value="" disabled selected>--Pilih Kategori--</option>
+                                <option  value="Januari">Januari</option>
+                                <option  value="Februari">Februari</option>
+                                <option  value="Maret">Maret</option>
+                                <option  value="April">April</option>
+                                <option  value="Mei">Mei</option>
+                                <option  value="Juni">Juni</option>
+                                <option  value="Juli">Juli</option>
+                                <option  value="Agustus">Agustus</option>
+                                <option  value="September">September</option>
+                                <option  value="Oktober">Oktober</option>
+                                <option  value="November">November</option>
+                                <option  value="Desember">Desember</option>
                             </select><hr/>
                     <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
                     `;
-            }else if(this.navid == 'spmup' || this.navid == 'spmls'|| this.navid == 'sppls'|| this.navid == 'sppup'){
-                htmlx = ` <span style='font-size: 15px'>Kategori</span><br/>
+            }else if(this.tipe == 'triwulan'){
+                htmlx = ` <span style='font-size: 15px'>Kategori/Kriteria</span><br/>
                             <select style='font-size: 15px' id="kategori" class="swal2-input">
                                 <option  value="" disabled selected>--Pilih Kategori--</option>
-                                <option  value="BELANJA_PEGAWAI">Belanja Pegawai</option>
-                                <option  value="BELANJA_BARANG">Belanja Barang</option>
-                                <option  value="BELANJA_MODAL">Belanja Modal</option>
-                                <option  value="BELANJA_BANTUAN_SOSIAL">Belanja Bantuan Sosial</option>
+                                <option  value="Triwulan I">Triwulan I (Januari-Maret)</option>
+                                <option  value="Triwulan II">Triwulan II (April-Juni)</option>
+                                <option  value="Triwulan III">Triwulan III (Juli-Agustus)</option>
+                                <option  value="Triwulan IV">Triwulan IV (September-Desember)</option>
+                            </select><hr/>
+                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
+                    `;
+            }else if(this.tipe == 'semester'){
+                htmlx = ` <span style='font-size: 15px'>Kategori/Kriteria</span><br/>
+                            <select style='font-size: 15px' id="kategori" class="swal2-input">
+                                <option  value="" disabled selected>--Pilih Kategori--</option>
+                                <option  value="Semester I">Semester I (Januari-Juni)</option>
+                                <option  value="Semester II">Semester II (Juli-Desember)</option>
+                            </select><hr/>
+                    <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
+                    `;
+            }else{
+                htmlx = ` <span style='font-size: 15px'>Kategori/Kriteria</span><br/>
+                            <select style='font-size: 15px' id="kategori" class="swal2-input">
+                                <option  value="Tahunan" selected>Tahunan</option>
                             </select><hr/>
                     <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Deskripsi</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="deskripsi" class="swal2-textarea" rows=3></textarea></td></tr></table>
                     `;
@@ -368,7 +454,7 @@ export default {
                 confirmButtonText: 'Upload File!'
             }).then((result) => {
             if (result.isConfirmed) {
-                this.uploadDocKeu('DocKeu',document.getElementById("kategori").value,document.getElementById("deskripsi").value)      
+                this.uploadDocKeu('LapKeu',document.getElementById("kategori").value,document.getElementById("deskripsi").value)      
             }
             })
 		},
@@ -385,9 +471,9 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
                 
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadDocKeu',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadLapKeu',{
                     dipa: this.xid,
-                    navid: this.navid,
+                    tipe: this.tipe,
 					status: status,
                     kategori: kategori,
                     deskripsi: deskripsi,

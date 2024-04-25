@@ -58,6 +58,7 @@ import amprahDoc from '@/views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
 import listKeuangan from '@/views/pages/layananMenu/keuanganMenu/ListKeuangan.vue';
 import docKeuangan from '@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue';
 import dipaList from '@/views/pages/layananMenu/keuanganMenu/dipaList.vue';
+import laporanKeuangan from '@/views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue';
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -189,6 +190,14 @@ const routes = [
         path: '/dipa/:id',
         name: 'Daftar Dokumen',
         component: listKeuangan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/dipa/:xid/laporanKeuangan',
+        name: 'Laporan Keuangan',
+        component: laporanKeuangan,
         meta: {
             requiresAuth: true
           }

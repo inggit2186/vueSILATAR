@@ -9,7 +9,7 @@
 								<div class="banner-content-blk centered">
 									<h1><b>SILATAR</b></h1><br/>
 									<img src="../../../assets/img/mhome.png" class="centered d-block d-sm-none" style="width: 70%"/><br/>
-									<h3>Kantor Kementerian Agama<br>Kab.Tanah Datar</h3>
+									<h3>Kantor Kementerian Agama<br>Kab.Tanah Datar {{ kode }}</h3>
 									<hr>
 									<h5>Sistem Informasi Layanan dan <br>Administrasi Tanah Datar</h5>
 								</div>
@@ -134,15 +134,18 @@ export default {
 			const dt = new Date()
 			const index = dt.getDay()
 			let imgx = null
+			let kode =  Math.random().toString(36).slice(2);
 
 			if(index == 4){
 				imgx = 'banner-03';
 			}else if(index == 5){
 				imgx = 'banner-04';
+			}else if(index == 3 || index == 4){
+				imgx = 'banner-05';
 			}else{
 				imgx = 'banner-02';
 			}
-			this.imgz = this.$assets+'/img/bg/'+imgx+'.png'
+			this.imgz = this.$assets+'/img/bg/'+imgx+'.png?t='+kode
 		}
 	}
 }

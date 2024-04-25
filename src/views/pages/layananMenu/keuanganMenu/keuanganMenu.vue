@@ -38,6 +38,16 @@
                                 </div>
                                 </router-link>
                             </div>
+                            <div class="col-lg-3 col-md-3 centered">
+                                <router-link to="/presensi">
+                                <div class="listMenu categories-content">
+                                    <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                    <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                    <span>Rekap Presensi</span>
+                                    </a>								   
+                                </div>
+                                </router-link>
+                            </div>
                             <div v-if="user.rtoken == '09e093049ee30'" class="col-lg-3 col-md-3 centered">
                                 <router-link to="/verifckh">
                                 <div class="listMenu categories-content">
@@ -63,7 +73,17 @@
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
-                                    <span>Rekap Presensi</span>
+                                    <span>Laporan Kegiatan</span>
+                                    </a>								   
+                                </div>
+                                </router-link>
+                            </div>
+                            <div class="col-lg-3 col-md-3 centered">
+                                <router-link to="/presensi">
+                                <div class="listMenu categories-content">
+                                    <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                    <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                    <span>Laporan Perjalanan Dinas</span>
                                     </a>								   
                                 </div>
                                 </router-link>

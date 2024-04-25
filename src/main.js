@@ -163,6 +163,7 @@ import amprahGaji from './views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
 import dipaList from './views/pages/layananMenu/keuanganMenu/dipaList.vue';
 import listKeuangan from './views/pages/layananMenu/keuanganMenu/listKeuangan.vue';
 import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
+import laporanKeuangan from './views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue'
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -355,6 +356,7 @@ app.component('amprahDoc', amprahDoc)
 app.component('dipaList',dipaList)
 app.component('docKeuangan',docKeuangan)
 app.component('listKeuangan',listKeuangan)
+app.component('laporanKeuangan',laporanKeuangan)
 
 //cPanel
 app.component('AdminMenu', adminMenu)

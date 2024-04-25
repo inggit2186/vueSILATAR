@@ -17,7 +17,7 @@
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
-										<h4>Laporan Slip Gaji</h4>
+										<h4>Rekap Amprah {{ titleamprah }}</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Amprahgaji()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
 									</div>
 								</div>
