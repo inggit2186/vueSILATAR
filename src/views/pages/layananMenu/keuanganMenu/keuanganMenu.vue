@@ -69,20 +69,20 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/presensi">
+                                <router-link to="/error500">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                                    <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                    <img :src="$assets+'/img/ikon/keu028.png'" style="width:100%;" alt="car1">
                                     <span>Laporan Kegiatan</span>
                                     </a>								   
                                 </div>
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/presensi">
+                                <router-link to="/error500">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                                    <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                    <img :src="$assets+'/img/ikon/keu029.png'" style="width:100%;" alt="car1">
                                     <span>Laporan Perjalanan Dinas</span>
                                     </a>								   
                                 </div>
@@ -99,7 +99,7 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa">
+                                <router-link to="/layanankeuangan/dipa">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu004.png'" style="width:100%;" alt="car1">
@@ -109,7 +109,7 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa">
+                                <router-link to="/layanankeuangan/audit">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu013.png'" style="width:100%;" alt="car1">

@@ -164,6 +164,7 @@ import dipaList from './views/pages/layananMenu/keuanganMenu/dipaList.vue';
 import listKeuangan from './views/pages/layananMenu/keuanganMenu/listKeuangan.vue';
 import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
 import laporanKeuangan from './views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue'
+import docAudit from './views/pages/layananMenu/keuanganMenu/docAudit.vue'
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -357,6 +358,7 @@ app.component('dipaList',dipaList)
 app.component('docKeuangan',docKeuangan)
 app.component('listKeuangan',listKeuangan)
 app.component('laporanKeuangan',laporanKeuangan)
+app.component('docAudit',docAudit)
 
 //cPanel
 app.component('AdminMenu', adminMenu)

@@ -59,6 +59,7 @@ import listKeuangan from '@/views/pages/layananMenu/keuanganMenu/ListKeuangan.vu
 import docKeuangan from '@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue';
 import dipaList from '@/views/pages/layananMenu/keuanganMenu/dipaList.vue';
 import laporanKeuangan from '@/views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue';
+import docAudit from '@/views/pages/layananMenu/keuanganMenu/docAudit.vue';
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -211,7 +212,7 @@ const routes = [
           }
     },
     {
-        path: '/dipa',
+        path: '/layanankeuangan/:id',
         name: 'Daftar DIPA',
         component: dipaList,
         meta: {
@@ -234,7 +235,14 @@ const routes = [
             requiresAdmin: true
           }
     },
-
+    {
+        path: '/audit/:id',
+        name: 'Dokumen Audit',
+        component: docAudit,
+        meta: {
+            requiresAuth: true
+          }
+    },
     {
         path: '/presensi',
         name: 'Rekap Presensi',
@@ -589,6 +597,11 @@ const routes = [
         path: '/:pathMatch(.*)*',
         name: '404',
         component: Error404
+    },
+    {
+        path: '/error500',
+        name: '404',
+        component: Error500
     }
    
 

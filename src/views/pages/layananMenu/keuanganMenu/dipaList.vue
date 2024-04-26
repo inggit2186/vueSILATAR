@@ -9,7 +9,7 @@
                     <div class="container ">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa/setjen">
+                                <router-link :to="ruteTujuan('setjen')">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu014.png'" style="width:100%;" alt="car1">
@@ -19,7 +19,7 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa/bimas">
+                                <router-link :to="ruteTujuan('bimas')">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu015.png'" style="width:100%;" alt="car1">
@@ -29,7 +29,7 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa/pendis">
+                                <router-link :to="ruteTujuan('pendis')">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu016.png'" style="width:100%;" alt="car1">
@@ -39,7 +39,7 @@
                                 </router-link>
                             </div>
                             <div class="col-lg-3 col-md-3 centered">
-                                <router-link to="/dipa/phu">
+                                <router-link :to="ruteTujuan('phu')">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/keu026.png'" style="width:100%;" alt="car1">
@@ -74,6 +74,11 @@ export default {
     created() {
         this.navid = this.$route.params.id
         window.scrollTo(0,0)
+    },
+    computed: {
+        ruteTujuan(id) {
+			return id => `/${this.navid}/${id}`
+    	},
     }
 }
 </script>
