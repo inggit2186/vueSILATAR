@@ -65,7 +65,7 @@
                                                 <td style="font-size: 14px; font-weight: 600;">Presensi<br/>
                                                     <span style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ presensi.updated }}</i></span>
 												</td>
-                                                <td style="font-size: 14px; font-weight: 400;">Hari Kerja : <b>18</b> Hari</td>
+                                                <td style="font-size: 14px; font-weight: 400;">Hari Kerja : <b>{{  rekapum.harikerja ?? 'XX'  }}</b> Hari</td>
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td>
