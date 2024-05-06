@@ -140,8 +140,10 @@ export default {
 				imgx = 'banner-03';
 			}else if(index == 5){
 				imgx = 'banner-04';
-			}else if(index == 3 || index == 4){
+			}else if(index == 3){
 				imgx = 'banner-05';
+			}else if(index == 2){
+				imgx = 'banner-06';
 			}else{
 				imgx = 'banner-02';
 			}

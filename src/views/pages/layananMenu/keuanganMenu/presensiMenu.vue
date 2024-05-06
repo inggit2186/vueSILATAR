@@ -9,7 +9,7 @@
                     <div class="container ">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 centered">
-                                <router-link to="/cashbon">
+                                <router-link to="/presensi/rekap">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                     <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">

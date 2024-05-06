@@ -60,6 +60,7 @@ import docKeuangan from '@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
 import dipaList from '@/views/pages/layananMenu/keuanganMenu/dipaList.vue';
 import laporanKeuangan from '@/views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue';
 import docAudit from '@/views/pages/layananMenu/keuanganMenu/docAudit.vue';
+import rekapPresensi from '@/views/pages/layananMenu/keuanganMenu/rekapPresensi.vue';
 
 import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
 import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
@@ -247,6 +248,14 @@ const routes = [
         path: '/presensi',
         name: 'Rekap Presensi',
         component: presensiMenu,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/presensi/rekap',
+        name: 'Rekap PUSAKA',
+        component: rekapPresensi,
         meta: {
             requiresAuth: true
           }

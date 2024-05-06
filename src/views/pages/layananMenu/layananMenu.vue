@@ -2,7 +2,7 @@
     <!-- Categories Section -->
 		<div class="categorieslist-section">
             <div class="container ">
-		        <div v-if="navid=4" class="row">
+		        <div v-if="navid==4" class="row">
 					<div class="col-lg-4 col-md-4 centered">
                         <router-link :to="routeLayanan()">
                         <div class="listMenu categories-content">

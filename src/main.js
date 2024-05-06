@@ -165,6 +165,7 @@ import listKeuangan from './views/pages/layananMenu/keuanganMenu/listKeuangan.vu
 import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
 import laporanKeuangan from './views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue'
 import docAudit from './views/pages/layananMenu/keuanganMenu/docAudit.vue'
+import rekapPresensi from './views/pages/layananMenu/keuanganMenu/rekapPresensi.vue';
 
 //cPanel
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
@@ -359,6 +360,7 @@ app.component('docKeuangan',docKeuangan)
 app.component('listKeuangan',listKeuangan)
 app.component('laporanKeuangan',laporanKeuangan)
 app.component('docAudit',docAudit)
+app.component('rekapPresensi',rekapPresensi)
 
 //cPanel
 app.component('AdminMenu', adminMenu)
