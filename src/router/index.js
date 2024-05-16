@@ -225,7 +225,7 @@ const routes = [
         name: 'Amprah',
         component: amprahDoc,
         meta: {
-            requiresAdmin: true
+            requiresAuth: true
           }
     },
     {
@@ -233,7 +233,7 @@ const routes = [
         name: 'Amprah Gaji',
         component: amprahGaji,
         meta: {
-            requiresAdmin: true
+            requiresAuth: true
           }
     },
     {
@@ -632,11 +632,99 @@ router.beforeEach((to, from, next) => {
            query: { redirect: to.fullPath }
          });
        }
-    }else if (to.matched.some(record => record.meta.requiresAdmin)) {
+    }else if (to.matched.some(record => record.meta.superAdmin)) {
         // Check if the user is logged in
         if (localStorage.getItem('user')) {
             let userData = JSON.parse(localStorage.getItem("user"));
-            if(userData.rtoken == "09e093049ee30" || userData.rtoken == "09dsao090ed22"){
+            if(userData.hakses.includes("superadmin")){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.Admin)) {
+        // Check if the user is logged in
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            if(userData.hakses.includes("admin")){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.Keuangan)) {
+        // Check if the user is logged in
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            if(userData.hakses.includes("keuangan")){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.SubbagTU)) {
+        // Check if the user is logged in
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            if(userData.hakses.includes("subbagtu")){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.Petugas)) {
+        // Check if the user is logged in
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            if(userData.hakses.includes("petugas")){
                 next()
             }else{
                 Swal.fire({

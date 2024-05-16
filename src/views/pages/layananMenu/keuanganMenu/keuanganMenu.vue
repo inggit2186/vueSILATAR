@@ -8,7 +8,7 @@
                 <div class="categorieslist-section">
                     <div class="container ">
                         <div class="row">
-                            <div v-if="user.rtoken == '09e093049ee30'" class="col-lg-3 col-md-3 centered">
+                            <div class="col-lg-3 col-md-3 centered">
                                 <router-link to="/suratedaran/Keuangan">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -18,7 +18,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div v-if="user.rtoken == '09e093049ee30'" class="col-lg-3 col-md-3 centered">
+                            <div v-if="user.hakses.includes('keuangan') == 1" class="col-lg-3 col-md-3 centered">
                                 <router-link to="/slipgaji">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -28,7 +28,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div v-else-if="user.rtoken == 'koks090421093'" class="col-lg-3 col-md-3 centered">
+                            <div v-else class="col-lg-3 col-md-3 centered">
                                 <router-link to="/cashbon">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -48,7 +48,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div v-if="user.rtoken == '09e093049ee30'" class="col-lg-3 col-md-3 centered">
+                            <div v-if="user.hakses.includes('admin') == 1" class="col-lg-3 col-md-3 centered">
                                 <router-link to="/verifckh">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -58,7 +58,7 @@
                                 </div>
                                 </router-link>
                             </div>
-                            <div v-else-if="user.rtoken == 'koks090421093'" class="col-lg-3 col-md-3 centered">
+                            <div v-else class="col-lg-3 col-md-3 centered">
                                 <router-link to="/kinerja-harian">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">

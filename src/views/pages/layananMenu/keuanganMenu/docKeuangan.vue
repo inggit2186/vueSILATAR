@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-										<div class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
+										<div v-if="user.hakses.includes('keuangan') == 1" class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
@@ -36,7 +36,7 @@
 											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
-										<div class="settings-upload-btn d-block d-sm-none">
+										<div v-if="user.hakses.includes('keuangan') == 1" class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
@@ -131,6 +131,7 @@ export default {
         return {
             xid: this.$route.params.xid,
             navid: this.$route.params.id,
+			user: JSON.parse(localStorage.getItem("user")),
             title: "Dokumen Keuangan",
             titleamprah: null,
             text: "Setjen",

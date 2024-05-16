@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-										<div class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
+										<div v-if="user.hakses.includes('keuangan') == 1" class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
@@ -36,7 +36,7 @@
 											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
-										<div class="settings-upload-btn d-block d-sm-none">
+										<div v-if="user.hakses.includes('keuangan') == 1" class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
@@ -76,8 +76,8 @@
                                                 </td>
                                                 <td>
                                                     <BButton pill size="sm" variant="dark" @click.prevent="cetak(item.filename)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> PRINT</b></BButton>
-                                                    <br/><br/><BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.id)"><b><i-ph-trash-fill /> DELETE</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="danger"><b><i-svg-spinners-bars-scale-middle />&nbsp;Loading......</b></BButton>
+                                                    <br/><br/><BButton v-if="!loadingaksi[item.id] && user.hakses.includes('keuangan') == 1" pill size="sm" variant="danger" @click.prevent="delAksi(item.id)"><b><i-ph-trash-fill /> DELETE</b></BButton>
+                                                    <BButton v-else-if="loadingaksi[item.id]" pill size="sm" variant="danger"><b><i-svg-spinners-bars-scale-middle />&nbsp;Loading......</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -129,6 +129,7 @@
 export default {
     data() {
         return {
+			user: JSON.parse(localStorage.getItem("user")),
             navid: this.$route.params.id,
             title: "Amprah Gaji",
             titleamprah: null,
@@ -234,7 +235,7 @@ export default {
           			this.amprahgaji = response.data.data
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -271,7 +272,7 @@ export default {
                     this.titleamprah = response.data.title
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -306,7 +307,7 @@ export default {
                       this.titleamprah = response.data.title
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -413,7 +414,7 @@ export default {
           			this.amprahgaji = response.data.data	
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
