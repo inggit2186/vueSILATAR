@@ -116,19 +116,20 @@ export default {
                   };
                 });
             }else{
-              if(this.user.hakses.includes('superadmin') || this.user.hakses.includes('admin') || user.hakses.includes('keuangan')){
+              if(this.user.role = 'petugas'){
                 
-                let htmlx = "<span style='font-size: 14px'>"
+                let htmlx = "<center><table style='font-size: 14px;'>"
                 
                 response.data.history.forEach((value, index) => {
                       let fix = JSON.parse(value.deskripsi)
-                      htmlx += "<b style='font-size: 17px'>"+value.versi+"</b><br/>"
+                      htmlx += "<tr><td colspan=2 style='text-align:center'><b style='font-size: 17px'>Versi "+value.versi+"</b></td></tr>"
                       fix.forEach((value1,no)=> {
-                        htmlx += (no+1)+". "+value1+"&nbsp; &#x2713;<br/>"
+                        htmlx +="<tr style='text-align:left;font-weight: 400;'><td>"+(no+1)+".</td><td>"+value1+"&nbsp; &#x2713;</td></tr>"
                       });
-                      htmlx += "<br/>"
+                      htmlx += "<tr style='font-size: 11px; font-weight: 600; font-style: italic; text-align:center'><td colspan=2>Update : "+value.update+" ("+value.user+")</td></tr>"
+                      htmlx += "<tr><td colspan=2>&nbsp</td></tr>"
                 });
-                htmlx += "</span>"
+                htmlx += "</table></center>"
 
                 this.$swal.fire({
                   title: "Recent Change !!",
