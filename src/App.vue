@@ -23,6 +23,7 @@ export default {
       loading: false,
       user: user,
       auth: auth,
+      history: [],
       selected: 1,
       options2: [
         { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
@@ -116,13 +117,22 @@ export default {
                 });
             }else{
               if(this.user.hakses.includes('superadmin') || this.user.hakses.includes('admin') || user.hakses.includes('keuangan')){
+                
+                let htmlx = "<span style='font-size: 14px'>"
+                
+                response.data.history.forEach((value, index) => {
+                      let fix = JSON.parse(value.deskripsi)
+                      htmlx += "<b style='font-size: 17px'>"+value.versi+"</b><br/>"
+                      fix.forEach((value1,no)=> {
+                        htmlx += (no+1)+". "+value1+"&nbsp; &#x2713;<br/>"
+                      });
+                      htmlx += "<br/>"
+                });
+                htmlx += "</span>"
+
                 this.$swal.fire({
                   title: "Recent Change !!",
-                  html: `<span style='font-size: 15px'>
-                    <b style='font-size: 17px'>Versi 1.0.0</b><br/>
-                    1. Fix Fitur Upload Peraturan / Surat Edaran  &#x2713; <br/>
-                    2. Fix List Tunjangan Kinerja (Admin Panel)  &#x2713;
-                    </span>`,
+                  html: htmlx,
                   icon: 'info',
                   confirmButtonText: `
                     <i class="fa fa-thumbs-up"></i> Mantap!
