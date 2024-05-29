@@ -8,12 +8,26 @@
                 <div class="dashboard-content">
                     <div class="container">
 						<gajiMenu />
+						<div v-if="xid != 'nonguru'" class="">
+							<ul class="dashborad-menus">
+								<li :class="{ active: $route.path === '/sliptukin/'+xid+'/mad' }">
+									<router-link :to='"/sliptukin/"+xid+"/mad"'>
+										<i-ic-baseline-work-history /> <span>Guru Madrasah</span>
+									</router-link>
+								</li>
+								<li :class="{ active: $route.path === '/sliptukin/'+xid+'/pai' }">
+									<router-link :to='"/sliptukin/"+xid+"/pai"'>
+										<i-ic-baseline-work-history /> <span>Guru PAI </span>
+									</router-link>
+								</li>
+							</ul>
+						</div>
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
-										<h4>Laporan Slip Gaji</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipGaji()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+										<h4>Laporan Tukin "{{ tgl }}"</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2SlipTukin()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<!--
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -22,8 +36,8 @@
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
-										<h4>Laporan Slip Gaji</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipGaji()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+										<h4>Laporan Tukin "{{ tgl }}"</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2SlipTukin()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
 											<!--
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -63,7 +77,10 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-if="xid == 'nonguru'" v-for="column in columns3" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                    {{ column.name }}
+                                                </th>
+												<th v-else v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -73,23 +90,57 @@
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
-										<tbody v-else>
-											<tr v-if="this.slipgaji.length == 0">
+										<tbody v-else-if="!loading && xid == 'nonguru'">
+											<tr v-if="this.sliptukin.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
-                                                <td>{{ item.nip }}</td>
+                                                <td>{{ item.nip }}<br/>
+                                                    <small><i>{{ item.kode_gapok }}</i></small></td>
                                                 <td>{{ item.nama }}<br/>
                                                     <small>{{ item.satker }}</small>
+													<br/>
+                                                    <small><i>({{ item.kdgol }} / {{ item.gol }})</i></small>
                                                 </td>
-                                                <td>Rp. {{ item.gaji.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- <br/>
-                                                    <small>{{ item.bank }}</small>
+                                                <td>Rp. {{ item.tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- <br/>
+                                                    <small><i>Grade {{ item.grade }}</i></small>
                                                 </td>
                                                 <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
                                                 <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
                                                 <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipGaji(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipTukin(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tanggal)"><b><i-ph-trash-fill /> DELETE</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                </td>
+                                            </tr>
+										</tbody>
+										<tbody v-else>
+											<tr v-if="this.sliptukin.length == 0">
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+											</tr>
+											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+                                                <td><b>{{ item.nip }}</b><br/>
+                                                    <small><i>{{ item.kode_gapok }}</i></small></td>
+                                                <td><b>{{ item.nama }}</b><br/>
+                                                    <small>{{ item.satker }}</small>
+													<br/>
+                                                    <small><i>({{ item.kdgol }} / {{ item.gol }})</i></small>
+                                                </td>
+                                                <td><b>Rp. {{ item.tpg.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </b><br/>
+                                                    <small><i>( JTM : {{ item.jtm }} )</i></small></td>
+                                                <td><b>Rp. {{ item.selisihtukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </b><br/>
+                                                    <small><i>Grade {{ item.grade }}</i></small><br/>
+                                                    <small v-if="xid == 'serdik' && item.jtm >= 24"><i>(Rp. {{ item.tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp. {{ item.tpg.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} )</i></small>
+                                                    <small v-else-if="xid == 'nonserdik' || item.jtm < 24"><i>({{ item.jtm }}/24 x 50% dari Rp. {{ item.tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }})</i></small>
+												</td>
+												<td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
+                                                <td><b>Rp. {{ item.nett.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </b><br/>
+													<small><i>Pajak {{ item.pajak }}%</i></small><br/>
+													<small><i>(Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp. {{ item.jmlpajak.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }})</i></small>
+												</td>
+                                                <td>
+													
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tanggal)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
@@ -150,7 +201,16 @@ export default {
 			columns2: [
 				{ name: 'NIP', data: 'nip' },
 				{ name: 'Nama', data: 'nama' },
-				{ name: 'Gaji', data: 'gaji' },
+				{ name: 'TPG', data: 'tpg' },
+				{ name: 'Tukin/Selisih', data: 'tukin' },
+				{ name: 'Potongan', data: 'potongan' },
+				{ name: 'Total', data: 'total' },
+				{ name: 'Action', data: 'action' },
+			],
+			columns3: [
+				{ name: 'NIP', data: 'nip' },
+				{ name: 'Nama', data: 'nama' },
+				{ name: 'Tukin', data: 'tukin' },
 				{ name: 'Potongan', data: 'potongan' },
 				{ name: 'Total', data: 'total' },
 				{ name: 'Action', data: 'action' },
@@ -159,6 +219,8 @@ export default {
 				id: 'kinerja0',
 				kegiatan: '',
 			}],
+			xid:this.$route.params.xid,
+			id:this.$route.params.id,
 			counter:0,
 			keyword: '',
 			currentSort: '',
@@ -168,10 +230,11 @@ export default {
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
-			slipgaji: [],
-			slipgaji0: [],
+			sliptukin: [],
+			sliptukin0: [],
 			tanggal: [],
             detail: 1,
+			tgl: null,
             status: null,
 			rekapstatus: 0,
         }
@@ -181,7 +244,7 @@ export default {
 			return this.columns
 		},
 		sortedData() {
-			return this.slipgaji.sort((a, b) => {
+			return this.sliptukin.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -192,7 +255,7 @@ export default {
     	paginatedItem() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.slipgaji.slice(start, end);
+			return this.sliptukin.slice(start, end);
 		},
 		displayedPages() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -200,11 +263,20 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages() {
-            return Math.ceil(this.slipgaji.length / this.itemsPerPage);
+            return Math.ceil(this.sliptukin.length / this.itemsPerPage);
         },
 	},
+  watch: {
+    '$route' (to, from) {
+		if(to.fullPath != from.fullPath){
+			this.xid = to.params.xid
+			this.id = to.params.id
+			this.getSlipTukin()
+		}
+    }
+  },
   created() {
-		this.getSlipGaji(),
+		this.getSlipTukin(),
 		window.scrollTo(0,0)
 	},
   methods: {
@@ -231,7 +303,7 @@ export default {
 					icon: 'error',
 				})
 		},
-		async getSlipGaji() {
+		async getSlipTukin() {
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
 			this.bulan = date;
@@ -241,13 +313,16 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipGaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipTukin',{
+					xid : this.xid,
+					id : this.id,
 					bulan : this.bulan,
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.slipgaji0 = response.data.data
-          			this.slipgaji = response.data.data
+                    this.sliptukin0 = response.data.data
+          			this.sliptukin = response.data.data
+					this.tgl = response.data.bulan
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -264,7 +339,7 @@ export default {
 				this.loading = false
 			}
 		},
-        async get2SlipGaji() {
+        async get2SlipTukin() {
 			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
 			this.loading = true;
 			try{
@@ -272,13 +347,16 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipGaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getSlipTukin',{
+					xid : this.xid,
+					id : this.id,
 					bulan : date
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.slipgaji0 = response.data.data
-          			this.slipgaji = response.data.data
+                    this.sliptukin0 = response.data.data
+          			this.sliptukin = response.data.data
+					this.tgl = response.data.bulan
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -295,7 +373,7 @@ export default {
 				this.loading = false
 			}
 		},
-		async cetakSlipGaji(itemid) {
+		async cetakSlipTukin(itemid) {
 			console.log(itemid)
 			this.loadingaksi[itemid] = true;
 			try{
@@ -303,7 +381,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cetakSlipGaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cetakSlipTukin',{
 					id : itemid
 				},{headers})
 				
@@ -386,14 +464,14 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadSlipGaji',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadSlipTukin',{
 					filex: this.fileUrl,
 					bulan: date
 				},{headers})
 				
 				if(response.data.success == true){
-                    this.slipgaji0 = response.data.data
-          			this.slipgaji = response.data.data
+                    this.sliptukin0 = response.data.data
+          			this.sliptukin = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -418,7 +496,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.slipgaji.sort((a, b) => {
+			this.sliptukin.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -428,9 +506,9 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.slipgaji = this.slipgaji0;
+				this.sliptukin = this.sliptukin0;
 			} else {
-				this.slipgaji = this.slipgaji0.filter((item) => {
+				this.sliptukin = this.sliptukin0.filter((item) => {
 					return item.nip.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.nama.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.satker.toLowerCase().includes(this.keyword.toLowerCase());

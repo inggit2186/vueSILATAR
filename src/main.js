@@ -30,6 +30,7 @@ import NavbarFive from './components/navbarFive.vue'
 import NavMenu from './components/navmenu.vue'
 import userMenu from './components/userMenu.vue'
 import kinerjaMenu from './components/kinerjaMenu.vue'
+import gajiMenu from './components/gajiMenu.vue'
 
 // Page Components
 import Header from './views/layouts/header.vue'
@@ -178,6 +179,7 @@ import listSatker from './views/pages/adminpanel/ListSatker.vue'
 import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from './views/pages/adminpanel/allRekapKinerja.vue'
 import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
+import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -226,6 +228,7 @@ app.component('Navbarfive',NavbarFive)
 app.component('Navmenu',NavMenu)
 app.component('UserMenu',userMenu)
 app.component('KinerjaMenu',kinerjaMenu)
+app.component('gajiMenu',gajiMenu)
 
 app.component('Indexcategory',IndexCategory)
 app.component('Indexexplore',IndexExplore)
@@ -373,6 +376,7 @@ app.component('ListSatker',listSatker)
 app.component('RekapKinerja',rekapKinerja)
 app.component('AllRekapKinerja',allRekapKinerja)
 app.component('SlipGaji',slipGaji)
+app.component('SlipTukin',slipTukin)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

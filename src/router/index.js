@@ -93,6 +93,7 @@ import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
 import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from '@/views/pages/adminpanel/AllRekapKinerja.vue'
 import slipGaji from '@/views/pages/adminpanel/SlipGaji.vue'
+import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
 
 const routes = [
     {
@@ -576,6 +577,14 @@ const routes = [
         path: '/slipgaji',
         name: 'Slip Gaji',
         component: slipGaji,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/sliptukin/:xid/:id',
+        name: 'Slip Kategori Tukin',
+        component: slipTukin,
         meta: {
             requiresAdmin: true
           }

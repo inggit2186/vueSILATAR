@@ -50,15 +50,26 @@
 							<hr/>
 						</div>
 						<div v-for="item in paginatedLayanan" :key="item.id" class="col-lg-3 col-md-4 centered">
-							<router-link :to="tujuLayanan(item.id)">
-							<div class="categories-content">
-								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/ikon/'+item.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
-								<h6>{{ item.nama }}</h6>
-								<span>{{ item.deskripsi }}</span>
-								</a>								   
+							<div v-if="item.id == 1069" @click="tujuSIWAK()">
+								<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/ikon/'+item.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
+									<h6>{{ item.nama }}</h6>
+									<span>{{ item.deskripsi }}</span>
+									</a>								   
+								</div>
 							</div>
-							</router-link>
+							<div v-else>
+								<router-link :to="tujuLayanan(item.id)">
+								<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/ikon/'+item.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(item)">
+									<h6>{{ item.nama }}</h6>
+									<span>{{ item.deskripsi }}</span>
+									</a>								   
+								</div>
+								</router-link>
+							</div>
 						</div>
 
 				   <!--Pagination--> 
@@ -129,7 +140,10 @@ export default {
     	},	
 		tujuPengaduan() {
         	return id => `/Pengaduan/${this.$route.params.id}`
-    	},	
+    	},
+		tujuSIWAK() {
+             window.open('https://siwak.kemenag.go.id/siwak/index.php')
+        }	
 	},
 	created() {
 		this.getLayanan(),

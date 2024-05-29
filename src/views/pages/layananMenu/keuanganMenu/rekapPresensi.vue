@@ -85,7 +85,15 @@
                                                     <BButton pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
                                                 </td>
                                             </tr>
-											<tr v-for="(rekaptukin,index) in rekaptukin" :key="rekaptukin.id">
+                                            <tr v-if="rekaptukin.length == 0">
+                                                <td style="font-size: 14px; font-weight: 600;">Tunjangan Kinerja</td>
+                                                <td style="font-size: 14px; font-weight: 600;">Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-<br/>
+                                                    <span style="font-size: smaller;"><i><i-material-symbols-grade />Grade {{ user.grade }}</i></span>
+                                                </td>
+                                                <td style="font-size: 14px; font-weight: 600;">-</td>
+                                                <td style="font-size: 14px; font-weight: 600;">Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
+                                            </tr>
+											<tr v-else v-for="(rekaptukin,index) in rekaptukin" :key="rekaptukin.id">
                                                 <td v-if="index == 0" :rowspan=count style="font-size: 14px; font-weight: 600;">Tunjangan Kinerja</td>
                                                 <td style="font-size: 14px; font-weight: 400;">{{ rekaptukin.ketidakhadiran }} <b>({{ rekaptukin.jml_absen }} Hari)</b></td>
                                                 <td style="font-size: 14px; font-weight: 600;"> Rp.{{ rekaptukin.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
@@ -148,6 +156,7 @@ export default {
         return {
             xid: this.$route.params.xid,
             navid: this.$route.params.id,
+            user: JSON.parse(localStorage.getItem("user")),
             title: "Rekap PUSAKA",
             titleamprah: null,
             text: "Setjen",

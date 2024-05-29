@@ -115,10 +115,27 @@ export default {
                   };
                 });
             }else{
-              this.$toast.fire({
-                title: response.data.message,
-                icon: 'success',
-              })
+              if(this.user.hakses.includes('superadmin') || this.user.hakses.includes('admin') || user.hakses.includes('keuangan')){
+                this.$swal.fire({
+                  title: "Recent Change !!",
+                  html: `<span style='font-size: 15px'>
+                    <b style='font-size: 17px'>Versi 1.0.0</b><br/>
+                    1. Fix Fitur Upload Peraturan / Surat Edaran  &#x2713; <br/>
+                    2. Fix List Tunjangan Kinerja (Admin Panel)  &#x2713;
+                    </span>`,
+                  icon: 'info',
+                  confirmButtonText: `
+                    <i class="fa fa-thumbs-up"></i> Mantap!
+                  `,
+                  timer: 5000,
+                  timerProgressBar: true,
+                })
+              }else{
+                this.$toast.fire({
+                  title: response.data.message,
+                  icon: 'success',
+                })
+              }
             }
         }else{
           this.$toast.fire({
