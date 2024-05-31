@@ -24,7 +24,7 @@
                         </router-link>
                     </div>
                     <div class="col-lg-4 col-md-4 centered">
-                        <router-link :to="routeAppoint()">
+                        <router-link :to="routeLayanan()">
                         <div class="listMenu categories-content">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="$assets+'/img/ikon/up001.png'" style="width:100%;" alt="car1">

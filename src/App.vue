@@ -116,7 +116,7 @@ export default {
                   };
                 });
             }else{
-              if(this.user.role = 'petugas'){
+              if(this.user.hakses.includes('superadmin') || this.user.hakses.includes('admin')){
                 
                 let htmlx = "<center><table style='font-size: 14px;'>"
                 
@@ -142,10 +142,37 @@ export default {
                   timerProgressBar: true,
                 })
               }else{
-                this.$toast.fire({
-                  title: response.data.message,
-                  icon: 'success',
-                })
+                if(this.user.rating.length == 0 || !(this.user.rating)){
+                  this.$swal.fire({
+                    html: "<span style='font-size: 17px'>Mohon Sedikit Waktu Anda untuk <b>memberikan Rating/Penilaian Pelayanan Kantor Kami (Online / Layanan Langsung di Kantor)</b> !!",
+                    imageUrl: "https://silatar.kemenag.go.id/v2/assets/img/ikon/502.png",
+                    imageWidth: 450,
+                    imageHeight: 450,
+                    imageAlt: "Rate Us",
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;KASIH PENILAIAN`,
+                    denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;NANTI SAJA`,
+                    allowOutsideClick: false
+                    }).then((result) => {
+                      /* Read more about isConfirmed, isDenied below */
+                      if (result.isConfirmed) {
+                        this.$router.push('/rateUs')
+                      } else if (result.isDenied) {
+                        this.$swal.fire({
+                          imageUrl: "https://silatar.kemenag.go.id/v2/assets/img/ikon/nonrate.png",
+                          imageWidth: 450,
+                          imageHeight: 450,
+                          imageAlt: "Rate Us",
+                        });
+                      }
+                    });
+                }else{
+                  this.$toast.fire({
+                    title: response.data.message,
+                    icon: 'success',
+                  })
+                }
               }
             }
         }else{

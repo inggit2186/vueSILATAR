@@ -116,8 +116,8 @@
                             <br/>
                             <div>
                                 <div class="form-group">
-                                    <label class="col-form-label"><h6>Nama / Alias<span>*</span></h6></label>								    
-                                    <b-form-input id="nama" v-model="nama" type="text" class="form-control pass-input" placeholder="Nama atau Alias" required />									   
+                                    <label class="col-form-label"><h6>Nama / Alias<span>* </span></h6></label>								    
+                                    <b-form-input id="nama" v-model="nama" type="text" class="form-control pass-input" placeholder="Silahkan Pakai Alias Jika Anda Ingin Merahasiakan Identitas Anda" required />									   
                                 </div>
 								<div class="form-group">
 								    <label class="col-form-label"><h6>Masukan, Saran, atau Kritik<span>*</span></h6></label>
@@ -146,6 +146,7 @@
 export default {
     data() {
         return {
+            user: JSON.parse(localStorage.getItem("user")),
             title: "Form Penilaian",
             text: "Home",
             text1: "Rate Us",
@@ -171,15 +172,24 @@ export default {
                 }else{
                     var rating = document.querySelector('input[name="rating"]:checked').value
                     let response = null;
-                    response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addRating', {
+
+                    const headers = {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    };
+
+                    response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addRating',{
                         rating: rating,
                         nama: this.nama,
                         keterangan: this.keterangan,
-                    });
+                    },{headers})
 
                     if(response.data.success === true) {
-                        console.log(response.data.data)
-
+                      if(response.data.nav == '/'){
+                        this.user.rating = response.data.status;
+                        localStorage.setItem("user",JSON.stringify(this.user));
+                      }
+                        
                         this.$swal.fire({
                             title: 'Terima Kasih',
                             text: response.data.message,
@@ -188,7 +198,7 @@ export default {
                             timer: 5000,
                             timerProgressBar: true,
                         })
-                        this.$router.push('/internal');
+                        this.$router.push(response.data.nav);
                     }else{
                         this.$toast.fire({
                             title: 'Maaf',
