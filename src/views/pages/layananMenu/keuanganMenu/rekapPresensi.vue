@@ -43,7 +43,37 @@
 										</div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
+
+                                <div v-if="user.hakses.includes('keuangan') || user.hakses.includes('subbagtu')" class="table-responsive">
+                                    <table class="table table-hover centered">
+										<thead>
+                                            <tr>
+                                                <th v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                    {{ column.name }}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-if="loading">
+                                            <tr>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                            </tr>
+                                        </tbody>
+										<tbody v-else>
+											<tr v-if="this.presensi.length == 0">
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+											</tr>
+											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+                                                <td style="font-size: 14px; font-weight: 650;">{{ item.satker }}</td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.presensi != 'NONE'" pill size="sm" variant="danger" @click.prevent="cetak(item.presensi)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.uangmakan != 'NONE'" pill size="sm" variant="secondary" @click.prevent="cetak(item.uangmakan)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.tukin != 'NONE'" pill size="sm" variant="success" @click.prevent="cetak(item.tukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                            </tr>
+										</tbody>
+                                    </table>
+                                
+                                </div>
+
+                                <div v-else class="table-responsive">
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
@@ -69,7 +99,8 @@
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td>
-                                                    <BButton pill size="sm" variant="dark" @click.prevent="cetak(presensi.filep)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
+                                                    <BButton v-if="presensi.filep != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filep)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
+													<span v-else><i>Belum Diupload</i></span>
                                                 </td>
                                             </tr>
 											<tr v-if="rekapum != null">
@@ -82,8 +113,9 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ rekapum.uangmakan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ rekapum.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ rekapum.nett_um.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td>
-                                                    <BButton pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
-                                                </td>
+                                                    <BButton v-if="presensi.fileum != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
+													<span v-else><i>Belum Diupload</i></span>
+												</td>
                                             </tr>
                                             <tr v-if="rekaptukin.length == 0">
                                                 <td style="font-size: 14px; font-weight: 600;">Tunjangan Kinerja</td>
@@ -92,6 +124,11 @@
                                                 </td>
                                                 <td style="font-size: 14px; font-weight: 600;">-</td>
                                                 <td style="font-size: 14px; font-weight: 600;">Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
+												<td>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+													<span v-else><i>Belum Diupload</i></span>
+												</td>
+												
                                             </tr>
 											<tr v-else v-for="(rekaptukin,index) in rekaptukin" :key="rekaptukin.id">
                                                 <td v-if="index == 0" :rowspan=count style="font-size: 14px; font-weight: 600;">Tunjangan Kinerja</td>
@@ -101,8 +138,9 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ sumtukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ netttukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td v-if="index == 0" :rowspan=count>
-                                                    <BButton pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
-                                                </td>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+													<span v-else><i>Belum Diupload</i></span>
+												</td>
                                             </tr>
 										</tbody>
                                     </table>
@@ -164,6 +202,12 @@ export default {
             name: "/",
 			bulan: {month: today.getMonth()-1, year:today.getFullYear()},
             waktu: 'old',
+            columns: [
+				{ name: 'Unit Kerja', data: 'satker' },   
+				{ name: 'Presensi', data: 'presensi' },   
+				{ name: 'Uang Makan', data: 'uangmakan' },
+				{ name: 'Tunjangan Kinerja', data: 'tukin' },
+			],
 			columns2: [
 				{ name: 'Jenis', data: 'jenis' },   
 				{ name: 'Kategori', data: 'Kategori' },   
@@ -181,6 +225,7 @@ export default {
 			itemsPerPage: 12,
         	currentPage: 1,
 			presensi: [],
+			presensi0: [],
 			rekapum: [],
 			rekaptukin: [],
 			tukin: null,
@@ -197,6 +242,28 @@ export default {
 		tableHeader() {
 			return this.columns
 		},
+		sortedData() {
+			return this.presensi.sort((a, b) => {
+				let modifier = 1;
+				if(this.currentSortDir === 'desc') modifier = -1;
+				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+				if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+				return 0;
+			});
+			},
+    	paginatedItem() {
+			const start = (this.currentPage - 1) * this.itemsPerPage;
+			const end = start + this.itemsPerPage;
+			return this.presensi.slice(start, end);
+		},
+		displayedPages() {
+			const start = Math.max(this.currentPage - 1, 1);
+			const end = Math.min(start + 2, this.totalPages);
+			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+		},
+		totalPages() {
+            return Math.ceil(this.presensi.length / this.itemsPerPage);
+        },
 	},
   created() {
 		this.getPUSAKA(),
@@ -218,6 +285,7 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
+                    this.presensi0 = response.data.data
                     this.presensi = response.data.data
                     this.rekapum = response.data.rekapum
                     this.rekaptukin = response.data.rekaptukin
@@ -257,6 +325,8 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
+
+					this.presensi0 = response.data.data
 					this.presensi = response.data.data
                     this.rekapum = response.data.rekapum
                     this.rekaptukin = response.data.rekaptukin
@@ -264,7 +334,8 @@ export default {
 					this.sumtukin = response.data.sumtukin
 					this.netttukin = response.data.tukin - response.data.sumtukin
 					this.count = response.data.count
-                      this.titleamprah = response.data.title
+                    this.titleamprah = response.data.title
+
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -326,6 +397,31 @@ export default {
                 });
             }
         },
+        sortTable(column) {
+			if (this.currentSort === column) {
+				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
+			} else {
+				this.currentSort = column;
+				this.currentSortDir = 'asc';
+			}
+
+			this.presensi.sort((a, b) => {
+				let modifier = 1;
+				if (this.currentSortDir === 'desc') modifier = -1;
+				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+				if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+				return 0;
+			});
+		},
+		filterTable() {
+			if (this.keyword === '' || this.keyword == null) {
+				this.presensi = this.presensi0;
+			} else {
+				this.presensi = this.presensi0.filter((item) => {
+					return item.satker.toLowerCase().includes(this.keyword.toLowerCase());
+				});
+			}
+		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},

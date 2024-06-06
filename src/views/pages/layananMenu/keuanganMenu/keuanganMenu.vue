@@ -42,7 +42,7 @@
                                 <router-link to="/presensi/rekap">
                                 <div class="listMenu categories-content">
                                     <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                                    <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                    <img :src="$assets+'/img/ikon/RekapPresensi.png'" style="width:100%;" alt="car1">
                                     <span>Rekap Presensi</span>
                                     </a>								   
                                 </div>

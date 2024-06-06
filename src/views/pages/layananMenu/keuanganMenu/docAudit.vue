@@ -273,7 +273,7 @@ export default {
 					this.dok = response.data.dok
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -309,7 +309,7 @@ export default {
 					  this.dok = response.data.dok
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -377,12 +377,6 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-                
-					console.log(this.navid)
-					console.log(status)
-					console.log(kategori)
-					console.log(keterangan)
-					console.log(tanggalx)
 
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadDocAudit',{
                     dipa: this.navid,
@@ -403,7 +397,7 @@ export default {
           			this.dockeu = response.data.data	
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
