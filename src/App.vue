@@ -138,7 +138,7 @@ export default {
                   confirmButtonText: `
                     <i class="fa fa-thumbs-up"></i> Mantap!
                   `,
-                  timer: 5000,
+                  timer: 15000,
                   timerProgressBar: true,
                 })
               }else{
