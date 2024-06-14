@@ -52,7 +52,7 @@
 								<h6>{{ item.name }}</h6>
 								<span class="ads">{{ item.nomor_induk }}</span>
 								<span>{{ item.pekerjaan }}</span>
-								<BBadge v-if="this.$route.params.id == 999" pill variant="warning" style="font-size: x-small;">{{ item.satker }}</BBadge>
+								<BBadge v-if="this.$route.params.id == 999 || this.$route.params.id == 998" pill variant="warning" style="font-size: x-small;">{{ item.satker }}</BBadge>
 								<BBadge v-if="item.sppt && item.sppt.status == 'sudah'" variant="success">SPT Pajak 2023 <i-ci-check-all /></BBadge>
 								<BBadge v-else-if="!item.sppt" variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>
 								<BBadge v-else variant="danger">SPT Pajak 2023 <i-icomoon-free-cross /></BBadge>

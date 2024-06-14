@@ -51,7 +51,7 @@ export default {
     },
     computed: {
 		routePengaduan() {
-			return id => `/LayananDetail/${this.navid}/${id}`
+			return id => `/LayananDetail/Personal/${this.navid}/${id}`
     	},
         tujuLapor() {
             window.open('https://lapor.go.id/','_blank')

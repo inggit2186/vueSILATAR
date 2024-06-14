@@ -18,7 +18,7 @@
 					</div>
 					<div class="banner-images">
 						<div class="ban-image">
-							<img src="../../../assets/img/bg/balloon-img.png" alt="">
+							<img src="../../../assets/img/bg/balloon-img.png" width="60%" alt="">
 						</div>
 						<div class="ban-image-01">
 							<img src="../../../assets/img/bg/cloud-01.png" alt="" class="cloud-one">
@@ -28,7 +28,7 @@
 							<img :src="imgz" style="float: right;width: 66%;" alt="opener">
 						</div>
 						<div class="ban-image-03">
-							<img src="../../../assets/img/bg/plane.png" alt="">
+							<img src="../../../assets/img/bg/run.png" alt="">
 						</div>
 					</div>
 				</div>

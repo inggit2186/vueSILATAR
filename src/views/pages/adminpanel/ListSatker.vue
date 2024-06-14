@@ -11,27 +11,32 @@
 						</li>
 						<li v-if="user.dept_id == 4 || user.dept_id == 8" :class="{ active: $route.path === '/verifckh/'+bln+'/getKUA' }">
 							<router-link to="getKUA">
-								<i class="fa-solid fa-user"></i> <span>KUA</span>
+								<i class="fa-solid fa-mosque"></i> <span>KUA</span>
 							</router-link>
 						</li>
 						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMIN' }">
 							<router-link to="getMIN">
-								<i class="feather-list"></i> <span>MIN</span>
+								<i class="fas fa-solid fa-school"></i> <span>MIN</span>
 							</router-link>
 						</li>
 						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMTsN' }">
 							<router-link to="getMTsN">
-								<i class="fas fa-solid fa-heart"></i> <span>MTsN</span>
+								<i class="fas fa-solid fa-hotel"></i> <span>MTsN</span>
 							</router-link>
 						</li>
 						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMAN' }">
 							<router-link to="getMAN">
-								<i class="fas fa-solid fa-heart"></i> <span>MAN</span>
+								<i class="fas fa-solid fa-university"></i> <span>MAN</span>
 							</router-link>
 						</li>
 						<li v-if="user.dept_id == 4 || user.dept_id == 7 || user.dept_id == 5" :class="{ active: $route.name === 'Lainnya' }">
 							<router-link :to="routeSeksi('999')">
-								<i class="fas fa-solid fa-heart"></i> <span>Swasta / Lainnya</span>
+								<i class="fas fa-solid fa-chess-rook"></i> <span>Swasta / Lainnya</span>
+							</router-link>
+						</li>
+						<li v-if="user.dept_id == 4 || user.dept_id == 7 || user.dept_id == 5" :class="{ active: $route.name === 'Lainnya' }">
+							<router-link :to="routeSeksi('998')">
+								<i class="fas fa-solid fa-city"></i> <span>Pemerintah Daerah</span>
 							</router-link>
 						</li>
 					</ul>

@@ -176,7 +176,7 @@ export default {
 						this.updateTamu(id,result.value,'DITERIMA')
 					}
                     else if (result.isDenied) {
-						this.updateTamu(id,result.value,'BATAL')
+						this.updateTamu(id,result.value,'DITOLAK')
 					};
 				});
         },
@@ -199,7 +199,7 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
-                    this.detailtamu.status = 'DITERIMA';
+                    this.detailtamu.status = st;
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
