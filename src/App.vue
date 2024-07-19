@@ -70,7 +70,10 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/cekAuth',{headers})
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekAuth',{
+					source: 'VueJs',
+					version: 'Auto Update'
+				},{headers})
         if(response.data.success == true){
           if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
               this.$swal.fire({

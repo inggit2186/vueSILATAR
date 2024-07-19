@@ -64,9 +64,9 @@
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
                                                 <td style="font-size: 14px; font-weight: 650;">{{ item.satker }}</td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.presensi != 'NONE'" pill size="sm" variant="danger" @click.prevent="cetak(item.presensi)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.uangmakan != 'NONE'" pill size="sm" variant="secondary" @click.prevent="cetak(item.uangmakan)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.tukin != 'NONE'" pill size="sm" variant="success" @click.prevent="cetak(item.tukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.presensi != 'NONE'" pill size="sm" variant="danger" @click.prevent="cetak(item.presensi,item.filepresensi)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.uangmakan != 'NONE'" pill size="sm" variant="secondary" @click.prevent="cetak(item.uangmakan,item.fileuangmakan)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.tukin != 'NONE'" pill size="sm" variant="success" @click.prevent="cetak(item.tukin,item.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
                                             </tr>
 										</tbody>
                                     </table>
@@ -99,7 +99,7 @@
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td>
-                                                    <BButton v-if="presensi.filep != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filep)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
+                                                    <BButton v-if="presensi.filep != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filep, presensi.downloadp)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
                                                 </td>
                                             </tr>
@@ -113,7 +113,7 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ rekapum.uangmakan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ rekapum.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ rekapum.nett_um.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td>
-                                                    <BButton v-if="presensi.fileum != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
+                                                    <BButton v-if="presensi.fileum != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum, presensi.downloadum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
                                             </tr>
@@ -125,7 +125,7 @@
                                                 <td style="font-size: 14px; font-weight: 600;">-</td>
                                                 <td style="font-size: 14px; font-weight: 600;">Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
 												<td>
-                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
 												
@@ -138,7 +138,7 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ sumtukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ netttukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td v-if="index == 0" :rowspan=count>
-                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
                                             </tr>
@@ -353,7 +353,7 @@ export default {
 			}
 		},
 
-        cetak(item){
+        cetak(item,file){
             let frame = null;
             let isPDF = item.toLowerCase().endsWith('.pdf');
             let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
@@ -392,7 +392,7 @@ export default {
                     confirmButtonText: "Download"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.open(item,'_blank');
+                        window.open(file,'_blank');
                     }
                 });
             }
