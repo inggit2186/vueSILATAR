@@ -762,6 +762,7 @@ export default {
                     statusx: 'new',
 					noreq: noreq,
                     formx: this.input,
+                    baseurl: window.location.origin,
 				}, {headers})
                 
                 if(response.data.success == true){
@@ -803,6 +804,7 @@ export default {
                     notifx: 'no',
 					noreq: noreq,
                     formx: this.input,
+                    baseurl: window.location.origin,
 				}, {headers})
                 
                 if(response.data.success == true){
@@ -840,6 +842,7 @@ export default {
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
                     statusx: 'batal',
 					noreq: noreq,
+                    baseurl: window.location.origin,
 				}, {headers})
 
                 if(response.data.success == true){
@@ -914,6 +917,7 @@ export default {
 					noreq: noreq,
                     nosurathasil: this.hasil.no_surat,
                     perihal: this.hasil.perihal,
+                    baseurl: window.location.origin,
                     keteranganhasil: this.hasil.keterangan 
 				}, {headers})
 

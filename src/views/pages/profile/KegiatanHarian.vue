@@ -196,9 +196,9 @@
 export default {
     data() {
         return {
-            title: "Daftar Appointment",
+            title: "Laporan Kinerja Harian",
             text: "User",
-            text1: "Daftar Appointment",
+            text1: "Laporan Kinerja Harian",
             name: "/",
 			bulan: null,
 			columns2: [

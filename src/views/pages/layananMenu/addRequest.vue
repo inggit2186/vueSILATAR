@@ -35,11 +35,11 @@
                             <div class="card-body">
 							    <div v-if="user.asn == 'pns' || user.asn == 'pppk'" class="form-group">
 								    <label class="col-form-label">Nomor Induk Pegawai (NIP) <span>*</span></label>								    
-									<b-form-input id="user.nomor_induk" v-model="user.nomor_induk" type="number" class="form-control pass-input" placeholder="NIP" readonly />									   
+									<b-form-input id="user.nomor_induk" v-model="user.noid" type="number" class="form-control pass-input" placeholder="NIP" readonly />									   
 								</div>
                                 <div v-else class="form-group">
 								    <label class="col-form-label">Nomor Induk Kependudukan (NIK) <span>*</span></label>								    
-									<b-form-input id="user.nomor_induk" v-model="user.nomor_induk" type="number" class="form-control pass-input" placeholder="NIP" readonly />									   
+									<b-form-input id="user.nomor_induk" v-model="user.noid" type="number" class="form-control pass-input" placeholder="NIP" readonly />									   
 								</div>
                                 <div class="form-group">
                                     <label class="col-form-label">Nama Lengkap <span>*</span></label>								    
