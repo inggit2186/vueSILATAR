@@ -67,10 +67,13 @@
                                                 <td>
                                                     {{ item.komen }}<br/>
                                                 </td>
-                                                <td>
+                                                <td v-if="item.status == 'APPOINTMENT' || item.status == 'PENDING' || item.status == 'DITERIMA' || item.status == 'ON SITE'" >
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
+												<td v-else>
+													&nbsp;
+												</td>
                                             </tr>
 										</tbody>
                                     </table>

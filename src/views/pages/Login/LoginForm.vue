@@ -122,8 +122,10 @@ v-else v-model="password"
 		this.loading = true;
 
         const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/login', {
+		  source: 'VueJs',
           email: this.email,
           password: this.password,
+		  deviceID: 'silatarV2vueJs2024'
         });
 		
 			if(response.data.success === true) {

@@ -18,7 +18,7 @@
 										<a href="https://twitter.com/KemenagTD" target="_blank"><i class="fab fa-twitter"></i> </a>
 									</li>
 									<li>
-										<a href="https://www.instagram.com/kemenagtd/" target="_blank"><i class="fab fa-instagram"></i></a>
+										<a href="https://www.instagram.com/kemenag_tanahdatar/" target="_blank"><i class="fab fa-instagram"></i></a>
 									</li>
 									<li>
 										<a href="https://id.linkedin.com/in/ridho-saputra-a325a825a" target="_blank"><i class="fab fa-linkedin-in"></i></a>
