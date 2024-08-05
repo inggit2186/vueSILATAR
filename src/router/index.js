@@ -46,6 +46,9 @@ import KegiatanHarian from '../views/pages/profile/KegiatanHarian.vue'
 import LaporanKinerja from '../views/pages/profile/LaporanKinerja.vue'
 import KinerjaBawahan from '../views/pages/profile/KinerjaBawahan.vue'
 import slipGajix from '../views/pages/profile/SlipGajix.vue'
+import rekapPresensiASN from '@/views/pages/profile/rekapPresensi.vue';
+import laporanPengaduan from '@/views/pages/profile/laporanPengaduan.vue'
+import laporanKetidakhadiran from '@/views/pages/profile/laporanKetidakhadiran.vue'
 
 //satudata
 import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
@@ -84,9 +87,9 @@ import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
 
 //cPanel
-import AdminMenuVue from '@/views/pages/adminpanel/adminMenu.vue'
-import ListRequestVue from '@/views/pages/adminpanel/listRequest.vue'
-import DetailRequestVue from '@/views/pages/adminpanel/detailRequest.vue'
+import AdminMenuVue from '@/views/pages/adminpanel/AdminMenu.vue'
+import ListRequestVue from '@/views/pages/adminpanel/ListRequest.vue'
+import DetailRequestVue from '@/views/pages/adminpanel/DetailRequest.vue'
 import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
 import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
@@ -248,7 +251,7 @@ const routes = [
     {
         path: '/presensi',
         name: 'Rekap Presensi',
-        component: presensiMenu,
+        component: rekapPresensi,
         meta: {
             requiresAuth: true
           }
@@ -447,6 +450,30 @@ const routes = [
         path: '/kinerjabawahan',
         name: 'Kinerja Bawahan',
         component: KinerjaBawahan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/rekappresensiasn',
+        name: 'Rekap Presensi ASN',
+        component: rekapPresensiASN,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/laporanpengaduan',
+        name: 'Laporan Pengaduan',
+        component: laporanPengaduan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/laporanketidakhadiran',
+        name: 'Laporan Ketidakhadiran',
+        component: laporanKetidakhadiran,
         meta: {
             requiresAuth: true
           }

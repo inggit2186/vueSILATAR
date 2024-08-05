@@ -75,7 +75,7 @@ export default {
 					version: 'Auto Update'
 				},{headers})
         if(response.data.success == true){
-          if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
+            if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
               this.$swal.fire({
                 title: 'SPT Pajak Tahunan!',
                 html: '<p style="font-size: 17px">Apakah Bpk/Ibu sudah Melaporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ?</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
@@ -134,16 +134,49 @@ export default {
                 });
                 htmlx += "</table></center>"
 
-                this.$swal.fire({
-                  title: "Recent Change !!",
-                  html: htmlx,
-                  icon: 'info',
-                  confirmButtonText: `
-                    <i class="fa fa-thumbs-up"></i> Mantap!
-                  `,
-                  timer: 15000,
-                  timerProgressBar: true,
-                })
+                if(response.data.iklan != 'NONE'){
+                  if (window.innerWidth < 768) {
+                    this.$swal.fire({
+                        html: `
+                          <a href="${response.data.iklan.url}" target="_blank">
+                            <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
+                          </a>
+                        `,
+                        padding: "0",
+                        width: '400px',
+                        height: '350px',
+                        imageAlt: "Pengumuman",
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                      });
+                  }else{
+                    this.$swal.fire({
+                        html: `
+                          <a href="${response.data.iklan.url}" target="_blank">
+                            <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
+                          </a>
+                        `,
+                        padding: "0",
+                        width: '600px',
+                        height: '540px',
+                        imageAlt: "Pengumuman",
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                      });
+                  }
+                }else{
+                  this.$swal.fire({
+                      title: "Recent Change !!",
+                      html: htmlx,
+                      icon: 'info',
+                      confirmButtonText: `
+                        <i class="fa fa-thumbs-up"></i> Mantap!
+                      `,
+                      timer: 15000,
+                      timerProgressBar: true,
+                    })
+                }
+
               }else{
                 if(this.user.rating.length == 0 || !(this.user.rating)){
                   this.$swal.fire({
@@ -162,19 +195,83 @@ export default {
                       if (result.isConfirmed) {
                         this.$router.push('/rateUs')
                       } else if (result.isDenied) {
-                        this.$swal.fire({
-                          imageUrl: "https://silatar.kemenag.go.id/v2/assets/img/ikon/nonrate.png",
-                          imageWidth: 450,
-                          imageHeight: 450,
-                          imageAlt: "Rate Us",
-                        });
+                        if(response.data.iklan != 'NONE'){
+                            if (window.innerWidth < 768) {
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '400px',
+                                  height: '350px',
+                                  imageAlt: "Pengumuman",
+                                  showConfirmButton: false,
+                                  showCloseButton: true,
+                                });
+                            }else{
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '600px',
+                                  height: '540px',
+                                  imageAlt: "Pengumuman",
+                                  showConfirmButton: false,
+                                  showCloseButton: true,
+                                });
+                            }
+                          }else{
+                            this.$swal.fire({
+                              imageUrl: "https://silatar.kemenag.go.id/v2/assets/img/ikon/nonrate.png",
+                              imageWidth: 450,
+                              imageHeight: 450,
+                              imageAlt: "Rate Us",
+                            });
+                          }
                       }
                     });
                 }else{
-                  this.$toast.fire({
-                    title: response.data.message,
-                    icon: 'success',
-                  })
+                  if(response.data.iklan != 'NONE'){
+                    if (window.innerWidth < 768) {
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '410px',
+                                  height: '350px',
+                                  imageAlt: "Pengumuman",
+                                  showConfirmButton: false,
+                                  showCloseButton: true,
+                                });
+                            }else{
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '600px',
+                                  height: '540px',
+                                  imageAlt: "Pengumuman",
+                                  showConfirmButton: false,
+                                  showCloseButton: true,
+                                });
+                            }
+                  }else{
+                    this.$toast.fire({
+                      title: response.data.message,
+                      icon: 'success',
+                    })
+                  }
                 }
               }
             }

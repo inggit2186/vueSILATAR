@@ -26,6 +26,11 @@
                     <i-icon-park-solid-appointment /> <span>Appointment</span>
                 </router-link>
             </li>
+            <li :class="{ active: $route.name === 'Rekap Presensi ASN' }">
+                <router-link to="rekappresensiasn">
+                    <i-heroicons-finger-print-16-solid /> <span>Presensi</span>
+                </router-link>
+            </li>
         <!--
             <li :class="{ active: $route.name === 'Bookmarks' }">
                 <router-link to="bookmarks">

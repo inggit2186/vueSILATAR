@@ -29,6 +29,7 @@ import NavbarFour from './components/navbarFour.vue'
 import NavbarFive from './components/navbarFive.vue'
 import NavMenu from './components/navmenu.vue'
 import userMenu from './components/userMenu.vue'
+import menuPresensi from './components/presensiMenu.vue';
 import kinerjaMenu from './components/kinerjaMenu.vue'
 import gajiMenu from './components/gajiMenu.vue'
 
@@ -95,7 +96,7 @@ import IndexTestimonial from './views/pages/home/indexTestimonial.vue'
 import IndexPrice from './views/pages/home/indexPrice.vue'
 import IndexSubscribe from './views/pages/home/indexSubscribe.vue'
 import IndexActivity from './views/pages/home/indexActivity'
-import IndexDesc from './views/pages/home/IndexDesc.vue'
+import IndexDesc from './views/pages/home/indexDesc.vue'
 import NavThreeFooter from './views/pages/home/footer.vue'
 
 import IndexNow from './views/pages/indexfour/indexNow.vue'
@@ -127,6 +128,9 @@ import KegiatanHarian from './views/pages/profile/KegiatanHarian.vue'
 import LaporanKinerja from './views/pages/profile/LaporanKinerja.vue'
 import KinerjaBawahan from './views/pages/profile/KinerjaBawahan.vue'
 import slipGajix from './views/pages/profile/SlipGajix.vue'
+import rekapPresensiASN from './views/pages/profile/rekapPresensi.vue'
+import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
+import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -227,6 +231,7 @@ app.component('Navbarfour',NavbarFour)
 app.component('Navbarfive',NavbarFive)
 app.component('Navmenu',NavMenu)
 app.component('UserMenu',userMenu)
+app.component('MenuPresensi',menuPresensi)
 app.component('KinerjaMenu',kinerjaMenu)
 app.component('gajiMenu',gajiMenu)
 
@@ -323,6 +328,9 @@ app.component('KegiatanHarian',KegiatanHarian)
 app.component('LaporanKinerja',LaporanKinerja)
 app.component('KinerjaBawahan',KinerjaBawahan)
 app.component('SlipGajix',slipGajix)
+app.component('RekapPresensiASN',rekapPresensiASN)
+app.component('LaporanPengaduan',laporanPengaduan)
+app.component('LaporanKetidakhadiran',laporanKetidakhadiran)
 
 //satudata
 app.component('SatuDataHome',SatudataHome)
