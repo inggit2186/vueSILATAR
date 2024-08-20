@@ -196,6 +196,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myCuti',{
+					nav: this.$route.params.id,
 					bulan : this.bulan
 				},{headers})
 				
@@ -229,6 +230,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myCuti',{
+					nav: this.$route.params.id,
 					bulan : date
 				},{headers})
 				

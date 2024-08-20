@@ -27,7 +27,7 @@
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Rekap Presensi ASN' }">
-                <router-link to="rekappresensiasn">
+                <router-link to="personal/rekappresensiasn">
                     <i-heroicons-finger-print-16-solid /> <span>Presensi</span>
                 </router-link>
             </li>

@@ -173,6 +173,7 @@ import docAudit from './views/pages/layananMenu/keuanganMenu/docAudit.vue'
 import rekapPresensi from './views/pages/layananMenu/keuanganMenu/rekapPresensi.vue';
 
 //cPanel
+import adminasnList from './views/pages/adminpanel/asnList.vue'
 import adminMenu from './views/pages/adminpanel/adminMenu.vue'
 import listRequest from './views/pages/adminpanel/listRequest.vue'
 import detailRequest from './views/pages/adminpanel/detailRequest.vue'
@@ -374,6 +375,7 @@ app.component('docAudit',docAudit)
 app.component('rekapPresensi',rekapPresensi)
 
 //cPanel
+app.component('AdminAsnList', adminasnList)
 app.component('AdminMenu', adminMenu)
 app.component('ListRequest', listRequest)
 app.component('DetailRequest', detailRequest)

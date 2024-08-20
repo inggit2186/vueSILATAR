@@ -87,6 +87,7 @@ import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
 
 //cPanel
+import adminasnList from '@/views/pages/adminpanel/asnList.vue'
 import AdminMenuVue from '@/views/pages/adminpanel/AdminMenu.vue'
 import ListRequestVue from '@/views/pages/adminpanel/ListRequest.vue'
 import DetailRequestVue from '@/views/pages/adminpanel/DetailRequest.vue'
@@ -455,7 +456,15 @@ const routes = [
           }
     },
     {
-        path: '/rekappresensiasn',
+        path: '/admin/asnlist',
+        name: 'List ASN Admin',
+        component: adminasnList,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/:id/rekappresensiasn',
         name: 'Rekap Presensi ASN',
         component: rekapPresensiASN,
         meta: {
@@ -463,7 +472,7 @@ const routes = [
           }
     },
     {
-        path: '/laporanpengaduan',
+        path: '/:id/laporanpengaduan',
         name: 'Laporan Pengaduan',
         component: laporanPengaduan,
         meta: {
@@ -471,7 +480,7 @@ const routes = [
           }
     },
     {
-        path: '/laporanketidakhadiran',
+        path: '/:id/laporanketidakhadiran',
         name: 'Laporan Ketidakhadiran',
         component: laporanKetidakhadiran,
         meta: {
@@ -585,8 +594,16 @@ const routes = [
           }
     },
     {
-        path: '/verifckh/:xid/:id',
+        path: '/verif/:xid/:id',
         name: 'Verifikasi CKH',
+        component: adminSatker,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/lappresensi/:xid/:id',
+        name: 'Laporan Presensi',
         component: adminSatker,
         meta: {
             requiresAdmin: true

@@ -1,37 +1,25 @@
 <template>
     <div class="main-wrapper">
-        <usernavbar />
+		<layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
-                        <MenuPresensi />
-                        <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
-                            <div ref="scroll1st" class="dash-cards card">
+						<MenuPresensi />
+                        <div class="dash-listingcontent dashboard-info">
+                            <div class="dash-cards card">
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
-										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+										<h4>Daftar Pegawai</h4>
 									</div>
 								</div>
-								<div class="d-block d-sm-none">
-									<div>
-										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-									</div>
-								</div>
-								<hr/>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-										<div class="group-img d-none d-sm-block">
+                                        <div class="group-img">
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
-                                            <i class="feather-search"></i>
-                                        </div>
-										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -45,21 +33,29 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody v-if="loading">
+										<tbody v-if="loading">
                                             <tr>
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.presensi.length == 0">
+											<tr v-if="this.ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
-                                                <td><a href="#">{{ item.tanggal }} </a></td>
-                                                <td><b>{{ item.mAbsen }}</b></td>
-                                                <td><b>{{ item.pAbsen }}</b></td>
-                                                <td><b>{{ item.status }}</b></td>
-                                                <td>{{ item.keterangan }}</td>
+											<tr v-else v-for="item in paginatedItem" :key="item.id">
+                                                <td>
+                                                    <BBadge pill variant="info" style="font-size: medium;margin-bottom: 2px;"> {{ item.name }} </BBadge><br/>
+                                                    <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nomor_induk }} </BBadge>
+                                                </td>
+                                                <td>
+                                                    <BBadge pill variant="secondary" style="font-size: small;"> {{  item.satker }} </BBadge>
+                                                </td>
+												<td>
+                                                 	{{  item.bank }}
+                                                </td>
+                                                <td>
+													<BButton pill size="sm" variant="outline-primary"  @click.prevent="cekPresensi(item.id)"><b><i-game-icons-notebook /> Cek Presensi</b></BButton>
+                                                </td>
                                             </tr>
 										</tbody>
                                     </table>
@@ -107,42 +103,31 @@
 </template>
 
 <script>
-import PresensiMenu from '@/components/presensiMenu.vue';
-
 export default {
     data() {
+		const today = new Date();
         return {
-            title: "Rekap Presensi",
-            text: "User",
-            text1: "Rekap Presensi",
+            title: "Rekap Presensi ASN",
+            text: "Admin",
+            text1: "Rekap Presensi ASN",
             name: "/",
-			bulan: null,
 			columns2: [
-				{ name: 'Tanggal', data: 'tanggal' },
-				{ name: 'Masuk', data: 'masuk' },
-				{ name: 'Pulang', data: 'pulang' },
-				{ name: 'Status', data: 'status' },
-				{ name: 'Keterangan', data: 'keterangan' },
+				{ name: 'Nama', data: 'name' },
+				{ name: 'Satker', data: 'satker' },
+				{ name: 'Bank', data: 'bank' },
+				{ name: 'Action', data: 'action' },
 			],
-			kegiatan: [{
-				id: 'presensi0',
-				kegiatan: '',
-			}],
-			counter:0,
 			keyword: '',
 			currentSort: '',
       		currentSortDir: 'asc',
 			loading: false,
-			loadingrekap: false,
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
-			presensi: [],
-			presensi0: [],
-			tanggal: [],
-            detail: 1,
-            status: null,
-			rekapstatus: 0,
+			ptsp: [],
+			ptsp0: [],
+            xid: null,
+            sid: null
         }
     },
     computed: {
@@ -150,7 +135,7 @@ export default {
 			return this.columns
 		},
 		sortedData() {
-			return this.presensi.sort((a, b) => {
+			return this.ptsp.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -161,7 +146,7 @@ export default {
     	paginatedItem() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.presensi.slice(start, end);
+			return this.ptsp.slice(start, end);
 		},
 		displayedPages() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -169,71 +154,29 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages() {
-            return Math.ceil(this.presensi.length / this.itemsPerPage);
+            return Math.ceil(this.ptsp.length / this.itemsPerPage);
         },
 	},
   created() {
-		this.getPresensi(),
+		this.getASN(),
 		window.scrollTo(0,0)
 	},
   methods: {
-		async getPresensi() {
-			this.loading = true;
-			const today = new Date();
-			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
-			this.bulan = date;
-			this.rekapstatus = 0;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
-					nav: this.$route.params.id,
-					bulan : this.bulan
-				},{headers})
-				
-				if(response.data.success == true){
-                    console.log(response.data)
-          			this.presensi0 = response.data.data
-          			this.presensi = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loading = false
-			}
-		},
-		async get2Presensi() {
-			this.rekapstatus = 1;
-			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+		async getASN() {
 			this.loading = true;
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
-					nav: this.$route.params.id,
-					bulan : date
-				},{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getASNList',{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
-          			this.presensi0 = response.data.data
-          			this.presensi = response.data.data
+          			this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data
 				}else{
 					this.$toast.fire({
-						title: response.data.data,
+						title: response.data.message,
 						icon: 'error',
 					})
 				}
@@ -255,7 +198,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.presensi.sort((a, b) => {
+			this.ptsp.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -265,15 +208,117 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.presensi = this.presensi0;
+				this.ptsp = this.ptsp0;
 			} else {
-				this.presensi = this.presensi0.filter((item) => {
-					return item.tanggal.toLowerCase().includes(this.keyword.toLowerCase());
+				this.ptsp = this.ptsp0.filter((item) => {
+					return item.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.nomor_induk.toLowerCase().includes(this.keyword.toLowerCase());
 				});
 			}
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+        aksiStatus(id,file) {
+            let frame = null;
+            let isPDF = file.toLowerCase().endsWith('.pdf');
+            let isWord = file.toLowerCase().endsWith('.doc') || file.toLowerCase().endsWith('.docx');
+            
+            if(isWord){
+                frame = '<iframe src="https://docs.google.com/gview?url='+ file +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+            }else{
+                frame = '<iframe src="'+ file +'" width="100%" height="550"></iframe>'
+            }
+
+            if (window.innerWidth < 768) {
+                this.$swal.fire({
+                width: "100%",
+				allowOutsideClick: true,
+                html: frame,
+				input: "textarea",
+				inputLabel: "Komentar",
+				inputPlaceholder: "Tulis Komentar Anda Disini...",
+				inputAttributes: {
+					"aria-label": "Tulis Komentar Anda Disini"
+				},
+				showConfirmButton: true,
+				showDenyButton: true,
+                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
+				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
+				returnInputValueOnDeny: true
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						this.updateStatus(id,result.value,'DISETUJUI')
+					}
+                    else if (result.isDenied) {
+						this.updateStatus(id,result.value,'DITOLAK')
+					};
+				});
+            }else{
+                this.$swal.fire({
+                width: "50%",
+                html: frame,
+				input: "textarea",
+				inputLabel: "Komentar",
+				inputPlaceholder: "Tulis Komentar Anda Disini...",
+				inputAttributes: {
+					"aria-label": "Tulis Komentar Anda Disini"
+				},
+				showConfirmButton: true,
+				showDenyButton: true,
+                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
+				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
+				returnInputValueOnDeny: true
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						this.updateStatus(id,result.value,'DISETUJUI')
+					}
+                    else if (result.isDenied) {
+						this.updateStatus(id,result.value,'DITOLAK')
+					};
+				});
+            }
+
+        },
+		async updateStatus(id,komen,st){
+			this.loadingaksi[id] = true
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateStatusKinerja',{
+					id: id,
+					komen: komen,
+					status: st,
+                    xid: this.xid,
+                    sid: this.sid
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+					this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data	
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingaksi[id] = false
+			}
 		},
   }
 }

@@ -9,11 +9,18 @@
                     <div class="container">
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
-                                <div class="card-header">
-                                    <h4>Daftar Rekap Laporan CKH</h4>
-                                    <!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
-                                            class="fa-solid fa-plus"></i> Add Listing</router-link> -->
-                                </div>
+                                <div class="d-none d-sm-block">
+									<div class="card-header">
+										<h4>Rekap Laporan CKH</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+									</div>
+								</div>
+								<div class="d-block d-sm-none">
+									<div>
+										<h4>Rekap Laporan CKH</h4>
+											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+									</div>
+								</div>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
@@ -111,11 +118,13 @@
 <script>
 export default {
     data() {
+		const today = new Date();
         return {
             title: "Rekap Kinerja ASN",
             text: "Admin",
             text1: "Rekap Kinerja ASN",
             name: "/",
+			bulan: {month: today.getMonth()-1, year:today.getFullYear()},
 			columns2: [
 				{ name: 'Nama', data: 'name' },
 				{ name: 'Status', data: 'status' },
@@ -162,12 +171,47 @@ export default {
         },
 	},
   created() {
-		this.getPTSP(),
+		this.getCKH(),
 		window.scrollTo(0,0)
 	},
   methods: {
-		async getPTSP() {
+		async getCKH() {
             this.xid = this.$route.params.xid
+            this.sid = this.$route.params.id
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.loading = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
+					xid: date,
+					id: this.sid,
+				},{headers})
+				
+				if(response.data.success == true){
+          			this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
+
+		async get2CKH() {
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
             this.sid = this.$route.params.id
 			this.loading = true;
 			try{
@@ -176,7 +220,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
-					xid: this.xid,
+					xid: date,
 					id: this.sid,
 				},{headers})
 				

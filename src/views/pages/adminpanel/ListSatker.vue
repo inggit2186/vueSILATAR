@@ -4,27 +4,27 @@
 			<div class="container">	
                 <div class="">
 					<ul class="dashborad-menus">
-						<li v-if="user.dept_id == 4" :class="{ active: $route.path === '/verifckh/'+bln+'/getSeksi' }">
+						<li v-if="user.dept_id == 4" :class="{ active: $route.path === '/verif/'+bln+'/getSeksi' }">
 							<router-link to="getSeksi">
 								<i class="feather-grid"></i> <span>Kantor</span>
 							</router-link>
 						</li>
-						<li v-if="user.dept_id == 4 || user.dept_id == 8" :class="{ active: $route.path === '/verifckh/'+bln+'/getKUA' }">
+						<li v-if="user.dept_id == 4 || user.dept_id == 8" :class="{ active: $route.path === '/verif/'+bln+'/getKUA' }">
 							<router-link to="getKUA">
 								<i class="fa-solid fa-mosque"></i> <span>KUA</span>
 							</router-link>
 						</li>
-						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMIN' }">
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verif/'+bln+'/getMIN' }">
 							<router-link to="getMIN">
 								<i class="fas fa-solid fa-school"></i> <span>MIN</span>
 							</router-link>
 						</li>
-						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMTsN' }">
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verif/'+bln+'/getMTsN' }">
 							<router-link to="getMTsN">
 								<i class="fas fa-solid fa-hotel"></i> <span>MTsN</span>
 							</router-link>
 						</li>
-						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verifckh/'+bln+'/getMAN' }">
+						<li v-if="user.dept_id == 4 || user.dept_id == 7" :class="{ active: $route.path === '/verif/'+bln+'/getMAN' }">
 							<router-link to="getMAN">
 								<i class="fas fa-solid fa-university"></i> <span>MAN</span>
 							</router-link>
@@ -173,7 +173,7 @@ export default {
             return Math.ceil(this.seksi.length / this.itemsPerPage);
         },
 		routeSeksi() {
-        	return id => `/ckh/${this.bln}/${id}`;
+        	return id => `/${this.$route.params.xid}/${this.bln}/${id}`;
     	},
 	},
 	created() {

@@ -27,7 +27,18 @@
                         </div>
                         <hr/>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/verifckh'>
+                            <router-link to='/admin/laporanketidakhadiran'>
+                            <div class="listMenu categories-content">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
+                                <h6>Laporan Presensi</h6>
+                                <span>Laporan Presensi Pegawai Jajaran Kantor Kementerian Agama Kab.Tanah Datar</span>
+                                </a>								   
+                            </div>
+                            </router-link>
+                        </div>
+                        <div class="col-lg-3 col-md-3 centered">
+                            <router-link to='/verif/ckh/getSeksi'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">

@@ -1,8 +1,11 @@
 <template>
     <div class="">
         <ul class="dashborad-menus">
-            <li :class="{ active: $route.name === 'Rekap Presensi ASN' }">
-                <router-link to="rekappresensiasn">
+            <li :class="{ active: $route.name === 'Rekap Presensi ASN' || $route.name === 'List ASN Admin' }">
+                <router-link v-if="sid == 'admin'" to="/admin/asnlist">
+                    <i-heroicons-finger-print-16-solid /> <span>Rekap Presensi</span>
+                </router-link>
+                <router-link v-else to="rekappresensiasn">
                     <i-heroicons-finger-print-16-solid /> <span>Rekap Presensi</span>
                 </router-link>
             </li>
@@ -32,12 +35,14 @@ export default {
                 user: user,
                 pp: pp || '../assets/img/profile-img.jpg',
                 auth: true,
+                sid: this.$route.params.id
             };
         }else{
             return {
                 loading: false,
                 user: {},
-                auth: false
+                auth: false,
+                sid: this.$route.params.id
             };
         }
 	},
