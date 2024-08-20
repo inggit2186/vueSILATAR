@@ -40,7 +40,10 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-if="this.$route.params.id == 'admin'" v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                    {{ column.name }}
+                                                </th>
+												<th v-else v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -50,14 +53,37 @@
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
+										<tbody v-else-if="!loading && this.$route.params.id == 'admin'">
+											<tr v-if="this.error.length == 0">
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+											</tr>
+											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id" >
+                                                <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.nama }}</b><br/>
+													<span style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.nip }}	</i></span>
+												</td>
+                                                <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.kategori }}</b></td>
+                                                <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.tanggalmulai }}</b> &nbsp;s/d&nbsp; <b>{{ item.tanggalselesei }}</b></td>
+                                                <td @click.prevent="cetak(item.id, item.filename)">{{ item.keterangan }}</td>
+                                                <td @click.prevent="cetak(item.id, item.filename)">
+                                                    <BBadge v-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="primary">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
+                                                </td>
+                                                <td v-if="!loadingaksi[item.id] && item.status == 'PENDING'"><BButton pill size="sm" variant="success" @click.prevent="cetak(item.id, item.filename)"><i-ri-question-answer-fill />  <b>VERIFIKASI</b></BButton></td>
+                                                <td v-else-if="loadingaksi[itemid]"><i-svg-spinners-blocks-wave /></td>
+                                                <td v-else @click.prevent="cetak(item.id, item.filename)"><b>{{ item.alasan }}</b><br/>
+                                                    <span v-if="item.verifikator != 'PTSP Bot'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.verifikator }}	</i></span>
+                                                </td>
+                                            </tr>
+										</tbody>
 										<tbody v-else>
 											<tr v-if="this.error.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id" >
-                                                <td @click.prevent="cetak(item.filename)"><b>{{ item.kategori }}</b></td>
-                                                <td @click.prevent="cetak(item.filename)"><b>{{ item.tanggalmulai }}</b> &nbsp;s/d&nbsp; <b>{{ item.tanggalselesei }}</b></td>
-                                                <td @click.prevent="cetak(item.filename)">{{ item.keterangan }}</td>
+                                                <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.kategori }}</b></td>
+                                                <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.tanggalmulai }}</b> &nbsp;s/d&nbsp; <b>{{ item.tanggalselesei }}</b></td>
+                                                <td @click.prevent="cetak(item.id, item.filename)">{{ item.keterangan }}</td>
                                                 <td>
                                                     <BBadge v-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITERIMA'" variant="primary">DITERIMA</BBadge>
@@ -65,7 +91,7 @@
                                                 </td>
                                                 <td v-if="!loadingaksi[item.id] && item.status == 'PENDING'"><BButton pill size="sm" variant="danger" @click.prevent="deleteError(item.id)"><i-bi-trash-fill />  <b>DELETE</b></BButton></td>
                                                 <td v-else-if="loadingaksi[itemid]"><i-svg-spinners-blocks-wave /></td>
-                                                <td v-else>{{ item.alasan }}<br/>
+                                                <td v-else @click.prevent="cetak(item.id, item.filename)">{{ item.alasan }}<br/>
                                                     <span v-if="item.verifikator != 'PTSP Bot'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.verifikator }}	</i></span>
                                                 </td>
                                             </tr>
@@ -125,12 +151,20 @@ export default {
             text1: "Laporan Pengaduan",
             name: "/",
 			bulan: null,
+			columns: [
+				{ name: 'Nama', data: 'nama' },
+				{ name: 'Kategori', data: 'kategori' },
+				{ name: 'Tanggal', data: 'tanggal' },
+				{ name: 'Deskripsi', data: 'keterangan' },
+				{ name: 'Status', data: 'status' },
+				{ name: 'Opsi', data: 'opsi' },
+			],
 			columns2: [
 				{ name: 'Kategori', data: 'kategori' },
 				{ name: 'Tanggal', data: 'tanggal' },
 				{ name: 'Deskripsi', data: 'keterangan' },
 				{ name: 'Status', data: 'status' },
-				{ name: 'Keterangan', data: 'alasan' },
+				{ name: 'Opsi', data: 'opsi' },
 			],
 			kegiatan: [{
 				id: 'error0',
@@ -150,6 +184,7 @@ export default {
             detail: 1,
             status: null,
 			rekapstatus: 0,
+			xdate: null
         }
     },
     computed: {
@@ -189,6 +224,7 @@ export default {
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
 			this.bulan = date;
+			this.xdate = date;
 			this.rekapstatus = 0;
 			try{
 				const headers = {
@@ -223,6 +259,7 @@ export default {
 		async get2Error() {
 			this.rekapstatus = 1;
 			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.xdate = date
 			this.loading = true;
 			try{
 				const headers = {
@@ -319,11 +356,16 @@ export default {
 			});
 		},
 		filterTable() {
-			if (this.keyword === '' || this.keyword == null) {
+			if (this.keyword === '' || this.keyword === null) {
 				this.error = this.error0;
 			} else {
 				this.error = this.error0.filter((item) => {
-					return item.tanggal.toLowerCase().includes(this.keyword.toLowerCase());
+				return (
+					(item.tanggalmulai && item.tanggalmulai.toLowerCase().includes(this.keyword.toLowerCase())) ||
+					(item.nip && item.nip.toLowerCase().includes(this.keyword.toLowerCase())) ||
+					(item.deskripsi && item.deskripsi.toLowerCase().includes(this.keyword.toLowerCase())) ||
+					(item.nama && item.nama.toLowerCase().includes(this.keyword.toLowerCase()))
+				);
 				});
 			}
 		},
@@ -331,7 +373,7 @@ export default {
 			this.currentPage = pageNumber;
 		},
 
-        cetak(item){
+        cetak(id,item){
             let frame = null;
             let isPDF = item.toLowerCase().endsWith('.pdf');
             let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
@@ -339,36 +381,128 @@ export default {
             
             frame = '<iframe src="'+ item +'" width="100%" height="650"></iframe>'
             
-            if (window.innerWidth < 768) {
-                this.$swal.fire({
-                    width: "100%",
-                    html: frame,
-                    showCloseButton: true,
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'Tutup',
-                    confirmButtonText: "Download"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(item,'_blank');
-                    }
-                });
-            }else{
-                this.$swal.fire({
-                    width: "50%",
-                    html: frame,
-                    showCloseButton: true,
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'Tutup',
-                    confirmButtonText: "Download"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(item,'_blank');
-                    }
-                });
-            }
+            if(this.$route.params.id == 'admin'){
+				if (window.innerWidth < 768) {
+					this.$swal.fire({
+						width: "100%",
+						html: frame,
+						input: "textarea",
+						inputLabel: "Komentar",
+						inputPlaceholder: "Tulis Komentar Anda Disini...",
+						inputAttributes: {
+							"aria-label": "Tulis Komentar Anda Disini"
+						},
+						showCloseButton: true,
+						focusConfirm: false,
+						showDenyButton: true,
+						denyButtonText: 'TOLAK',
+						confirmButtonText: "SETUJU",
+						returnInputValueOnDeny: true
+					}).then((result) => {
+						if (result.isConfirmed) {
+							this.updateStatus(id,result.value,'DISETUJUI')
+						}
+						else if (result.isDenied) {
+							this.updateStatus(id,result.value,'DITOLAK')
+						};
+					});
+				}else{
+					this.$swal.fire({
+						width: "50%",
+						html: frame,
+						input: "textarea",
+						inputLabel: "Komentar",
+						inputPlaceholder: "Tulis Komentar Anda Disini...",
+						inputAttributes: {
+							"aria-label": "Tulis Komentar Anda Disini"
+						},
+						showCloseButton: true,
+						focusConfirm: false,
+						showDenyButton: true,
+						denyButtonText: 'TOLAK',
+						confirmButtonText: "SETUJU",
+						returnInputValueOnDeny: true
+					}).then((result) => {
+						if (result.isConfirmed) {
+							this.updateStatus(id,result.value,'DITERIMA')
+						}
+						else if (result.isDenied) {
+							this.updateStatus(id,result.value,'DITOLAK')
+						};
+					});
+				}
+			}else{
+				if (window.innerWidth < 768) {
+					this.$swal.fire({
+						width: "100%",
+						html: frame,
+						showCloseButton: true,
+						focusConfirm: false,
+						showCancelButton: true,
+						denyButtonText: 'Tutup',
+						confirmButtonText: "Download"
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.open(item,'_blank');
+						}
+					});
+				}else{
+					this.$swal.fire({
+						width: "50%",
+						html: frame,
+						showCloseButton: true,
+						focusConfirm: false,
+						showCancelButton: true,
+						cancelButtonText: 'Tutup',
+						confirmButtonText: "Download"
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.open(item,'_blank');
+						}
+					});
+				}
+			}
         },
+
+		async updateStatus(id,komen,st){
+			this.loadingaksi[id] = true
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+
+					console.log(komen)
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateCuti',{
+					id: id,
+					komen: komen,
+					status: st,
+					bulan: this.xdate
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+					this.error0 = response.data.data
+          			this.error = response.data.data	
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingaksi[id] = false
+			}
+		},
   }
 }
 </script>
