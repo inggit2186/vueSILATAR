@@ -54,7 +54,7 @@
                                                  	{{  item.bank }}
                                                 </td>
                                                 <td>
-													<BButton pill size="sm" variant="outline-primary"  @click.prevent="cekPresensi(item.id)"><b><i-game-icons-notebook /> Cek Presensi</b></BButton>
+													<BButton pill size="sm" variant="outline-primary"  @click.prevent="cekPresensi(item.nomor_induk)"><b><i-game-icons-notebook /> Cek Presensi</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -319,6 +319,9 @@ export default {
 			} finally {
 				this.loadingaksi[id] = false
 			}
+		},
+		cekPresensi(id) {
+			this.$router.push('/admin/rekappresensiasn/'+id);
 		},
   }
 }

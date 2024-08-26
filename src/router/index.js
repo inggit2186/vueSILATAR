@@ -456,7 +456,7 @@ const routes = [
           }
     },
     {
-        path: '/admin/asnlist',
+        path: '/:id/asnlist',
         name: 'List ASN Admin',
         component: adminasnList,
         meta: {
@@ -464,7 +464,7 @@ const routes = [
           }
     },
     {
-        path: '/:id/rekappresensiasn',
+        path: '/:id/rekappresensiasn/:xid',
         name: 'Rekap Presensi ASN',
         component: rekapPresensiASN,
         meta: {

@@ -22,6 +22,14 @@
 											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
 									</div>
 								</div>
+								<h4 v-if="loading" style="font-size: small;align-self: center;">
+									<br/>
+                                	<span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mengecek Data Pegawai...</b></span>
+                                </h4>
+								<h4 v-else style="font-size: small;align-self: center;">
+									<br/>
+									{{ userx.name }}  &nbsp;|&nbsp;  {{ this.$route.params.xid }}  &nbsp;|&nbsp;  {{ userx.satkerx }}
+								</h4>
 								<hr/>
                             <div class="card-body">
                                 <div class="listing-search">
@@ -137,6 +145,7 @@ export default {
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
+			userx: null,
 			presensi: [],
 			presensi0: [],
 			tanggal: [],
@@ -190,11 +199,12 @@ export default {
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
 					nav: this.$route.params.id,
-					bulan : this.bulan
+					bulan : this.bulan,
+					xid : this.$route.params.xid
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
+					this.userx = response.data.userx,
           			this.presensi0 = response.data.data
           			this.presensi = response.data.data
 				}else{
@@ -224,11 +234,12 @@ export default {
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
 					nav: this.$route.params.id,
-					bulan : date
+					bulan : this.bulan,
+					xid : this.$route.params.xid
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
+                    this.userx = response.data.userx,
           			this.presensi0 = response.data.data
           			this.presensi = response.data.data
 				}else{

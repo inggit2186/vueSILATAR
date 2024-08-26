@@ -5,17 +5,23 @@
                 <router-link v-if="sid == 'admin'" to="/admin/asnlist">
                     <i-heroicons-finger-print-16-solid /> <span>Rekap Presensi</span>
                 </router-link>
-                <router-link v-else to="rekappresensiasn">
+                <router-link v-else to="/personal/rekappresensiasn/my">
                     <i-heroicons-finger-print-16-solid /> <span>Rekap Presensi</span>
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Laporan Ketidakhadiran' }">
-                <router-link to="laporanketidakhadiran">
+                <router-link v-if="sid == 'admin'" to="/admin/laporanketidakhadiran">
+                    <i-mdi-plane-car /> <span>Laporan Ketidakhadiran</span>
+                </router-link>
+                <router-link v-else to="/personal/laporanketidakhadiran">
                     <i-mdi-plane-car /> <span>Laporan Ketidakhadiran</span>
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Laporan Pengaduan' }">
-                <router-link to="laporanpengaduan">
+                <router-link v-if="sid == 'admin'" to="/admin/laporanpengaduan">
+                    <i-fluent-notebook-error-20-filled /> <span>Laporan Pengaduan</span>
+                </router-link>
+                <router-link v-else to="/personal/laporanpengaduan">
                     <i-fluent-notebook-error-20-filled /> <span>Laporan Pengaduan</span>
                 </router-link>
             </li>
