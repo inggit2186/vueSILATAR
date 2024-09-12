@@ -1,5 +1,5 @@
 <template>
-    <div class="main-wrapper">
+    <<div class="main-wrapper">
         <layouts></layouts>
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
@@ -10,7 +10,6 @@
                     <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
-                <b-form @submit.prevent="addRequest">
                 <div v-if="loading" class="text-center">
                     <hr>
                     <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
@@ -80,20 +79,19 @@
 							</div>
 						</div>				
 				</div>
-                </b-form>
 			</div>
 		</div>
             <foot />
             <scroll />
         </div>
-     </div>
+     </div>>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            title: "Upload File Syarat",
+            title: "Detail Tamu",
             text: "Home",
             text1: "Detail Tamu",
             name: "/",

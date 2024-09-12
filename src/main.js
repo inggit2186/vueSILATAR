@@ -131,6 +131,7 @@ import slipGajix from './views/pages/profile/SlipGajix.vue'
 import rekapPresensiASN from './views/pages/profile/rekapPresensi.vue'
 import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
+import apkSilatar from './views/pages/profile/apkSilatar.vue';
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -332,6 +333,7 @@ app.component('SlipGajix',slipGajix)
 app.component('RekapPresensiASN',rekapPresensiASN)
 app.component('LaporanPengaduan',laporanPengaduan)
 app.component('LaporanKetidakhadiran',laporanKetidakhadiran)
+app.component('ApkSilatar',apkSilatar)
 
 //satudata
 app.component('SatuDataHome',SatudataHome)

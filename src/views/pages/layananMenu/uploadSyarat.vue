@@ -10,7 +10,7 @@
                     <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
-                <b-form @submit.prevent="addRequest">
+                <b-form>
                 <div v-if="loading" class="text-center">
                     <hr>
                     <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
@@ -449,9 +449,9 @@ export default {
                 this.fileSize = file.size
                 this.fileName = file.name
 
-                if(file.size > 1046000){
+                if(file.size > 5242880){
                     this.$toast.fire({
-                        title: "File Tidak Boleh lebih dari 1MB !",
+                        title: "File Tidak Boleh lebih dari 5MB !",
                         icon: "warning"
                     });
                 }else if(file.type != 'application/pdf'){

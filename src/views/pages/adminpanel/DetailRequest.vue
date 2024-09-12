@@ -10,7 +10,7 @@
                     <a class="btn btn-primary" href="#" @click="$router.go(-1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                 </div>
                 <hr/>
-                <b-form @submit.prevent="addRequest">
+                <b-form>
                 <div v-if="loading" class="text-center">
                     <hr>
                     <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>

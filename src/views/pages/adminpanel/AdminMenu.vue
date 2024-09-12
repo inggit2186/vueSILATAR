@@ -38,7 +38,7 @@
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/verif/ckh/getSeksi'>
+                            <router-link :to='tujuLayanan()'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">
@@ -176,6 +176,23 @@ export default {
         },
     },
     methods: {
+        tujuLayanan() {
+            const user = JSON.parse(localStorage.getItem('user'))
+            if(user.dept_id == 4 || user.dept_id == 102){
+                return "/verif/ckh/getSeksi";
+            }else if(user.dept_id == 8){
+                return "/verif/ckh/getKUA";
+            }else if(user.dept_id == 7){
+                return "/verif/ckh/getMIN";
+            }else if(user.dept_id == 5){
+                return "/ckh/ckh/999"
+            }else{
+                this.$toast.fire({
+						title: "Anda Tidak Memiliki Akses ke Bagian Ini!!",
+						icon: 'error',
+					})
+            }
+        },
         async getSubMenu() {
 			this.loading = true;
 			try{

@@ -31,6 +31,11 @@
                     <i-heroicons-finger-print-16-solid /> <span>Presensi</span>
                 </router-link>
             </li>
+            <li :class="{ active: $route.name === 'APK SILATAR' }">
+                <router-link to="apksilatar">
+                    <i-uil-android /> <span>SILATAR Android</span>
+                </router-link>
+            </li>
         <!--
             <li :class="{ active: $route.name === 'Bookmarks' }">
                 <router-link to="bookmarks">

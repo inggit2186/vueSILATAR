@@ -140,6 +140,7 @@ export default {
 			ptsp: [],
 			ptsp0: [],
             xid: null,
+			bulanx: null,
             sid: null
         }
     },
@@ -179,6 +180,7 @@ export default {
             this.xid = this.$route.params.xid
             this.sid = this.$route.params.id
 			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.bulanx = date
 			this.loading = true;
 			try{
 				const headers = {
@@ -212,6 +214,7 @@ export default {
 
 		async get2CKH() {
 			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.bulanx = date
             this.sid = this.$route.params.id
 			this.loading = true;
 			try{
@@ -346,7 +349,7 @@ export default {
 					id: id,
 					komen: komen,
 					status: st,
-                    xid: this.xid,
+                    xid: this.bulanx,
                     sid: this.sid
 				},{headers})
 				

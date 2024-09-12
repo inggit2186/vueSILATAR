@@ -12,8 +12,8 @@
                                 <div class="card-header">
                                     <h4>Daftar Request</h4>
 										<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-										<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-										<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
+										<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+										<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
                                 </div>
                             <div class="card-body">
                                 <div class="listing-search">
@@ -189,6 +189,7 @@ export default {
       		currentSortDir: 'asc',
 			loading: false,
 			loadingaksi: [],
+			loadingrekap: false,
 			itemsPerPage: 12,
         	currentPage: 1,
 			ptsp: [],
@@ -396,7 +397,135 @@ export default {
 			} finally {
 				this.loadingdel = false
 			}
-		}
+		},
+		rekapRequest(){
+			if(this.$route.params.id === '777'){
+				this.$swal.fire({
+						title: 'Setting?',
+						html:`<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="APPOINTMENT"> DIAJUKAN </option>
+										<option value="ON SITE"> DI LOKASI </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="DITERIMA"> DITERIMA </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="SUKSES"> SUKSES </option>
+										<option value="BATAL"> BATAL </option>
+										<option value="EXPIRED"> KADALUARSA </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>
+						`,
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Yes, Download!'
+						}).then((result) => {
+						if (result.isConfirmed) {
+							this.downloadRekap(document.getElementById("kategori").value,document.getElementById("status").value,document.getElementById("tgl_start").value,document.getElementById("tgl_end").value)
+						}
+				})
+			}else{
+				this.$toast.fire({
+						title: 'SEDANG DALAM PENGEMBANGAN !!',
+						icon: 'error',
+					})
+			}
+		},
+		async downloadRekap(kategori,status,start,end) {
+			this.loadingrekap = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/downloadRekapRequest',{
+					kategori: kategori,
+					status: status,
+					tgl_start: start,
+					tgl_end: end,
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+
+					let item = response.data.data;
+
+					let frame = null;
+					let isPDF = item.toLowerCase().endsWith('.pdf');
+					let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
+					
+					if(isWord){
+						frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+					}else{
+						frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+					}
+
+					if (window.innerWidth < 768) {
+						this.$swal.fire({
+							width: "100%",
+							allowOutsideClick: true,
+							html: frame,
+							showCloseButton: true,
+							focusConfirm: false,
+							showCancelButton: true,
+							cancelButtonText: 'Tutup',
+							confirmButtonText: "Download"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.open(item,'_blank');
+							}
+						});
+					}else{
+						this.$swal.fire({
+							width: "50%",
+							html: frame,
+							showCloseButton: true,
+							focusConfirm: false,
+							showCancelButton: true,
+							cancelButtonText: 'Tutup',
+							confirmButtonText: "Download"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.open(item,'_blank');
+							}
+						});
+					}
+				}else{
+					this.$toast.fire({
+						title: 'warning',
+						icon: 'error',
+					})
+					console.log(response.data.data)
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingrekap = false
+			}
+		},
   }
 }
 </script>

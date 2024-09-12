@@ -234,7 +234,7 @@ export default {
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
 					nav: this.$route.params.id,
-					bulan : this.bulan,
+					bulan : date,
 					xid : this.$route.params.xid
 				},{headers})
 				

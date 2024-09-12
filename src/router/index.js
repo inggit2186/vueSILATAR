@@ -49,6 +49,7 @@ import slipGajix from '../views/pages/profile/SlipGajix.vue'
 import rekapPresensiASN from '@/views/pages/profile/rekapPresensi.vue';
 import laporanPengaduan from '@/views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from '@/views/pages/profile/laporanKetidakhadiran.vue'
+import apkSilatar from '@/views/pages/profile/apkSilatar.vue';
 
 //satudata
 import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
@@ -662,8 +663,16 @@ const routes = [
     },
     {
         path: '/error500',
-        name: '404',
+        name: '500',
         component: Error500
+    },
+    {
+        path: '/apksilatar',
+        name: 'APK SILATAR',
+        component: apkSilatar,
+        meta: {
+            requiresAuth: true
+          }
     }
    
 

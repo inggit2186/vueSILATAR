@@ -190,8 +190,7 @@ export default {
 				date = today.getFullYear() + '-' + (today.getMonth()) + '-01';
 				xdate = {month: today.getMonth()-1, year: today.getFullYear()};
 			}
-			this.xbulan = xdate;
-			console.log(this.xbulan)
+			this.xbulan = xdate
 			this.loading = true;
 			try{
 				if(this.user.kat_jabatan == 'kepala'){
@@ -200,7 +199,7 @@ export default {
 							'Authorization': `Bearer ${localStorage.getItem('token')}`
 						};
 					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
-						xid: today.getMonth(),
+						xid: date,
 						id: this.user.dept_id,
 					},{headers})
 					
@@ -234,6 +233,13 @@ export default {
             this.xid = this.$route.params.xid
             this.sid = this.$route.params.id
 			this.loading = true;
+			let date = null;
+			let month = this.xbulan.month;
+			month += 1;
+			
+			
+			date = this.xbulan.year + '-' + month + '-01';
+			console.log(date)
 			try{
 				if(this.user.kat_jabatan == 'kepala'){
 					const headers = {
@@ -241,7 +247,7 @@ export default {
 							'Authorization': `Bearer ${localStorage.getItem('token')}`
 						};
 					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
-						xid: this.xbulan.month+1,
+						xid: date,
 						id: this.user.dept_id,
 					},{headers})
 					
