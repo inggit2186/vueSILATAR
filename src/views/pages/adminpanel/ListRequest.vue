@@ -440,11 +440,56 @@ export default {
 							this.downloadRekap(document.getElementById("kategori").value,document.getElementById("status").value,document.getElementById("tgl_start").value,document.getElementById("tgl_end").value)
 						}
 				})
-			}else{
+			}else if(this.$route.params.id === '888'){
 				this.$toast.fire({
 						title: 'SEDANG DALAM PENGEMBANGAN !!',
 						icon: 'error',
 					})
+			}else if(this.$route.params.id === '999'){
+				this.$toast.fire({
+						title: 'SEDANG DALAM PENGEMBANGAN !!',
+						icon: 'error',
+					})
+			}else{
+				this.$swal.fire({
+						title: 'Setting?',
+						html:`<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="satker"> SEKSI / SATKER </option>
+										<option value="personal">PRIBADI </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="UNCHECK"> DIAJUKAN </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="DITERIMA"> DITERIMA </option>
+										<option value="DIPROSES"> DIPROSES </option>
+										<option value="SUKSES"> SUKSES </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="BATAL"> BATAL </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>
+						`,
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Yes, Download!'
+						}).then((result) => {
+						if (result.isConfirmed) {
+							this.downloadRekap(document.getElementById("kategori"),document.getElementById("status").value,document.getElementById("tgl_start").value,document.getElementById("tgl_end").value)
+						}
+				})
 			}
 		},
 		async downloadRekap(kategori,status,start,end) {
@@ -455,6 +500,7 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/downloadRekapRequest',{
+					layanan: this.$route.params.id,
 					kategori: kategori,
 					status: status,
 					tgl_start: start,
@@ -511,10 +557,9 @@ export default {
 					}
 				}else{
 					this.$toast.fire({
-						title: 'warning',
+						title: response.data.message,
 						icon: 'error',
 					})
-					console.log(response.data.data)
 				}
 		
 			} catch (error) {
