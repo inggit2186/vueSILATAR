@@ -160,6 +160,7 @@ import satuData from './views/pages/layananMenu/satuData.vue'
 import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from './views/pages/layananMenu/peraturanSE.vue'
+import ruangKonsultasi from './views/pages/layananMenu/ruangKonsultasi.vue';
 
 //keuangan
 import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
@@ -363,6 +364,7 @@ app.component('SatuData',satuData)
 app.component('PengaduanMenu',pengaduanMenu)
 app.component('PersuratanMenu',persuratanMenu)
 app.component('PeraturanSE',peraturanSE)
+app.component('RuangKonsultasi',ruangKonsultasi)
 
 //Keuangan
 app.component('keuanganMenu', keuanganMenu)

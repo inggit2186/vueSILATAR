@@ -86,6 +86,7 @@ import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
 import pengaduanMenuVue from '@/views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
+import ruangKonsultasi from '@/views/pages/layananMenu/ruangKonsultasi.vue';
 
 //cPanel
 import adminasnList from '@/views/pages/adminpanel/asnList.vue'
@@ -547,7 +548,7 @@ const routes = [
           }
     },
     {
-        path: '/Appointment/:id',
+        path: '/:xid/:id',
         name: 'List Pegawai Kantor',
         component: listPetugas2Vue,
         meta: {
@@ -558,6 +559,14 @@ const routes = [
         path: '/Appointment/:xid/:id',
         name: 'Add Appointment',
         component: addAppointmentVue,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/Konsultasi/:xid/:id',
+        name: 'Ruang Konsultasi',
+        component: ruangKonsultasi,
         meta: {
             requiresAuth: true
           }

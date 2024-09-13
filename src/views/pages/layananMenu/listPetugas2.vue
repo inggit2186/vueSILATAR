@@ -143,10 +143,10 @@ export default {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
         addTamu() {
-        	return id => `/Appointment/asn/${id}`;
+        	return id => `/${this.$route.params.xid}/asn/${id}`;
     	},
         addTamuSatker() {
-            return id => `/Appointment/satker/${id}`;
+            return id => `/${this.$route.params.xid}/satker/${id}`;
         },
 	},
 	created() {

@@ -19,7 +19,18 @@
 									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 									<img :src="$assets+'/img/ikon/777.png'" style="width:80%;" alt="car1">
 									<h6>Konsultasi</h6>
-									<span>Layanan Konsultasi / Appointment Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
+									<span>Layanan Konsultasi Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
+									</a>								   
+								</div>
+								</router-link>
+							</div>
+							<div class="col-lg-3 col-md-3 centered">
+								<router-link :to="tujuAppointment()">
+									<div class="categories-content">
+									<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+									<img :src="$assets+'/img/ikon/777.png'" style="width:80%;" alt="car1">
+									<h6>Janji Temu</h6>
+									<span>Layanan Janji Temu/Appointment Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
 									</a>								   
 								</div>
 								</router-link>
@@ -133,6 +144,9 @@ export default {
         	return id => `/LayananDetail/Personal/${this.$route.params.id}/${id}`
     	},
 		tujuKonsultasi() {
+        	return id => `/Konsultasi/${this.$route.params.id}`
+    	},
+		tujuAppointment() {
         	return id => `/Appointment/${this.$route.params.id}`
     	},
 		tujuPersuratan() {
