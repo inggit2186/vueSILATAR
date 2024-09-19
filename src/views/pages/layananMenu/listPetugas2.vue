@@ -17,21 +17,18 @@
 				</div>
 		        <div class="row" :disabled="loading">
                     <div v-if="!loading" class="col-lg-3 col-md-4 centered">
-                        <router-link :to="addTamuSatker(satker.id)">
-                        <div class="categories-content">
+                        <div class="categories-content" @click.prevent="addTamu('satker',satker.id)">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="$assets+'/img/ikon/505.png'" style="width:50%;border-radius: 50%;" alt="car1">
                             <h6>Langsung ke Bagian Seksi</h6>
                             <h7><i-ic-baseline-badge /> {{ satker.nama ?? satker.instansi }}</h7>
-                            <span style="font-size:14px">Jika Anda ingin bertamu ke bagian Seksi / tanpa ke salah satu spesifik orang</span>
+                            <span style="font-size:14px">Jika Anda ingin bertamu/konsultasi ke bagian Seksi / tanpa ke salah satu spesifik orang</span>
                             </a>								   
                         </div>
-                        </router-link>
                     </div>
                     <hr/>
                     <div v-if="!loading && kepala != '<NoData>'" class="col-lg-3 col-md-4 centered">
-                        <router-link :to="addTamu(kepala.nipx)">
-                        <div class="categories-content">
+                        <div class="categories-content" @click.prevent="addTamu('asn',item.nomor_induk)">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="satker.kepalapp" style="width:50%;border-radius: 50%;" alt="car1">
                             <h6>{{ kepala.name }}</h6>
@@ -39,11 +36,9 @@
                             <span style="font-size:14px">{{ kepala.pekerjaan }}</span>
                             </a>								   
                         </div>
-                        </router-link>
                     </div>
                     <div v-if="!loading && kaur != '<NoData>'" class="col-lg-3 col-md-4 centered">
-                        <router-link :to="addTamu(kaur.nipx)">
-                        <div class="categories-content">
+                        <div class="categories-content" @click.prevent="addTamu('asn',item.nomor_induk)">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="satker.kaurpp" style="width:50%;border-radius: 50%;" alt="car1">
                             <h6>{{ kaur.name }}</h6>
@@ -51,7 +46,6 @@
                             <span style="font-size:14px">{{ kaur.pekerjaan }}</span>
                             </a>								   
                         </div>
-                        </router-link>
                     </div>
 					<div v-if="loading" class="text-center">
 						<hr>
@@ -62,8 +56,7 @@
 						<hr>
 					</div>
 					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
-                        <router-link :to="addTamu(item.nomor_induk)">
-                        <div class="categories-content">
+                        <div class="categories-content" @click.prevent="addTamu('asn',item.nomor_induk)">
                             <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                             <img :src="item.pp" style="width:50%;border-radius: 50%;" alt="car1">
                             <h6>{{ item.name }}</h6>
@@ -71,7 +64,6 @@
                             <span>{{ item.pekerjaan }}</span>
                             </a>								   
                         </div>
-                        </router-link>
 					</div>
 
 				   <!--Pagination--> 
@@ -142,9 +134,6 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
-        addTamu() {
-        	return id => `/${this.$route.params.xid}/asn/${id}`;
-    	},
         addTamuSatker() {
             return id => `/${this.$route.params.xid}/satker/${id}`;
         },
@@ -158,6 +147,56 @@ export default {
 		});
 	},
 	methods: {
+		addTamu(cat,itemid) {
+			if(this.$route.params.xid == 'Konsultasi'){
+        		this.$swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Anda merequest Konsultasi dengan Staff!!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Ya, Lanjutkan!",
+                allowOutsideClick: true,
+				preConfirm: async (konsultasi) => {
+                    try {
+                        const dept = this.$route.params.id
+                        const headers = {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                    };
+                        
+                        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKonsul',{
+                            dept: dept,
+                            id: itemid,
+                        }, {headers})
+
+                        if(response.data.success == true){
+                            return response.data.noreq
+                        }
+                    } catch (error) {
+                    this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$toast.fire({
+                            title: 'Silahkan Chat Kami Disini !!!',
+                            icon: "success"
+                        });
+                        this.$router.push(`/${this.$route.params.xid}/${cat}/${result.value}`)
+                    }else{
+                        return null;
+                    }
+            });
+			}else{
+				this.$router.push(`/${this.$route.params.xid}/${cat}/${itemid}`)
+			}
+    	},
 		async getLayanan() {
 			this.loading = true;
 			try{

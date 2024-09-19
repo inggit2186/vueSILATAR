@@ -7,6 +7,7 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
+						<konsultasiMenu v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu'" @menu-changed="getPTSP" />
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
                                 <div class="card-header">
@@ -34,7 +35,7 @@
                                         <hr>
                                     </div>
                                     <table v-else class="table table-hover centered">
-										<thead v-if="this.$route.params.id == '777'">
+										<thead v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu'">
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
                                                     {{ column.name }}
@@ -48,7 +49,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-										<tbody v-if="this.$route.params.id == '777'">
+										<tbody v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu' ">
 											<tr v-if="this.ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
@@ -76,11 +77,11 @@
                                                     <BBadge v-else-if="item.status == 'EXPIRED'" variant="dark">KADALUARSA</BBadge>
                                                     <br/>
                                                     <span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
-													<span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i-mdi-person-tie /><i> &nbsp;{{ item.onstaff }}	</i></span><br/>
-													<span v-if="item.komen != null" style="font-size: smaller;"><i-gridicons-chat /><i> &nbsp;{{ item.komen }}	</i></span>
+													<span v-if="item.onstaff != 'PTSP Bot' && item.n > 1" style="font-size: smaller;"><i-mdi-person-tie /><i> &nbsp;{{ item.onstaff }}	</i></span><br/>
+													<span v-if="item.komen != null  && item.n > 1" style="font-size: smaller;"><i-gridicons-chat /><i> &nbsp;{{ item.komen }}	</i></span>
                                                 </td>
                                                 <td>
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.tipe,item.noreq)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
@@ -162,6 +163,8 @@
 </template>
 
 <script>
+import KonsultasiMenu from '@/components/konsultasiMenu.vue';
+
 export default {
     data() {
         return {
@@ -229,9 +232,15 @@ export default {
 		this.getPTSP(),
 		window.scrollTo(0,0)
 	},
+	watch: {
+		'$route.params.id': function(newId, oldId) {
+			this.getPTSP();
+		}
+	},
   methods: {
 		async getPTSP() {
             const id = this.$route.params.id;
+			console.log(id)
 			this.loading = true;
 			const today = new Date();
 			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
@@ -309,8 +318,12 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-		aksiTamu(id) {
-			this.$router.push('/detailtamu/'+id);
+		aksiTamu(tipe,id) {
+			if(this.$route.params.id == '777'){
+				this.$router.push('/Konsultasi/'+tipe+'/'+id);
+			}else{
+				this.$router.push('/detailtamu/'+id);
+			}
 		},
 		async updateTamu(id,komen,st){
 			this.loadingaksi[id] = true
@@ -399,10 +412,31 @@ export default {
 			}
 		},
 		rekapRequest(){
+			let option = null;
 			if(this.$route.params.id === '777'){
-				this.$swal.fire({
-						title: 'Setting?',
-						html:`<table>
+				option = `<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="AKTIF"> AKTIF </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>`
+			}else if(this.$route.params.id === 'janjitemu'){
+				option = `<table>
 							<tr>
 								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
 										<option value="personal"> PRIBADI </option>
@@ -428,8 +462,13 @@ export default {
 							<tr>
 								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
 							</tr>
-							</table>
-						`,
+							</table>`
+			}
+
+			if(this.$route.params.id === '777'){
+				this.$swal.fire({
+						title: 'Setting?',
+						html: option,
 						icon: 'warning',
 						showCancelButton: true,
 						confirmButtonColor: '#3085d6',

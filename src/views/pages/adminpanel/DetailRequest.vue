@@ -902,6 +902,34 @@ export default {
 			}
         },
         async updatePTSP(st) {
+            if(st == 'tolak' || st == 'batal' || st == 'sukses'){
+                this.$swal.fire({
+                width: "50%",
+				input: "textarea",
+				inputLabel: "Alasan/Komentar",
+				inputPlaceholder: "Tulis Alasan/Komentar Anda Disini...",
+				inputAttributes: {
+					"aria-label": "Tulis Alasan/Komentar Anda Disini..."
+				},
+				showConfirmButton: true,
+				showDenyButton: true,
+                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;KIRIM`,
+				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;CANCEL`,
+				returnInputValueOnDeny: true
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						this.updateStatus2(st,result.value,'Gagal')
+					}
+                    else if (result.isDenied) {
+						return null;
+					};
+				});
+            }else{
+                this.updateStatus2(st,'Berhasil','Lanjut')
+            }
+        },
+        async updateStatus2(st,alasan,icon) {
             try{
 				this.loadingRequest = true
 
@@ -918,7 +946,8 @@ export default {
                     nosurathasil: this.hasil.no_surat,
                     perihal: this.hasil.perihal,
                     baseurl: window.location.origin,
-                    keteranganhasil: this.hasil.keterangan 
+                    keteranganhasil: this.hasil.keterangan,
+                    komen: alasan
 				}, {headers})
 
                 if(response.data.success == true){

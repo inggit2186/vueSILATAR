@@ -64,7 +64,7 @@
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/777.png'" style="width:100%;" alt="car1">
-                                <h6>Konsultasi</h6>
+                                <h6>Konsultasi & Appointment</h6>
                                 <span>Layanan Konsultasi / Appointment Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
                                 </a>								   
                             </div>

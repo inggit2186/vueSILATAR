@@ -32,6 +32,7 @@ import userMenu from './components/userMenu.vue'
 import menuPresensi from './components/presensiMenu.vue';
 import kinerjaMenu from './components/kinerjaMenu.vue'
 import gajiMenu from './components/gajiMenu.vue'
+import konsultasiMenu from './components/konsultasiMenu.vue'
 
 // Page Components
 import Header from './views/layouts/header.vue'
@@ -237,6 +238,7 @@ app.component('UserMenu',userMenu)
 app.component('MenuPresensi',menuPresensi)
 app.component('KinerjaMenu',kinerjaMenu)
 app.component('gajiMenu',gajiMenu)
+app.component('konsultasiMenu',konsultasiMenu)
 
 app.component('Indexcategory',IndexCategory)
 app.component('Indexexplore',IndexExplore)
