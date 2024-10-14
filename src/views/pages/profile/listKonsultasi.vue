@@ -7,40 +7,20 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
-						<userMenu />
-                        <MenuPresensi />
-                        <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
-                            <div ref="scroll1st" class="dash-cards card">
-                                <div class="d-none d-sm-block">
-									<div class="card-header">
-										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-									</div>
-								</div>
-								<div class="d-block d-sm-none">
-									<div>
-										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-									</div>
-								</div>
-								<h4 v-if="loading" style="font-size: small;align-self: center;">
-									<br/>
-                                	<span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mengecek Data Pegawai...</b></span>
-                                </h4>
-								<h4 v-else style="font-size: small;align-self: center;">
-									<br/>
-									{{ userx.name }}  &nbsp;|&nbsp;  {{ this.$route.params.xid }}  &nbsp;|&nbsp;  {{ userx.satkerx }}
-								</h4>
-								<hr/>
+                        <userMenu />
+						<userlayananMenu />
+                        <div class="dash-listingcontent dashboard-info">
+                            <div class="dash-cards card">
+                                <div class="card-header">
+                                    <h4>Daftar Request</h4>
+                                    <!-- <router-link class="nav-link header-login add-listing" to="/add-listing"><i
+                                            class="fa-solid fa-plus"></i> Add Listing</router-link> -->
+                                </div>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
-										<div class="group-img d-none d-sm-block">
+                                        <div class="group-img">
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
-                                            <i class="feather-search"></i>
-                                        </div>
-										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -54,21 +34,47 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody v-if="loading">
+										<tbody v-if="loading">
                                             <tr>
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.presensi.length == 0">
+											<tr v-if="this.ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
-                                                <td><a href="#">{{ item.tanggal }} </a></td>
-                                                <td><b>{{ item.mAbsen }}</b></td>
-                                                <td><b>{{ item.pAbsen }}</b></td>
-                                                <td><b>{{ item.status }}</b></td>
-                                                <td>{{ item.keterangan }}</td>
+											<tr v-else v-for="item in paginatedItem" :key="item.id">
+                                                <td><a href="#">{{ item.tanggal }} </a><br/><b>{{ item.jam }}</b></td>
+                                                <td>
+                                                    {{ item.nama }}<br/>
+                                                    <span style="font-size: smaller;"><i-gg-phone />+62 {{ item.kontak }}	</span>
+                                                </td>
+                                                <td>
+                                                    {{ item.tujuan }}<br/>
+                                                </td>
+												<td>
+                                                    <BBadge v-if="item.tipe == 'asn'" pill variant="primary" style="font-size: small;"> {{ item.staff }} </BBadge>
+                                                    <BBadge pill v-else variant="secondary" style="font-size: small;"> {{ item.staff }} </BBadge>
+                                                </td>
+                                                <td>
+                                                    <BBadge v-if="item.status == 'APPOINTMENT'" variant="light">DIAJUKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'ON SITE'" variant="info">DI LOKASI</BBadge>
+                                                    <BBadge v-else-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'AKTIF'" variant="primary">AKTIF</BBadge>
+                                                    <BBadge v-else-if="item.status == 'SUKSES'" variant="primary">SUKSES</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
+                                                    <BBadge v-else-if="item.status == 'BATAL'" variant="danger">DIBATALKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'EXPIRED'" variant="dark">KADALUARSA</BBadge>
+                                                    <br/>
+                                                    <span v-if="item.onstaff != 'PTSP Bot'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
+													<span v-if="item.onstaff != 'PTSP Bot' && item.n > 1" style="font-size: smaller;"><i-mdi-person-tie /><i> &nbsp;{{ item.onstaff }}	</i></span><br/>
+													<span v-if="item.komen != null  && item.n > 1" style="font-size: smaller;"><i-gridicons-chat /><i> &nbsp;{{ item.komen }}	</i></span>
+                                                </td>
+                                                <td>
+                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.tipe,item.noreq)"><b><i-mdi-call-to-action /> DETAIL</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                </td>
                                             </tr>
 										</tbody>
                                     </table>
@@ -116,43 +122,32 @@
 </template>
 
 <script>
-import PresensiMenu from '@/components/presensiMenu.vue';
+import LayananMenu from '../layananMenu/layananMenu.vue';
 
 export default {
     data() {
         return {
-            title: "Rekap Presensi",
+            title: "Daftar Konsultasi",
             text: "User",
-            text1: "Rekap Presensi",
+            text1: "Daftar Konsultasi",
             name: "/",
-			bulan: null,
 			columns2: [
-				{ name: 'Tanggal', data: 'tanggal' },
-				{ name: 'Masuk', data: 'masuk' },
-				{ name: 'Pulang', data: 'pulang' },
+                { name: 'Tanggal', data: 'waktu' },
+				{ name: 'Tamu', data: 'nama' },
+				{ name: 'Deskripsi', data: 'tujuan' },
+				{ name: 'Tujuan', data: 'name' },
 				{ name: 'Status', data: 'status' },
-				{ name: 'Keterangan', data: 'keterangan' },
+				{ name: 'Action', data: 'action' },
 			],
-			kegiatan: [{
-				id: 'presensi0',
-				kegiatan: '',
-			}],
-			counter:0,
 			keyword: '',
 			currentSort: '',
       		currentSortDir: 'asc',
 			loading: false,
-			loadingrekap: false,
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
-			userx: null,
-			presensi: [],
-			presensi0: [],
-			tanggal: [],
-            detail: 1,
-            status: null,
-			rekapstatus: 0,
+			ptsp: [],
+			ptsp0: [],
         }
     },
     computed: {
@@ -160,7 +155,7 @@ export default {
 			return this.columns
 		},
 		sortedData() {
-			return this.presensi.sort((a, b) => {
+			return this.ptsp.sort((a, b) => {
 				let modifier = 1;
 				if(this.currentSortDir === 'desc') modifier = -1;
 				if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -171,7 +166,7 @@ export default {
     	paginatedItem() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
 			const end = start + this.itemsPerPage;
-			return this.presensi.slice(start, end);
+			return this.ptsp.slice(start, end);
 		},
 		displayedPages() {
 			const start = Math.max(this.currentPage - 1, 1);
@@ -179,70 +174,26 @@ export default {
 			return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 		},
 		totalPages() {
-            return Math.ceil(this.presensi.length / this.itemsPerPage);
+            return Math.ceil(this.ptsp.length / this.itemsPerPage);
         },
 	},
   created() {
-		this.getPresensi(),
+		this.getPTSP(),
 		window.scrollTo(0,0)
 	},
   methods: {
-		async getPresensi() {
-			this.loading = true;
-			const today = new Date();
-			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
-			this.bulan = date;
-			this.rekapstatus = 0;
-			try{
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
-					nav: this.$route.params.id,
-					bulan : this.bulan,
-					xid : this.$route.params.xid
-				},{headers})
-				
-				if(response.data.success == true){
-					this.userx = response.data.userx,
-          			this.presensi0 = response.data.data
-          			this.presensi = response.data.data
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
-				}
-		
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loading = false
-			}
-		},
-		async get2Presensi() {
-			this.rekapstatus = 1;
-			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+		async getPTSP() {
 			this.loading = true;
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myPresensi',{
-					nav: this.$route.params.id,
-					bulan : date,
-					xid : this.$route.params.xid
-				},{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myKonsultasi',{headers})
 				
 				if(response.data.success == true){
-                    this.userx = response.data.userx,
-          			this.presensi0 = response.data.data
-          			this.presensi = response.data.data
+          			this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -267,7 +218,7 @@ export default {
 				this.currentSortDir = 'asc';
 			}
 
-			this.presensi.sort((a, b) => {
+			this.ptsp.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
@@ -277,15 +228,60 @@ export default {
 		},
 		filterTable() {
 			if (this.keyword === '' || this.keyword == null) {
-				this.presensi = this.presensi0;
+				this.ptsp = this.ptsp0;
 			} else {
-				this.presensi = this.presensi0.filter((item) => {
-					return item.tanggal.toLowerCase().includes(this.keyword.toLowerCase());
+				this.ptsp = this.ptsp0.filter((item) => {
+					return item.tujuan.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.staff.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.jam.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.onstaff.toLowerCase().includes(this.keyword.toLowerCase());
 				});
 			}
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+		aksiTamu(tipe,id) {
+			this.$router.push('/Konsultasi/'+tipe+'/'+id);
+		},
+		async updateTamu(id,komen,st){
+			this.loadingaksi[id] = true
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateTamu',{
+					id: id,
+                    sender: 'user',
+					komen: komen,
+					status: st,
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+					this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data	
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingaksi[id] = false
+			}
 		},
   }
 }

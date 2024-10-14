@@ -2,37 +2,32 @@
     <div class="">
         <ul class="dashborad-menus">
             <li :class="{ active: $route.name === 'Dashboard' }">
-                <router-link to="dashboard">
+                <router-link to="/dashboard">
                     <i class="feather-grid"></i> <span>Dashboard</span>
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'Profile' }">
-                <router-link to="profile">
+                <router-link to="/profile">
                     <i class="fa-solid fa-user"></i> <span>Profile</span>
                 </router-link>
             </li>
             <li class="d-block d-sm-none">
-                <router-link to="userdata">
+                <router-link to="/userdata">
                     <i-fluent-folder-16-filled /> <span>Personal File</span>
                 </router-link>
             </li>
-            <li :class="{ active: $route.name === 'My Listing' }">
-                <router-link to="my-listing">
+            <li :class="{ active: $route.name === 'My Listing' || $route.name === 'My Konsultasi' || $route.name === 'User Appointment'}">
+                <router-link to="/my-listing">
                     <i class="feather-list"></i> <span>Layanan</span>
                 </router-link>
             </li>
-            <li :class="{ active: $route.name === 'User Appointment' }">
-                <router-link to="user-appointment">
-                    <i-icon-park-solid-appointment /> <span>Appointment</span>
-                </router-link>
-            </li>
-            <li :class="{ active: $route.name === 'Rekap Presensi ASN' }">
-                <router-link to="personal/rekappresensiasn">
+            <li :class="{ active: $route.name === 'Rekap Presensi ASN' || $route.name === 'Laporan Pengaduan' || $route.name === 'Laporan Ketidakhadiran'}">
+                <router-link to="/personal/rekappresensiasn/Personal">
                     <i-heroicons-finger-print-16-solid /> <span>Presensi</span>
                 </router-link>
             </li>
             <li :class="{ active: $route.name === 'APK SILATAR' }">
-                <router-link to="apksilatar">
+                <router-link to="/apksilatar">
                     <i-uil-android /> <span>SILATAR Android</span>
                 </router-link>
             </li>

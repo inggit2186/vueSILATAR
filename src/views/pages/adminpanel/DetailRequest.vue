@@ -60,6 +60,11 @@
                                         <td> : </td>
                                         <td>{{ request.deskripsi }}</td>
                                     </tr>
+                                    <tr v-if="request.komentar == NULL || request.komentar == '<No Komen>'">
+                                        <td>Keterangan</td>
+                                        <td> : </td>
+                                        <td>{{ request.komentar }}</td>
+                                    </tr>
                                 </table>
                                 <hr/>
                                 <div v-if="request.alur == '2'" class="step2 d-none d-md-block">

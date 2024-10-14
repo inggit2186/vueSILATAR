@@ -71,6 +71,7 @@
                                                     <BBadge v-else-if="item.status == 'ON SITE'" variant="info">DI LOKASI</BBadge>
                                                     <BBadge v-else-if="item.status == 'PENDING'" variant="warning">PENDING</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'AKTIF'" variant="primary">AKTIF</BBadge>
                                                     <BBadge v-else-if="item.status == 'SUKSES'" variant="primary">SUKSES</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
                                                     <BBadge v-else-if="item.status == 'BATAL'" variant="danger">DIBATALKAN</BBadge>

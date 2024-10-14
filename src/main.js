@@ -32,6 +32,7 @@ import userMenu from './components/userMenu.vue'
 import menuPresensi from './components/presensiMenu.vue';
 import kinerjaMenu from './components/kinerjaMenu.vue'
 import gajiMenu from './components/gajiMenu.vue'
+import userlayananMenu from './components/userlayananMenu.vue'
 import konsultasiMenu from './components/konsultasiMenu.vue'
 
 // Page Components
@@ -133,6 +134,7 @@ import rekapPresensiASN from './views/pages/profile/rekapPresensi.vue'
 import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
 import apkSilatar from './views/pages/profile/apkSilatar.vue';
+import listKonsultasi from './views/pages/profile/listKonsultasi.vue';
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -238,6 +240,7 @@ app.component('UserMenu',userMenu)
 app.component('MenuPresensi',menuPresensi)
 app.component('KinerjaMenu',kinerjaMenu)
 app.component('gajiMenu',gajiMenu)
+app.component('userlayananMenu',userlayananMenu)
 app.component('konsultasiMenu',konsultasiMenu)
 
 app.component('Indexcategory',IndexCategory)
@@ -337,6 +340,7 @@ app.component('RekapPresensiASN',rekapPresensiASN)
 app.component('LaporanPengaduan',laporanPengaduan)
 app.component('LaporanKetidakhadiran',laporanKetidakhadiran)
 app.component('ApkSilatar',apkSilatar)
+app.component('listKonsultasi',listKonsultasi)
 
 //satudata
 app.component('SatuDataHome',SatudataHome)

@@ -108,8 +108,7 @@
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profil</router-link>
                     <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; Layanan</router-link>
-                    <router-link class="dropdown-item" to="/user-appointment"><i-icon-park-solid-appointment />&nbsp; Appointment</router-link>
-                    <router-link class="dropdown-item" to="/personal/rekappresensiasn/personal"><i-heroicons-finger-print-16-solid />&nbsp; Laporan Presensi</router-link>
+                    <router-link class="dropdown-item" to="/personal/rekappresensiasn/Personal"><i-heroicons-finger-print-16-solid />&nbsp; Laporan Presensi</router-link>
                     <router-link class="dropdown-item" to="/kinerja-harian"><i-mdi-worker />&nbsp; Laporan Kinerja</router-link>
                     <router-link class="dropdown-item" to="/apksilatar"><i-uil-android />&nbsp; SILATAR Android</router-link>
                     <b-button class="dropdown-item" @click="logout()">

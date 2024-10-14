@@ -7,6 +7,7 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
+						<userMenu />
                         <MenuPresensi />
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">

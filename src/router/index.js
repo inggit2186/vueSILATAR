@@ -50,6 +50,7 @@ import rekapPresensiASN from '@/views/pages/profile/rekapPresensi.vue';
 import laporanPengaduan from '@/views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from '@/views/pages/profile/laporanKetidakhadiran.vue'
 import apkSilatar from '@/views/pages/profile/apkSilatar.vue';
+import listKonsultasi from '@/views/pages/profile/listKonsultasi.vue';
 
 //satudata
 import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
@@ -395,6 +396,14 @@ const routes = [
         path: '/my-listing',
         name: 'My Listing',
         component: MyListing,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/my-konsultasi',
+        name: 'My Konsultasi',
+        component: listKonsultasi,
         meta: {
             requiresAuth: true
           }

@@ -168,6 +168,7 @@ export default {
                                     };
                         
                         const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKonsul',{
+                            tipe: cat,
                             dept: dept,
                             id: itemid,
                         }, {headers})

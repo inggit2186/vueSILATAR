@@ -83,6 +83,11 @@
                                         <td> : </td>
                                         <td>{{ request.deskripsi }}</td>
                                     </tr>
+                                    <tr v-if="request.komentar == NULL || request.komentar == '<No Komen>'">
+                                        <td>Keterangan</td>
+                                        <td> : </td>
+                                        <td>{{ request.komentar }}</td>
+                                    </tr>
                                 </table>
                                 <br/>
                                 <div v-if="request.status == 'DRAFT'"></div>
@@ -548,33 +553,48 @@ export default {
 				this.loadingRequest = true
 
                 const noreq = this.$route.params.id
-				
-                
+				var statuskirim = 1;
+
                 const headers = {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
                 
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
-                    statusx: 'new',
-					noreq: noreq,
-                    formx: this.input,
-                    baseurl: window.location.origin,
-				}, {headers})
+                this.syarat.forEach((item) => {
+                    if(item.wajib == 1 && item.filename == 'NONE'){
+                            statuskirim = 2;
+                    } // You can access each item in the syarat array here
+                });
                 
-                if(response.data.success == true){
-                    this.$toast.fire({
-                        title: response.data.message,
-                        icon: 'success',
-                    })
-                    this.$router.push('/my-listing')  
+                if(statuskirim == 1){
+                    const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updateRequest',{
+                        statusx: 'new',
+                        noreq: noreq,
+                        formx: this.input,
+                        baseurl: window.location.origin,
+                    }, {headers})
+                    
+                    if(response.data.success == true){
+                        this.$toast.fire({
+                            title: response.data.message,
+                            icon: 'success',
+                        })
+                        this.$router.push('/my-listing')  
+                    }else{
+                        this.$toast.fire({
+                            title: response.data.message,
+                            icon: 'error',
+                        })
+                    }
                 }else{
-                    this.$toast.fire({
-                        title: response.data.message,
-                        icon: 'error',
+                    this.$swal.fire({
+                            title: 'Lengkapi Dulu!',
+                            html: 'Mohon isi/upload semua File/Syarat yang wajib<hr/><i style="font-size: 15px"><b>Syarat/File yang wajib bertanda <span style="color: red;">bintang(*)</span> disebelah nama syarat/file</b></i>',
+                            icon: 'warning',
+                            showCancelButton: false,
                     })
                 }
-                
+
 			} catch (error) {
 				this.$toast.fire({
 					title: error,

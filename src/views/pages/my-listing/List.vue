@@ -19,9 +19,9 @@ export default {
     data() {
         return {
           
-            title: "My Listing",
+            title: "Daftar Request",
             text: "Home",
-            text1: "My Listing",
+            text1: "Daftar Request",
             name: "/",
         }
     },

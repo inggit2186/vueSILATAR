@@ -7,6 +7,7 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
+						<userMenu />
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
                                 <div class="card-header">
@@ -244,8 +245,9 @@ export default {
           			this.ptsp0 = response.data.data
           			this.ptsp = response.data.data
 
-                      this.$toast.fire({
+                      this.$swal.fire({
 						title: "APK Berhasil Dikirim",
+						html: response.data.message,
 						icon: 'success',
 					})
 				}else{
