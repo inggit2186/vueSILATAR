@@ -83,7 +83,8 @@
                                         <td> : </td>
                                         <td>{{ request.deskripsi }}</td>
                                     </tr>
-                                    <tr v-if="request.komentar == NULL || request.komentar == '<No Komen>'">
+                                    <br/>
+                                    <tr v-if="request.komentar != NULL && request.komentar != '<No Komen>'">
                                         <td>Keterangan</td>
                                         <td> : </td>
                                         <td>{{ request.komentar }}</td>
@@ -429,6 +430,7 @@ export default {
                     this.input = response.data.input
                     this.komen = response.data.komen
                     this.hasil = response.data.hasil
+                    console.log(this.request)
                 }else{
                     this.datax = true,
                     this.$toast.fire({

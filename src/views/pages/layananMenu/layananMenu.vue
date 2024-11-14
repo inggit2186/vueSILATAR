@@ -84,6 +84,9 @@ export default {
         },
         routeAppoint() {
             return id => `/Appointment/${this.navid}`
+        },
+        routeLaporan() {
+            return id => `/laporan/KUA`
         }
 	},
     created() {

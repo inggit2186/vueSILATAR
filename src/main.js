@@ -34,6 +34,7 @@ import kinerjaMenu from './components/kinerjaMenu.vue'
 import gajiMenu from './components/gajiMenu.vue'
 import userlayananMenu from './components/userlayananMenu.vue'
 import konsultasiMenu from './components/konsultasiMenu.vue'
+import asnMenu from './components/asnMenu.vue';
 
 // Page Components
 import Header from './views/layouts/header.vue'
@@ -164,6 +165,8 @@ import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from './views/pages/layananMenu/peraturanSE.vue'
 import ruangKonsultasi from './views/pages/layananMenu/ruangKonsultasi.vue';
+import uploadLaporan from './views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
+import uploadPemberkasan from './views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
 
 //keuangan
 import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
@@ -190,6 +193,7 @@ import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from './views/pages/adminpanel/allRekapKinerja.vue'
 import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
 import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
+import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -242,6 +246,7 @@ app.component('KinerjaMenu',kinerjaMenu)
 app.component('gajiMenu',gajiMenu)
 app.component('userlayananMenu',userlayananMenu)
 app.component('konsultasiMenu',konsultasiMenu)
+app.component('asnMenu',asnMenu)
 
 app.component('Indexcategory',IndexCategory)
 app.component('Indexexplore',IndexExplore)
@@ -371,6 +376,8 @@ app.component('PengaduanMenu',pengaduanMenu)
 app.component('PersuratanMenu',persuratanMenu)
 app.component('PeraturanSE',peraturanSE)
 app.component('RuangKonsultasi',ruangKonsultasi)
+app.component('UploadLaporan',uploadLaporan)
+app.component('UploadPemberkasan',uploadPemberkasan)
 
 //Keuangan
 app.component('keuanganMenu', keuanganMenu)
@@ -397,6 +404,7 @@ app.component('RekapKinerja',rekapKinerja)
 app.component('AllRekapKinerja',allRekapKinerja)
 app.component('SlipGaji',slipGaji)
 app.component('SlipTukin',slipTukin)
+app.component('RekapLaporan',rekapLaporan)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

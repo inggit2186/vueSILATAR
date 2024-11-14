@@ -15,7 +15,7 @@
 							<hr>
 						</div>
                         <div v-else v-for="item in submenu" :key="item.id" class="col-lg-4 col-md-4 centered">
-                            <router-link :to='"/listreq/"+item.id'>
+                            <router-link :to="adminLayanan(item.id)">
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/'+item.id+'.png'" style="width:100%;" alt="car1" @error="handleBrokenImage(item)">
@@ -191,6 +191,15 @@ export default {
 						title: "Anda Tidak Memiliki Akses ke Bagian Ini!!",
 						icon: 'error',
 					})
+            }
+        },
+        adminLayanan(id) {
+            if(id == 1077){
+                return "/rekaplaporan/KUA/all";
+            }else if(id == 1080){
+                return "/rekaplaporan/Penyuluh/pns";
+            }else{
+                return `/listreq/${id}`
             }
         },
         async getSubMenu() {

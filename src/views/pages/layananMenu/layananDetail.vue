@@ -146,11 +146,6 @@ export default {
             syarat: []
         }
     },
-    computed: {
-		addRequest() {
-        	return id => `/request/${this.$route.params.cid}/${this.$route.params.xid}/${this.navid}`
-    	},
-	},
     created() {
         this.navid = this.$route.params.id,
         this.getLayananDetail(),
@@ -158,6 +153,13 @@ export default {
         window.scrollTo(0,0)
     },
     methods: {
+		addRequest() {
+			if(this.navid == 1038){
+        		return "/laporan/pais/TPG/Bulanan/";
+			}else{
+				return `/request/${this.$route.params.cid}/${this.$route.params.xid}/${this.navid}`
+			}
+		},
 		async getLayananDetail() {
 			this.loading = true;
 			try{

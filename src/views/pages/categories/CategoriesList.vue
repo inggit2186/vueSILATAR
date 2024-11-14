@@ -140,9 +140,6 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
-		tujuLayanan() {
-        	return id => `/LayananDetail/Personal/${this.$route.params.id}/${id}`
-    	},
 		tujuKonsultasi() {
         	return id => `/Konsultasi/${this.$route.params.id}`
     	},
@@ -193,6 +190,15 @@ export default {
 				this.loading = false
 			}
 		},
+		tujuLayanan(id) {
+            if(id == 1077){
+                return "/laporan/bimas/Laporan/KUA";
+            }else if(id == 1080){
+                return "/laporan/bimas/Laporan/Penyuluh";
+            }else {
+				return `/LayananDetail/Personal/${this.$route.params.id}/${id}`
+            }
+        },
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},

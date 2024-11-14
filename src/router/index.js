@@ -88,6 +88,8 @@ import pengaduanMenuVue from '@/views/pages/layananMenu/pengaduanMenu.vue'
 import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
 import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
 import ruangKonsultasi from '@/views/pages/layananMenu/ruangKonsultasi.vue';
+import uploadLaporan from '@/views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
+import uploadPemberkasan from '@/views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
 
 //cPanel
 import adminasnList from '@/views/pages/adminpanel/asnList.vue'
@@ -101,6 +103,7 @@ import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
 import allRekapKinerja from '@/views/pages/adminpanel/AllRekapKinerja.vue'
 import slipGaji from '@/views/pages/adminpanel/SlipGaji.vue'
 import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
+import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue';
 
 const routes = [
     {
@@ -499,6 +502,22 @@ const routes = [
           }
     },
     {
+        path: '/laporan/:xid/:zid/:id',
+        name: 'Laporan Satker',
+        component: uploadLaporan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
+        path: '/pemberkasan/:id',
+        name: 'Pemberkasan Layanan',
+        component: uploadPemberkasan,
+        meta: {
+            requiresAuth: true
+          }
+    },
+    {
         path: '/userdata',
         name: 'Data Pegawai',
         component: UserData,
@@ -632,6 +651,14 @@ const routes = [
         path: '/ckh/:xid/:id',
         name: 'Rekap CKH',
         component: rekapKinerja,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/rekaplaporan/:id/:xid',
+        name: 'Rekap Laporan',
+        component: rekapLaporan,
         meta: {
             requiresAdmin: true
           }
