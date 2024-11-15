@@ -28,7 +28,7 @@
 						  </div>
 						  <div class="col-lg-3">
 							  <div class="callnow">
-								  <router-link :to="addRequest()"> <i class="feather-phone-call"></i>  <b>AJUKAN</b></router-link>
+								  <BButton @click="addRequest()"> <i class="feather-phone-call"></i>  <b>AJUKAN</b></BButton>
 							  </div>
 						  </div>
 					 </div>
@@ -155,9 +155,73 @@ export default {
     methods: {
 		addRequest() {
 			if(this.navid == 1038){
-        		return "/laporan/pais/TPG/Bulanan/";
+        		this.$router.push('/laporan/pais/TPG/Bulanan/');
+			}else if(this.navid == 1037){
+				let htmlx = null;
+				htmlx = `<table>
+					<tr>
+						<td style="vertical-align: middle;"><span style='font-size: 15px;'>Tahun Pelajaran</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><select id="tahun" type="text" class="swal2-input">
+								<option value="2022">2022 / 2023</option>
+								<option value="2023">2023 / 2024</option>
+								<option value="2024" selected>2024 / 2025</option>
+								<option value="2025">2025 / 2026</option>
+								<option value="2026">2026 / 2027</option>
+								<option value="2027">2027 / 2028</option>
+							</select></td>
+					</tr>
+					<tr>
+						<td style="vertical-align: middle;"><span style='font-size: 15px;'>Semester/Periode</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><select id="semester" type="date" class="swal2-input">
+								<option value="no" disabled selected>--Pilih Salah Satu--</option>
+								<option value="1">Semester I</option>
+								<option value="2">Semester II</option>
+							</select></td>
+					</tr>
+					</table>
+					`;
+				
+				this.$swal.fire({
+					title: `Ajukan TPG /Semester?`,
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					showLoaderOnConfirm: true,
+					html: htmlx,
+					confirmButtonText: 'Kirim Pengajuan!',
+					preConfirm: (addRequest) => {
+                    const headers = {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        };
+                    return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadPemberkasan',{
+                        id: document.getElementById('semester').value,
+						seksi: 'pais',
+						layanan: 'tpg',
+						kategori: 'semester',
+						tahun: document.getElementById('tahun').value,
+                    },{headers})
+                    .then(response => {
+                        if (!response.data.success) {
+                        throw new Error(response.data.message)
+                        }
+                        this.$router.push('/pemberkasan/'+response.data.file)
+                    })
+                    .catch(error => {
+                        this.$swal.showValidationMessage(
+                        `Request failed: ${error}`
+                        )
+                    })
+                },
+                allowOutsideClick: () => !this.$swal.isLoading()
+				}).then((result) => {
+				if (result.isConfirmed) {
+					let tahun = document.getElementById('tahun').value;
+					let semester = document.getElementById('semester').value;
+					
+				}
+				})
 			}else{
-				return `/request/${this.$route.params.cid}/${this.$route.params.xid}/${this.navid}`
+				this.$router.push(`/request/${this.$route.params.cid}/${this.$route.params.xid}/${this.navid}`)
 			}
 		},
 		async getLayananDetail() {

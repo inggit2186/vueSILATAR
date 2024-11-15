@@ -194,6 +194,7 @@ import allRekapKinerja from './views/pages/adminpanel/allRekapKinerja.vue'
 import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
 import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
+import rekapPemberkasan from './views/pages/adminpanel/rekapPemberkasan.vue';
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -405,6 +406,7 @@ app.component('AllRekapKinerja',allRekapKinerja)
 app.component('SlipGaji',slipGaji)
 app.component('SlipTukin',slipTukin)
 app.component('RekapLaporan',rekapLaporan)
+app.component('RekapPemberkasan',rekapPemberkasan)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

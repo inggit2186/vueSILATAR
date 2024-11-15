@@ -357,7 +357,7 @@ export default {
                         statusx: 'new',
                         noreq: noreq,
                         formx: this.input,
-                        notifx: 'no',
+                        notifx: 'yes',
                         baseurl: window.location.origin,
                     }, {headers})
                     
@@ -407,7 +407,7 @@ export default {
                     statusx: 'sending',
 					noreq: noreq,
                     formx: this.input,
-                    notifx: 'no',
+                    notifx: 'yes',
                     baseurl: window.location.origin,
 				}, {headers})
                 
@@ -416,7 +416,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/my-listing')  
+                    this.$router.push('/layanan/5')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -446,7 +446,7 @@ export default {
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePemberkasan',{
                     statusx: 'batal',
 					noreq: noreq,
-                    notifx: 'no',
+                    notifx: 'yes',
 				}, {headers})
 
                 if(response.data.success == true){

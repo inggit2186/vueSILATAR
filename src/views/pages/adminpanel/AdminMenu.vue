@@ -198,6 +198,8 @@ export default {
                 return "/rekaplaporan/KUA/all";
             }else if(id == 1080){
                 return "/rekaplaporan/Penyuluh/pns";
+            }else if(id == 1037){
+                return "/rekappemberkasan/1037/998";
             }else{
                 return `/listreq/${id}`
             }
