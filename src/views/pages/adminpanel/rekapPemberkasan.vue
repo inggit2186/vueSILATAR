@@ -54,8 +54,8 @@
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>
                                                 </td>
                                                 <td>
-                                                    <BBadge v-if="item.status == 'UNCHECK'" variant="warning">DRAFT</BBadge>
-                                                    <BBadge v-if="item.status == 'DIKIRIM'" variant="light">DIAJUKAN</BBadge>
+                                                    <BBadge v-if="item.status == 'DRAFT'" variant="warning">DRAFT</BBadge>
+                                                    <BBadge v-if="item.status == 'UNCHECK'" variant="light">DIAJUKAN</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
                                                     <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary">DISETUJUI</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
@@ -66,7 +66,7 @@
 													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mingcute-comment-fill /><i> {{ item.alasan }}	</i></span>
                                                 </td>
                                                 <td>
-                                                    <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.id,item.filename)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
+                                                    <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.noreq)"><b><i-mdi-call-to-action /> Cek Detail!</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
@@ -280,68 +280,8 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-        aksiStatus(id,file) {
-            let frame = null;
-            let isPDF = file.toLowerCase().endsWith('.pdf');
-            let isWord = file.toLowerCase().endsWith('.doc') || file.toLowerCase().endsWith('.docx');
-            
-            if(isWord){
-                frame = '<iframe src="https://docs.google.com/gview?url='+ file +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
-            }else{
-                frame = '<iframe src="'+ file +'" width="100%" height="550"></iframe>'
-            }
-
-            if (window.innerWidth < 768) {
-                this.$swal.fire({
-                width: "100%",
-				allowOutsideClick: true,
-                html: frame,
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: true,
-				showDenyButton: true,
-                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isConfirmed) {
-						this.updateStatus(id,result.value,'DISETUJUI')
-					}
-                    else if (result.isDenied) {
-						this.updateStatus(id,result.value,'DITOLAK')
-					};
-				});
-            }else{
-                this.$swal.fire({
-                width: "50%",
-                html: frame,
-				input: "textarea",
-				inputLabel: "Komentar",
-				inputPlaceholder: "Tulis Komentar Anda Disini...",
-				inputAttributes: {
-					"aria-label": "Tulis Komentar Anda Disini"
-				},
-				showConfirmButton: true,
-				showDenyButton: true,
-                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SETUJUI`,
-				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;TOLAK`,
-				returnInputValueOnDeny: true
-				}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
-					if (result.isConfirmed) {
-						this.updateStatus(id,result.value,'DISETUJUI')
-					}
-                    else if (result.isDenied) {
-						this.updateStatus(id,result.value,'DITOLAK')
-					};
-				});
-            }
-
+        aksiStatus(id) {
+			this.$router.push(`/cekpemberkasan/${this.$route.params.xid}/${id}`)
         },
 		async updateStatus(id,komen,st){
 			this.loadingaksi[id] = true

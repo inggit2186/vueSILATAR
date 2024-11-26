@@ -55,7 +55,7 @@
 												<br/>
 												<div class="settings-upload-btn">
 													<div v-if="item.status == 'DISETUJUI'">
-														<BButton block size="lg" variant="success" style="margin-top: 5px;" disabled>
+														<BButton block size="lg" variant="success" style="margin-top: 5px;" @click="detailReq(item.id)">
 															<span><i-noto-v1-ok-hand /> Disetujui</span>
 														</BButton>
 													</div>
@@ -87,7 +87,7 @@
 											<div class="media-image">
 												<h5 class="media-title"><u><b>{{ item.nama }}</b></u></h5>
 													<img v-if="item.status == NULL && item.status == 'KOSONG'" :src="$assets+'/img/ikon/filenotfound.png'" style="max-width: 170px;"/>
-													<img v-else-if="item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" style="max-width: 170px;" alt="" @click="cekDetail(item.id)" />
+													<img v-else-if="item.status == 'UNCHECK' || item.status == 'DIKIRIM'" :src="$assets+'/img/ikon/FileUploaded.png'" style="max-width: 170px;" alt="" @click="cekDetail(item.id)" />
 													<img v-else :src="$assets+'/img/ikon/'+item.status+'.png'" style="max-width: 170px;" alt="" @click="cekDetail(item.id)" />
 												<BModal id="modal-center" v-model="modal1" centered title="BootstrapVue" :item="modalItem">
 													<p class="my-4">Cek Detail!</p>
@@ -96,14 +96,14 @@
 												<br/>
 												<div class="settings-upload-btn">
 													<div v-if="item.status == 'DISETUJUI'">
-														<BButton block size="lg" variant="success" style="margin-top: 5px;" disabled>
+														<BButton block size="lg" variant="success" style="margin-top: 5px;" @click="detailReq(item.id)">
 															<span><i-noto-v1-ok-hand /> Disetujui</span>
 														</BButton>
 													</div>
 													<div v-else>
 														<button id="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @click="detailReq(item.id)"></button>
 														<label v-if="!loadingfile[item.id]" for="file" class="file-upload">
-															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Kirim Pengajuan</span>
+															<span v-if="item.status == 'KOSONG' || item.status == 'DRAFT'"><i-ph-upload-fill /> Kirim Pengajuan</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ubah Pengajuan</span>
 														</label>
 														<label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Menuju Lokasi..</label>
@@ -186,7 +186,10 @@ export default {
             
 			this.tahun = date;
 			this.loading = true;
-            
+            this.kategori = `${this.$route.params.xid}-${this.$route.params.zid}-${this.$route.params.id}`
+
+            console.log(this.kategori)
+
                 try{
                     const headers = {
                             'Content-Type': 'application/json',
@@ -199,6 +202,7 @@ export default {
                     
                     if(response.data.success == true){
                         this.profil = response.data.profil
+                        console.log(response.data.file)
                         response.data.file.forEach((value, index) => {
                             let itemIndex = this.files.findIndex(files => files.id === value.id)
                             this.files[itemIndex] = value;
@@ -222,7 +226,9 @@ export default {
     async get2Lap() {
             this.waktu = 'new';
             this.loading = true;
+            this.kategori = `${this.$route.params.xid}-${this.$route.params.zid}-${this.$route.params.id}`
 
+            console.log(this.kategori)
                 try{
                     const headers = {
                             'Content-Type': 'application/json',
@@ -263,11 +269,13 @@ export default {
     async detailReq(id){
         try{
                 this.loadingfile[id] = true
+                this.kategori = `${this.$route.params.xid}-${this.$route.params.zid}-${this.$route.params.id}`
+
 				const headers = {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
-                
+                console.log(this.kategori)
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadPemberkasan',{
                     id: id,
                     seksi: this.$route.params.xid,

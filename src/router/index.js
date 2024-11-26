@@ -105,6 +105,7 @@ import slipGaji from '@/views/pages/adminpanel/SlipGaji.vue'
 import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue'
 import rekapPemberkasan from '@/views/pages/adminpanel/rekapPemberkasan.vue'
+import cekPemberkasan from '@/views/pages/adminpanel/cekPemberkasan.vue';
 
 const routes = [
     {
@@ -668,6 +669,14 @@ const routes = [
         path: '/rekappemberkasan/:xid/:id',
         name: 'Rekap Pemberkasan',
         component: rekapPemberkasan,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/cekpemberkasan/:xid/:id',
+        name: 'Cek Pemberkasan',
+        component: cekPemberkasan,
         meta: {
             requiresAdmin: true
           }

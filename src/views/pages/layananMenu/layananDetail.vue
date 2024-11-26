@@ -28,7 +28,7 @@
 						  </div>
 						  <div class="col-lg-3">
 							  <div class="callnow">
-								  <BButton @click="addRequest()"> <i class="feather-phone-call"></i>  <b>AJUKAN</b></BButton>
+								  <BButton @click="addRequest()" variant="success" style="font-size: large"> <i class="feather-phone-call"></i>  &nbsp;<b>AJUKAN</b></BButton>
 							  </div>
 						  </div>
 					 </div>
@@ -156,8 +156,10 @@ export default {
 		addRequest() {
 			if(this.navid == 1038){
         		this.$router.push('/laporan/pais/TPG/Bulanan/');
-			}else if(this.navid == 1037){
+			}else if(this.navid == 1037 || this.navid == 1081){
 				let htmlx = null;
+				let seksi = null;
+
 				htmlx = `<table>
 					<tr>
 						<td style="vertical-align: middle;"><span style='font-size: 15px;'>Tahun Pelajaran</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><select id="tahun" type="text" class="swal2-input">
@@ -179,6 +181,13 @@ export default {
 					</table>
 					`;
 				
+					if(this.navid == 1037){
+						seksi = 'pais';
+					}else if(this.navid == 1081){
+						seksi = 'penmad';
+					}
+
+					console.log(seksi+'-tpg-semester')
 				this.$swal.fire({
 					title: `Ajukan TPG /Semester?`,
 					icon: 'warning',
@@ -195,9 +204,9 @@ export default {
                         };
                     return this.$axios.post(import.meta.env.VITE_APP_API_URL+'/uploadPemberkasan',{
                         id: document.getElementById('semester').value,
-						seksi: 'pais',
+						seksi: seksi,
 						layanan: 'tpg',
-						kategori: 'semester',
+						kategori: seksi+'-tpg-semester',
 						tahun: document.getElementById('tahun').value,
                     },{headers})
                     .then(response => {

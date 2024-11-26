@@ -200,6 +200,8 @@ export default {
                 return "/rekaplaporan/Penyuluh/pns";
             }else if(id == 1037){
                 return "/rekappemberkasan/1037/998";
+            }else if(id == 1038){
+                return "/rekappemberkasan/1038/998";
             }else{
                 return `/listreq/${id}`
             }

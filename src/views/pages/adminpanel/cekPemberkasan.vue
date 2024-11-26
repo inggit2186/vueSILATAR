@@ -31,8 +31,7 @@
                                         <BBadge v-if="request.status == 'DRAFT'" variant="light">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'UNCHECK'" variant="info">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'PENDING'" variant="warning">{{ request.status }}</BBadge>
-                                        <BBadge v-else-if="request.status == 'DISETUJUI'" variant="warning">{{ request.status }}</BBadge>
-                                        <BBadge v-else-if="request.status == 'DITERIMA'" variant="secondary">{{ request.status }}</BBadge>
+                                        <BBadge v-else-if="request.status == 'DISETUJUI'" variant="secondary">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'DIPROSES'" variant="success">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'SUKSES'" variant="primary">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'DITOLAK'" variant="danger">{{ request.status }}</BBadge>
@@ -40,29 +39,6 @@
                                 </div>
 							    <h4>Upload File-File Syarat</h4>
                                 <hr/>
-                                <div v-if="request.status == 'DRAFT'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="newRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                </div>
-                                <div v-if="request.status == 'UNCHECK' || request.status == 'DITOLAK'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                    <br/><br/>
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
-                                    </BButton>
-                                </div>
-                                <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
-                                        <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Proses Pembatalan....</b></span>
-                                    </BButton>
-                                </div>
                                 <table class="detailhead">
                                     <tr>
                                         <td>No Request</td>
@@ -101,7 +77,26 @@
                                 <div v-if="request.status == 'DRAFT'"></div>
                                 <div v-else>
                                 <hr/>
-                                </div>				
+                                </div>
+                                <div class="centered">
+                                    <div v-if="!loadingRequest">
+                                    <BButton v-if="request.status != 'DISETUJUI'" block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                        <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton v-if="request.status != 'DITOLAK'" block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                        <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
+                                    </BButton>
+                                    &nbsp;&nbsp;
+                                    <BButton v-if="request.status != 'DRAFT'" block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                        <span><b><i-ooui-cancel /> &nbsp;&nbsp;BATAL</b></span>
+                                    </BButton>
+                                    </div>
+                                    <div v-else class="centered">
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                    </div>
+                                </div>
+                                <br/>			
 							</div>
                             <div class="card-body">
                                 <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
@@ -116,20 +111,6 @@
                                                     <p class="my-4">Cek File!</p>
                                                 </BModal>
                                                 <hr/>
-                                                <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'" class="settings-upload-btn">
-                                                    <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
-                                                    <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
-                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
-                                                        <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
-                                                    </label>
-                                                    <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
-                                                </div>
-                                                <br/>
-                                                <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'">
-                                                    <BButton v-if="item.filename != null && item.filename != 'NONE'" block size="md" variant="danger" style="margin-top: 5px;" @click="deleteFile(item.id)">
-                                                        <span><i-fluent-delete-off-24-filled /> Delete File</span>
-                                                    </BButton>
-                                                </div>
                                             </div>
                                         </div>
 									</div>										
@@ -145,10 +126,10 @@
                                             <div class="card-body">
                                                 <div v-for="input in input" :key="input.id" class="form-group">
                                                     <label class="col-form-label">{{ input.nama }} <span v-if="input.wajib == 1" style="color: red; font-size: smaller;">*</span></label>								    
-                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" />
-                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" />								   
-                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" />								   
-                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename" >
+                                                    <b-form-input v-if="input.type == 'input'" v-model="input.filename" type="text" class="form-control pass-input" :placeholder="input.keterangan" readonly />
+                                                    <VueDatePicker v-else-if="input.type == 'date'" v-model="input.filename" format="dd MMMM yyyy" :placeholder="input.keterangan" auto-apply :enable-time-picker="false" readonly />								   
+                                                    <VueDatePicker v-else-if="input.type == 'datetime'" v-model="input.filename" format="dd MMMM yyyy HH:mm" :placeholder="input.keterangan" :flow="['calender','time']" readonly />								   
+                                                    <b-form-select v-else-if="input.type == 'option'" v-model="input.filename" readonly>
                                                         <b-form-select-option v-for="item in JSON.parse(input.value)" :value="item">{{item}}</b-form-select-option>
                                                     </b-form-select>
                                                 </div>
@@ -204,12 +185,13 @@ export default {
         async getRequest() {
 			this.loading = true;
 			try{
+                const xid = this.$route.params.xid
                 const sid = this.$route.params.id
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getPemberkasan/'+sid,{headers})
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/AgetPemberkasan/'+sid,{headers})
 
                 if(response.data.success == true){
 				    this.request = response.data.data
@@ -335,81 +317,48 @@ export default {
                 });
             }
         },
-        async newRequest() {
-            try{
-				this.loadingRequest = true
-
-                const noreq = this.request.noreq
-				var statuskirim = 1;
-
-                const headers = {
-								'Content-Type': 'application/json',
-								'Authorization': `Bearer ${localStorage.getItem('token')}`
-							};
-                
-                this.syarat.forEach((item) => {
-                    if(item.wajib == 1 && item.filename == 'NONE'){
-                            statuskirim = 2;
-                    } // You can access each item in the syarat array here
-                });
-                
-                if(statuskirim == 1){
-                    const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePemberkasan',{
-                        statusx: 'new',
-                        noreq: noreq,
-                        formx: this.input,
-                        notifx: 'yes',
-                        baseurl: window.location.origin,
-                    }, {headers})
-                    
-                    if(response.data.success == true){
-                        this.$toast.fire({
-                            title: response.data.message,
-                            icon: 'success',
-                        })
-                        this.$router.push('/layanan/5') 
-                    }else{
-                        this.$toast.fire({
-                            title: response.data.message,
-                            icon: 'error',
-                        })
-                    }
-                }else{
-                    this.$swal.fire({
-                            title: 'Lengkapi Dulu!',
-                            html: 'Mohon isi/upload semua File/Syarat yang wajib<hr/><i style="font-size: 15px"><b>Syarat/File yang wajib bertanda <span style="color: red;">bintang(*)</span> disebelah nama syarat/file</b></i>',
-                            icon: 'warning',
-                            showCancelButton: false,
-                    })
-                }
-
-			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
-			} finally {
-				this.loadingRequest = false
-			}
+        async updatePTSP(st) {
+                this.$swal.fire({
+                width: "50%",
+				input: "textarea",
+				inputLabel: "Alasan/Komentar",
+				inputPlaceholder: "Tulis Alasan/Komentar Anda Disini...",
+				inputAttributes: {
+					"aria-label": "Tulis Alasan/Komentar Anda Disini..."
+				},
+				showConfirmButton: true,
+				showDenyButton: true,
+                confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;KIRIM`,
+				denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;CANCEL`,
+				returnInputValueOnDeny: true
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						this.updatePTSP2(st,result.value,'Gagal')
+					}
+                    else if (result.isDenied) {
+						return null;
+					};
+				});
         },
-        async updateRequest() {
+        async updatePTSP2(status,alasan,icon) {
             try{
 				this.loadingRequest = true
 
                 const noreq = this.request.noreq
-				
                 
                 const headers = {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
                 
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePemberkasan',{
-                    statusx: 'sending',
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/AupdatePemberkasan',{
+                    statusx: status,
 					noreq: noreq,
                     formx: this.input,
                     notifx: 'yes',
                     baseurl: window.location.origin,
+                    alasan: alasan
 				}, {headers})
                 
                 if(response.data.success == true){
@@ -417,7 +366,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    this.$router.push('/admin')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -455,7 +404,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    this.$router.push('/admin')  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,

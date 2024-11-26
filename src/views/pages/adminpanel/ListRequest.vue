@@ -12,7 +12,7 @@
                             <div class="dash-cards card">
                                 <div class="card-header">
                                     <h4>Daftar Request</h4>
-										<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+										<VueDatePicker v-model="bulan" @update:model-value="get2PTSP()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 										<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 										<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
                                 </div>
@@ -92,7 +92,9 @@
 												<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
                                             <tr v-else v-for="item in paginatedItem" :key="item.id">
-                                                <td><a href="#">{{ item.tanggal }} </a></td>
+                                                <td><a href="#">{{ item.tgl_surat }} </a><br/>
+													<span style="font-size: smaller;"><i><i-fluent-mdl2-date-time /> {{ item.tanggal }}	</i></span>
+												</td>
                                                 <td>
                                                     {{ item.user }}<br/>
                                                     <span style="font-size: smaller;"><i-tabler-number />{{ item.no_req }}	</span>
@@ -168,6 +170,7 @@ import KonsultasiMenu from '@/components/konsultasiMenu.vue';
 
 export default {
     data() {
+		const today = new Date();
         return {
             title: "Daftar Request",
             text: "Admin",
@@ -199,7 +202,8 @@ export default {
 			ptsp: [],
 			ptsp0: [],
 			rekapstatus: 0,
-			bulan: null,
+			bulan: {month: today.getMonth(), year:today.getFullYear()},
+			bulanx: null,
         }
     },
     computed: {
@@ -244,8 +248,8 @@ export default {
 			console.log(id)
 			this.loading = true;
 			const today = new Date();
-			const date = today.getFullYear() + '-' + (today.getMonth()+1) + '-01';
-			this.bulan = date;
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.bulanx = date
 			this.rekapstatus = 0;
 
 			try{
@@ -253,7 +257,48 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getListRequest/'+id,{headers})
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest/',{
+					id: id,
+					bulan: date
+				},{headers})
+				
+				if(response.data.success == true){
+          			this.ptsp0 = response.data.data
+          			this.ptsp = response.data.data
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+		},
+		async get2PTSP() {
+            const id = this.$route.params.id;
+			this.loading = true;
+			const today = new Date();
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.bulanx = date;
+			console.log(this.bulan)
+			this.rekapstatus = 0;
+
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest/',{
+					id: id,
+					bulan: date
+				},{headers})
 				
 				if(response.data.success == true){
           			this.ptsp0 = response.data.data
@@ -310,8 +355,7 @@ export default {
 						item.no_req.toLowerCase().includes(this.keyword.toLowerCase()) ||
 						item.tanggal.toLowerCase().includes(this.keyword.toLowerCase()) ||
 						item.status.toLowerCase().includes(this.keyword.toLowerCase()) ||
-						item.dept.toLowerCase().includes(this.keyword.toLowerCase()) ||
-						item.user.toLowerCase().includes(this.keyword.toLowerCase());
+						item.dept.toLowerCase().includes(this.keyword.toLowerCase());
 					});
 				}
 			}
