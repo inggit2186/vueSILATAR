@@ -136,6 +136,7 @@ import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
 import apkSilatar from './views/pages/profile/apkSilatar.vue';
 import listKonsultasi from './views/pages/profile/listKonsultasi.vue';
+import laporHumas from './views/pages/profile/laporHumas.vue';
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -348,6 +349,7 @@ app.component('LaporanPengaduan',laporanPengaduan)
 app.component('LaporanKetidakhadiran',laporanKetidakhadiran)
 app.component('ApkSilatar',apkSilatar)
 app.component('listKonsultasi',listKonsultasi)
+app.component('laporHumas',laporHumas)
 
 //satudata
 app.component('SatuDataHome',SatudataHome)

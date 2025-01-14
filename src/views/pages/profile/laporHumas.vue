@@ -12,7 +12,7 @@
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
-										<h4>Laporan Kinerja Harian</h4>
+										<h4>Laporan Kehumasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -20,7 +20,7 @@
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
-										<h4>Laporan Kinerja Harian</h4>
+										<h4>Laporan Kehumasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -64,7 +64,7 @@
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td style="font-size: small;">
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
-													{{ kerja.kegiatan }}  <b>({{ kerja.volume }} {{ kerja.satuan }})</b><br/>
+													{{ kerja.judul }}  <b>( • <a :href="kerja.link" target="_blank">{{ kerja.platform }}</a> • <a v-if="kerja.file_path != 'NONE'" :href="apiUrl + kerja.file_path" target="_blank"> &nbsp;<i-bi-camera-fill /> &nbsp;</a>)</b><br/>
 												   </div>
                                                 </td>
                                                 <td>
@@ -114,55 +114,61 @@
                                 <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                             </div>
                             <hr/>
-                            <b-form ref="kinerja" @submit.prevent="addKinerja">
+                            <b-form ref="kinerja" @submit.prevent="addLaporanHumas">
                             <div class="profile-content">
                                 <div class="messages-form">
                                     <div class="card">
                                         <div class="card-header text-center">
-                                            <h2>::: Laporan Kegiatan :::</h2>							
+                                            <h2>::: Laporan Kehumasan :::</h2>							
                                         </div>
                                         <div class="card-header">
-                                            <h4>{{ this.status }} Detail Kegiatan Harian</h4>							
+                                            <h4>{{ this.status }} Detail Kegiatan Humas</h4>							
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="col-form-label">Tanggal <span>*</span></label>								    
-                                                <VueDatePicker v-if="this.status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" readonly/>								   
-                                                <VueDatePicker v-else v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Kegiatan" auto-apply :enable-time-picker="false" required/>								   
+                                                <label class="col-form-label">Tanggal Terbit<span>*</span></label>								    
+                                                <VueDatePicker v-if="this.status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" readonly/>								   
+                                                <VueDatePicker v-else v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" required/>								   
                                             </div>
                                             <div class="form-group d-none d-sm-block">
-                                                <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
-												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
-                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="max-width: 70%;float:left;margin-right: 0.5%;"/>
-													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="max-width: 9%;float:left;" />
-													<b-form-select id="satuan" v-model="kegiatan.satuan" class="form-control pass-input" placeholder="Satuan" style="max-width: 20%;float:right;">
-														<b-form-select-option value="" disabled selected>--Pilih Salah Satu--</b-form-select-option>
-														<b-form-select-option value="Dokumen">Dokumen</b-form-select-option>
-														<b-form-select-option value="Kegiatan">Kegiatan</b-form-select-option>
-														<b-form-select-option value="Kali">Kali</b-form-select-option>
-														<b-form-select-option value="Laporan">Laporan</b-form-select-option>
-														<b-form-select-option value="Modul">Modul</b-form-select-option>
-														<b-form-select-option value="Orang">Orang</b-form-select-option>
-														<b-form-select-option value="Data">Data</b-form-select-option>
+                                                <label class="col-form-label">Pemberitaan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
+												<div id="inputArea" v-for="(kegiatan, index) in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
+                                                	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan"/>
+													<b-form-select id="platform" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="max-width: 20%;float:left;margin-top:7px;">
+														<b-form-select-option value="" disabled selected>--Pilih Platform--</b-form-select-option>
+														<b-form-select-option value="Facebook">Facebook</b-form-select-option>
+														<b-form-select-option value="Instagram">Instagram</b-form-select-option>
+														<b-form-select-option value="TikTok">TikTok</b-form-select-option>
+														<b-form-select-option value="Website">Website</b-form-select-option>
+														<b-form-select-option value="Youtube">Youtube</b-form-select-option>
+														<b-form-select-option value="Twitter">Twitter</b-form-select-option>
+														<b-form-select-option value="Koran">Koran</b-form-select-option>
 													</b-form-select>
+													<b-form-input id="link" v-model="kegiatan.link" type="text" class="form-control pass-input" placeholder="Link Platform Pemberitaan" style="max-width: 64%;float:left;margin-left:10px;margin-top:5px;margin-bottom:5px;" />
+													<label :for="'file-' + index" class="custom-file-upload" style="max-width: 14%;float:left;margin-left:5px;margin-top:5px;">
+														<i class="fas fa-upload"></i> {{ kegiatan.filename }}
+													</label> &nbsp;&nbsp;<a v-if="kegiatan.file_path != 'NONE' && kegiatan.file_path != null" :href="apiUrl + kegiatan.file_path" target="_blank"><i-bi-camera-fill style="font-size: 20px;"/></a>
+													<input type="file" :id="'file-' + index" accept="image/*" @change="onFileChange(index, $event)" />   
+													<br/>			   
+													<br/>			   
 													<br/>				   
-													<br/>				   
+													<hr/>				   
 												</div>
 											</div>
 											<div class="form-group d-block d-sm-none">
                                                 <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
 												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
-                                                	<b-form-input id="kegiatan" v-model="kegiatan.kegiatan" type="text" class="form-control pass-input" placeholder="Kegiatan Anda" style="margin-bottom: 5px;"/>
-													<b-form-input id="volume" v-model="kegiatan.volume" type="number" class="form-control pass-input" placeholder="Volume" style="margin-bottom: 5px;" />
-													<b-form-select id="satuan" v-model="kegiatan.satuan" class="form-control pass-input" placeholder="Satuan" style="margin-bottom: 5px;">
-														<b-form-select-option value="" disabled selected>--Pilih Salah Satu--</b-form-select-option>
-														<b-form-select-option value="Dokumen">Dokumen</b-form-select-option>
-														<b-form-select-option value="Kegiatan">Kegiatan</b-form-select-option>
-														<b-form-select-option value="Kali">Kali</b-form-select-option>
-														<b-form-select-option value="Laporan">Laporan</b-form-select-option>
-														<b-form-select-option value="Modul">Modul</b-form-select-option>
-														<b-form-select-option value="Orang">Orang</b-form-select-option>
-														<b-form-select-option value="Data">Data</b-form-select-option>
+                                                	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="JUDUL" style="margin-bottom: 5px;"/>
+													<b-form-input id="volume" v-model="kegiatan.link" type="number" class="form-control pass-input" placeholder="Link Website Pemberitaan/Kegiatan" style="margin-bottom: 5px;" />
+													<b-form-select id="satuan" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="margin-bottom: 5px;">
+														<b-form-select-option value="" disabled selected>--Pilih Platform--</b-form-select-option>
+														<b-form-select-option value="Facebook">Facebook</b-form-select-option>
+														<b-form-select-option value="Instagram">Instagram</b-form-select-option>
+														<b-form-select-option value="TikTok">TikTok</b-form-select-option>
+														<b-form-select-option value="Website">Website</b-form-select-option>
+														<b-form-select-option value="Youtube">Youtube</b-form-select-option>
+														<b-form-select-option value="Twitter">Twitter</b-form-select-option>
+														<b-form-select-option value="Koran">Koran</b-form-select-option>
 													</b-form-select>
 													<br/>				   
 													<br/>				   
@@ -203,12 +209,17 @@ export default {
 			bulan: null,
 			columns2: [
 				{ name: 'Tanggal', data: 'tanggal' },
-				{ name: 'Kegiatan', data: 'kegiatan' },
+				{ name: 'Judul', data: 'judul' },
 				{ name: 'Action', data: 'action' },
 			],
 			kegiatan: [{
 				id: 'kinerja0',
-				kegiatan: '',
+				judul: '',
+				link: '',
+				platform: '',
+				file: null,
+				file_path: 'NONE',
+				filename: 'Upload Foto'
 			}],
 			counter:0,
 			keyword: '',
@@ -228,6 +239,9 @@ export default {
         }
     },
     computed: {
+		apiUrl() {
+			return import.meta.env.VITE_APP_UPL_URL;
+		},
 		tableHeader() {
 			return this.columns
 		},
@@ -260,18 +274,31 @@ export default {
 	},
   methods: {
         changedetail(id,st,xid){
-			console.log(xid)
             if(st === 'Edit'){
 				this.status = st,
 				this.detail = id;
 				this.tanggal = this.kinerja[xid].tgl;
 				this.kegiatan = this.kinerja[xid].kegiatan;
+
+				this.kegiatan.forEach(kegiatan => {
+					if (kegiatan.file_path && kegiatan.file_path !== 'NONE') {// Extract the file name from the path
+						kegiatan.filename = 'Ganti File'; // Set the filename property
+					} else {
+						kegiatan.filename = 'Upload Foto'; // Default value if no file_path
+						kegiatan.file_path = 'NONE'
+					}
+				});
 			}else{
 				this.status = st,
 				this.detail = id;
 				this.kegiatan = [{
 						id: 'kinerja0',
-						kegiatan: '',
+						judul: '',
+						link: '',
+						platform: '',
+						file: null,
+						file_path: 'NONE',
+						filename: 'Upload Foto'
 					}],
 				this.tanggal = null
 			}
@@ -280,7 +307,12 @@ export default {
 		clone(){
 			this.kegiatan.push({
 				id: `kinerja${++this.counter}`,
-				kegiatan: '',
+				judul: '',
+				link: '',
+				platform: '',
+				file: null,
+				file_path: 'NONE',
+				filename: 'Upload Foto'
 			});
 		},
 		delAksi(tgl){
@@ -308,7 +340,7 @@ export default {
 					};
 
 					console.log(tgl)
-					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteKinerjaHarian',{
+					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/deleteHumas',{
 						tgl: tgl,
 					},{headers})
 
@@ -343,7 +375,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myKinerja',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myHumas',{
 					bulan : this.bulan
 				},{headers})
 				
@@ -368,46 +400,36 @@ export default {
 			}
 		},
 		async get2Kegiatan() {
-			const today = new Date();
-			if(this.bulan.year < today.getFullYear()){
-				this.$swal.fire({
-					title: 'Mohon Maaf!',
-					html: '<p style="font-size: 16px">Dikarenakan Untuk Mengurangi Beban Server, Data Kinerja Harian Anda pada Tahun Sebelumnya <b>telah di Backup dan diArsipkan</b><br/><br/> Untuk Melihat Data Kinerja Harian(CKH) Bpk/Ibu Silahkan Lihat dan Download Rekap Kegiatan Bpk/Ibu di Bagian <b>Laporan Kinerja Bulanan</b><br/><br/><b>Terima Kasih</b></p> <hr/><p style="font-size: 13px;font-style: italic;">Untuk Permintaan dan Informasi Lebih Lanjut Silahkan Hubungi Admin SILATAR di Subbagian Tata Usaha Kantor Kementerian Agama Kabupaten Tanah Datar</p>',
-					icon: 'info',
-				})
-				this.getKegiatan()
-			}else{
-				this.rekapstatus = 1;
-				const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-				this.loading = true;
-				try{
-					const headers = {
-							'Content-Type': 'application/json',
-							'Authorization': `Bearer ${localStorage.getItem('token')}`
-						};
-					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myKinerja',{
-						bulan : date
-					},{headers})
-					
-					if(response.data.success == true){
-						console.log(response.data)
-						this.kinerja0 = response.data.data
-						this.kinerja = response.data.data
-					}else{
-						this.$toast.fire({
-							title: response.data.data,
-							icon: 'error',
-						})
-					}
-			
-				} catch (error) {
+			this.rekapstatus = 1;
+			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+			this.loading = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myHumas',{
+					bulan : date
+				},{headers})
+				
+				if(response.data.success == true){
+                    console.log(response.data)
+          			this.kinerja0 = response.data.data
+          			this.kinerja = response.data.data
+				}else{
 					this.$toast.fire({
-						title: error,
+						title: response.data.data,
 						icon: 'error',
 					})
-				} finally {
-					this.loading = false
 				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
 			}
 		},
 		async rekapKinerja() {
@@ -511,20 +533,49 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-		async addKinerja(){
+		onFileChange(index, event) {
+			const file = event.target.files[0];
+			if (file) {
+				// Store the file in the corresponding kegiatan object
+				const shortenedName = file.name.length > 10 ? file.name.substring(0, 10) + '...' : file.name;
+				this.kegiatan[index].filename = shortenedName;
+				this.kegiatan[index].file = file;
+			}
+		},
+		async addLaporanHumas(){
 			this.loading = true
-			console.log(this.tanggal)
 			try{
 				const headers = {
-						'Content-Type': 'application/json',
+						'Content-Type': 'multipart/form-data',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addKinerja',{
-					status: this.status,
-                    tanggal: this.tanggal,
-                    formx: this.kegiatan,
-					n: this.counter
-				},{headers})
+
+					const formData = new FormData();
+					const tanggal = this.tanggal;
+					let formattedTanggal = null;
+
+					if(this.status === 'Edit'){
+						formattedTanggal = this.tanggal
+					}else{
+						formattedTanggal = tanggal.getFullYear() + '-' + (tanggal.getMonth() + 1).toString().padStart(2, '0') + '-' + tanggal.getDate().toString().padStart(2, '0');
+					}
+
+						formData.append('status', this.status);
+						formData.append('tanggal', formattedTanggal);
+						formData.append('n', this.counter);
+
+						// Append each kegiatan data to FormData
+						this.kegiatan.forEach((kegiatan, index) => {
+							formData.append(`kegiatan[${index}][judul]`, kegiatan.judul);
+							formData.append(`kegiatan[${index}][link]`, kegiatan.link);
+							formData.append(`kegiatan[${index}][platform]`, kegiatan.platform);
+							formData.append(`kegiatan[${index}][file_path]`, kegiatan.file_path);
+							if (kegiatan.file) {
+								formData.append(`kegiatan[${index}][file]`, kegiatan.file);
+							}
+					});
+
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/addLaporanHumas', formData, { headers });
 				
 				if(response.data.success == true){
 					
@@ -538,7 +589,12 @@ export default {
 					this.tanggal = null
 					this.kegiatan = [{
 						id: 'kinerja0',
-						kegiatan: '',
+						judul: '',
+						link: '',
+						platform: '',
+						file: null,
+						file_path: 'NONE',
+						filename: 'Upload Foto'
 					}],
 					this.changedetail(1)
 				}else{
@@ -560,3 +616,32 @@ export default {
   }
 }
 </script>
+
+<style>
+/* Hide the default file input */
+input[type="file"] {
+    display: none;
+}
+
+/* Style the custom file upload label */
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
+	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.custom-file-upload i {
+    margin-right: 5px;
+}
+</style>

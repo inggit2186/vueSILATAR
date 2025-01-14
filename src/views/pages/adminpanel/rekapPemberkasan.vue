@@ -13,12 +13,16 @@
 									<div class="card-header">
 										<h4>Rekap Pemberkasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Pemberkasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
 								</div>
                             <div class="card-body">
@@ -69,6 +73,8 @@
                                                     <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.noreq)"><b><i-mdi-call-to-action /> Cek Detail!</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+													<br/>
+													<span v-if="xid == '1037'" style="font-size: smaller;font-style: italic;"><i-mdi-files/> {{ item.tipe }}</span>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -135,6 +141,7 @@ export default {
 			currentSort: '',
       		currentSortDir: 'asc',
 			loading: false,
+			loadingrekap: false,
 			loadingaksi: [],
 			itemsPerPage: 12,
         	currentPage: 1,
@@ -194,7 +201,6 @@ export default {
 					id: this.xid,
 				},{headers})
 				
-				console.log(response.data.data)
 				if(response.data.success == true){
           			this.ptsp0 = response.data.data
           			this.ptsp = response.data.data
@@ -319,6 +325,267 @@ export default {
 				})
 			} finally {
 				this.loadingaksi[id] = false
+			}
+		},
+		rekapRequest(){
+			let option = null;
+			console.log(this.$route.params.xid)
+
+			if(this.$route.params.xid === '777'){
+				option = `<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="AKTIF"> AKTIF </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>`
+			}else if(this.$route.params.xid === '1037'){
+				option = `<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="DISETUJUI"> DISETUJUI </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="UNCHECK"> BELUM DI CHECK </option>
+										<option value="DRAFT"> DRAFT </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td style="vertical-align: middle;"><span style='font-size: 15px;'>Tahun Pelajaran</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><select id="tgl_start" name="tgl_start" type="text" class="swal2-input">
+										<option value="2022">2022 / 2023</option>
+										<option value="2023">2023 / 2024</option>
+										<option value="2024" selected>2024 / 2025</option>
+										<option value="2025">2025 / 2026</option>
+										<option value="2026">2026 / 2027</option>
+										<option value="2027">2027 / 2028</option>
+									</select></td>
+							</tr>
+							<tr>
+								<td style="vertical-align: middle;"><span style='font-size: 15px;'>Semester/Periode</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><select id="tgl_end" name="tgl_end" type="date" class="swal2-input">
+										<option value="no" disabled selected>--Pilih Salah Satu--</option>
+										<option value="1">Semester I</option>
+										<option value="2">Semester II</option>
+									</select></td>
+							</tr>
+							</table>`
+			}else if(this.$route.params.xid === '1038'){
+				option = `<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="DISETUJUI"> DISETUJUI </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="UNCHECK"> BELUM DI CHECK </option>
+										<option value="DRAFT"> DRAFT </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>`
+			}else if(this.$route.params.xid === 'janjitemu'){
+				option = `<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="personal"> PRIBADI </option>
+										<option value="satker">Seksi / Satker </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="APPOINTMENT"> DIAJUKAN </option>
+										<option value="ON SITE"> DI LOKASI </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="DITERIMA"> DITERIMA </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="SUKSES"> SUKSES </option>
+										<option value="BATAL"> BATAL </option>
+										<option value="EXPIRED"> KADALUARSA </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>`
+			}
+
+			if(this.$route.params.xid === '777' || this.$route.params.xid === '1037' || this.$route.params.xid === '1038'){
+				this.$swal.fire({
+						title: 'Setting?',
+						html: option,
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Yes, Download!'
+						}).then((result) => {
+						if (result.isConfirmed) {
+							this.downloadRekap(document.getElementById("kategori").value,document.getElementById("status").value,document.getElementById("tgl_start").value,document.getElementById("tgl_end").value)
+						}
+				})
+			}else if(this.$route.params.xid === '888'){
+				this.$toast.fire({
+						title: 'SEDANG DALAM PENGEMBANGAN !!',
+						icon: 'error',
+					})
+			}else if(this.$route.params.xid === '999'){
+				this.$toast.fire({
+						title: 'SEDANG DALAM PENGEMBANGAN !!',
+						icon: 'error',
+					})
+			}else{
+				this.$swal.fire({
+						title: 'Setting?',
+						html:`<table>
+							<tr>
+								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
+										<option value="satker"> SEKSI / SATKER </option>
+										<option value="personal">PRIBADI </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>status</td><td> : </td><td><select id="status" class="swal2-input" name="status">
+										<option value="all"> SEMUA </option>
+										<option value="UNCHECK"> DIAJUKAN </option>
+										<option value="PENDING"> PENDING </option>
+										<option value="DITERIMA"> DITERIMA </option>
+										<option value="DIPROSES"> DIPROSES </option>
+										<option value="SUKSES"> SUKSES </option>
+										<option value="DITOLAK"> DITOLAK </option>
+										<option value="BATAL"> BATAL </option>
+									</select></td>
+							</tr>
+							<tr>
+								<td>Tanggal Mulai</td><td> : </td><td><input type="date" id="tgl_start" name="tgl_start" class="swal2-input"></td>
+							</tr>
+							<tr>
+								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
+							</tr>
+							</table>
+						`,
+						icon: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Yes, Download!'
+						}).then((result) => {
+						if (result.isConfirmed) {
+							this.downloadRekap(document.getElementById("kategori"),document.getElementById("status").value,document.getElementById("tgl_start").value,document.getElementById("tgl_end").value)
+						}
+				})
+			}
+		},
+		async downloadRekap(kategori,status,start,end) {
+			this.loadingrekap = true;
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+					
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/downloadRekapRequest',{
+					layanan: this.$route.params.xid,
+					kategori: kategori,
+					status: status,
+					tgl_start: start,
+					tgl_end: end,
+				},{headers})
+				
+				if(response.data.success == true){
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+
+					let item = response.data.data;
+
+					let frame = null;
+					let isPDF = item.toLowerCase().endsWith('.pdf');
+					let isWord = item.toLowerCase().endsWith('.doc') || item.toLowerCase().endsWith('.docx');
+					
+					if(isWord){
+						frame = '<iframe src="https://docs.google.com/gview?url='+ item +'&embedded=true" width="100%" height="550" frameborder="1"></iframe>'
+					}else{
+						frame = '<iframe src="'+ item +'" width="100%" height="550"></iframe>'
+					}
+
+					if (window.innerWidth < 768) {
+						this.$swal.fire({
+							width: "100%",
+							allowOutsideClick: true,
+							html: frame,
+							showCloseButton: true,
+							focusConfirm: false,
+							showCancelButton: true,
+							cancelButtonText: 'Tutup',
+							confirmButtonText: "Download"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.open(item,'_blank');
+							}
+						});
+					}else{
+						this.$swal.fire({
+							width: "50%",
+							html: frame,
+							showCloseButton: true,
+							focusConfirm: false,
+							showCancelButton: true,
+							cancelButtonText: 'Tutup',
+							confirmButtonText: "Download"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.open(item,'_blank');
+							}
+						});
+					}
+				}else{
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loadingrekap = false
 			}
 		},
   }

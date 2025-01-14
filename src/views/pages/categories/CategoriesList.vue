@@ -191,12 +191,17 @@ export default {
 			}
 		},
 		tujuLayanan(id) {
+			const user = JSON.parse(localStorage.getItem('user'))
             if(id == 1077){
                 return "/laporan/bimas/Laporan/KUA";
             }else if(id == 1080){
                 return "/laporan/bimas/Laporan/Penyuluh";
             }else {
-				return `/LayananDetail/Personal/${this.$route.params.id}/${id}`
+				if(id == 1081 && user.dept_id == 14){
+					return `/LayananDetail/Personal/${this.$route.params.id}/1082`
+				}else{
+					return `/LayananDetail/Personal/${this.$route.params.id}/${id}`
+				}
             }
         },
 		changePage(pageNumber) {

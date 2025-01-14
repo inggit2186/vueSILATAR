@@ -202,6 +202,8 @@ export default {
                 return "/rekappemberkasan/1037/998";
             }else if(id == 1038){
                 return "/rekappemberkasan/1038/998";
+            }else if(id == 1081){
+                return "/rekappemberkasan/1081/998";
             }else{
                 return `/listreq/${id}`
             }

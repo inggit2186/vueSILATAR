@@ -19,7 +19,8 @@
 							</div>
 							<div v-else ref="scroll1st" class="dash-cards card">
                                 <div class="card-header centered">
-									<h4>Laporan Kinerja Bulanan Tahun 2024</h4>
+									<h4>Laporan Kinerja Bulanan Tahun {{ tahun }}</h4>
+									<VueDatePicker v-model="tahun" @update:model-value="get2Files()" style="float:left; max-width: 15%;margin-right: 10px;" year-picker auto-apply />
 								</div>
 								<div class="card-body">
 									<div class="row centered">
@@ -86,6 +87,20 @@ export default {
             text: "User",
             text1: "Laporan Kinerja",
             name: "/",
+			bckfiles: [
+				{ id: 1, nama: 'Januari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 2, nama: 'Februari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 3, nama: 'Maret', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 4, nama: 'April', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 5, nama: 'Mei', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 6, nama: 'Juni', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 7, nama: 'Juli', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 8, nama: 'Agustus', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 9, nama: 'September', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 10, nama: 'Oktober', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 11, nama: 'November', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+				{ id: 12, nama: 'Desember', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
+			],
 			files: [
 				{ id: 1, nama: 'Januari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
 				{ id: 2, nama: 'Februari', filename: null, status: "KOSONG", alasan: "Upload Laporan CKH Anda!!" },
@@ -112,6 +127,7 @@ export default {
 			tanggal: [],
             detail: 1,
             januari: null,
+			tahun: null,
         }
     },
   created() {
@@ -121,12 +137,16 @@ export default {
   methods: {
 	async getFiles(){
 		this.loading = true;
+		const today = new Date();
+		this.tahun = today.getFullYear()
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/myCKH',{headers})
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myCKH',{
+					tahun: this.tahun,
+				},{headers})
 				
 				if(response.data.success == true){
 					response.data.file.forEach((value, index) => {
@@ -148,7 +168,42 @@ export default {
 			} finally {
 				this.loading = false
 			}
-		},
+	},
+	async get2Files(){
+		this.loading = true;
+		this.files = JSON.parse(JSON.stringify(this.bckfiles));
+			try{
+				const headers = {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${localStorage.getItem('token')}`
+					};
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myCKH',{
+					tahun: this.tahun,
+				},{headers})
+				
+				if(response.data.success == true){
+					
+					console.log(this.files)
+					response.data.file.forEach((value, index) => {
+						let itemIndex = this.files.findIndex(files => files.id === value.id)
+						this.files[itemIndex] = value;
+					});
+				}else{
+					this.$toast.fire({
+						title: response.data.data,
+						icon: 'error',
+					})
+				}
+		
+			} catch (error) {
+				this.$toast.fire({
+					title: error,
+					icon: 'error',
+				})
+			} finally {
+				this.loading = false
+			}
+	},
 	changedetail(id){
 		this.detail = id;
 		this.$nextTick(() => {
