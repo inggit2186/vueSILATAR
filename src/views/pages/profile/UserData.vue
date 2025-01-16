@@ -93,7 +93,7 @@
                                                 </div>&nbsp;&nbsp;							    
                                                 <div class="settings-upload-btn">
                                                     <input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
-                                                    <label for="file" class="file-upload" :disable="loadingpp">
+                                                    <label for="filex" class="file-upload" :disable="loadingpp">
                                                         <span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> <b>Photo Profil</b></span>
                                                         <span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
                                                     </label>												

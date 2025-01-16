@@ -107,6 +107,7 @@ import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue'
 import rekapPemberkasan from '@/views/pages/adminpanel/rekapPemberkasan.vue'
 import cekPemberkasan from '@/views/pages/adminpanel/cekPemberkasan.vue';
+import laporanHumas from '@/views/pages/adminpanel/laporanHumas.vue';
 
 const routes = [
     {
@@ -702,6 +703,22 @@ const routes = [
         path: '/sliptukin/:xid/:id',
         name: 'Slip Kategori Tukin',
         component: slipTukin,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/verif/:xid/:id',
+        name: 'Verifikasi Humas',
+        component: adminSatker,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/humas/:xid/:id',
+        name: 'Rekap Laporan Humas',
+        component: laporanHumas,
         meta: {
             requiresAdmin: true
           }

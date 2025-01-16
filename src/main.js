@@ -197,6 +197,7 @@ import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
 import rekapPemberkasan from './views/pages/adminpanel/rekapPemberkasan.vue';
 import cekPemberkasan from './views/pages/adminpanel/cekPemberkasan.vue';
+import laporanHumas from './views/pages/adminpanel/laporanHumas.vue';
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -411,6 +412,7 @@ app.component('SlipTukin',slipTukin)
 app.component('RekapLaporan',rekapLaporan)
 app.component('RekapPemberkasan',rekapPemberkasan)
 app.component('CekPemberkasan',cekPemberkasan)
+app.component('LaporanHumas',laporanHumas)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

@@ -7,7 +7,6 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
-                        <kinerjaMenu />
                         <div v-if="detail == 1" class="dash-listingcontent dashboard-info">
                             <div ref="scroll1st" class="dash-cards card">
                                 <div class="d-none d-sm-block">
@@ -31,13 +30,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:5px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -61,18 +58,12 @@
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
-                                                <td>{{ item.tanggal }}</td>
-												<td><b>{{ item.penulis }} </b>
-												</td>
+                                                <td><a href="#">{{ item.tanggal }} </a></td>
+                                                <td><b>{{ item.penulis }} </b></td>
                                                 <td style="font-size: small;">
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
 													{{ kerja.judul }}  <b>( • <a :href="kerja.link" target="_blank">{{ kerja.platform }}</a> • <a v-if="kerja.file_path != 'NONE'" :href="apiUrl + kerja.file_path" target="_blank"> &nbsp;<i-bi-camera-fill /> &nbsp;</a>)</b><br/>
 												   </div>
-                                                </td>
-                                                <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><b><i-fa-edit /> EDIT</b></BButton>&nbsp;
-                                                    <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -109,86 +100,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div ref="scroll1st" v-else-if="detail == 2" class="card-body">
-                        <div class="container">
-                            <div  class="pagination">
-                                <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
-                            </div>
-                            <hr/>
-                            <b-form ref="kinerja" @submit.prevent="addLaporanHumas">
-                            <div class="profile-content">
-                                <div class="messages-form">
-                                    <div class="card">
-                                        <div class="card-header text-center">
-                                            <h2>::: Laporan Kehumasan :::</h2>							
-                                        </div>
-                                        <div class="card-header">
-                                            <h4>{{ this.status }} Detail Kegiatan Humas</h4>							
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Tanggal Terbit<span>*</span></label>								    
-                                                <VueDatePicker v-if="this.status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" readonly/>								   
-                                                <VueDatePicker v-else v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" required/>								   
-                                            </div>
-                                            <div class="form-group d-none d-sm-block">
-                                                <label class="col-form-label">Pemberitaan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
-												<div id="inputArea" v-for="(kegiatan, index) in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
-                                                	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan"/>
-													<b-form-select id="platform" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="max-width: 20%;float:left;margin-top:7px;">
-														<b-form-select-option value="" disabled selected>--Pilih Platform--</b-form-select-option>
-														<b-form-select-option value="Facebook">Facebook</b-form-select-option>
-														<b-form-select-option value="Instagram">Instagram</b-form-select-option>
-														<b-form-select-option value="TikTok">TikTok</b-form-select-option>
-														<b-form-select-option value="Website">Website</b-form-select-option>
-														<b-form-select-option value="Youtube">Youtube</b-form-select-option>
-														<b-form-select-option value="Twitter">Twitter</b-form-select-option>
-														<b-form-select-option value="Koran">Koran</b-form-select-option>
-													</b-form-select>
-													<b-form-input id="link" v-model="kegiatan.link" type="text" class="form-control pass-input" placeholder="Link Platform Pemberitaan" style="max-width: 64%;float:left;margin-left:10px;margin-top:5px;margin-bottom:5px;" />
-													<label :for="'file-' + index" class="custom-file-upload" style="max-width: 14%;float:left;margin-left:5px;margin-top:5px;">
-														<i class="fas fa-upload"></i> {{ kegiatan.filename }}
-													</label> &nbsp;&nbsp;<a v-if="kegiatan.file_path != 'NONE' && kegiatan.file_path != null" :href="apiUrl + kegiatan.file_path" target="_blank"><i-bi-camera-fill style="font-size: 20px;"/></a>
-													<input type="file" :id="'file-' + index" accept="image/*" @change="onFileChange(index, $event)" />   
-													<br/>			   
-													<br/>			   
-													<br/>				   
-													<hr/>				   
-												</div>
-											</div>
-											<div class="form-group d-block d-sm-none">
-                                                <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
-												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
-                                                	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="JUDUL" style="margin-bottom: 5px;"/>
-													<b-form-input id="volume" v-model="kegiatan.link" type="number" class="form-control pass-input" placeholder="Link Website Pemberitaan/Kegiatan" style="margin-bottom: 5px;" />
-													<b-form-select id="satuan" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="margin-bottom: 5px;">
-														<b-form-select-option value="" disabled selected>--Pilih Platform--</b-form-select-option>
-														<b-form-select-option value="Facebook">Facebook</b-form-select-option>
-														<b-form-select-option value="Instagram">Instagram</b-form-select-option>
-														<b-form-select-option value="TikTok">TikTok</b-form-select-option>
-														<b-form-select-option value="Website">Website</b-form-select-option>
-														<b-form-select-option value="Youtube">Youtube</b-form-select-option>
-														<b-form-select-option value="Twitter">Twitter</b-form-select-option>
-														<b-form-select-option value="Koran">Koran</b-form-select-option>
-													</b-form-select>
-													<br/>				   
-													<br/>				   
-												</div>
-											</div>
-                                        </div>
-                                    </div>
-                                    <div class="centered">
-                                        <b-button variant="primary" type="submit" :disabled="loading"> 
-                                            <span v-if="!loading"> Simpan</span>
-                                            <span v-else><i-svg-spinners-bars-scale-middle />  Mengirim Laporan....</span>
-                                        </b-button>						
-                                    </div>
-                                </div>			
-                            </div>
-                            </b-form>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- /Dashboard Content -->
@@ -204,16 +115,15 @@
 export default {
     data() {
         return {
-            title: "Laporan Kinerja Harian",
+            title: "Laporan Humas Harian",
             text: "User",
-            text1: "Laporan Kinerja Harian",
+            text1: "Laporan Humas Harian",
             name: "/",
 			bulan: null,
 			columns2: [
 				{ name: 'Tanggal', data: 'tanggal' },
 				{ name: 'Penulis', data: 'penulis' },
 				{ name: 'Judul', data: 'judul' },
-				{ name: 'Action', data: 'action' },
 			],
 			kegiatan: [{
 				id: 'kinerja0',
@@ -378,8 +288,9 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myHumas',{
-					bulan : this.bulan
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/adminHumas',{
+					satker: this.$route.params.id,
+                    bulan : this.bulan
 				},{headers})
 				
 				if(response.data.success == true){
@@ -411,8 +322,9 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/myHumas',{
-					bulan : date
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/adminHumas',{
+					satker: this.$route.params.id,
+                    bulan : date
 				},{headers})
 				
 				if(response.data.success == true){
