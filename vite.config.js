@@ -18,6 +18,13 @@ export default defineConfig({
       autoInstall: true,
     }),
   ],
+  server: {
+    // ... other server configurations ...
+    cors: true,
+    headers: {
+      'Content-Security-Policy': "default-src 'unsafe-inline' 'unsafe-eval' *;",
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -51,7 +51,7 @@
                                     <div class="filter-content form-group">
 										<div class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .pdf" name="image" class="hide-input image-upload" @change="onFile">
-											<label for="file" class="file-upload" :disable="loadingfile">
+											<label for="filex" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
 												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
 											</label>
@@ -62,7 +62,7 @@
 										</div>
 										<div class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.pdf" name="image" class="hide-input image-upload" @change="onFile">
-											<label for="file" class="file-upload" :disable="loadingfile">
+											<label for="filex" class="file-upload" :disable="loadingfile">
 												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
 												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
 											</label>

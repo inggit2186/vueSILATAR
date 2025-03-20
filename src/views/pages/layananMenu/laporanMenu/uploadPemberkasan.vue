@@ -117,12 +117,12 @@
                                                 </BModal>
                                                 <hr/>
                                                 <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'" class="settings-upload-btn">
-                                                    <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
-                                                    <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
+                                                    <input :id='"file"+item.id' type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
+                                                    <label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
                                                         <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                         <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                     </label>
-                                                    <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                    <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                                 </div>
                                                 <br/>
                                                 <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'">
@@ -235,6 +235,7 @@ export default {
         onFileChange(itemId, event) {
 		    const file = event.target.files[0];
             const reader = new FileReader();
+            console.log(itemId)
 
             reader.onload = (event) => {
                 this.fileUrl = event.target.result

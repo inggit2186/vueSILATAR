@@ -14,30 +14,52 @@
 									<div class="card-header">
 										<h4>Laporan Kinerja Harian</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
-											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
+											<a v-if="!loadingrekap && ckh.status != 'DISETUJUI'" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-else-if="loadingrekap && ckh.status != 'DISETUJUI'" class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Laporan Kinerja Harian</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-if="!loadingrekap && ckh.status != 'DISETUJUI'" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<hr/>
                             <div class="card-body">
+								<div class="alert alert-info" role="alert">
+									<div v-if="loading">
+										<i-svg-spinners-bars-scale-fade />
+									</div>
+									<div v-else>
+										<span style="font-size: 40px;">
+											<i-noto-v1-notebook />
+										</span>
+										<br/>
+											<BBadge v-if="ckh != null && ckh.status == 'DIKIRIM'" pill variant="warning" style="font-size: medium;"><i-grommet-icons-in-progress /> Dalam Pengajuan</BBadge>
+											<BBadge v-else-if="ckh != null && ckh.status == 'DISETUJUI'" pill variant="success" style="font-size: medium;"><i-codicon-thumbsup-filled /> DISETUJUI</BBadge>
+											<BBadge v-else-if="ckh != null && ckh.status == 'DITOLAK'" pill variant="dark" style="font-size: medium;"><i-codicon-thumbsdown-filled /> DITOLAK</BBadge>
+											<BBadge v-else pill variant="danger" style="font-size: medium;"><i-carbon-license-draft /> Belum Dikirim</BBadge>
+											<br/>
+											<div v-if="ckh.petugas != 777" style="padding-top: 5px;"><i-twemoji-man-police-officer style="font-size: large;"/><span style="font-size: small;font-weight: 700; font-style: italic; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"> {{ ckh.verif }}</span></div>
+										<hr/>
+										<ul v-if="ckh.petugas != 777">
+											<li><i-ri-kakao-talk-fill /> <b>Feedback/Komentar Verifikator</b></li>
+											<li v-if="ckh != null && ckh.alasan != '<NoKomen>' || ckh.alasan != ''"><i>"{{ ckh.alasan }}"</i></li>
+										</ul>
+									</div>
+								</div>
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <a v-if="ckh != null && ckh.status != 'DISETUJUI'" class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
                                             <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:5px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <a v-if="ckh != null && ckh.status != 'DISETUJUI'" class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:5px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -221,6 +243,14 @@ export default {
         	currentPage: 1,
 			kinerja: [],
 			kinerja0: [],
+			ckh0:{
+				status: 'NONE',
+				petugas: 777,
+			},
+			ckh:{
+				status: 'NONE',
+				petugas: 777,
+			},
 			tanggal: [],
             detail: 1,
             status: null,
@@ -348,7 +378,10 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
+					this.ckh = this.ckh0
+					if(response.data.status != null){
+                    	this.ckh = response.data.status
+					}
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
 				}else{
@@ -390,7 +423,10 @@ export default {
 					},{headers})
 					
 					if(response.data.success == true){
-						console.log(response.data)
+						this.ckh = this.ckh0
+						if(response.data.status != null){
+							this.ckh = response.data.status
+						}
 						this.kinerja0 = response.data.data
 						this.kinerja = response.data.data
 					}else{
@@ -429,7 +465,10 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
+                    this.ckh = this.ckh0
+						if(response.data.status != null){
+							this.ckh = response.data.status
+						}
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
 					let item = response.data.file
@@ -532,7 +571,10 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
-					
+					this.ckh = this.ckh0
+						if(response.data.status != null){
+							this.ckh = response.data.status
+						}
 					this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
 					this.tanggal = null

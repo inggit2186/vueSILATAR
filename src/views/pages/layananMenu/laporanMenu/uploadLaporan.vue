@@ -60,12 +60,12 @@
 														</BButton>
 													</div>
 													<div v-else>
-														<input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
-														<label v-if="!loadingfile[item.id]" for="file" class="file-upload">
+														<input :id='"file"+item.id' type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
+														<label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
 															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Upload File</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
 														</label>
-														<label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
 													    </div>
 												</div>
 												<br/>
@@ -101,12 +101,12 @@
 														</BButton>
 													</div>
 													<div v-else>
-														<button id="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @click="detailReq(item.id)"></button>
+														<button :id='"file"+item.id' name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @click="detailReq(item.id)"></button>
 														<label v-if="!loadingfile[item.id]" for="file" class="file-upload">
 															<span v-if="item.status == 'KOSONG' || item.status == 'DRAFT'"><i-ph-upload-fill /> Kirim Pengajuan</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ubah Pengajuan</span>
 														</label>
-														<label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Menuju Lokasi..</label>
+														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Menuju Lokasi..</label>
 													</div>
 												</div>
 												<br/>

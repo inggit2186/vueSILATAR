@@ -3,7 +3,6 @@
         <usernavbar />
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
@@ -14,7 +13,7 @@
 									<div class="card-header">
 										<h4>Laporan Kehumasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapHumas()" style="float: right;"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
@@ -22,12 +21,41 @@
 									<div>
 										<h4>Laporan Kehumasan</h4>
 											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapHumas()" style="float:right;margin-right: 10px;"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<hr/>
+								
+
                             <div class="card-body">
+								<div class="alert alert-info" role="alert">
+									<div v-if="loading">
+										<i-svg-spinners-bars-scale-fade />
+									</div>
+									<div v-else>
+										<span style="font-size: 80px;">
+											<i-noto-man-teacher-medium-light-skin-tone />
+										</span>
+										<br/>
+											<BBadge v-if="humasstatus != null && humasstatus.status == 'DIKIRIM'" pill variant="warning" style="font-size: medium;"><i-grommet-icons-in-progress /> Dalam Penilaian</BBadge>
+											<BBadge v-else-if="humasstatus != null && humasstatus.status == 'DISETUJUI'" pill variant="success" style="font-size: medium;"><i-codicon-thumbsup-filled /> DISETUJUI</BBadge>
+											<BBadge v-else-if="humasstatus != null && humasstatus.status == 'DITOLAK'" pill variant="dark" style="font-size: medium;"><i-codicon-thumbsdown-filled /> DITOLAK</BBadge>
+											<BBadge v-else pill variant="danger" style="font-size: medium;"><i-carbon-license-draft /> Belum Dikirim</BBadge>
+											<br/>
+											<div v-if="humasstatus != null && humasstatus.verifikator != 999" style="padding-top: 5px;"><i-twemoji-man-police-officer style="font-size: large;"/><span style="font-size: small;font-weight: 700; font-style: italic; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"> {{ humasstatus.verif }}</span></div>
+										<hr/>
+										<ul v-if="humasstatus != '<NoData>' && humasstatus != null">
+											<li><i-mdi-tooltip-user /> <b>Komentar User</b></li>
+											<li v-if="humasstatus != null && humasstatus.user_keterangan != '<NoKomen>' || humasstatus.user_keterangan != ''"><i>"{{ humasstatus.user_keterangan }}"</i></li>
+										</ul>
+										<hr/>
+										<ul v-if="humasstatus != null && humasstatus.verifikator != 999">
+											<li><i-ri-kakao-talk-fill /> <b>Feedback/Komentar Verifikator</b></li>
+											<li v-if="humasstatus != null && humasstatus.ver_keterangan != '<NoKomen>' || humasstatus.ver_keterangan != ''"><i>"{{ humasstatus.ver_keterangan }}"</i></li>
+										</ul>
+									</div>
+								</div>
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
@@ -62,7 +90,10 @@
 											</tr>
 											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
                                                 <td>{{ item.tanggal }}</td>
-												<td><b>{{ item.penulis }} </b>
+												<td>
+													<div v-for="kerja in item.kegiatan" :key="kerja.id">
+														<b>{{ kerja.penulis }} </b>
+													</div>
 												</td>
                                                 <td style="font-size: small;">
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
@@ -98,6 +129,7 @@
                                                     </ul>
                                                 </div>													
                                             </li>													
+
                                             <li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
                                             </li>
@@ -152,7 +184,7 @@
 													</label> &nbsp;&nbsp;<a v-if="kegiatan.file_path != 'NONE' && kegiatan.file_path != null" :href="apiUrl + kegiatan.file_path" target="_blank"><i-bi-camera-fill style="font-size: 20px;"/></a>
 													<input type="file" :id="'file-' + index" accept="image/*" @change="onFileChange(index, $event)" />   
 													<br/>			   
-													<br/>			   
+
 													<br/>				   
 													<hr/>				   
 												</div>
@@ -201,6 +233,8 @@
 </template>
 
 <script>
+import { BBadge } from 'bootstrap-vue-3';
+
 export default {
     data() {
         return {
@@ -239,6 +273,7 @@ export default {
             detail: 1,
             status: null,
 			rekapstatus: 0,
+			humasstatus: null
         }
     },
     computed: {
@@ -348,9 +383,9 @@ export default {
 					},{headers})
 
 				if(response.data.success == true){
-                    console.log(response.data)
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
+					  this.humasstatus = response.data.st
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -383,9 +418,9 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
+					this.humasstatus = response.data.st
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -419,6 +454,7 @@ export default {
                     console.log(response.data)
           			this.kinerja0 = response.data.data
           			this.kinerja = response.data.data
+					  this.humasstatus = response.data.st
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -435,7 +471,28 @@ export default {
 				this.loading = false
 			}
 		},
-		async rekapKinerja() {
+		async rekapHumas() {
+				this.$swal.fire({
+					width: "50%",
+					input: "textarea",
+					inputLabel: "Komentar / Kendala",
+					inputPlaceholder: "Tulis Komentar/Kendala yang Anda Hadapi Disini...",
+					inputAttributes: {
+						"aria-label": "Tulis Komentar/Kendala yang Anda Hadapi Disini..."
+					},
+					showConfirmButton: true,
+					showCancelButton: true,
+					confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;KIRIM`,
+					cancelButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;NANTI SAJA`,
+					returnInputValueOnDeny: true
+					}).then((result) => {
+						/* Read more about isConfirmed, isDenied below */
+						if (result.isConfirmed) {
+							this.rekap2Humas(result.value,'KIRIM')
+						}
+					});
+		},
+		async rekap2Humas(catt,st) {
 			let date;
 			if(this.rekapstatus == 0){
 				date = this.bulan
@@ -450,48 +507,17 @@ export default {
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapHumasBulanan',{
-					bulan : date
+					bulan : date,
+					keterangan : catt
 				},{headers})
 				
 				if(response.data.success == true){
-                    console.log(response.data)
-          			this.kinerja0 = response.data.data
-          			this.kinerja = response.data.data
-					let item = response.data.file
-					console.log(response.data.message)
+                    this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
 
-					let frame = '<iframe src="'+ item +'" width="100%" height="500"></iframe>'
-
-			if (window.innerWidth < 768) {
-                this.$swal.fire({
-                    width: "100%",
-					allowOutsideClick: true,
-                    html: frame,
-                    showCloseButton: true,
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'Tutup',
-                    confirmButtonText: "Download"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(item,'_blank');
-                    }
-                });
-            }else{
-                this.$swal.fire({
-                    width: "50%",
-                    html: frame,
-                    showCloseButton: true,
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'Tutup',
-                    confirmButtonText: "Download"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(item,'_blank');
-                    }
-                });
-            }
+					this.humasstatus = response.data.data
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -538,7 +564,20 @@ export default {
 		},
 		onFileChange(index, event) {
 			const file = event.target.files[0];
+			const maxSizeInMB = 2; // Set the maximum file size to 2MB
+			const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert to bytes
+
 			if (file) {
+				if (file.size > maxSizeInBytes) {
+					this.$toast.fire({
+						title: `File size melebihi limit ${maxSizeInMB}MB.`,
+						icon: 'error',
+					});
+					// Reset the file input
+					event.target.value = '';
+					return; // Exit the function
+				}
+
 				// Store the file in the corresponding kegiatan object
 				const shortenedName = file.name.length > 10 ? file.name.substring(0, 10) + '...' : file.name;
 				this.kegiatan[index].filename = shortenedName;
@@ -578,6 +617,7 @@ export default {
 							}
 					});
 
+					console.log(formData);
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/addLaporanHumas', formData, { headers });
 				
 				if(response.data.success == true){
@@ -621,6 +661,19 @@ export default {
 </script>
 
 <style>
+.alert {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.alert-info {
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  color: #004085;
+}
+
 /* Hide the default file input */
 input[type="file"] {
     display: none;

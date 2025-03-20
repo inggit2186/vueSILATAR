@@ -61,11 +61,13 @@
                                                     <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary">DISETUJUI</BBadge>
                                                     <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
                                                     <BBadge v-else-if="item.status == 'NONE'" variant="dark">BELUM UPLOAD</BBadge>
-                                                    <br/>
-                                                    <span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
-													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.petugas }}	</i></span><br/>
-													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mingcute-comment-fill /><i> {{ item.alasan }}	</i></span>
                                                 </td>
+												<td>
+													<span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-iconoir-send-solid /> Dikirim : {{ item.created }}</i></span><br/>
+                                                    <span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i><i-mdi-update /> Diverifikasi : {{ item.update }}</i></span><br/>
+													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mdi-person-tie /> <i>Verifikator : {{ item.petugas }}	</i></span><br/>
+													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mingcute-comment-fill /> <i>Komentar : {{ item.alasan }}	</i></span>
+												</td>
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.id,item.filename)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
@@ -130,6 +132,7 @@ export default {
 			columns2: [
 				{ name: 'Nama', data: 'name' },
 				{ name: 'Status', data: 'status' },
+				{ name: 'Keterangan', data: 'keterangan' },
 				{ name: 'Action', data: 'action' },
 			],
 			keyword: '',

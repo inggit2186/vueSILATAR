@@ -134,9 +134,12 @@ v-else v-model="password"
 						'Authorization': `Bearer ${response.data.data.token}`
 					};
 				if(response.data.data.sppt == null || response.data.data.sppt == [] || response.data.data.sppt.length == 0){
-				this.$swal.fire({
+					if (window.innerWidth < 768) {
+					this.$swal.fire({
+					width: '400px',
+                    height: '350px',
 					title: 'SPT Pajak Tahunan!',
-					html: '<p style="font-size: 17px">Apakah Bpk/Ibu sudah Melaporkan <b>SPPT Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ?</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+					html: '<p style="font-size: 17px">Apakah Bpk/Ibu sudah Melaporkan <b>SPT Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ?</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
 					icon: 'question',
 					showConfirmButton: true,
 					showDenyButton: true,
@@ -181,13 +184,26 @@ v-else v-model="password"
 							this.$router.push({ path: `${searchParams.get("redirect")}` });
 						} else this.$router.push({ path: "/dashboard" });
 					}else{
-						this.$swal.fire({
-						title: 'Laporkan SPT Pajak Tahunan!',
-						html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
-						icon: 'danger',
-						closeButton: true,
-						})
-
+						if (window.innerWidth < 768) {
+							this.$swal.fire({
+							width: '400px',
+                          	height: '350px',
+							title: 'Laporkan SPT Pajak Tahunan!',
+							html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+							icon: "error",
+							closeButton: true,
+							})
+						}else{
+							this.$swal.fire({
+							title: 'Laporkan SPT Pajak Tahunan!',
+							html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+							imageUrl: import.meta.env.VITE_APP_UPL_URL+"appfiles/laporspt2.png",
+							imageWidth: 450,
+							imageHeight: 450,
+							imageAlt: "SPT Image",
+							closeButton: true,
+							})
+						}
 						localStorage.setItem('user',JSON.stringify(response.data.data))
 						localStorage.setItem('token',response.data.data.token)
 						
@@ -198,6 +214,89 @@ v-else v-model="password"
 						} else this.$router.push({ path: "/dashboard" });
 					};
 					});
+				}else{
+					this.$swal.fire({
+					title: 'SPT Pajak Tahunan!',
+					html: '<p style="font-size: 17px">Apakah Bpk/Ibu sudah Melaporkan <b>SPT Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ?</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+					imageUrl: import.meta.env.VITE_APP_UPL_URL+"appfiles/laporspt1.png",
+					imageWidth: 450,
+					imageHeight: 450,
+					imageAlt: "SPT Image",
+					showConfirmButton: true,
+					showDenyButton: true,
+					confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;SUDAH DILAPORKAN`,
+					denyButtonText: `<i class="fa fa-thumbs-down"></i> &nbsp;BELUM DILAPORKAN`,
+					showLoaderOnConfirm: true,
+					allowOutsideClick: false,
+					preConfirm: async (addsppt) => {
+					try {
+						const xresponse = this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
+							userid: response.data.data.id,
+							tahun: response.data.data.sppt_tahun,
+							status: 'sudah'
+						},{headers});
+						return xresponse;
+					} catch (error) {
+						this.$swal.showValidationMessage(`
+						Request failed: ${error}
+						`);
+					}
+					},
+					}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						response.data.data.sppt= result.value.data.sppt;
+						this.$toast.fire({
+							title: response.data.message,
+							icon: 'success',
+						})
+
+						localStorage.setItem('user',JSON.stringify(response.data.data))
+						localStorage.setItem('token',response.data.data.token)
+
+						this.$toast.fire({
+							title: response.data.message,
+							icon: 'success',
+						})
+						
+						let searchParams = new URLSearchParams(window.location.search);
+
+						if (searchParams.has("redirect")) {
+							this.$router.push({ path: `${searchParams.get("redirect")}` });
+						} else this.$router.push({ path: "/dashboard" });
+					}else{
+						if (window.innerWidth < 768) {
+							this.$swal.fire({
+							width: '400px',
+                          	height: '350px',
+							title: 'Laporkan SPT Pajak Tahunan!',
+							html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+							icon: "error",
+							imageAlt: "SPT Image",
+							closeButton: true,
+							})
+						}else{
+							this.$swal.fire({
+							title: 'Laporkan SPT Pajak Tahunan!',
+							html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+response.data.data.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
+							imageUrl: import.meta.env.VITE_APP_UPL_URL+"appfiles/laporspt2.png",
+							imageWidth: 450,
+							imageHeight: 450,
+							imageAlt: "SPT Image",
+							closeButton: true,
+							})
+						}
+						localStorage.setItem('user',JSON.stringify(response.data.data))
+						localStorage.setItem('token',response.data.data.token)
+						
+						let searchParams = new URLSearchParams(window.location.search);
+
+						if (searchParams.has("redirect")) {
+							this.$router.push({ path: `${searchParams.get("redirect")}` });
+						} else this.$router.push({ path: "/dashboard" });
+					};
+					});
+				}
 				}else{
 					this.$toast.fire({
 						title: response.data.message,

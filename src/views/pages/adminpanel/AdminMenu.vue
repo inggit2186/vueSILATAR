@@ -52,7 +52,7 @@
                             <router-link to='/verif/humas/getKUA'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-                                <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">
+                                <img :src="$assets+'/img/ikon/humas.png'" style="width:100%;" alt="car1">
                                 <h6>Laporan Kehumasan</h6>
                                 <span>Verifikasi Laporan Kehumasan Jajaran Kantor Kementerian Agama Kab.Tanah Datar</span>
                                 </a>								   
