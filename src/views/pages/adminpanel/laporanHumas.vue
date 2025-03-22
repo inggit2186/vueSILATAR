@@ -477,15 +477,6 @@ export default {
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
 		},
-		onFileChange(index, event) {
-			const file = event.target.files[0];
-			if (file) {
-				// Store the file in the corresponding kegiatan object
-				const shortenedName = file.name.length > 10 ? file.name.substring(0, 10) + '...' : file.name;
-				this.kegiatan[index].filename = shortenedName;
-				this.kegiatan[index].file = file;
-			}
-		},
 		async addLaporanHumas(){
 			this.loading = true
 			try{

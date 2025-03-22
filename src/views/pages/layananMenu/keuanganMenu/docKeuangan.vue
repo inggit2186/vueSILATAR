@@ -330,7 +330,22 @@ export default {
 		reader.onload = (event) => {
 			this.fileUrl = event.target.result
 			this.fileName = file.name
-			this.uploadFile();
+			if(file.size > 2560000){
+                this.$toast.fire({
+                    title: "File Tidak Boleh lebih dari 2MB !",
+                    icon: "warning"
+                });
+            }else if(file.type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+   						file.type != 'application/vnd.ms-excel' &&
+   						file.type != 'text/csv' &&
+						file.type != 'application/pdf'){
+                    this.$toast.fire({
+                        title: "File harus tipe EXCEL(.csv .xls .xlsx) !",
+                        icon: "warning"
+                    });
+            }else{
+				this.uploadFile();
+             }
 		}
 
 		reader.readAsDataURL(file)

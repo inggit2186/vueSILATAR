@@ -276,7 +276,19 @@ export default {
 		reader.onload = (event) => {
 			this.fileUrl = event.target.result
 			this.fileName = file.name
-			this.uploadFile();
+			if(file.size > 2560000){
+                this.$toast.fire({
+                    title: "File Tidak Boleh lebih dari 2MB !",
+                    icon: "warning"
+                });
+            }else if(file.type != 'application/pdf'){
+                    this.$toast.fire({
+                        title: "File harus tipe PDF !",
+                        icon: "warning"
+                    });
+            }else{
+				this.uploadFile();
+             }
 		}
 
 		reader.readAsDataURL(file)

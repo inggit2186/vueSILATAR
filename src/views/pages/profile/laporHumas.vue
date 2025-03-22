@@ -576,7 +576,16 @@ export default {
 					// Reset the file input
 					event.target.value = '';
 					return; // Exit the function
-				}
+				}else if(file.type != 'image/png' && file.type != 'image/jpg' && file.type != 'image/jpeg'){
+					this.$toast.fire({
+                            title: "File harus tipe Image/Gambar(.png .jpeg .jpg) !",
+                            icon: "warning"
+                        });
+                    // Reset the file input
+					event.target.value = '';
+					return; // Exit the function
+           		 }
+
 
 				// Store the file in the corresponding kegiatan object
 				const shortenedName = file.name.length > 10 ? file.name.substring(0, 10) + '...' : file.name;

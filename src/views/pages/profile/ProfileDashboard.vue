@@ -19,7 +19,7 @@
 											</div>										    
 											<div class="settings-upload-btn">
 												<input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
-												<label for="file" class="file-upload" :disable="loadingpp">
+												<label for="filex" class="file-upload" :disable="loadingpp">
 													<span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
 													<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
 												</label>												
@@ -262,7 +262,19 @@ const image = import(`@/assets/img/profile-img.jpg`)
 		reader.onload = (event) => {
 			this.imageUrl = event.target.result
 			this.imageName = file.name
-			this.uploadPP();
+			if(file.size > 2560000){
+                this.$toast.fire({
+                    title: "File Tidak Boleh lebih dari 2MB !",
+                    icon: "warning"
+                });
+            }else if(file.type != 'image/png' && file.type != 'image/jpg' && file.type != 'image/jpeg'){
+                    this.$toast.fire({
+                        title: "File harus tipe Image/Gambar(.png .jpeg .jpg) !",
+                        icon: "warning"
+                    });
+            }else{
+                    this.uploadPP();
+             }
 		}
 
 		reader.readAsDataURL(file)

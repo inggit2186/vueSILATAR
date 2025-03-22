@@ -609,12 +609,12 @@
                                         </BModal>
                                         <hr/>
                                         <div class="settings-upload-btn">
-                                            <input id="file" type="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
-                                            <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
+                                            <input :id='"file"+item.id' type="file" name="image" accept="image/*, application/pdf" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
+                                            <label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
                                                 <span v-if="item.filename == null || item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -1562,7 +1562,19 @@ export default {
 		reader.onload = (event) => {
 			this.imageUrl = event.target.result
 			this.imageName = file.name
-			this.uploadPP();
+             if(file.size > 2560000){
+                this.$toast.fire({
+                    title: "File Tidak Boleh lebih dari 2MB !",
+                    icon: "warning"
+                });
+            }else if(file.type != 'image/png' && file.type != 'image/jpg' && file.type != 'image/jpeg'){
+                    this.$toast.fire({
+                        title: "File harus tipe Image/Gambar(.png .jpeg .jpg) !",
+                        icon: "warning"
+                    });
+            }else{
+                    this.uploadPP();
+             }
 		}
 
 		reader.readAsDataURL(file)
@@ -1576,7 +1588,6 @@ export default {
                 this.fileUrl = event.target.result
                 this.fileSize = file.size
                 this.fileName = file.name
-                
                 if(itemId == 1){
                     if(file.size > 2560000){
                     this.$toast.fire({

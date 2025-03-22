@@ -44,7 +44,7 @@
 														<span style="font-size: small;font-style: italic;font-weight: 700;"><i-mingcute-comment-fill /> {{ item.alasan }} </span>
 													</div>
 													<div v-else>
-														<input id="file" type="file" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
+														<input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
 														<label v-if="!loadingfile[item.id]" for="file" class="file-upload">
 															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Upload File</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
