@@ -133,6 +133,7 @@ v-else v-model="password"
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${response.data.data.token}`
 					};
+				/**
 				if(response.data.data.sppt == null || response.data.data.sppt == [] || response.data.data.sppt.length == 0){
 					if (window.innerWidth < 768) {
 					this.$swal.fire({
@@ -162,7 +163,6 @@ v-else v-model="password"
 					}
 					},
 					}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
 					if (result.isConfirmed) {
 						response.data.data.sppt= result.value.data.sppt;
 						this.$toast.fire({
@@ -243,7 +243,6 @@ v-else v-model="password"
 					}
 					},
 					}).then((result) => {
-					/* Read more about isConfirmed, isDenied below */
 					if (result.isConfirmed) {
 						response.data.data.sppt= result.value.data.sppt;
 						this.$toast.fire({
@@ -297,12 +296,103 @@ v-else v-model="password"
 					};
 					});
 				}
+					
+					
 				}else{
 					this.$toast.fire({
 						title: response.data.message,
 						icon: 'success',
 					})
 
+					localStorage.setItem('user',JSON.stringify(response.data.data))
+					localStorage.setItem('token',response.data.data.token)
+					
+					let searchParams = new URLSearchParams(window.location.search);
+
+					if (searchParams.has("redirect")) {
+						this.$router.push({ path: `${searchParams.get("redirect")}` });
+					} else this.$router.push({ path: "/dashboard" });
+				};
+
+				*/
+
+				if(response.data.data.nip.toString().length !== 16 || response.data.data.kk.toString().length !== 16 || response.data.data.npwp == ''){
+                  this.$swal.fire({
+                  title: 'Pemutakhiran Data!',
+                  html: `<p style="font-size: 17px">Mohon untuk <b>Memutakhiran Data Pribadi </b> Bpk/Ibu !</p><hr/>
+                         <table>
+                            <tr>
+                              <td class="swal2-input"><b>NIP</b></td><td> : </td><td><input id="swal-input-nip" class="swal2-input" placeholder="NIP" value="${response.data.data.noid || ''}" readonly /></td>
+                            </tr>
+                            <tr>
+                              <td class="swal2-input"><b>NIK</b></td><td> : </td><td><input id="swal-input-nik" class="swal2-input" placeholder="NIK" value="${response.data.data.nip || ''}" /></td>
+                            </tr>
+                            <tr>
+                              <td class="swal2-input"><b>No KK</b></td><td> : </td><td><input id="swal-input-kk" class="swal2-input" placeholder="KK" value="${response.data.data.kk || ''}" /></td>
+                            </tr>
+                            <tr>
+                              <td class="swal2-input"><b>NPWP</b></td><td> : </td><td><input id="swal-input-npwp" class="swal2-input" placeholder="NPWP" value="${response.data.data.npwp || ''}" /></td>
+                            </tr>
+                          </table>`,
+                  showConfirmButton: true,
+                  confirmButtonText: `<i class="fa fa-thumbs-up"></i> &nbsp;UPDATE DATA`,
+                  showLoaderOnConfirm: true,
+                  allowOutsideClick: false,
+                  preConfirm: async () => {
+                    const nik = document.getElementById('swal-input-nik').value;
+                    const kk = document.getElementById('swal-input-kk').value;
+                    const npwp = document.getElementById('swal-input-npwp').value;
+                    if (!nik || !kk || !npwp) {
+                      this.$swal.showValidationMessage('Mohon Input NIK / No KK / NPWP Anda');
+                      return false;
+                    }else if(nik.toString().length !== 16 || kk.toString().length !== 16){
+						this.$swal.showValidationMessage('Mohon Isi NIK / KK Anda dengan benar (16 Angka)');
+                      return false;
+					}
+                    try {
+                      const response2 = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addNIK',{
+                          userid: response.data.data.id,
+                          nik: nik,
+                          kk: kk,
+                          npwp: npwp
+                      },{headers});
+                      return response2;
+                    } catch (error) {
+                      this.$swal.showValidationMessage(`
+                        Request failed: ${error}
+                      `);
+                    }
+                  },
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+					
+					response.data.data.nip = document.getElementById('swal-input-nik').value;
+					response.data.data.kk = document.getElementById('swal-input-kk').value;
+					response.data.data.npwp = document.getElementById('swal-input-npwp').value;
+
+					localStorage.setItem('user',JSON.stringify(response.data.data))
+					localStorage.setItem('token',response.data.data.token)
+					
+					let searchParams = new URLSearchParams(window.location.search);
+						
+						this.$toast.fire({
+							icon: 'success',
+							title: response.data.message,
+						})
+
+					if (searchParams.has("redirect")) {
+						this.$router.push({ path: `${searchParams.get("redirect")}` });
+					} else this.$router.push({ path: "/dashboard" });
+
+                    }else{
+                    };
+                  });
+              }else{
+					this.$toast.fire({
+						title: response.data.message,
+						icon: 'success',
+					})
+					
 					localStorage.setItem('user',JSON.stringify(response.data.data))
 					localStorage.setItem('token',response.data.data.token)
 					

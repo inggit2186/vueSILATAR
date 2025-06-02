@@ -198,6 +198,9 @@ import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
 import rekapPemberkasan from './views/pages/adminpanel/rekapPemberkasan.vue';
 import cekPemberkasan from './views/pages/adminpanel/cekPemberkasan.vue';
 import laporanHumas from './views/pages/adminpanel/laporanHumas.vue';
+import nilaiSKP from './views/pages/adminpanel/nilaiSKP.vue';
+import addSKP from './views/pages/adminpanel/addSKP.vue';
+import rekapnilaiSKP from './views/pages/adminpanel/rekapnilaiSKP.vue';
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -413,6 +416,9 @@ app.component('RekapLaporan',rekapLaporan)
 app.component('RekapPemberkasan',rekapPemberkasan)
 app.component('CekPemberkasan',cekPemberkasan)
 app.component('LaporanHumas',laporanHumas)
+app.component('NilaiSKP',nilaiSKP)
+app.component('AddSKP',addSKP)
+app.component('RekapnilaiSKP', rekapnilaiSKP)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

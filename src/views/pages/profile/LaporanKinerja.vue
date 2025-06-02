@@ -149,10 +149,16 @@ export default {
 				},{headers})
 				
 				if(response.data.success == true){
-					response.data.file.forEach((value, index) => {
-						let itemIndex = this.files.findIndex(files => files.id === value.id)
-						this.files[itemIndex] = value;
-					});
+					if (Array.isArray(response.data.file)) {
+							response.data.file.forEach(file => {
+								console.log('File id from response:', file.id);
+								const index = this.files.findIndex(f => Number(f.id) === Number(file.id));
+								console.log('Matching index for file id', file.id, ':', index);
+								if (index !== -1) {
+									this.files[index] = file;
+								}
+							});
+						}
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
@@ -181,14 +187,18 @@ export default {
 					tahun: this.tahun,
 				},{headers})
 				
-				if(response.data.success == true){
-					
-					console.log(this.files)
-					response.data.file.forEach((value, index) => {
-						let itemIndex = this.files.findIndex(files => files.id === value.id)
-						this.files[itemIndex] = value;
-					});
-				}else{
+					if(response.data.success == true){
+						if (Array.isArray(response.data.file)) {
+							response.data.file.forEach(file => {
+								console.log('File id from response:', file.id);
+								const index = this.files.findIndex(f => Number(f.id) === Number(file.id));
+								console.log('Matching index for file id', file.id, ':', index);
+								if (index !== -1) {
+									this.files[index] = file;
+								}
+							});
+						}
+					}else{
 					this.$toast.fire({
 						title: response.data.data,
 						icon: 'error',

@@ -12,7 +12,8 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Pemberkasan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1081'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
@@ -20,12 +21,40 @@
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Pemberkasan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+										<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1081'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+										<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
 								</div>
                             <div class="card-body">
+								<div class="">
+									<ul v-if="$route.params.xid == '1037'" class="dashborad-menus">
+										<li :class="{ active: $route.path === '/rekappemberkasan/1037/998/1' }">
+											<router-link to="/rekappemberkasan/1037/998/1">
+												<i-healthicons-i-schedule-school-date-time /> <span><b>SEMESTER 1</b></span>
+											</router-link>
+										</li>
+										<li :class="{ active: $route.path === '/rekappemberkasan/1037/998/2' }">
+											<router-link to="/rekappemberkasan/1037/998/2">
+												<i-healthicons-i-schedule-school-date-time-outline /> <span><b>SEMESTER 2</b></span>
+											</router-link>
+										</li>
+									</ul>
+									<ul v-else-if="$route.params.xid == '1081'" class="dashborad-menus">
+										<li :class="{ active: $route.path === '/rekappemberkasan/1081/998/1' }">
+											<router-link to="/rekappemberkasan/1081/998/1">
+												<i-healthicons-i-schedule-school-date-time /> <span><b>SEMESTER 1</b></span>
+											</router-link>
+										</li>
+										<li :class="{ active: $route.path === '/rekappemberkasan/1081/998/2' }">
+											<router-link to="/rekappemberkasan/1081/998/2">
+												<i-healthicons-i-schedule-school-date-time-outline /> <span><b>SEMESTER 2</b></span>
+											</router-link>
+										</li>
+									</ul>
+									<span v-else></span>
+								</div>
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
@@ -126,12 +155,18 @@
 export default {
     data() {
 		const today = new Date();
+		let tanggal = null;
+		if(this.$route.params.xid == '1037' || this.$route.params.xid == '1081'){
+			tanggal = today.getFullYear();
+		}else{
+			tanggal = {month: today.getMonth()-1, year:today.getFullYear()};
+		}
         return {
             title: "Rekap Kinerja ASN",
             text: "Admin",
             text1: "Rekap Kinerja ASN",
             name: "/",
-			bulan: {month: today.getMonth()-1, year:today.getFullYear()},
+			bulan: tanggal,
 			columns2: [
 				{ name: 'Nama', data: 'name' },
 				{ name: 'Status', data: 'status' },
@@ -149,9 +184,17 @@ export default {
 			ptsp0: [],
             xid: null,
 			bulanx: null,
-            sid: null
+            sid: null,
+			rute: null
         }
     },
+	watch: {
+		$route(to, from) {
+			if (to.path !== from.path) {
+			this.getCKH();
+			}
+		}
+	},
     computed: {
 		tableHeader() {
 			return this.columns
@@ -187,8 +230,16 @@ export default {
 		async getCKH() {
             this.xid = this.$route.params.xid
             this.sid = this.$route.params.id
-			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-			this.bulanx = date
+            this.zid = this.$route.params.zid
+			let date = null
+			console.log(this.sid)
+			if(this.xid == '1037' || this.xid == '1081'){
+				date = this.bulan
+				this.bulanx = date
+			}else{
+				date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+				this.bulanx = date
+			}
 			this.loading = true;
 			try{
 				const headers = {
@@ -199,6 +250,7 @@ export default {
 					xid: date,
                     asn: this.sid,
 					id: this.xid,
+					zid: this.zid,
 				},{headers})
 				
 				if(response.data.success == true){
@@ -222,10 +274,18 @@ export default {
 		},
 
 		async get2CKH() {
-			const date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
-			this.bulanx = date
+			let date = null
+			if(this.xid == '1037' || this.xid == '1081'){
+				date = this.bulan
+				this.bulanx = date
+			}else{
+				date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
+				this.bulanx = date
+			}
+
             this.xid = this.$route.params.xid
             this.sid = this.$route.params.id
+			this.zid = this.$route.params.zid
 			this.loading = true;
 			try{
 				const headers = {
@@ -236,6 +296,7 @@ export default {
 					xid: date,
                     asn: this.sid,
 					id: this.xid,
+					zid: this.zid,
 				},{headers})
 				
 				if(response.data.success == true){
@@ -353,7 +414,7 @@ export default {
 								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
 							</tr>
 							</table>`
-			}else if(this.$route.params.xid === '1037'){
+			}else if(this.$route.params.xid === '1037' || this.$route.params.xid === '1081'){
 				option = `<table>
 							<tr>
 								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
@@ -442,7 +503,7 @@ export default {
 							</table>`
 			}
 
-			if(this.$route.params.xid === '777' || this.$route.params.xid === '1037' || this.$route.params.xid === '1038'){
+			if(this.$route.params.xid === '777' || this.$route.params.xid === '1037' || this.$route.params.xid === '1038' || this.$route.params.xid === '1081'){
 				this.$swal.fire({
 						title: 'Setting?',
 						html: option,

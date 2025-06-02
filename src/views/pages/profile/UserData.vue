@@ -70,6 +70,16 @@
                                         </div>
                                         </router-link>
                                     </div>
+                                    <div class="col-lg-4 col-md-4 centered">
+                                        <router-link to='/amprah'>
+                                        <div class="listMenu categories-content">
+                                            <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                            <img :src="$assets+'/img/ikon/keu003.png'" style="width:100%;" alt="car1">
+                                            <span><b>Dokumen Amprah</b></span>
+                                            </a>								   
+                                        </div>
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -644,12 +654,12 @@
                                         </BModal>
                                         <hr/>
                                         <div class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['ijazah']" @change="onFilePendidikan(datap.id,'ijazah',$event)">
-                                            <label v-if="!loadingfile['ijazah']" for="file" class="file-upload">
+                                            <input id="fileijazah" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['ijazah']" @change="onFilePendidikan(datap.id,'ijazah',$event)">
+                                            <label v-if="!loadingfile['ijazah']" for="fileijazah" class="file-upload">
                                                 <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="fileijazah" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -669,12 +679,12 @@
                                         </BModal>
                                         <hr/>
                                         <div  class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['transkrip']" @change="onFilePendidikan(datap.id,'transkrip',$event)">
-                                            <label v-if="!loadingfile['transkrip']" for="file" class="file-upload">
+                                            <input id="filetranskrip" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['transkrip']" @change="onFilePendidikan(datap.id,'transkrip',$event)">
+                                            <label v-if="!loadingfile['transkrip']" for="filetranskrip" class="file-upload">
                                                 <span v-if="datap.files_transkrip == null || datap.files_transkrip == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filetranskrip" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -793,12 +803,12 @@
                                         </BModal>
                                         <hr/>
                                         <div class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['sk']" @change="onFilePekerjaan(datap.id,'sk',$event)">
-                                            <label v-if="!loadingfile['sk']" for="file" class="file-upload">
+                                            <input id="filesk" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['sk']" @change="onFilePekerjaan(datap.id,'sk',$event)">
+                                            <label v-if="!loadingfile['sk']" for="filesk" class="file-upload">
                                                 <span v-if="datap.file_sk == null || datap.file_sk == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filesk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -818,12 +828,12 @@
                                         </BModal>
                                         <hr/>
                                         <div  class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmt']" @change="onFilePekerjaan(datap.id,'spmt',$event)">
-                                            <label v-if="!loadingfile['spmt']" for="file" class="file-upload">
+                                            <input id="filespmt" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmt']" @change="onFilePekerjaan(datap.id,'spmt',$event)">
+                                            <label v-if="!loadingfile['spmt']" for="filespmt" class="file-upload">
                                                 <span v-if="datap.file_spmt == null || datap.file_spmt == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespmt" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -843,12 +853,12 @@
                                         </BModal>
                                         <hr/>
                                         <div  class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmj']" @change="onFilePekerjaan(datap.id,'spmj',$event)">
-                                            <label v-if="!loadingfile['spmj']" for="file" class="file-upload">
+                                            <input id="filespmj" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmj']" @change="onFilePekerjaan(datap.id,'spmj',$event)">
+                                            <label v-if="!loadingfile['spmj']" for="filespmj" class="file-upload">
                                                 <span v-if="datap.file_spmj == null || datap.file_spmj == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespmj" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -868,12 +878,12 @@
                                         </BModal>
                                         <hr/>
                                         <div  class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spp']" @change="onFilePekerjaan(datap.id,'spp',$event)">
-                                            <label v-if="!loadingfile['spp']" for="file" class="file-upload">
+                                            <input id="filespp" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spp']" @change="onFilePekerjaan(datap.id,'spp',$event)">
+                                            <label v-if="!loadingfile['spp']" for="filespp" class="file-upload">
                                                 <span v-if="datap.file_spp == null || datap.file_spp == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespp" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -893,12 +903,12 @@
                                         </BModal>
                                         <hr/>
                                         <div  class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kontrak']" @change="onFilePekerjaan(datap.id,'kontrak',$event)">
-                                            <label v-if="!loadingfile['kontrak']" for="file" class="file-upload">
+                                            <input id="filekk" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kontrak']" @change="onFilePekerjaan(datap.id,'kontrak',$event)">
+                                            <label v-if="!loadingfile['kontrak']" for="filekk" class="file-upload">
                                                 <span v-if="datap.file_kontrak == null || datap.file_kontrak == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filekk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -1197,12 +1207,12 @@
                                         </BModal>
                                         <hr/>
                                         <div class="settings-upload-btn">
-                                            <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kgb']" @change="onFileKGB(datap.id,'kgb',$event)">
-                                            <label v-if="!loadingfile['kgb']" for="file" class="file-upload">
+                                            <input id="filekgb" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kgb']" @change="onFileKGB(datap.id,'kgb',$event)">
+                                            <label v-if="!loadingfile['kgb']" for="filekgb" class="file-upload">
                                                 <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filekgb" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -1990,6 +2000,7 @@ export default {
         },
         async uploadFilePJ(itemId,tipe) {
             try{
+                console.log(tipe)
                 this.loadingfile[tipe] = true
 				const headers = {
 								'Content-Type': 'application/json',
@@ -2185,6 +2196,11 @@ export default {
                     })
                     this.changedetail(3)
 				}else{
+                    this.$toast.fire({
+                        title: response.data.message,
+                        icon: 'error',
+                    })
+
                     let list=[];
                     $.each(response.data.valid, function(key, value) {
                         list.push(value+'<br/>');

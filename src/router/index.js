@@ -108,6 +108,11 @@ import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue'
 import rekapPemberkasan from '@/views/pages/adminpanel/rekapPemberkasan.vue'
 import cekPemberkasan from '@/views/pages/adminpanel/cekPemberkasan.vue';
 import laporanHumas from '@/views/pages/adminpanel/laporanHumas.vue';
+import nilaiSKP from '@/views/pages/adminpanel/nilaiSKP.vue';
+
+//other
+import AddSKP from '@/views/pages/adminpanel/addSKP.vue';
+import rekapnilaiSKP from '@/views/pages/adminpanel/rekapnilaiSKP.vue';
 
 const routes = [
     {
@@ -676,7 +681,7 @@ const routes = [
           }
     },
     {
-        path: '/rekappemberkasan/:xid/:id',
+        path: '/rekappemberkasan/:xid/:id/:zid',
         name: 'Rekap Pemberkasan',
         component: rekapPemberkasan,
         meta: {
@@ -762,7 +767,25 @@ const routes = [
         meta: {
             requiresAuth: true
           }
-    }
+    },
+    {
+        path: '/nilaiSKP',
+        name: 'Penilaian SKP',
+        component: nilaiSKP,
+    },
+    {
+        path: '/addnilaiSKP/:id',
+        name: 'Blanko Penilaian SKP',
+        component: AddSKP,
+    },
+    {
+        path: '/penilaianskp',
+        name: 'Rekap Penilaian SKP',
+        component: rekapnilaiSKP,
+        meta: {
+            requiresAdmin: true
+          }
+    },
    
 
 ]

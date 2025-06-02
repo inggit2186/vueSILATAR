@@ -366,7 +366,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/admin')  
+                    this.$router.go(-1) 
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -404,7 +404,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/admin')  
+                    this.$router.go(-1)  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,

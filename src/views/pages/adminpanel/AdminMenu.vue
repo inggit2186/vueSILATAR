@@ -71,6 +71,17 @@
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
+                            <router-link to='/penilaianskp'>
+                            <div class="listMenu categories-content">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <img :src="$assets+'/img/ikon/517.png'" style="width:100%;" alt="car1">
+                                <h6>Penilaian SKP</h6>
+                                <span>Rekap Penilain SKP Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</span>
+                                </a>								   
+                            </div>
+                            </router-link>
+                        </div>
+                        <div class="col-lg-3 col-md-3 centered">
                             <router-link to='/listreq/777'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -210,11 +221,11 @@ export default {
             }else if(id == 1080){
                 return "/rekaplaporan/Penyuluh/pns";
             }else if(id == 1037){
-                return "/rekappemberkasan/1037/998";
+                return "/rekappemberkasan/1037/998/1";
             }else if(id == 1038){
-                return "/rekappemberkasan/1038/998";
+                return "/rekappemberkasan/1038/998/1";
             }else if(id == 1081){
-                return "/rekappemberkasan/1081/998";
+                return "/rekappemberkasan/1081/998/1";
             }else{
                 return `/listreq/${id}`
             }
