@@ -990,6 +990,14 @@
                                                                     <option value="4c">IV/c | Pembina Utama Muda</option>
                                                                     <option value="4d">IV/d | Pembina Utama Madya</option>
                                                                     <option value="4e">IV/e | Pembina Utama</option>
+                                                                    <option value="none" disabled>&nbsp;</option>
+                                                                    <option value="none" disabled>-----Golongan PPPK-----</option>
+                                                                    <option value="V">V | Lulusan SMA/Sederajat</option>
+                                                                    <option value="VI">VI | Lulusan Diploma II</option>
+                                                                    <option value="VII">VII | Lulusan Diploma III</option>
+                                                                    <option value="IX">IX | Lulusan Diploma IV atau Sarjana (S1)</option>
+                                                                    <option value="X">X | Lulusan Magister (S2)</option>
+                                                                    <option value="XI">XI | Lulusan Doktor (S3)</option>
                                                                 </b-form-select>
                                                             </div>
                                                         </div>
