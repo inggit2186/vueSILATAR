@@ -156,7 +156,11 @@ export default {
 		addRequest() {
 			if(this.navid == 1038){
         		this.$router.push('/laporan/pais/TPG/Bulanan/');
-			}else if(this.navid == 1037 || this.navid == 1081 || this.navid == 1082){
+			}else if(this.navid == 1081){
+				this.$router.push('/laporan/penmad/TPG/Bulanan/');
+			}else if(this.navid == 2001){
+				this.$router.push('/certhalal');
+			}else if(this.navid == 1037 || this.navid == 1082){
 				let htmlx = null;
 				let seksi = null;
 

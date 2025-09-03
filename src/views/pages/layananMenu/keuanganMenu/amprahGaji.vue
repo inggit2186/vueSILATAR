@@ -370,11 +370,13 @@ export default {
                             <select style='font-size: 15px' id="kategori" class="swal2-input">
                                 <option  value="" disabled selected>--Pilih Kategori--</option>
                                 <option  value="PNS_KEAGAMAAN_BANK NAGARI">PNS Keagamaan • Bank Nagari</option>
-                                <option  value="PPPK_KEAGAMAAN_BANK NAGARI">PPPK Keagamaan • Bank Nagari</option>
+                                <option  value="PNS_KEAGAMAAN_BSI">PNS Keagamaan • BSI</option>
+                                <option  value="PNS_KEPENDIDIKAN_BSI">PNS Kependidikan • BSI</option>
+                                <option  value="PPPK_KEAGAMAAN_PPPK_NAGARI">PPPK Keagamaan • Bank Nagari</option>
                                 <option  value="PNS_KEPENDIDIKAN_BANK NAGARI">PNS Kependidikan • Bank Nagari</option>
                                 <option  value="PNS_KEPENDIDIKAN_BRI">PNS Kependidikan • BRI</option>
                                 <option  value="PNS_KEPENDIDIKAN_BSI">PNS Kependidikan • BSI</option>
-                                <option  value="PPPK_KEPENDIDIKAN_BSI">PPPK Kependidikan • BSI</option>
+                                <option  value="PPPK_KEPENDIDIKAN_PPPK_BSI">PPPK Kependidikan • BSI</option>
                             </select><hr/>
                     <table><tr><td style="vertical-align: middle;"><span style='font-size: 15px;'>Keterangan</span></td><td style="vertical-align: middle;"> : </td><td style="vertical-align: middle;"><textarea id="keterangan" class="swal2-textarea" rows=3></textarea></td></tr></table>
                     `;

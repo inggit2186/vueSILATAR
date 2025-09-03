@@ -168,6 +168,10 @@ import peraturanSE from './views/pages/layananMenu/peraturanSE.vue'
 import ruangKonsultasi from './views/pages/layananMenu/ruangKonsultasi.vue';
 import uploadLaporan from './views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
 import uploadPemberkasan from './views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
+import jenisUsaha from './views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
+import halalMenu from './views/pages/layananMenu/seksiMenu/halalMenu.vue';
+import kecMenu from './views/pages/layananMenu/seksiMenu/kecMenu.vue';
+import listp3h from './views/pages/layananMenu/seksiMenu/listp3h.vue';
 
 //keuangan
 import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
@@ -386,6 +390,10 @@ app.component('PeraturanSE',peraturanSE)
 app.component('RuangKonsultasi',ruangKonsultasi)
 app.component('UploadLaporan',uploadLaporan)
 app.component('UploadPemberkasan',uploadPemberkasan)
+app.component('jenisUsaha',jenisUsaha)
+app.component('halalMenu',halalMenu)
+app.component('kecMenu',kecMenu)
+app.component('listp3h',listp3h)
 
 //Keuangan
 app.component('keuanganMenu', keuanganMenu)

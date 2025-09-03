@@ -196,6 +196,8 @@ export default {
                 return "/laporan/bimas/Laporan/KUA";
             }else if(id == 1080){
                 return "/laporan/bimas/Laporan/Penyuluh";
+            }else if(id == 2001){
+                return "/usaha";
             }else {
 				if(id == 1081 && user.dept_id == 14){
 					return `/LayananDetail/Personal/${this.$route.params.id}/1082`

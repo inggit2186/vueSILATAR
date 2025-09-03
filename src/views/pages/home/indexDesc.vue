@@ -33,10 +33,14 @@
 							</div>
 						</div>
 					</div>
+					<br/>
 					<hr/>
-					<div class="col-md-7 aos centered" data-aos="fade-up" style="margin-top: 60px;">
-						<div>
-							<img src="../../../assets/img/grafitikasi.png" style="width:100%;"/>
+					<div style="display: flex; flex-direction: row; gap: 10px;" data-aos="fade-up">
+						<div style="flex: 1;">
+							<img src="../../../assets/img/grafitikasi.png" style="width: 102%; height: auto;" />
+						</div>
+						<div style="flex: 1;">
+							<img src="../../../assets/img/5bk.png" style="width: 105%; height: auto;" />
 						</div>
 					</div>
 				</div>			   

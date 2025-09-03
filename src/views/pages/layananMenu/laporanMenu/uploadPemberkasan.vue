@@ -368,7 +368,7 @@ export default {
                             title: response.data.message,
                             icon: 'success',
                         })
-                        this.$router.push('/layanan/5') 
+                        this.$router.push('/layanan/'+this.request.deptid) 
                     }else{
                         this.$toast.fire({
                             title: response.data.message,
@@ -418,7 +418,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    this.$router.push('/layanan/'+this.request.deptid)
                 }else{
                     this.$toast.fire({
                         title: response.data.message,
@@ -456,7 +456,7 @@ export default {
                         title: response.data.message,
                         icon: 'success',
                     })
-                    this.$router.push('/UnitKerja')  
+                    this.$router.push('/layanan/'+this.request.deptid)  
                 }else{
                     this.$toast.fire({
                         title: response.data.message,

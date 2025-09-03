@@ -91,6 +91,10 @@ import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
 import ruangKonsultasi from '@/views/pages/layananMenu/ruangKonsultasi.vue';
 import uploadLaporan from '@/views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
 import uploadPemberkasan from '@/views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
+import jenisUsaha from '@/views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
+import halalMenu from '@/views/pages/layananMenu/seksiMenu/halalMenu.vue';
+import kecMenu from '@/views/pages/layananMenu/seksiMenu/kecMenu.vue';
+import listp3h from '@/views/pages/layananMenu/seksiMenu/listp3h.vue';
 
 //cPanel
 import adminasnList from '@/views/pages/adminpanel/asnList.vue'
@@ -772,6 +776,26 @@ const routes = [
         path: '/nilaiSKP',
         name: 'Penilaian SKP',
         component: nilaiSKP,
+    },
+    {
+        path: '/usaha',
+        name: 'Jenis Usaha',
+        component: jenisUsaha,
+    },
+    {
+        path: '/:id/certhalal',
+        name: 'Sertifikasi Halal',
+        component: halalMenu,
+    },
+    {
+        path: '/:jid/:id/domisili',
+        name: 'Domisili Kecamatan',
+        component: kecMenu,
+    },
+    {
+        path: '/p3h/:id',
+        name: 'List P3H',
+        component: listp3h,
     },
     {
         path: '/addnilaiSKP/:id',

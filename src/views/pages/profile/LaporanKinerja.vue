@@ -251,6 +251,7 @@ export default {
 		async uploadDoc(itemId) {
             try{
                 this.loadingfile[itemId] = true
+				console.log(itemId)
 				const headers = {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -276,6 +277,7 @@ export default {
                         icon: 'danger',
                     })
 				}
+					
                 
 			} catch (error) {
 				this.$toast.fire({
