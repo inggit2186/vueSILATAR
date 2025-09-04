@@ -75,7 +75,7 @@ export default {
 					version: 'Auto Update'
 				},{headers})
         if(response.data.success == true){
-          /**
+          
             if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
               if (window.innerWidth < 768) {
                 this.$swal.fire({
@@ -349,8 +349,8 @@ export default {
               }
             }
 
-        */
-
+        
+            /**
                 if(this.user.nip.toString().length !== 16 || this.user.kk.toString().length !== 16 || this.user.npwp == ''){
                   this.$swal.fire({
                   title: 'Pemutakhiran Data!',
@@ -381,38 +381,39 @@ export default {
                       this.$swal.showValidationMessage('Mohon Input NIK / No KK / NPWP Anda');
                       return false;
                     }else if(nik.toString().length !== 16 || kk.toString().length !== 16){
-						this.$swal.showValidationMessage('Mohon Isi NIK / KK Anda dengan benar (16 Angka)');
-                      return false;
-					}
-                    try {
-                      const response2 = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addNIK',{
-                          userid: response.data.data.id,
-                          nik: nik,
-                          kk: kk,
-                          npwp: npwp
-                      },{headers});
-                      return response2;
-                    } catch (error) {
-                      this.$swal.showValidationMessage(`
-                        Request failed: ${error}
-                      `);
+                      this.$swal.showValidationMessage('Mohon Isi NIK / KK Anda dengan benar (16 Angka)');
+                                return false;
                     }
-                  },
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      this.user.sppt= result.value.data.sppt;
-                      this.user.nip = document.getElementById('swal-input-nik').value;
-                      this.user.kk = document.getElementById('swal-input-kk').value;
-                      this.user.npwp = document.getElementById('swal-input-npwp').value;
-                      localStorage.setItem("user",JSON.stringify(this.user));
-                      this.$toast.fire({
-                        icon: 'success',
-                        title: 'Terima Kasih telah mengupdate Data Anda !!!',
-                      })
-                    }else{
-                    };
-                  });
+                              try {
+                                const response2 = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addNIK',{
+                                    userid: response.data.data.id,
+                                    nik: nik,
+                                    kk: kk,
+                                    npwp: npwp
+                                },{headers});
+                                return response2;
+                              } catch (error) {
+                                this.$swal.showValidationMessage(`
+                                  Request failed: ${error}
+                                `);
+                              }
+                            },
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                this.user.sppt= result.value.data.sppt;
+                                this.user.nip = document.getElementById('swal-input-nik').value;
+                                this.user.kk = document.getElementById('swal-input-kk').value;
+                                this.user.npwp = document.getElementById('swal-input-npwp').value;
+                                localStorage.setItem("user",JSON.stringify(this.user));
+                                this.$toast.fire({
+                                  icon: 'success',
+                                  title: 'Terima Kasih telah mengupdate Data Anda !!!',
+                                })
+                              }else{
+                              };
+                            });
               }
+                            */
         }else{
           this.$toast.fire({
             title: response.data.message,

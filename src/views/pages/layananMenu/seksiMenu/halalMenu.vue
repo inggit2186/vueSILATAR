@@ -91,11 +91,14 @@ export default {
         }
 	},
     methods: {
+        getSwalWidth() {
+            return window.innerWidth < 768 ? '100%' : '55%';
+        },
         showAlurInfo() {
             if(this.$route.params.id == 'umk'){
                 this.$swal.fire({
                     title: 'Informasi Alur Sertifikasi Halal',
-                    width: '55%',
+                    width: this.getSwalWidth(),
                     html: `
                         <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                             <div style="text-align: center; margin-bottom: 20px;">
@@ -152,7 +155,7 @@ export default {
             }else if(this.$route.params.id == 'non'){
                 this.$swal.fire({
                     title: 'Informasi Alur Sertifikasi Halal',
-                    width: '55%',
+                    width: this.getSwalWidth(),
                     html: `
                         <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                             <div style="text-align: center; margin-bottom: 20px;">
@@ -204,7 +207,7 @@ export default {
         showLPHInfo() {
             this.$swal.fire({
                 title: 'Konsultasi dengan LPH',
-                width: '55%',
+                width: this.getSwalWidth(),
                 html: `
                     <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                         <div style="text-align: center; margin-bottom: 20px;">
@@ -234,7 +237,7 @@ export default {
         showHotlineInfo() {
             this.$swal.fire({
                 title: 'Hotline Sertifikasi Halal',
-                width: '55%',
+                width: this.getSwalWidth(),
                 html: `
                     <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                         <div style="text-align: center; margin-bottom: 20px;">
@@ -260,7 +263,7 @@ export default {
             if(this.$route.params.id == 'umk'){
                 this.$swal.fire({
                     title: 'Persyaratan Sertifikasi Halal',
-                    width: '55%',
+                    width: this.getSwalWidth(),
                     html: `
                         <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                             <div style="text-align: center; margin-bottom: 20px;">
@@ -299,7 +302,7 @@ export default {
             }else if(this.$route.params.id == 'non'){
                 this.$swal.fire({
                     title: 'Persyaratan Sertifikasi Halal',
-                    width: '55%',
+                    width: this.getSwalWidth(),
                     html: `
                         <div style="text-align: left; max-height: 400px; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 19px; line-height: 1.6;">
                             <div style="text-align: center; margin-bottom: 20px;">

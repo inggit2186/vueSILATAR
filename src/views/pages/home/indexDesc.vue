@@ -154,6 +154,47 @@ export default {
 					//console.log(response.data.data)
 					this.IndexTwoFeedback = response.data.data
 					this.total = response.data.total
+
+					if(response.data.iklan != 'NONE' && !localStorage.getItem('token')){
+                    if (window.innerWidth < 768) {
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '410px',
+                                  height: '350px',
+                                  imageAlt: "Pengumuman",
+                                  confirmButtonText: 'Kunjungi Layanan',
+                                  showCloseButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        this.$router.push('/usaha');
+                                    }
+                                });
+                            }else{
+                              this.$swal.fire({
+                                  html: `
+                                    <a href="${response.data.iklan.url}" target="_blank">
+                                      <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
+                                    </a>
+                                  `,
+                                  padding: "0",
+                                  width: '600px',
+                                  height: '540px',
+                                  imageAlt: "Pengumuman",
+                                  confirmButtonText: 'Kunjungi Layanan',
+                                  showCloseButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        this.$router.push('/usaha');
+                                    }
+                                });
+                            }
+                  }
+
 				}else{
 					this.$toast.fire({
 						title: response.data.data,
