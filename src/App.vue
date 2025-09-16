@@ -209,35 +209,26 @@ export default {
                 htmlx += "</table></center>"
 
                 if(response.data.iklan != 'NONE'){
-                  if (window.innerWidth < 768) {
+                  const isMobile = window.innerWidth < 768;
+                    const showConfirmButton = response.data.iklan.layanan == 1;
                     this.$swal.fire({
                         html: `
                           <a href="${response.data.iklan.url}" target="_blank">
-                            <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
+                            <img src="${response.data.iklan.img}" width="${isMobile ? '390' : '520'}" height="${isMobile ? '390' : '520'}" alt="Iklan"></img>
                           </a>
                         `,
                         padding: "0",
-                        width: '400px',
-                        height: '350px',
+                        width: isMobile ? '90%' : '580px',
+                        height: isMobile ? 'auto' : '520px',
                         imageAlt: "Pengumuman",
-                        showConfirmButton: false,
+                        showConfirmButton: showConfirmButton ? 'true' : false,
+                        confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
                         showCloseButton: true,
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              this.$router.push('/usaha');
+                          }
                       });
-                  }else{
-                    this.$swal.fire({
-                        html: `
-                          <a href="${response.data.iklan.url}" target="_blank">
-                            <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
-                          </a>
-                        `,
-                        padding: "0",
-                        width: '600px',
-                        height: '540px',
-                        imageAlt: "Pengumuman",
-                        showConfirmButton: false,
-                        showCloseButton: true,
-                      });
-                  }
                 }else{
                   this.$swal.fire({
                       title: "Recent Change !!",
@@ -310,35 +301,26 @@ export default {
                     });
                 }else{
                   if(response.data.iklan != 'NONE'){
-                    if (window.innerWidth < 768) {
-                              this.$swal.fire({
-                                  html: `
-                                    <a href="${response.data.iklan.url}" target="_blank">
-                                      <img src="${response.data.iklan.img}" width="350" height="350" alt="Iklan"></img>
-                                    </a>
-                                  `,
-                                  padding: "0",
-                                  width: '410px',
-                                  height: '350px',
-                                  imageAlt: "Pengumuman",
-                                  showConfirmButton: false,
-                                  showCloseButton: true,
-                                });
-                            }else{
-                              this.$swal.fire({
-                                  html: `
-                                    <a href="${response.data.iklan.url}" target="_blank">
-                                      <img src="${response.data.iklan.img}" width="540" height="540" alt="Iklan"></img>
-                                    </a>
-                                  `,
-                                  padding: "0",
-                                  width: '600px',
-                                  height: '540px',
-                                  imageAlt: "Pengumuman",
-                                  showConfirmButton: false,
-                                  showCloseButton: true,
-                                });
-                            }
+                    const isMobile = window.innerWidth < 768;
+                    const showConfirmButton = response.data.iklan.layanan == 1;
+                    this.$swal.fire({
+                        html: `
+                          <a href="${response.data.iklan.url}" target="_blank">
+                            <img src="${response.data.iklan.img}" width="${isMobile ? '390' : '520'}" height="${isMobile ? '390' : '520'}" alt="Iklan"></img>
+                          </a>
+                        `,
+                        padding: "0",
+                        width: isMobile ? '90%' : '580px',
+                        height: isMobile ? 'auto' : '520px',
+                        imageAlt: "Pengumuman",
+                        showConfirmButton: showConfirmButton ? 'true' : false,
+                        confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
+                        showCloseButton: true,
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              this.$router.push('/usaha');
+                          }
+                      });
                   }else{
                     this.$toast.fire({
                       title: response.data.message,

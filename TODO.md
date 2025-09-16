@@ -1,6 +1,8 @@
-# TODO: Implement Swal Popup for "Informasi Alur Sertifikasi Halal"
-
-- [x] Modify the template in halalMenu.vue: Remove router-link and add @click.prevent="showAlurInfo" to the <a> tag
-- [x] Update the script in halalMenu.vue: Import Swal and add showAlurInfo method to display the popup with halal certification content
-- [x] Make the Swal HTML prettier with colors, margins, and scrollable content
-- [ ] Test the component to ensure the Swal popup works correctly
+- [ ] Add socket.io-client, express, socket.io to package.json
+- [ ] Create server.js for Socket.io server
+- [ ] Create src/components/Chat.vue component
+- [ ] Register Chat component in main.js
+- [ ] Add Chat component to App.vue
+- [ ] Add server script to package.json
+- [ ] Install dependencies
+- [ ] Test by running server and dev

@@ -83,7 +83,12 @@ export default {
             return id => `/satkerdata/${this.navid}`
         },
         routeAppoint() {
-            return id => `/Appointment/${this.navid}`
+            return id => {
+                if (!localStorage.getItem('token')) {
+                    return '/bukutamu';
+                }
+                return `/Appointment/${this.navid}`;
+            }
         },
         routeLaporan() {
             return id => `/laporan/KUA`

@@ -141,10 +141,20 @@ export default {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
 		tujuKonsultasi() {
-        	return id => `/Konsultasi/${this.$route.params.id}`
+			return id => {
+                if (!localStorage.getItem('token')) {
+                    return '/bukutamu';
+                }
+                return `/Konsultasi/${this.$route.params.id}`;
+            }
     	},
 		tujuAppointment() {
-        	return id => `/Appointment/${this.$route.params.id}`
+        	return id => {
+                if (!localStorage.getItem('token')) {
+                    return '/bukutamu';
+                }
+                return `/Appointment/${this.navid}`;
+            }
     	},
 		tujuPersuratan() {
         	return id => `/Persuratan/${this.$route.params.id}`

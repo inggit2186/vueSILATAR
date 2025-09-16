@@ -201,13 +201,23 @@
 				</div>
 			</div>
 			<!-- /Footer Bottom -->
-			
+
+
+
 		</footer>
 		<!-- /Footer -->
 </template>
 
 <script>
 	export default {
-		
+		data() {
+			return {
+			}
+		},
+		methods: {
+		}
 	}
 </script>
+
+<style scoped>
+</style>

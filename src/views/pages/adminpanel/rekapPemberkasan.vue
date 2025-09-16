@@ -132,6 +132,10 @@
                                             <li class="page-item nextlink" :class="{'disabled': currentPage === totalPages}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
                                             </li>
+                                            <li class="d-flex align-items-center" style="padding-left: 5px;">
+                                                <input type="number" v-model="goToPageNumber" min="1" :max="totalPages" class="form-control form-control-sm" style="width: 115px;" placeholder="Halaman" @keyup.enter="goToPage">
+                                                <button class="btn btn-danger" style="margin-left: 5px;" @click="goToPage"><b>GO</b></button>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -185,7 +189,8 @@ export default {
             xid: null,
 			bulanx: null,
             sid: null,
-			rute: null
+			rute: null,
+			goToPageNumber: ''
         }
     },
 	watch: {
@@ -232,7 +237,7 @@ export default {
             this.sid = this.$route.params.id
             this.zid = this.$route.params.zid
 			let date = null
-			console.log(this.sid)
+
 			if(this.xid == '1037' || this.xid == '1083'){
 				date = this.bulan
 				this.bulanx = date
@@ -340,12 +345,25 @@ export default {
 			} else {
 				this.ptsp = this.ptsp0.filter((item) => {
 					return item.nama.toLowerCase().includes(this.keyword.toLowerCase()) ||
+					item.nip.toLowerCase().includes(this.keyword.toLowerCase()) ||
 					item.status.toLowerCase().includes(this.keyword.toLowerCase());
 				});
 			}
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+		goToPage() {
+			let page = parseInt(this.goToPageNumber);
+			if (page >= 1 && page <= this.totalPages) {
+				this.changePage(page);
+				this.goToPageNumber = '';
+			} else {
+				this.$toast.fire({
+					title: 'Nomor Halaman Tidak Ada',
+					icon: 'error',
+				});
+			}
 		},
         aksiStatus(id) {
 			this.$router.push(`/cekpemberkasan/${this.$route.params.xid}/${id}`)
@@ -578,9 +596,10 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-					
+				
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/downloadRekapRequest',{
 					layanan: this.$route.params.xid,
+					dept: this.$route.params.id,
 					kategori: kategori,
 					status: status,
 					tgl_start: start,

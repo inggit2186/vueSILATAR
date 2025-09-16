@@ -661,6 +661,14 @@ const routes = [
           }
     },
     {
+        path: '/1081/:xid/:id',
+        name: 'Verifikasi TPG Penmad',
+        component: rekapPemberkasan,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
         path: '/lappresensi/:xid/:id',
         name: 'Laporan Presensi',
         component: adminSatker,
