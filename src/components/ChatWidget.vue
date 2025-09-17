@@ -1,23 +1,90 @@
 <template>
   <div class="chat-widget">
-    <div v-if="!isOpen" class="chat-icon" @click="toggleChat" title="Open chat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"></path>
-      </svg>
-    </div>
-    <div v-else class="chat-window">
+<div v-if="!isOpen" class="chat-icon" @click.stop="toggleChat" title="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
+  </svg>
+  <div v-if="hasNewMessage" class="new-message-notification">Pesan Baru !!</div>
+</div>
+    <div v-else ref="chatWindow" class="chat-window" @click.stop>
       <div class="chat-header">
         <span>Live Chat</span>
         <button @click="toggleChat" class="close-btn" aria-label="Close chat">&times;</button>
       </div>
       <div class="chat-messages" ref="messagesContainer" tabindex="0" aria-live="polite" aria-atomic="false">
-        <div v-for="message in messages" :key="message.id" class="message" :class="{ 'own': message.sender === currentUser.name }">
-          <strong>{{ message.sender }}:</strong> {{ message.text }}
+        <div v-if="isLoading" class="loading-container">
+          <div class="loading-spinner"></div>
+          <span class="loading-text">Loading messages...</span>
+        </div>
+        <div v-for="message in messages" :key="message.id" class="message" :class="{ 'own': message.sender === (isAuthenticated ? currentUser.name : guestName) }">
+          <div class="message-content">
+            <img v-if="message.pp" :src="message.pp" :alt="message.sender" class="message-avatar" />
+            <div class="message-body">
+              <div class="message-header">
+                <div class="sender-info">
+                  <strong>{{ message.sender }}</strong>
+                  <span v-if="message.role" :class="getRoleClass(message.role)" class="message-role">{{ getDisplayRole(message.role) }}</span>
+                </div>
+                <span class="message-time">{{ formatTime(message.time) }}</span>
+              </div>
+              <div class="message-text">{{ message.text }}</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="chat-input">
-        <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type a message..." :disabled="!isAuthenticated" aria-label="Type your message" />
-        <button @click="sendMessage" :disabled="!isAuthenticated" aria-label="Send message">Send</button>
+        <div class="input-container">
+          <textarea
+            v-model="newMessage"
+            @keydown.enter="handleEnter"
+            @input="onInput"
+            placeholder="Type a message..."
+            :disabled="!(isAuthenticated || guestName) || isSending"
+            aria-label="Type your message"
+            ref="messageTextarea"
+            style="overflow:hidden;resize:none"
+          ></textarea>
+          <button class="emoji-icon" @click="toggleEmojiPicker" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Open emoji picker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="emoji-icon-svg">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </button>
+          <button class="send-icon" :class="{ 'typing': newMessage.trim() }" @click="sendMessage" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon-svg">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+            </svg>
+          </button>
+          <div v-if="showEmojiPicker" class="emoji-picker">
+            <div class="emoji-grid">
+              <span v-for="emoji in pagedEmojis" :key="emoji" @click="insertEmoji(emoji)" class="emoji-item">{{ emoji }}</span>
+            </div>
+            <div class="emoji-pagination">
+              <button @click="prevEmojiPage" :disabled="emojiPage === 1" aria-label="Previous emoji page">Prev</button>
+              <span>Page {{ emojiPage }} / {{ totalEmojiPages }}</span>
+              <button @click="nextEmojiPage" :disabled="emojiPage === totalEmojiPages" aria-label="Next emoji page">Next</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="isTyping" class="typing-indicator">Typing...</div>
+      </div>
+    </div>
+    <!-- Guest Name Modal -->
+    <div v-if="!isAuthenticated && !guestName && isOpen" class="guest-name-modal" @click.stop>
+      <div class="modal-content">
+        <h3>Selamat Datang Live Chat</h3>
+        <p>Mohon Masukkan Nama Anda untuk memulai chatting:</p>
+        <input
+          v-model="nameInput"
+          @keydown.enter="setGuestName"
+          placeholder="Masukkan Nama"
+          class="modal-name-input"
+          ref="nameInputRef"
+        />
+        <button @click="setGuestName" class="modal-start-btn" :disabled="!nameInput.trim()">Start Chatting</button>
       </div>
     </div>
   </div>
@@ -33,7 +100,46 @@ export default {
       newMessage: '',
       currentUser: null,
       isAuthenticated: false,
-      pollingInterval: null
+      guestName: '',
+      nameInput: '',
+      pollingInterval: null,
+      isLoading: false,
+      isFirstFetch: true,
+      isSending: false,
+      showEmojiPicker: false,
+      isTyping: false,
+      typingTimeout: null,
+      emojiPage: 1,
+      emojisPerPage: 50,
+      hasNewMessage: false,
+      previousMessageCount: 0,
+      emojis: [
+        // Faces and Emotions
+        '😀', '😂', '😊', '😍', '🥰', '😘', '😉', '😎', '🤔', '😢', '😭', '😤', '😡', '🥺', '😴', '🤤', '😵', '🤯', '🤠', '🥳',
+        '😇', '👿', '👻', '💀', '🤖', '👽', '👾', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾',
+        // Hands and Gestures
+        '🤲', '👐', '🙌', '👏', '🤝', '👍', '👎', '👌', '✌️', '🤞', '🤟', '🤘', '🤙', '👈', '👉', '👆', '🖕', '👇', '☝️', '👋', '🤚', '🖐️', '✋', '🖖',
+        // Animals
+        '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐽', '🐸', '🐵', '🙈', '🙉', '🙊', '🐒', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🐛', '🦋', '🐌', '🐞', '🐜', '🦗', '🕷️', '🦂', '🐢', '🐍', '🦎', '🦖', '🦕', '🐙', '🦑', '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍', '🦧', '🐘', '🦛', '🦏', '🐪', '🐫', '🦒', '🦘', '🐃', '🐂', '🐄', '🐎', '🐖', '🐏', '🐑',
+        // Food and Drink
+        '🍎', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔', '🍠', '🥐', '🥖', '🍞', '🥨', '🥯', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭', '🍔', '🍟', '🍕', '🫓', '🥙', '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '🥮', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧', '🧁', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', '🍯', '🥛', '🍼', '☕', '🫖', '🍵', '🧃', '🥤', '🧋', '🍶', '🍺', '🍻', '🥂', '🍷', '🥃', '🍸', '🍹', '🧉', '🍾',
+        // Activities and Sports
+        '⚽', '🏀', '🏈', '⚾', '🥎', '🎾', '🏐', '🏉', '🥏', '🎱', '🪀', '🏓', '🏸', '🏒', '🏑', '🥍', '🏏', '🪃', '🥅', '⛳', '🪁', '🏹', '🎣', '🤿', '🥊', '🥋', '🎽', '🛹', '🛷', '⛸️', '🥌', '🎿', '⛷️', '🏂', '🪂', '🏋️', '🤸', '⛹️', '🤺', '🤾', '🏌️', '🧘', '🏃', '🚶', '🧎', '🧍', '🤳', '💃', '🕺', '👯', '🪩', '🎤', '🎧', '🎼', '🎹', '🥁', '🪘', '🎷', '🎺', '🪗', '🎸', '🪕', '🎻', '🎲', '♠️', '♥️', '♦️', '♣️', '🃏', '🀄', '🎴',
+        // Travel and Places
+        '🚗', '🚕', '🚙', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '🚐', '🚚', '🚛', '🚜', '🏍️', '🛵', '🚲', '🛴', '🛹', '🚁', '🚟', '🚠', '🚡', '🛤️', '🛣️', '🗺️', '⛽', '🚨', '🚥', '🚦', '🛑', '🚧', '⚓', '⛵', '🛶', '🚤', '🛳️', '⛴️', '🛥️', '🚢', '✈️', '🛩️', '🛫', '🛬', '🪂', '💺', '🚀', '🛸', '🚁', '🚟', '🚠', '🚡', '🛤️', '🛣️', '🗺️', '⛽', '🚨', '🚥', '🚦', '🛑', '🚧', '⚓', '⛵', '🛶', '🚤', '🛳️', '⛴️', '🛥️', '🚢', '✈️', '🛩️', '🛫', '🛬', '🪂', '💺', '🚀', '🛸',
+        // Objects
+        // Flags
+        '🏁', '🚩', '🎌', '🏴', '🏳️', '🏳️‍🌈', '🏳️‍⚧️', '🏴‍☠️', '🇺🇸', '🇬🇧', '🇨🇦', '🇦🇺', '🇩🇪', '🇫🇷', '🇯🇵', '🇰🇷', '🇨🇳', '🇮🇳', '🇧🇷', '🇲🇽', '🇷🇺', '🇮🇹', '🇪🇸', '🇳🇱', '🇸🇪', '🇳🇴', '🇩🇰', '🇫🇮', '🇵🇱', '🇹🇷', '🇬🇷', '🇵🇹', '🇭🇺', '🇨🇿', '🇸🇰', '🇦🇹', '🇨🇭', '🇧🇪', '🇱🇺', '🇮🇪', '🇮🇸', '🇬🇱', '🇫🇴', '🇩🇰', '🇸🇪', '🇳🇴', '🇫🇮', '🇪🇪', '🇱🇻', '🇱🇹', '🇲🇹', '🇨🇾', '🇸🇮', '🇭🇷', '🇧🇦', '🇲🇪', '🇦🇱', '🇲🇰', '🇷🇸', '🇽🇰', '🇲🇪', '🇧🇬', '🇷🇴', '🇲🇩', '🇺🇦', '🇧🇾', '🇷🇺', '🇰🇿', '🇰🇬', '🇹🇯', '🇹🇲', '🇺🇿', '🇦🇿', '🇦🇲', '🇬🇪', '🇦🇿', '🇦🇲', '🇬🇪', '🇦🇿', '🇦🇲', '🇬🇪'
+      ]
+    }
+  },
+  computed: {
+    totalEmojiPages() {
+      return Math.ceil(this.emojis.length / this.emojisPerPage);
+    },
+    pagedEmojis() {
+      const start = (this.emojiPage - 1) * this.emojisPerPage;
+      return this.emojis.slice(start, start + this.emojisPerPage);
     }
   },
   mounted() {
@@ -52,33 +158,64 @@ export default {
         this.currentUser = JSON.parse(user);
       }
     },
-    toggleChat() {
-      this.isOpen = !this.isOpen;
-      if (this.isOpen) {
+    async toggleChat() {
+      if (!this.isOpen) {
+        this.isOpen = true;
+        await this.fetchMessages();
+        this.hasNewMessage = false;
         this.$nextTick(() => {
           this.scrollToBottom();
-          this.$refs.messagesContainer.focus();
+          if (this.$refs.nameInputRef) {
+            this.$refs.nameInputRef.focus();
+          } else {
+            this.$refs.messagesContainer.focus();
+          }
         });
+        document.addEventListener('click', this.handleClickOutside);
+      } else {
+        this.isOpen = false;
+        document.removeEventListener('click', this.handleClickOutside);
       }
     },
     async sendMessage() {
-      if (!this.newMessage.trim() || !this.isAuthenticated) return;
+      if (!this.newMessage || this.isSending) return;
+      let sauth, userid, user, pp, role;
 
+      if (!this.isAuthenticated) {
+        sauth = 'guest';
+        userid = null;
+        user = this.guestName;
+        pp = null;
+        role = null;
+      } else {
+        sauth = 'auth';
+        userid = this.currentUser.id;
+        user = this.currentUser.name;
+        pp = this.currentUser.pp;
+        role = this.currentUser.role;
+      }
+
+      this.isSending = true;
       try {
         const headers = {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         };
         const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/livechat', {
-          user: this.currentUser.id,
-          message: this.newMessage.trim()
+          sauth: sauth,
+          userid: userid,
+          user: user,
+          message: this.newMessage
         }, { headers });
 
         if (response.data.success) {
           this.messages.push({
             id: Date.now(),
-            sender: this.currentUser.name,
-            text: this.newMessage.trim()
+            sender: user,
+            text: this.newMessage,
+            pp: pp,
+            role: role,
+            time: new Date().toISOString()
           });
           this.newMessage = '';
           this.$nextTick(() => {
@@ -87,25 +224,48 @@ export default {
         }
       } catch (error) {
         console.error('Error sending message:', error);
+      } finally {
+        this.isSending = false;
       }
     },
-    async fetchMessages() {
-      if (!this.isAuthenticated) return;
 
+    handleEnter(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        this.sendMessage();
+      }
+    },
+
+    async fetchMessages() {
+      const wasFirstFetch = this.isFirstFetch;
+      if (wasFirstFetch) {
+        this.isLoading = true;
+      }
       try {
         const headers = {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         };
         const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL + '/livechat/messages', { headers });
         if (response.data.success) {
-          this.messages = response.data.messages;
+          // Check for new messages when chat is closed
+          if (!this.isOpen && this.messages.length < response.data.data.length) {
+            this.hasNewMessage = true;
+          }
+          this.messages = response.data.data;
+          if (wasFirstFetch) {
+            this.isFirstFetch = false;
+          }
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
+      } finally {
+        if (wasFirstFetch) {
+          this.isLoading = false;
+        }
       }
     },
     startPolling() {
-      this.pollingInterval = setInterval(this.fetchMessages, 5000);
+      this.pollingInterval = setInterval(this.fetchMessages, 3000);
     },
     stopPolling() {
       if (this.pollingInterval) {
@@ -116,6 +276,111 @@ export default {
       const container = this.$refs.messagesContainer;
       if (container) {
         container.scrollTop = container.scrollHeight;
+      }
+    },
+    formatTime(createdAt) {
+      if (!createdAt) return '';
+      const date = new Date(createdAt);
+      const now = new Date();
+      const diff = now - date;
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+
+      if (days > 0) {
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US', { month: 'long' });
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
+      } else if (hours > 0) {
+        return `${hours}h ago`;
+      } else if (minutes > 0) {
+        return `${minutes}m ago`;
+      } else {
+        return 'now';
+      }
+    },
+    getRoleClass(role) {
+      if (!role) return '';
+      const roleClasses = {
+        admin: 'role-admin',
+        kepala: 'role-kepala',
+        kasi: 'role-kasi',
+        kasubbag: 'role-kasubbag',
+        petugas: 'role-petugas',
+        pegawai: 'role-pegawai',
+        frontdesk: 'role-ptsp'
+      };
+      return roleClasses[role.toLowerCase()] || '';
+    },
+    getDisplayRole(role) {
+      if (!role) return '';
+      const displayRoles = {
+        admin: 'admin',
+        kepala: 'kepala',
+        kasi: 'kasi',
+        kasubbag: 'kasubbag',
+        petugas: 'staff',
+        pegawai: 'asn',
+        frontdesk: 'frontdesk',
+        other: 'guest'
+      };
+      return displayRoles[role.toLowerCase()] || role;
+    },
+    toggleEmojiPicker() {
+      this.showEmojiPicker = !this.showEmojiPicker;
+    },
+    insertEmoji(emoji) {
+      const textarea = this.$refs.messageTextarea;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      this.newMessage = this.newMessage.substring(0, start) + emoji + this.newMessage.substring(end);
+      this.showEmojiPicker = false;
+      this.$nextTick(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + emoji.length, start + emoji.length);
+      });
+    },
+    onInput() {
+      // Typing indicator logic
+      this.isTyping = true;
+      if (this.typingTimeout) {
+        clearTimeout(this.typingTimeout);
+      }
+      this.typingTimeout = setTimeout(() => {
+        this.isTyping = false;
+      }, 1500);
+
+      // Auto-resize textarea
+      const textarea = this.$refs.messageTextarea;
+      if (textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
+    },
+    prevEmojiPage() {
+      if (this.emojiPage > 1) {
+        this.emojiPage--;
+      }
+    },
+    nextEmojiPage() {
+      if (this.emojiPage < this.totalEmojiPages) {
+        this.emojiPage++;
+      }
+    },
+    handleClickOutside(event) {
+      if (this.isOpen && this.$refs.chatWindow && !this.$refs.chatWindow.contains(event.target)) {
+        this.isOpen = false;
+        document.removeEventListener('click', this.handleClickOutside);
+      }
+    },
+    setGuestName() {
+      if (this.nameInput.trim()) {
+        this.guestName = this.nameInput.trim();
+        this.nameInput = '';
+        this.$nextTick(() => {
+          this.$refs.messageTextarea.focus();
+        });
       }
     }
   }
@@ -135,14 +400,18 @@ export default {
 .chat-icon {
   width: 56px;
   height: 56px;
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(88, 101, 242, 0.48);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 15px 3px rgba(110, 142, 251, 0.7);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.chat-icon:hover {
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+  box-shadow: 0 0 20px 5px rgba(167, 119, 227, 0.8);
 }
 
 .chat-icon:hover {
@@ -153,11 +422,50 @@ export default {
   width: 28px;
   height: 28px;
   stroke: white;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+  transition: filter 0.3s ease;
+}
+.chat-icon:hover .chat-icon-svg {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
+}
+
+.new-message-notification {
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(255, 59, 59, 0.8);
+  animation: pulse 2s infinite;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 59, 59, 0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 59, 59, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 59, 59, 0.6);
+  }
 }
 
 .chat-window {
-  width: 320px;
-  height: 420px;
+  width: 450px;
+  height: 550px;
   background-color: #2f3136;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
@@ -177,6 +485,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #292b2f;
+}
+
+.header-loading-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 12px;
 }
 
 .close-btn {
@@ -221,31 +536,137 @@ export default {
 
 .message {
   margin-bottom: 10px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.message-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.message-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-body .message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.message-body .message-header strong {
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.message-body .message-time {
+  color: #b9bbbe;
+  font-size: 10px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+}
+
+.message-role {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.message-body .message-text {
+  word-wrap: break-word;
+  line-height: 1.4;
   padding: 8px 12px;
   border-radius: 8px;
   background-color: #36393f;
   color: #dcddde;
-  max-width: 80%;
-  word-wrap: break-word;
+  font-size: 15px;
+  max-width: 95%;
+  white-space: pre-wrap;
 }
 
 .message.own {
+  margin-left: auto;
+}
+
+.message.own .message-content {
+  flex-direction: row-reverse;
+}
+
+.message.own .message-body .message-text {
   background-color: #5865f2;
   color: white;
-  margin-left: auto;
   text-align: right;
 }
 
-.chat-input {
+.message.own .message-body .message-header {
+  flex-direction: row-reverse;
+}
+
+.message.own .sender-info {
+  flex-direction: row-reverse;
+  gap: 4px;
+}
+
+.message-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.message-header strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.message-time {
+  color: #b9bbbe;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.message-text {
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.chat-input {
   padding: 12px 16px;
   border-top: 1px solid #292b2f;
   background-color: #202225;
 }
 
-.chat-input input {
-  flex: 1;
-  padding: 8px 12px;
+.input-container {
+  position: relative;
+}
+
+.chat-input textarea {
+  width: 100%;
+  padding: 8px 80px 8px 12px;
   border: none;
   border-radius: 6px;
   background-color: #40444b;
@@ -253,41 +674,319 @@ export default {
   font-size: 14px;
   outline: none;
   transition: background-color 0.2s ease;
+  resize: vertical;
+  font-family: inherit;
 }
 
-.chat-input input::placeholder {
+.chat-input textarea::placeholder {
   color: #72767d;
 }
 
-.chat-input input:focus {
+.chat-input textarea:focus {
   background-color: #5865f2;
   color: white;
 }
 
-.chat-input input:disabled {
+.chat-input textarea:disabled {
   background-color: #2f3136;
   color: #72767d;
   cursor: not-allowed;
 }
 
-.chat-input button {
-  margin-left: 8px;
-  padding: 8px 16px;
-  background-color: #5865f2;
+.send-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 6px;
-  color: white;
-  font-weight: 600;
+  padding: 4px;
   cursor: pointer;
+  border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
-.chat-input button:hover:not(:disabled) {
+.send-icon:hover:not(:disabled) {
+  background-color: rgba(88, 101, 242, 0.1);
+}
+
+.send-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.send-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: #5865f2;
+}
+
+.send-icon.typing .send-icon-svg {
+  stroke: greenyellow;
+}
+
+.typing-indicator {
+  font-size: 10px;
+  color: #b9bbbe;
+  margin-top: 4px;
+}
+
+.emoji-icon {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.emoji-icon:hover:not(:disabled) {
+  background-color: rgba(88, 101, 242, 0.1);
+}
+
+.emoji-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.emoji-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: #b9bbbe;
+}
+
+.emoji-picker {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background-color: #36393f;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  z-index: 10;
+  max-width: 300px;
+}
+
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+}
+
+.emoji-item {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.emoji-item:hover {
+  background-color: rgba(88, 101, 242, 0.1);
+}
+
+.emoji-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.emoji-pagination button {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.emoji-pagination button:disabled {
+  background-color: #40444b;
+  cursor: not-allowed;
+}
+
+.emoji-pagination button:hover:not(:disabled) {
   background-color: #4752c4;
 }
 
-.chat-input button:disabled {
-  background-color: #2f3136;
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #b9bbbe;
+  font-size: 14px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #36393f;
+  border-top: 3px solid #5865f2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+.loading-text {
+  color: #b9bbbe;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.role-admin {
+  color: #ff6b6b;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-kepala {
+  color: #4ecdc4;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-kasi {
+  color: #45b7d1;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-kasubbag {
+  color: #f9ca24;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-petugas {
+  color: #a55eea;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-pegawai {
+  color: #95a5a6;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.role-ptsp {
+  color: #2ecc71;
+  font-weight: 600;
+  font-style: italic;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.guest-name-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: #36393f;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  color: #dcddde;
+}
+
+.modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.modal-content p {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  color: #b9bbbe;
+}
+
+.modal-name-input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #40444b;
+  color: #dcddde;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.modal-name-input::placeholder {
+  color: #72767d;
+}
+
+.modal-name-input:focus {
+  background-color: #5865f2;
+  color: white;
+}
+
+.modal-start-btn {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.modal-start-btn:hover:not(:disabled) {
+  background-color: #4752c4;
+}
+
+.modal-start-btn:disabled {
+  background-color: #40444b;
   cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .chat-window {
+    width: 90vw;
+    height: 80vh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .modal-content {
+    max-width: 90vw;
+    width: 90vw;
+  }
+
+  .emoji-picker {
+    max-width: 80vw;
+  }
 }
 </style>

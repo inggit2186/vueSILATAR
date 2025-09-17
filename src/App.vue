@@ -5,6 +5,7 @@
     <FuturisticBottomNav v-if="!auth" class="d-block d-sm-none" :options="options2" v-model="selected" />
     <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" class="d-block d-sm-none" :options="options3" v-model="selected" />
     <FuturisticBottomNav v-else class="d-block d-sm-none" :options="options2" v-model="selected" />
+    <ChatWidget />
   </div>
 </template>
 <script>
