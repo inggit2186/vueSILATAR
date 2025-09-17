@@ -1,8 +1,3 @@
-- [ ] Add socket.io-client, express, socket.io to package.json
-- [ ] Create server.js for Socket.io server
-- [ ] Create src/components/Chat.vue component
-- [ ] Register Chat component in main.js
-- [ ] Add Chat component to App.vue
-- [ ] Add server script to package.json
-- [ ] Install dependencies
-- [ ] Test by running server and dev
+- [x] Add custom CSS styles to CurvedBottomNavigation in src/App.vue for better visual appeal (shadows, colors)
+- [x] Adjust positioning of CurvedBottomNavigation to add bottom margin/padding to avoid obstructing ChatWidget on mobile
+- [x] Test the changes by running the app and checking mobile view

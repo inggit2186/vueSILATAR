@@ -2,9 +2,9 @@
   <div v-if="loading" class="opening"></div>
   <div v-else id="app">
     <router-view />
-    <CurvedBottomNavigation v-if="!auth" class="d-block d-sm-none" :options="options2" v-model="selected" />
-    <CurvedBottomNavigation v-else-if="auth && user.dept.kategori == 'kantor'" class="d-block d-sm-none" :options="options3" v-model="selected" />
-    <CurvedBottomNavigation v-else class="d-block d-sm-none" :options="options2" v-model="selected" />
+    <FuturisticBottomNav v-if="!auth" class="d-block d-sm-none" :options="options2" v-model="selected" />
+    <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" class="d-block d-sm-none" :options="options3" v-model="selected" />
+    <FuturisticBottomNav v-else class="d-block d-sm-none" :options="options2" v-model="selected" />
   </div>
 </template>
 <script>
@@ -35,9 +35,13 @@ export default {
         },
         { id: 3, icon: "fas fa-rocket", title: "LAYANAN", path: "/UnitKerja"},
         { id: 4, icon: "fas fa-building", title: "SATKER", path: "/satuanKerja/getSeksi"},
-        { id: 5, icon: "fas fa-user-circle", title: "PROFIL", path: "/profile"},
+        { id: 5, icon: "fas fa-sign-in-alt", title: "LOGIN", path: "/login"},
       ],
-      options3: [
+    }
+  },
+  computed: {
+    options3() {
+      let base = [
         { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
         {
           id: 2,
@@ -47,16 +51,15 @@ export default {
         },
         { id: 3, icon: "fas fa-rocket", title: "LAYANAN", path: "/UnitKerja"},
         { id: 4, icon: "fas fa-building", title: "SATKER", path: "/satuanKerja/getSeksi"},
-        {
-          id: 5,
-          icon: "fas fa-user-circle",
-          title: "PROFIL",
-          childs: [
-            { id: 501, icon: "fas fa-user", title: "PROFIL", path: "/profile"},
-            { id: 502, icon: "fas fa-user-plus", title: "ADMIN", path: "/admin"},
-          ],
-        },
-      ],
+        { id: 5, icon: "fas fa-user-circle", title: "PROFIL", path: "/profile"},
+      ];
+      if (this.user && this.user.role && ['petugas','kepala','kasubbag','kasi','admin'].includes(this.user.role)) {
+        base[4].childs = [
+          { id: 501, icon: "fas fa-user", title: "PROFIL", path: "/profile"},
+          { id: 502, icon: "fas fa-user-plus", title: "ADMIN", path: "/admin"},
+        ];
+      }
+      return base;
     }
   },
   created() {
@@ -416,13 +419,20 @@ export default {
 }
 </script>
 <style>
-  .opening { 
+  .opening {
   content: "";
   display: block;
   height: 100vh;
   background-color: brown;
   background: url('/waiting.gif') no-repeat center fixed;
   background-size: cover;
+}
+
+.custom-bottom-nav {
+  bottom: 0 !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(to top, #ffffff, #f8f9fa) !important;
+  border-radius: 20px 20px 0 0 !important;
 }
 </style>
 

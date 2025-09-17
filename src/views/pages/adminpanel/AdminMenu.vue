@@ -226,6 +226,8 @@ export default {
                 return "/rekappemberkasan/1038/998/1";
             }else if(id == 1081){
                 return "/verif/1081/getMIN";
+            }else if(id == 1082){
+                return "/rekappemberkasan/1082/998/1";
             }else{
                 return `/listreq/${id}`
             }

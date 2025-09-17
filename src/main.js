@@ -19,6 +19,7 @@ import VueCryptojs from 'vue-cryptojs';
 import VueSignaturePad from 'vue-signature-pad';
 import bottomNavigationVue from "bottom-navigation-vue";
 
+
 // Header Components
 import Navbar from './components/navbar.vue'
 import UserNavbar from './components/UserpageNavbar.vue'

@@ -144,24 +144,24 @@
 							         <div class="col-lg-4 col-md-4">
 									    <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">25.909</p>										
-										</div>									 
+											<p class="visitors-value">25.909</p>
+										</div>
 									 </div>
 									  <div class="col-lg-4 col-md-4">
 									      <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">34.903</p>										
-										</div>									 
-									 </div> 
+											<p class="visitors-value">34.903</p>
+										</div>
+									 </div>
 									 <div class="col-lg-4 col-md-4">
 									     <div class="vistors-details">
 										    <p>Our Unique Visitor</p>
-											<p class="visitors-value">22.909</p>										
-										</div>									 
+											<p class="visitors-value">22.909</p>
+										</div>
 									 </div>
 							</div>
-					</div>			
-			        <!-- /Footer  Counter Section-->	
+					</div>
+			        <!-- /Footer  Counter Section-->
 					
 				</div>
 			</div>

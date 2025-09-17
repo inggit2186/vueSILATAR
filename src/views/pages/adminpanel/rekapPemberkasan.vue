@@ -12,7 +12,7 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Pemberkasan</h4>
-											<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1083'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
 											<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
@@ -21,7 +21,7 @@
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Pemberkasan</h4>
-										<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1083'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+										<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
 										<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
@@ -29,7 +29,7 @@
 								</div>
                             <div class="card-body">
 								<div class="">
-									<ul v-if="$route.params.xid == '1037'" class="dashborad-menus">
+									<ul v-if="$route.params.xid == '1037' " class="dashborad-menus">
 										<li :class="{ active: $route.path === '/rekappemberkasan/1037/998/1' }">
 											<router-link to="/rekappemberkasan/1037/998/1">
 												<i-healthicons-i-schedule-school-date-time /> <span><b>SEMESTER 1</b></span>
@@ -41,13 +41,13 @@
 											</router-link>
 										</li>
 									</ul>
-									<ul v-else-if="$route.params.xid == '1083'" class="dashborad-menus">
+									<ul v-else-if="$route.params.xid == '1082'" class="dashborad-menus">
 										<li :class="{ active: $route.path === '/rekappemberkasan/1083/998/1' }">
-											<router-link to="/rekappemberkasan/1083/998/1">
+											<router-link to="/rekappemberkasan/1082/998/1">
 												<i-healthicons-i-schedule-school-date-time /> <span><b>SEMESTER 1</b></span>
 											</router-link>
 										</li>
-										<li :class="{ active: $route.path === '/rekappemberkasan/1083/998/2' }">
+										<li :class="{ active: $route.path === '/rekappemberkasan/1082/998/2' }">
 											<router-link to="/rekappemberkasan/1083/998/2">
 												<i-healthicons-i-schedule-school-date-time-outline /> <span><b>SEMESTER 2</b></span>
 											</router-link>
@@ -103,7 +103,7 @@
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
 													<br/>
-													<span v-if="xid == '1037'" style="font-size: smaller;font-style: italic;"><i-mdi-files/> {{ item.tipe }}</span>
+													<span v-if="xid == '1037' || xid == '1082'" style="font-size: smaller;font-style: italic;"><i-mdi-files/> {{ item.tipe }}</span>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -160,7 +160,7 @@ export default {
     data() {
 		const today = new Date();
 		let tanggal = null;
-		if(this.$route.params.xid == '1037' || this.$route.params.xid == '1083'){
+		if(this.$route.params.xid == '1037' || this.$route.params.xid == '1082'){
 			tanggal = today.getFullYear();
 		}else{
 			tanggal = {month: today.getMonth()-1, year:today.getFullYear()};
@@ -238,7 +238,7 @@ export default {
             this.zid = this.$route.params.zid
 			let date = null
 
-			if(this.xid == '1037' || this.xid == '1083'){
+			if(this.xid == '1037' || this.xid == '1082'){
 				date = this.bulan
 				this.bulanx = date
 			}else{
@@ -280,7 +280,7 @@ export default {
 
 		async get2CKH() {
 			let date = null
-			if(this.xid == '1037' || this.xid == '1083'){
+			if(this.xid == '1037' || this.xid == '1082'){
 				date = this.bulan
 				this.bulanx = date
 			}else{
@@ -432,7 +432,7 @@ export default {
 								<td>Tanggal Selesei</td><td> : </td><td><input type="date" id="tgl_end" name="tgl_end" class="swal2-input"></td>
 							</tr>
 							</table>`
-			}else if(this.$route.params.xid === '1037' || this.$route.params.xid === '1083'){
+			}else if(this.$route.params.xid === '1037' || this.$route.params.xid === '1082'){
 				option = `<table>
 							<tr>
 								<td>Kategori</td><td> : </td><td><select id="kategori" class="swal2-input" name="kategori">
@@ -523,7 +523,7 @@ export default {
 							</table>`
 			}
 
-			if(this.$route.params.xid === '777' || this.$route.params.xid === '1037' || this.$route.params.xid === '1038' || this.$route.params.xid === '1081' || this.$route.params.xid === '1083'){
+			if(this.$route.params.xid === '777' || this.$route.params.xid === '1037' || this.$route.params.xid === '1038' || this.$route.params.xid === '1081' || this.$route.params.xid === '1082'){
 				this.$swal.fire({
 						title: 'Setting?',
 						html: option,

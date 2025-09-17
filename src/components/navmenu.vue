@@ -1,12 +1,12 @@
 <template>
-    <div class="main-menu-wrapper">
+    <div class="main-menu-wrapper d-flex justify-content-between align-items-center">
         <div class="menu-header">
             <router-link to="/" class="menu-logo">
                 <img src="../assets/img/logo.png" class="img-fluid" alt="Logo">
             </router-link>
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
-        <ul class="navbar-nav main-nav my-2 my-lg-0">
+        <ul class="navbar-nav main-nav my-2 my-lg-0 d-flex flex-row">
             <li class="has-submenu megamenu active"
             :class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
                 <router-link to="/"><i-fluent-home-person-24-filled /> &nbsp;Home</router-link>
@@ -84,13 +84,14 @@
                 <lu><router-link to="/signup"><BBadge variant="dark" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></lu>
             </li>
         </ul>
+        
     </div>
-    <div class="d-flex align-items-center block-e">
-        <div v-if="!auth" class="cta-btn">
-            <router-link to="/login" class="btn">LOGIN  / </router-link>
-            <router-link to="/signup" class="btn ms-1">  DAFTAR</router-link>
+    <div class="d-flex align-items-center block-e justify-content-between">
+        <div v-if="!auth" class="cta-btn d-flex align-items-center">
+            <router-link to="/login" class="btn me-2">LOGIN</router-link>
+            <router-link to="/signup" class="btn">DAFTAR</router-link>
         </div>
-        <div v-else class="nav header-navbar-rht">
+        <div v-else class="nav header-navbar-rht d-flex align-items-center">
             <!--
             <li v-if="user.dept.kategori == 'kantor'" class="nav-item">
                 <router-link class="nav-link header-login add-listing" to="/UnitKerja"><i-wpf-administrator /> &nbsp;Admin</router-link>
