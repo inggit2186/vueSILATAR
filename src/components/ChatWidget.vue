@@ -535,7 +535,7 @@ export default {
 }
 
 .message {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   max-width: 100%;
   word-wrap: break-word;
 }
@@ -570,7 +570,7 @@ export default {
 .message-body .message-header strong {
   color: #fff;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .message-body .message-time {
@@ -602,7 +602,7 @@ export default {
   border-radius: 8px;
   background-color: #36393f;
   color: #dcddde;
-  font-size: 15px;
+  font-size: 14px;
   max-width: 95%;
   white-space: pre-wrap;
 }
