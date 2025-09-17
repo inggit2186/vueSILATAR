@@ -1,12 +1,12 @@
-# Chat Widget Guest Name Modal Implementation
+# Voice Message Implementation Plan
 
-## Completed Tasks
-- [x] Remove inline guest name input from chat window
-- [x] Add modal popup for guest name input
-- [x] Style the modal with appropriate CSS
-- [x] Ensure modal appears when chat is opened by unauthenticated user without guest name
-- [x] Handle Enter key press in modal input
-- [x] Focus management for modal input and message textarea
-
-## Summary
-The guest name input has been successfully converted from an inline form in the chat window to a modal popup that appears when an unauthenticated user opens the chat without having entered a name previously. The modal includes proper styling, keyboard handling, and focus management.
+- [ ] Add data properties for recording (isRecording, mediaRecorder, audioChunks, audioUrl)
+- [ ] Add microphone button in template next to emoji and send buttons
+- [ ] Implement recordVoice() method: Request microphone permission, start MediaRecorder, collect chunks
+- [ ] Implement stopRecording() method: Stop recorder, create blob, convert to base64, prepare for send
+- [ ] Modify sendMessage() to handle audio messages (send base64 data with type 'audio')
+- [ ] Update message display: Add condition for audio messages with play button
+- [ ] Add playAudio() method to play the audio blob
+- [ ] Update fetchMessages() to handle audio messages (decode base64 to blob)
+- [ ] Add visual feedback: Recording indicator on mic button
+- [ ] Handle errors: Microphone permission, browser support

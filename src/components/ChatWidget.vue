@@ -27,14 +27,17 @@
                 </div>
                 <span class="message-time">{{ formatTime(message.time) }}</span>
               </div>
-              <div class="message-text">{{ message.text }}</div>
+              <div v-if="message.type === 'audio'" class="message-audio">
+                <audio controls :src="'data:audio/wav;base64,' + message.text"></audio>
+              </div>
+              <div v-else class="message-text">{{ message.text }}</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="chat-input">
-        <div class="input-container">
+        <div class="input-container" :class="{ 'recording': isRecording }">
           <textarea
             v-model="newMessage"
             @keydown.enter="handleEnter"
@@ -45,6 +48,23 @@
             ref="messageTextarea"
             style="overflow:hidden;resize:none"
           ></textarea>
+          <div v-if="isRecording" class="recording-status">
+            <div class="recording-dot"></div>
+            <span>Recording...</span>
+          </div>
+          <button v-if="!isRecording" class="mic-icon" @click="toggleRecording" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Record voice message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mic-icon-svg">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v1a7 7 0 0 1-14 0v-1"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          </button>
+          <button v-else class="stop-icon" @click="stopRecording" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Stop recording">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stop-icon-svg">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          </button>
           <button class="emoji-icon" @click="toggleEmojiPicker" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Open emoji picker">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="emoji-icon-svg">
               <circle cx="12" cy="12" r="10"></circle>
@@ -53,7 +73,7 @@
               <line x1="15" y1="9" x2="15.01" y2="9"></line>
             </svg>
           </button>
-          <button class="send-icon" :class="{ 'typing': newMessage.trim() }" @click="sendMessage" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Send message">
+          <button class="send-icon" :class="{ 'typing': newMessage.trim() || audioUrl }" @click="sendMessage" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Send message">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon-svg">
               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
             </svg>
@@ -113,6 +133,12 @@ export default {
       emojisPerPage: 50,
       hasNewMessage: false,
       previousMessageCount: 0,
+      isRecording: false,
+      mediaRecorder: null,
+      audioChunks: [],
+      audioUrl: null,
+      audioBase64: null,
+      recordingTimeout: null,
       emojis: [
         // Faces and Emotions
         '😀', '😂', '😊', '😍', '🥰', '😘', '😉', '😎', '🤔', '😢', '😭', '😤', '😡', '🥺', '😴', '🤤', '😵', '🤯', '🤠', '🥳',
@@ -178,7 +204,7 @@ export default {
       }
     },
     async sendMessage() {
-      if (!this.newMessage || this.isSending) return;
+      if ((!this.newMessage.trim() && !this.audioUrl) || this.isSending) return;
       let sauth, userid, user, pp, role;
 
       if (!this.isAuthenticated) {
@@ -201,23 +227,33 @@ export default {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         };
-        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/livechat', {
+        let messageData = {
           sauth: sauth,
           userid: userid,
           user: user,
-          message: this.newMessage
-        }, { headers });
+        };
+        if (this.audioUrl) {
+          messageData.message = this.audioBase64;
+          messageData.type = 'audio';
+        } else {
+          messageData.message = this.newMessage;
+          messageData.type = 'text';
+        }
+        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/livechat', messageData, { headers });
 
         if (response.data.success) {
           this.messages.push({
             id: Date.now(),
             sender: user,
-            text: this.newMessage,
+            text: this.audioUrl ? this.audioBase64 : this.newMessage,
+            type: this.audioUrl ? 'audio' : 'text',
             pp: pp,
             role: role,
             time: new Date().toISOString()
           });
           this.newMessage = '';
+          this.audioUrl = null;
+          this.audioBase64 = null;
           this.$nextTick(() => {
             this.scrollToBottom();
           });
@@ -382,6 +418,49 @@ export default {
           this.$refs.messageTextarea.focus();
         });
       }
+    },
+    async toggleRecording() {
+      if (this.isRecording) {
+        await this.stopRecording();
+      } else {
+        await this.recordVoice();
+      }
+    },
+    async recordVoice() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.audioChunks = [];
+        this.mediaRecorder.ondataavailable = (event) => {
+          this.audioChunks.push(event.data);
+        };
+        this.mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.audioBase64 = reader.result.split(',')[1]; // remove data:audio/wav;base64,
+            this.audioUrl = URL.createObjectURL(audioBlob);
+          };
+          reader.readAsDataURL(audioBlob);
+          stream.getTracks().forEach(track => track.stop());
+        };
+        this.mediaRecorder.start();
+        this.isRecording = true;
+        this.recordingTimeout = setTimeout(() => {
+          this.stopRecording();
+        }, 60000);
+      } catch (error) {
+        console.error('Error accessing microphone:', error);
+      }
+    },
+    async stopRecording() {
+      if (this.mediaRecorder && this.isRecording) {
+        this.mediaRecorder.stop();
+        this.isRecording = false;
+      }
+    },
+    playAudio(message) {
+      // Optional: track play events if needed
     }
   }
 }
@@ -654,6 +733,20 @@ export default {
   line-height: 1.4;
 }
 
+.message-audio {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #36393f;
+  color: #dcddde;
+  font-size: 14px;
+  max-width: 95%;
+}
+
+.message.own .message-audio {
+  background-color: #5865f2;
+  color: white;
+}
+
 .chat-input {
   padding: 12px 16px;
   border-top: 1px solid #292b2f;
@@ -666,7 +759,7 @@ export default {
 
 .chat-input textarea {
   width: 100%;
-  padding: 8px 80px 8px 12px;
+  padding: 8px 104px 8px 12px;
   border: none;
   border-radius: 6px;
   background-color: #40444b;
@@ -676,6 +769,10 @@ export default {
   transition: background-color 0.2s ease;
   resize: vertical;
   font-family: inherit;
+}
+
+.input-container.recording .chat-input textarea {
+  padding-right: 136px;
 }
 
 .chat-input textarea::placeholder {
@@ -757,6 +854,102 @@ export default {
   width: 20px;
   height: 20px;
   stroke: #b9bbbe;
+}
+
+.mic-icon {
+  position: absolute;
+  right: 72px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mic-icon:hover:not(:disabled) {
+  background-color: rgba(88, 101, 242, 0.1);
+}
+
+.mic-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mic-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: #b9bbbe;
+}
+
+.mic-icon.recording .mic-icon-svg {
+  stroke: red;
+}
+
+.recording-status {
+  position: absolute;
+  right: 104px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #b9bbbe;
+  font-weight: 500;
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  animation: recording-pulse 1s infinite;
+}
+
+.stop-icon {
+  position: absolute;
+  right: 72px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.stop-icon:hover:not(:disabled) {
+  background-color: rgba(88, 101, 242, 0.1);
+}
+
+.stop-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stop-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: #b9bbbe;
+}
+
+@keyframes recording-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .emoji-picker {
