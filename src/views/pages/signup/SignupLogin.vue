@@ -48,7 +48,7 @@
 								<div class="form-group group-img">
 								    <div class="group-img">
 										<i class="feather-phone-call"> +62 </i>
-										<b-form-input v-model="telp" style="padding-left: 18%;" @input="formatTelp" type="number" class="form-control" placeholder="Nomor Kontak" />
+										<b-form-input v-model="telp" style="padding-left: 18%;" type="number" class="form-control" placeholder="Nomor Kontak" @input="formatTelp" />
 									</div>
 								</div>
 								<div class="form-group group-img">
@@ -231,7 +231,6 @@
 			if (this.telp.startsWith('0')) {
 				// Remove the 0 at the beginning of the input value
 				this.telp = this.telp.substring(1);
-				console.log(this.telp)
 			}
 		},
 		async register() {

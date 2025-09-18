@@ -59,10 +59,10 @@
                             <div class="col-lg-9 centered">
                                 <div class="card dash-cards">
                                     <div class="card-header">
-                                        <b-button variant="warning" @click.prevent="changedetail(12)" :disabled="loadingpf" style="float: right"> 
+                                        <b-button variant="warning" :disabled="loadingpf" style="float: right" @click.prevent="changedetail(12)"> 
                                             <span><i class="fas fa-book-open-reader" aria-hidden="true"></i><b>&nbsp; Cek Dokumen</b></span>
                                         </b-button>
-                                        <a class="btn btn-danger btn-sm" href="#" @click="changedetail(0)" style="float: right;margin-right: 20px;"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
+                                        <a class="btn btn-danger btn-sm" href="#" style="float: right;margin-right: 20px;" @click="changedetail(0)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                                         <h4 style="float: left;">Profile Details</h4>														
                                     </div>
                                     <b-form @submit.prevent="updateProfil">
@@ -318,7 +318,7 @@
                                         <div class="listing-search">
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
-                                                    <a class="btn btn-danger" href="#" @click="aksiDetail('new')" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                                    <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="aksiDetail('new')"><i-subway-add/> <b>TAMBAH</b></a>
                                                     <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
                                                     <i class="feather-search"></i>
                                                 </div>
@@ -407,7 +407,7 @@
                                         <div class="listing-search">
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
-                                                    <a class="btn btn-danger" href="#" @click="jDetail('new')" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
+                                                    <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="jDetail('new')"><i-subway-add/> <b>TAMBAH</b></a>
                                                     <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable3" >
                                                     <i class="feather-search"></i>
                                                 </div>
@@ -436,7 +436,7 @@
                                                         </td>
                                                         <td>
                                                             {{ item.unitkerja }}<br/>
-                                                            <span style="font-size: smaller;">{{ this.user.instansi }}</span>
+                                                            <span style="font-size: smaller;">{{ user.instansi }}</span>
                                                         </td>
                                                         <td>
                                                             {{ item.tjabatan }}<br/>
@@ -493,7 +493,7 @@
                             </div><hr/>
                             <div class="row centered">
                                 <div v-for="item in files" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
-                                    <div class="media-image" v-b-tooltip="'Upload Hasil Scan Dokumennya'">
+                                    <div v-b-tooltip="'Upload Hasil Scan Dokumennya'" class="media-image">
                                         <h6 class="media-title">{{ item.nama }}</h6>
                                             <img v-if="item.filename == null || item.filename == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                             <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.filename)" />
@@ -1768,9 +1768,6 @@ export default {
 		async prosesDelete(item,tipe) {
 			this.loadingdel = true;
 			try{
-				console.log(this.user.id)
-				console.log(item)
-				console.log(tipe)
 				const headers = {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`

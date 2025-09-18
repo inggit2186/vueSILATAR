@@ -53,21 +53,21 @@
 						    
 							<div class="contactus-form">
 							    <b-form v-if="kategori == 'guest'" ref="formx" class="" @submit.prevent="addPengaduan">
-									<b-form-input type="text" id="kategori" name="kategori" v-model="kategori" hidden />
+									<b-form-input id="kategori" v-model="kategori" type="text" name="kategori" hidden />
 									<div class="form-group">
-									   <b-form-input type="text" id="nama" v-model="nama" class="form-control" placeholder="Name*" required />
+									   <b-form-input id="nama" v-model="nama" type="text" class="form-control" placeholder="Name*" required />
 									</div>
 									<div class="form-group me-0">
-									   <b-form-input type="email" id="email" v-model="email" class="form-control" placeholder="Email*" required />
+									   <b-form-input id="email" v-model="email" type="email" class="form-control" placeholder="Email*" required />
 									</div>
 									<div class="form-group me-0">
-									   <b-form-input type="text" id = "telp" v-model="telp" class="form-control" placeholder="Nomor Kontak*" required />
+									   <b-form-input id = "telp" v-model="telp" type="text" class="form-control" placeholder="Nomor Kontak*" required />
 									</div>
 									<div class="form-group">
-										<b-form-input type="text" id="judul" v-model="judul" class="form-control" placeholder="Subject/Judul" />
+										<b-form-input id="judul" v-model="judul" type="text" class="form-control" placeholder="Subject/Judul" />
 									</div>
 									<div class="form-group">
-       									<textarea rows="4" id="deskripsi" v-model="deskripsi" class="form-control" placeholder="Tulis Keterangan / Pesan*" required></textarea>
+       									<textarea id="deskripsi" v-model="deskripsi" rows="4" class="form-control" placeholder="Tulis Keterangan / Pesan*" required></textarea>
 									</div>
 									<div class="submit-section">
 										<b-button variant="primary submit-btn" type="submit" :disabled="loading">
@@ -77,18 +77,18 @@
 									</div>
 								</b-form>
 								<b-form v-else class="" @submit.prevent="addPengaduan">
-										<b-form-input type="text" id="kategori" value="user" hidden /> 
+										<b-form-input id="kategori" type="text" value="user" hidden /> 
 									<div class="form-group">
-									   <b-form-input type="text" id="name" v-model="user.name" class="form-control" placeholder="Name*" readonly />
+									   <b-form-input id="name" v-model="user.name" type="text" class="form-control" placeholder="Name*" readonly />
 									</div>
 									<div class="form-group">
-									   <b-form-input type="email" id="email" v-model="user.email" class="form-control" placeholder="Name*" readonly />
+									   <b-form-input id="email" v-model="user.email" type="email" class="form-control" placeholder="Name*" readonly />
 									</div>
 									<div ref="formx" class="form-group">
-										<b-form-input type="text" id="judul" v-model="judul" class="form-control" placeholder="Subject/Judul" />
+										<b-form-input id="judul" v-model="judul" type="text" class="form-control" placeholder="Subject/Judul" />
 									</div>
 									<div ref="formx" class="form-group">
-       									<textarea rows="4" class="form-control" id="deskripsi" v-model="deskripsi" placeholder="Tulis Keterangan / Pesan*" required></textarea>
+       									<textarea id="deskripsi" v-model="deskripsi" rows="4" class="form-control" placeholder="Tulis Keterangan / Pesan*" required></textarea>
 									</div>
 									<div class="submit-section">
 										<b-button variant="primary submit-btn" type="submit" :disabled="loading">

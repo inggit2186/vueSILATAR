@@ -2,13 +2,15 @@
   <div v-if="loading" class="opening"></div>
   <div v-else id="app">
     <router-view />
-    <FuturisticBottomNav v-if="!auth" class="d-block d-sm-none" :options="options2" v-model="selected" />
-    <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" class="d-block d-sm-none" :options="options3" v-model="selected" />
-    <FuturisticBottomNav v-else class="d-block d-sm-none" :options="options2" v-model="selected" />
-    <ChatWidget />
+    <FuturisticBottomNav v-if="!auth" v-model="selected" class="d-block d-sm-none" :options="options2" />
+    <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" v-model="selected" class="d-block d-sm-none" :options="options3" />
+    <FuturisticBottomNav v-else v-model="selected" class="d-block d-sm-none" :options="options2" />
+    <ChatWidget :isAuthenticated="auth" :currentUser="user" />
   </div>
 </template>
 <script>
+import emitter from './eventBus';
+
 export default {
   name: 'App',
   data() {
@@ -65,6 +67,11 @@ export default {
   },
   created() {
     this.cekAuth()
+    emitter.on('login-success', this.cekAuth)
+    emitter.on('logout', () => {
+      this.auth = false
+      this.user = null
+    })
   },
   methods: {
     async cekAuth() {

@@ -12,13 +12,13 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Dokumen {{ titleamprah }}</h4>
-											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-model="tahun" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2DocKeu()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Dokumen {{ titleamprah }}</h4>
-											<VueDatePicker v-model="tahun" @update:model-value="get2DocKeu()" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-model="tahun" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2DocKeu()" />
 									</div>
 								</div>
 								<hr/>
@@ -54,7 +54,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -65,17 +65,17 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.dockeu.length == 0">
+											<tr v-if="dockeu.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td style="font-size: 14px; font-weight: 650;">{{ item.kategori }}</td>
                                                 <td style="font-size: 14px;">{{ item.keterangan }}</td>
                                                 <td style="font-size: 14px;"><span style="font-weight: 650;">{{ item.uploader }}</span><br/>
                                                     <span style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span>
                                                 </td>
                                                 <td>
-                                                    <BButton pill size="sm" variant="dark" @click.prevent="cetak(item.filename)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> PRINT</b></BButton>
+                                                    <BButton pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetak(item.filename)"><b><i-ic-baseline-print /> PRINT</b></BButton>
                                                     <br/><br/><BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.id)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="danger"><b><i-svg-spinners-bars-scale-middle />&nbsp;Loading......</b></BButton>
                                                 </td>

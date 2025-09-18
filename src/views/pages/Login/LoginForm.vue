@@ -90,6 +90,8 @@ v-else v-model="password"
 </template>
 
 <script>
+	import emitter from '../../../eventBus';
+
 	export default {
 		data() {
 		return {
@@ -173,11 +175,13 @@ v-else v-model="password"
 						localStorage.setItem('user',JSON.stringify(response.data.data))
 						localStorage.setItem('token',response.data.data.token)
 
+						emitter.emit('login-success')
+
 						this.$toast.fire({
 							title: response.data.message,
 							icon: 'success',
 						})
-						
+
 						let searchParams = new URLSearchParams(window.location.search);
 
 						if (searchParams.has("redirect")) {
@@ -204,14 +208,16 @@ v-else v-model="password"
 							closeButton: true,
 							})
 						}
-						localStorage.setItem('user',JSON.stringify(response.data.data))
-						localStorage.setItem('token',response.data.data.token)
-						
-						let searchParams = new URLSearchParams(window.location.search);
+					localStorage.setItem('user',JSON.stringify(response.data.data))
+					localStorage.setItem('token',response.data.data.token)
 
-						if (searchParams.has("redirect")) {
-							this.$router.push({ path: `${searchParams.get("redirect")}` });
-						} else this.$router.push({ path: "/dashboard" });
+					emitter.emit('login-success')
+
+					let searchParams = new URLSearchParams(window.location.search);
+
+					if (searchParams.has("redirect")) {
+						this.$router.push({ path: `${searchParams.get("redirect")}` });
+					} else this.$router.push({ path: "/dashboard" });
 					};
 					});
 				}else{
@@ -253,11 +259,13 @@ v-else v-model="password"
 						localStorage.setItem('user',JSON.stringify(response.data.data))
 						localStorage.setItem('token',response.data.data.token)
 
+						emitter.emit('login-success')
+
 						this.$toast.fire({
 							title: response.data.message,
 							icon: 'success',
 						})
-						
+
 						let searchParams = new URLSearchParams(window.location.search);
 
 						if (searchParams.has("redirect")) {
@@ -287,7 +295,9 @@ v-else v-model="password"
 						}
 						localStorage.setItem('user',JSON.stringify(response.data.data))
 						localStorage.setItem('token',response.data.data.token)
-						
+
+						emitter.emit('login-success')
+
 						let searchParams = new URLSearchParams(window.location.search);
 
 						if (searchParams.has("redirect")) {
@@ -306,7 +316,9 @@ v-else v-model="password"
 
 					localStorage.setItem('user',JSON.stringify(response.data.data))
 					localStorage.setItem('token',response.data.data.token)
-					
+
+					emitter.emit('login-success')
+
 					let searchParams = new URLSearchParams(window.location.search);
 
 					if (searchParams.has("redirect")) {
@@ -372,9 +384,11 @@ v-else v-model="password"
 
 					localStorage.setItem('user',JSON.stringify(response.data.data))
 					localStorage.setItem('token',response.data.data.token)
-					
+
+					emitter.emit('login-success')
+
 					let searchParams = new URLSearchParams(window.location.search);
-						
+
 						this.$toast.fire({
 							icon: 'success',
 							title: response.data.message,
@@ -387,15 +401,17 @@ v-else v-model="password"
                     }else{
                     };
                   });
-              }else{
+				}else{
 					this.$toast.fire({
 						title: response.data.message,
 						icon: 'success',
 					})
-					
+
 					localStorage.setItem('user',JSON.stringify(response.data.data))
 					localStorage.setItem('token',response.data.data.token)
-					
+
+					emitter.emit('login-success')
+
 					let searchParams = new URLSearchParams(window.location.search);
 
 					if (searchParams.has("redirect")) {

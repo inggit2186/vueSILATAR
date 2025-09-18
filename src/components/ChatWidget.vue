@@ -1,17 +1,18 @@
 <template>
   <div class="chat-widget">
-<div v-if="!isOpen" class="chat-icon" @click.stop="toggleChat" title="Open chat">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
-    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
-  </svg>
-  <div v-if="hasNewMessage" class="new-message-notification">Pesan Baru !!</div>
-</div>
+    <div v-if="!isOpen" class="chat-icon" title="Open chat" @click.stop="toggleChat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
+      </svg>
+      <div v-if="hasNewMessage" class="new-message-notification">Pesan Baru !!</div>
+    </div>
     <div v-else ref="chatWindow" class="chat-window" @click.stop>
       <div class="chat-header">
         <span>Live Chat</span>
-        <button @click="toggleChat" class="close-btn" aria-label="Close chat">&times;</button>
+        <button v-if="isAuthenticated && currentUser && currentUser.role === 'admin'" class="clear-btn" aria-label="Clear all chat messages" @click="clearAllMessages">Clear All</button>
+        <button class="close-btn" aria-label="Close chat" @click="toggleChat">&times;</button>
       </div>
-      <div class="chat-messages" ref="messagesContainer" tabindex="0" aria-live="polite" aria-atomic="false">
+      <div ref="messagesContainer" class="chat-messages" tabindex="0" aria-live="polite" aria-atomic="false">
         <div v-if="isLoading" class="loading-container">
           <div class="loading-spinner"></div>
           <span class="loading-text">Loading messages...</span>
@@ -27,9 +28,9 @@
                 </div>
                 <span class="message-time">{{ formatTime(message.time) }}</span>
               </div>
-              <div v-if="message.type === 'audio'" class="message-audio">
-                <audio controls :src="'data:audio/wav;base64,' + message.text"></audio>
-              </div>
+      <div v-if="message.type === 'audio'" class="message-audio">
+        <audio controls :src="getAudioSrc(message.text)" crossorigin="anonymous"></audio>
+      </div>
               <div v-else class="message-text">{{ message.text }}</div>
             </div>
           </div>
@@ -39,20 +40,20 @@
       <div class="chat-input">
         <div class="input-container" :class="{ 'recording': isRecording }">
           <textarea
+            ref="messageTextarea"
             v-model="newMessage"
-            @keydown.enter="handleEnter"
-            @input="onInput"
             placeholder="Type a message..."
             :disabled="!(isAuthenticated || guestName) || isSending"
             aria-label="Type your message"
-            ref="messageTextarea"
             style="overflow:hidden;resize:none"
+            @keydown.enter="handleEnter"
+            @input="onInput"
           ></textarea>
           <div v-if="isRecording" class="recording-status">
             <div class="recording-dot"></div>
             <span>Recording...</span>
           </div>
-          <button v-if="!isRecording" class="mic-icon" @click="toggleRecording" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Record voice message">
+          <button v-if="!isRecording" class="mic-icon" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Record voice message" @click="toggleRecording">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mic-icon-svg">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
               <path d="M19 10v1a7 7 0 0 1-14 0v-1"></path>
@@ -60,12 +61,12 @@
               <line x1="8" y1="23" x2="16" y2="23"></line>
             </svg>
           </button>
-          <button v-else class="stop-icon" @click="stopRecording" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Stop recording">
+          <button v-else class="stop-icon" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Stop recording" @click="stopRecording">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stop-icon-svg">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           </button>
-          <button class="emoji-icon" @click="toggleEmojiPicker" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Open emoji picker">
+          <button class="emoji-icon" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Open emoji picker" @click="toggleEmojiPicker">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="emoji-icon-svg">
               <circle cx="12" cy="12" r="10"></circle>
               <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
@@ -73,19 +74,19 @@
               <line x1="15" y1="9" x2="15.01" y2="9"></line>
             </svg>
           </button>
-          <button class="send-icon" :class="{ 'typing': newMessage.trim() || audioUrl }" @click="sendMessage" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Send message">
+          <button class="send-icon" :class="{ 'typing': newMessage.trim() || audioUrl }" :disabled="!(isAuthenticated || guestName) || isSending" aria-label="Send message" @click="sendMessage">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon-svg">
               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
             </svg>
           </button>
           <div v-if="showEmojiPicker" class="emoji-picker">
             <div class="emoji-grid">
-              <span v-for="emoji in pagedEmojis" :key="emoji" @click="insertEmoji(emoji)" class="emoji-item">{{ emoji }}</span>
+              <span v-for="emoji in pagedEmojis" :key="emoji" class="emoji-item" @click="insertEmoji(emoji)">{{ emoji }}</span>
             </div>
             <div class="emoji-pagination">
-              <button @click="prevEmojiPage" :disabled="emojiPage === 1" aria-label="Previous emoji page">Prev</button>
+              <button :disabled="emojiPage === 1" aria-label="Previous emoji page" @click="prevEmojiPage">Prev</button>
               <span>Page {{ emojiPage }} / {{ totalEmojiPages }}</span>
-              <button @click="nextEmojiPage" :disabled="emojiPage === totalEmojiPages" aria-label="Next emoji page">Next</button>
+              <button :disabled="emojiPage === totalEmojiPages" aria-label="Next emoji page" @click="nextEmojiPage">Next</button>
             </div>
           </div>
         </div>
@@ -98,33 +99,43 @@
         <h3>Selamat Datang Live Chat</h3>
         <p>Mohon Masukkan Nama Anda untuk memulai chatting:</p>
         <input
+          ref="nameInputRef"
           v-model="nameInput"
-          @keydown.enter="setGuestName"
           placeholder="Masukkan Nama"
           class="modal-name-input"
-          ref="nameInputRef"
+          @keydown.enter="setGuestName"
         />
-        <button @click="setGuestName" class="modal-start-btn" :disabled="!nameInput.trim()">Start Chatting</button>
+        <button class="modal-start-btn" :disabled="!nameInput.trim()" @click="setGuestName">Start Chatting</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { io } from 'socket.io-client';
+import emitter from '../eventBus';
+
 export default {
   name: 'ChatWidget',
+  props: {
+    isAuthenticated: {
+      type: Boolean,
+      default: false
+    },
+    currentUser: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       isOpen: false,
       messages: [],
       newMessage: '',
-      currentUser: null,
-      isAuthenticated: false,
       guestName: '',
       nameInput: '',
-      pollingInterval: null,
+      socket: null,
       isLoading: false,
-      isFirstFetch: true,
       isSending: false,
       showEmojiPicker: false,
       isTyping: false,
@@ -139,6 +150,8 @@ export default {
       audioUrl: null,
       audioBase64: null,
       recordingTimeout: null,
+      connectedUsers: [],
+      typingUsers: [],
       emojis: [
         // Faces and Emotions
         '😀', '😂', '😊', '😍', '🥰', '😘', '😉', '😎', '🤔', '😢', '😭', '😤', '😡', '🥺', '😴', '🤤', '😵', '🤯', '🤠', '🥳',
@@ -169,26 +182,89 @@ export default {
     }
   },
   mounted() {
+
     this.checkAuth();
-    this.startPolling();
+    this.initSocket();
+    this.onLoginSuccess = () => this.checkAuth();
+    this.onLogout = () => this.checkAuth();
+    emitter.on('login-success', this.onLoginSuccess);
+    emitter.on('logout', this.onLogout);
   },
   beforeUnmount() {
-    this.stopPolling();
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+    emitter.off('login-success', this.onLoginSuccess);
+    emitter.off('logout', this.onLogout);
   },
   methods: {
     checkAuth() {
       const token = localStorage.getItem('token');
       const user = localStorage.getItem('user');
       if (token && user) {
-        this.isAuthenticated = true;
-        this.currentUser = JSON.parse(user);
+        // Authentication handled via props
+      } else {
+        // Authentication handled via props
       }
+    },
+    initSocket() {
+      this.socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001');
+
+      this.socket.on('load_messages', (messages) => {
+        this.messages = messages;
+        this.isLoading = false;
+        this.$nextTick(() => {
+          this.scrollToBottom();
+        });
+      });
+
+      this.socket.on('new_message', (message) => {
+        this.messages.push(message);
+        if (!this.isOpen) {
+          this.hasNewMessage = true;
+        }
+        this.$nextTick(() => {
+          this.scrollToBottom();
+        });
+      });
+
+      this.socket.on('user_joined', (userData) => {
+        console.log('User joined:', userData);
+      });
+
+      this.socket.on('user_left', (userData) => {
+        console.log('User left:', userData);
+      });
+
+      this.socket.on('user_typing', (userData) => {
+        if (!this.typingUsers.includes(userData.name)) {
+          this.typingUsers.push(userData.name);
+        }
+      });
+
+      this.socket.on('user_stop_typing', (userData) => {
+        const index = this.typingUsers.indexOf(userData.name);
+        if (index > -1) {
+          this.typingUsers.splice(index, 1);
+        }
+      });
+
+      this.socket.on('clear_messages', () => {
+        this.messages = [];
+      });
     },
     async toggleChat() {
       if (!this.isOpen) {
         this.isOpen = true;
-        await this.fetchMessages();
         this.hasNewMessage = false;
+        this.isLoading = true;
+
+        // Join chat room
+        const userData = this.isAuthenticated
+          ? { name: this.currentUser.name, role: this.currentUser.role, pp: import.meta.env.VITE_APP_ST_URL+'/'+this.currentUser.noid+'/'+this.currentUser.pp || '../assets/img/profile-img.jpg' }
+          : { name: this.guestName, role: 'guest', pp: 'assets/img/defaultpp.png' };
+        this.socket.emit('join_chat', userData);
+
         this.$nextTick(() => {
           this.scrollToBottom();
           if (this.$refs.nameInputRef) {
@@ -205,59 +281,40 @@ export default {
     },
     async sendMessage() {
       if ((!this.newMessage.trim() && !this.audioUrl) || this.isSending) return;
-      let sauth, userid, user, pp, role;
 
+      let user, pp, role;
+
+      console.log(this.isAuthenticated)
       if (!this.isAuthenticated) {
-        sauth = 'guest';
-        userid = null;
+        console.log('1111')
         user = this.guestName;
-        pp = null;
-        role = null;
+        pp = 'assets/img/defaultpp.png';
+        role = 'guest';
       } else {
-        sauth = 'auth';
-        userid = this.currentUser.id;
+        console.log('2222')
         user = this.currentUser.name;
-        pp = this.currentUser.pp;
+        pp = import.meta.env.VITE_APP_ST_URL+'/'+this.currentUser.noid+'/'+this.currentUser.pp || '../assets/img/profile-img.jpg';
         role = this.currentUser.role;
       }
 
       this.isSending = true;
       try {
-        const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        const messageData = {
+          sender: user,
+          text: this.audioUrl ? this.audioBase64 : this.newMessage,
+          type: this.audioUrl ? 'audio' : 'text',
+          pp: pp,
+          role: role
         };
-        let messageData = {
-          sauth: sauth,
-          userid: userid,
-          user: user,
-        };
-        if (this.audioUrl) {
-          messageData.message = this.audioBase64;
-          messageData.type = 'audio';
-        } else {
-          messageData.message = this.newMessage;
-          messageData.type = 'text';
-        }
-        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/livechat', messageData, { headers });
 
-        if (response.data.success) {
-          this.messages.push({
-            id: Date.now(),
-            sender: user,
-            text: this.audioUrl ? this.audioBase64 : this.newMessage,
-            type: this.audioUrl ? 'audio' : 'text',
-            pp: pp,
-            role: role,
-            time: new Date().toISOString()
-          });
-          this.newMessage = '';
-          this.audioUrl = null;
-          this.audioBase64 = null;
-          this.$nextTick(() => {
-            this.scrollToBottom();
-          });
-        }
+        this.socket.emit('send_message', messageData);
+
+        this.newMessage = '';
+        this.audioUrl = null;
+        this.audioBase64 = null;
+        this.$nextTick(() => {
+          this.scrollToBottom();
+        });
       } catch (error) {
         console.error('Error sending message:', error);
       } finally {
@@ -269,43 +326,6 @@ export default {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
         this.sendMessage();
-      }
-    },
-
-    async fetchMessages() {
-      const wasFirstFetch = this.isFirstFetch;
-      if (wasFirstFetch) {
-        this.isLoading = true;
-      }
-      try {
-        const headers = {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        };
-        const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL + '/livechat/messages', { headers });
-        if (response.data.success) {
-          // Check for new messages when chat is closed
-          if (!this.isOpen && this.messages.length < response.data.data.length) {
-            this.hasNewMessage = true;
-          }
-          this.messages = response.data.data;
-          if (wasFirstFetch) {
-            this.isFirstFetch = false;
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      } finally {
-        if (wasFirstFetch) {
-          this.isLoading = false;
-        }
-      }
-    },
-    startPolling() {
-      this.pollingInterval = setInterval(this.fetchMessages, 3000);
-    },
-    stopPolling() {
-      if (this.pollingInterval) {
-        clearInterval(this.pollingInterval);
       }
     },
     scrollToBottom() {
@@ -426,7 +446,7 @@ export default {
         await this.recordVoice();
       }
     },
-    async recordVoice() {
+async recordVoice() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         this.mediaRecorder = new MediaRecorder(stream);
@@ -435,10 +455,10 @@ export default {
           this.audioChunks.push(event.data);
         };
         this.mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
           const reader = new FileReader();
           reader.onload = () => {
-            this.audioBase64 = reader.result.split(',')[1]; // remove data:audio/wav;base64,
+            this.audioBase64 = reader.result.split(',')[1]; // remove data:audio/webm;base64,
             this.audioUrl = URL.createObjectURL(audioBlob);
           };
           reader.readAsDataURL(audioBlob);
@@ -451,6 +471,7 @@ export default {
         }, 60000);
       } catch (error) {
         console.error('Error accessing microphone:', error);
+        alert('Error accessing microphone: ' + error.message);
       }
     },
     async stopRecording() {
@@ -459,8 +480,22 @@ export default {
         this.isRecording = false;
       }
     },
+    getAudioSrc(base64) {
+      const binaryString = atob(base64);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], { type: 'audio/webm' });
+      return URL.createObjectURL(blob);
+    },
     playAudio(message) {
       // Optional: track play events if needed
+    },
+    clearAllMessages() {
+      if (confirm('Are you sure you want to clear all chat messages?')) {
+        this.socket.emit('clear_messages');
+      }
     }
   }
 }
@@ -586,6 +621,50 @@ export default {
 
 .close-btn:hover {
   color: #fff;
+}
+
+.clear-btn {
+  background: linear-gradient(135deg, #36393f, #40444b);
+  border: 1px solid #72767d;
+  color: #b9bbbe;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.clear-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  border-color: #ff6b6b;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+.clear-btn:hover::before {
+  left: 100%;
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .chat-messages {

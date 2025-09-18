@@ -127,16 +127,16 @@ export default {
             user: [],
         }
     },
+    watch: {
+        triwulan(newVal, oldVal) {
+            this.ambilDataSKP();
+        }
+    },
     created() {
         this.getLayananDetail(),
         this.$nextTick(() => {
             this.$refs.scroll1st.scrollIntoView();
         });
-    },
-    watch: {
-        triwulan(newVal, oldVal) {
-            this.ambilDataSKP();
-        }
     },
     methods: {
         async getLayananDetail() {

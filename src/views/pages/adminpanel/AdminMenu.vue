@@ -14,7 +14,7 @@
 							<h3>:::Mohon Tunggu Sebentar :::</h3>
 							<hr>
 						</div>
-                        <div v-else v-for="item in submenu" :key="item.id" class="col-lg-4 col-md-4 centered">
+                        <div v-for="item in submenu" v-else :key="item.id" class="col-lg-4 col-md-4 centered">
                             <router-link :to="adminLayanan(item.id)">
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -179,9 +179,6 @@ export default {
             layanan: []
         };
     },
-    created() {
-        this.getSubMenu()
-    },
     computed: {
         paginatedLayanan() {
 			const start = (this.currentPage - 1) * this.itemsPerPage;
@@ -196,6 +193,9 @@ export default {
 		totalPages() {
             return Math.ceil(this.layanan.length / this.itemsPerPage);
         },
+    },
+    created() {
+        this.getSubMenu()
     },
     methods: {
         tujuLayanan() {

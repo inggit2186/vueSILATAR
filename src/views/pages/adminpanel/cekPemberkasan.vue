@@ -80,15 +80,15 @@
                                 </div>
                                 <div class="centered">
                                     <div v-if="!loadingRequest">
-                                    <BButton v-if="request.status != 'DISETUJUI'" block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                    <BButton v-if="request.status != 'DISETUJUI'" block size="md" variant="warning" :disabled="loadingRequest" @click="updatePTSP('setuju')">
                                         <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton v-if="request.status != 'DITOLAK'" block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                    <BButton v-if="request.status != 'DITOLAK'" block size="md" variant="dark" :disabled="loadingRequest" @click="updatePTSP('tolak')">
                                         <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton v-if="request.status != 'DRAFT'" block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                    <BButton v-if="request.status != 'DRAFT'" block size="md" variant="danger" :disabled="loadingRequest" @click="updatePTSP('batal')">
                                         <span><b><i-ooui-cancel /> &nbsp;&nbsp;BATAL</b></span>
                                     </BButton>
                                     </div>
@@ -103,7 +103,7 @@
 							    <div class="row">
 									<div class="row">
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
-                                            <div class="media-image" v-b-tooltip="item.keterangan">
+                                            <div v-b-tooltip="item.keterangan" class="media-image">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
                                                     <img v-if="item.fileUrl != 'NONE'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.fileUrl)" />
                                                     <img v-else :src="$assets+'/img/ikon/filenotfound.png'" />

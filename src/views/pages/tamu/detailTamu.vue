@@ -57,14 +57,14 @@
                                 <div v-else-if="detailtamu.status == 'DITERIMA'" id="app">
                                     <VueSignaturePad
                                         id="signature"
+                                        ref="signaturePad" 
                                         width="300px" 
-                                        height="400px" 
-                                        ref="signaturePad"
+                                        height="400px"
                                         :options="options"
                                     />
                                     <br/>
                                     <div>
-                                        <BButton pill variant="primary" @click="save(detailtamu.id)" :disabled="loadingttd">
+                                        <BButton pill variant="primary" :disabled="loadingttd" @click="save(detailtamu.id)">
                                             <label v-if="!loadingttd">SIMPAN</label>
                                             <label v-else><i-svg-spinners-6-dots-scale-middle /> Menandatangani...</label>
                                         </BButton>&nbsp;&nbsp;&nbsp;
@@ -225,7 +225,6 @@ export default {
 				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getDetailTamu/'+sid,{headers})
 
                 if(response.data.success == true){
-                    console.log(response.data)
 				    this.detailtamu = response.data.detailtamu
 				    this.tamu = response.data.tamu
 				    this.tujuan = response.data.tujuan

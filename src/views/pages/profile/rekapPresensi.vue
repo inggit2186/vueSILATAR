@@ -14,13 +14,13 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Presensi()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Presensi</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Presensi()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Presensi()" />
 									</div>
 								</div>
 								<h4 v-if="loading" style="font-size: small;align-self: center;">
@@ -29,18 +29,18 @@
                                 </h4>
 								<h4 v-else style="font-size: small;align-self: center;">
 									<br/>
-									{{ userx.name }}  &nbsp;|&nbsp;  {{ this.$route.params.xid }}  &nbsp;|&nbsp;  {{ userx.satkerx }}
+									{{ userx.name }}  &nbsp;|&nbsp;  {{ $route.params.xid }}  &nbsp;|&nbsp;  {{ userx.satkerx }}
 								</h4>
 								<hr/>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -60,10 +60,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.presensi.length == 0">
+											<tr v-if="presensi.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td><b>{{ item.mAbsen }}</b></td>
                                                 <td><b>{{ item.pAbsen }}</b></td>

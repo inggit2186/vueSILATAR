@@ -19,7 +19,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -39,10 +39,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.ptsp.length == 0">
+											<tr v-if="ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="item in paginatedItem" :key="item.id">
+											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
                                                     <BBadge pill variant="info" style="font-size: medium;margin-bottom: 2px;"> {{ item.name }} </BBadge><br/>
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nomor_induk }} </BBadge>

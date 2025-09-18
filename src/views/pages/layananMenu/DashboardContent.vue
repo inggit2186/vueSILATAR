@@ -17,7 +17,7 @@
 				    			<div class="blog-widget">
 									<div class="blog-img">
 										<router-link :to="routeSeksi(item.id)">
-											<img :src="`${this.$assets}/img/seksi/${item.imgid}.png`" class="img-fluid" alt="blog-img" @error="handleBrokenImage(item)" />
+											<img :src="`${$assets}/img/seksi/${item.imgid}.png`" class="img-fluid" alt="blog-img" @error="handleBrokenImage(item)" />
                                         </router-link>
 					    				<div class="fav-item">
 											<span class="Featured-text">{{item.kategori.toUpperCase()}}</span>

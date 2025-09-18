@@ -7,7 +7,8 @@
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
         <ul class="navbar-nav main-nav my-2 my-lg-0 d-flex flex-row">
-            <li class="has-submenu megamenu active"
+            <li
+class="has-submenu megamenu active"
             :class="{'active': currentPath == 'index' || currentPath == '/index-2' || currentPath == '/index-3' || currentPath == '/index-4' }">
                 <router-link to="/"><i-fluent-home-person-24-filled /> &nbsp;Home</router-link>
             </li>

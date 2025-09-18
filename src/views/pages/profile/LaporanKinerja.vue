@@ -20,7 +20,7 @@
 							<div v-else ref="scroll1st" class="dash-cards card">
                                 <div class="card-header centered">
 									<h4>Laporan Kinerja Bulanan Tahun {{ tahun }}</h4>
-									<VueDatePicker v-model="tahun" @update:model-value="get2Files()" style="float:left; max-width: 15%;margin-right: 10px;" year-picker auto-apply />
+									<VueDatePicker v-model="tahun" style="float:left; max-width: 15%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2Files()" />
 								</div>
 								<div class="card-body">
 									<div class="row centered">

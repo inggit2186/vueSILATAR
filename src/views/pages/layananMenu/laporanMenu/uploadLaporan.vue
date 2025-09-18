@@ -21,14 +21,14 @@
 									<div class="card-header">
 										<h4 v-if="$route.params.xid == 'bimas'">Dokumen {{ $route.params.zid }} {{ $route.params.id }} Tahun {{ tahun }}</h4>
 										<h4 v-else-if="$route.params.xid == 'pais' || $route.params.xid == 'penmad'">Dokumen Pemberkasan {{ $route.params.zid }} {{ $route.params.id }} Tahun {{ tahun }}</h4>
-											<VueDatePicker v-model="tahun" @update:model-value="get2Lap()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-model="tahun" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2Lap()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4 v-if="$route.params.xid == 'bimas'">Dokumen {{ $route.params.zid }} {{ $route.params.id }} Tahun {{ tahun }}</h4>
 										<h4 v-else-if="$route.params.xid == 'pais'">Dokumen Pemberkasan {{ $route.params.zid }} {{ $route.params.id }} Tahun {{ tahun }}</h4>
-											<VueDatePicker v-model="tahun" @update:model-value="get2Lap()" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply />
+											<VueDatePicker v-model="tahun" style="float:left; max-width: 60%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2Lap()" />
 									</div>
 								</div>
                                 <h4 v-if="kategori == 'KUA'" style="font-size: small;align-self: center;">

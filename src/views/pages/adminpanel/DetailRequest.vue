@@ -199,7 +199,7 @@
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" class="centered">
                                     <div v-if="!loadingRequest">
-                                    <BButton block size="md" variant="warning" @click="newRequest()" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="warning" :disabled="loadingRequest" @click="newRequest()">
                                         <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                     </BButton>
                                     </div>
@@ -209,15 +209,15 @@
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" class="centered">
                                     <div v-if="!loadingRequest">
-                                    <BButton block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="warning" :disabled="loadingRequest" @click="updatePTSP('setuju')">
                                         <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="dark" :disabled="loadingRequest" @click="updatePTSP('tolak')">
                                         <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="danger" :disabled="loadingRequest" @click="updatePTSP('batal')">
                                         <span><b><i-ooui-cancel /> &nbsp;&nbsp;BATAL</b></span>
                                     </BButton>
                                     </div>
@@ -227,21 +227,21 @@
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
                                     <div v-if="!loadingRequest">
-                                    <BButton v-if="request.step == 3" block size="md" variant="warning" @click="updatePTSP('proses')" :disabled="loadingRequest">
+                                    <BButton v-if="request.step == 3" block size="md" variant="warning" :disabled="loadingRequest" @click="updatePTSP('proses')">
                                         <span><b><i-ic-baseline-work-history /> &nbsp;&nbsp;PROSES</b></span>
                                     </BButton>
-                                    <BButton v-else-if="request.step == 4" block size="md" variant="warning" @click="updatePTSP('sukses')" :disabled="loadingRequest">
+                                    <BButton v-else-if="request.step == 4" block size="md" variant="warning" :disabled="loadingRequest" @click="updatePTSP('sukses')">
                                         <span><b><i-solar-box-bold /> &nbsp;&nbsp;SELESEI</b></span>
                                     </BButton>
-                                    <BButton v-else block size="md" variant="warning" @click="updatePTSP('setuju')" :disabled="loadingRequest">
+                                    <BButton v-else block size="md" variant="warning" :disabled="loadingRequest" @click="updatePTSP('setuju')">
                                         <span><b><i-mingcute-check-2-fill /> &nbsp;&nbsp;SETUJU</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton block size="md" variant="dark" @click="updatePTSP('tolak')" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="dark" :disabled="loadingRequest" @click="updatePTSP('tolak')">
                                         <span><b><i-fluent-emoji-high-contrast-cross-mark /> &nbsp;&nbsp;TOLAK</b></span>
                                     </BButton>
                                     &nbsp;&nbsp;
-                                    <BButton block size="md" variant="danger" @click="updatePTSP('batal')" :disabled="loadingRequest">
+                                    <BButton block size="md" variant="danger" :disabled="loadingRequest" @click="updatePTSP('batal')">
                                         <span><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                     </BButton>
                                      </div>
@@ -251,7 +251,7 @@
                                 </div>
                                 <div v-else-if="request.status == 'SUKSES' || request.status == 'BATAL' || request.status == 'DITOLAK'" class="centered">
                                     <div v-if="!loadingRequest">
-                                    <BButton v-if="request.step == 4" block size="md" variant="dark" @click="updatePTSP('ubah')" :disabled="loadingRequest">
+                                    <BButton v-if="request.step == 4" block size="md" variant="dark" :disabled="loadingRequest" @click="updatePTSP('ubah')">
                                         <span><b><i-fluent-comment-edit-20-filled /> &nbsp;&nbsp;UBAH</b></span>
                                     </BButton>
                                      </div>
@@ -300,7 +300,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 featured-img1 centered">
-                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                    <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                         <h6 class="media-title">Hasil Surat / Surat Keluaran</h6>
                                                             <img v-if="hasil.surat == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                             <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.surat)" />
@@ -327,7 +327,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 featured-img1 centered">
-                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                    <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                         <h6 class="media-title">Lampiran</h6>
                                                             <img v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                             <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran1)" />
@@ -355,7 +355,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4 featured-img1 centered">
-                                                    <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                    <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                         <h6 class="media-title">Lampiran</h6>
                                                             <img v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                             <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran2)" />
@@ -394,10 +394,10 @@
                                             
                                             <div class="card-header text-center d-none d-md-block">
                                                 <div style="font-size:18px;float:right;">
-                                                <BButton v-if="!edit" block size="md" variant="danger" @click="ubahReq()" :disabled="loadingRequest">
+                                                <BButton v-if="!edit" block size="md" variant="danger" :disabled="loadingRequest" @click="ubahReq()">
                                                     <span><b><i-fa-solid-edit /> &nbsp;&nbsp;Ubah Data Pengajuan</b></span>
                                                 </BButton>
-                                                <BButton v-else block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                                <BButton v-else block size="md" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                                     <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Perubahan Data</b></span>
                                                     <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                                 </BButton>
@@ -406,10 +406,10 @@
                                             </div>
                                             <div class="card-header text-center d-block d-sm-block d-md-none">
                                                 <div style="font-size:18px;float:right;">
-                                                <BButton v-if="!edit" block size="md" variant="danger" @click="ubahReq()" :disabled="loadingRequest">
+                                                <BButton v-if="!edit" block size="md" variant="danger" :disabled="loadingRequest" @click="ubahReq()">
                                                     <span><b><i-fa-solid-edit /> &nbsp;&nbsp;Ubah Data Pengajuan</b></span>
                                                 </BButton>
-                                                <BButton v-else block size="md" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                                <BButton v-else block size="md" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                                     <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Perubahan Data</b></span>
                                                     <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                                 </BButton>
@@ -441,7 +441,7 @@
                                             <h4><u>SYARAT-SYARAT BERKAS</u></h4>							
                                         </div>
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
-                                            <div class="media-image" v-b-tooltip="item.keterangan">
+                                            <div v-b-tooltip="item.keterangan" class="media-image">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
                                                     <img v-if="item.fileUrl != 'NONE'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.fileUrl)" />
                                                     <img v-else :src="$assets+'/img/ikon/filenotfound.png'" />
@@ -496,7 +496,7 @@
                                 
                                 </div>
                                 <div>
-                                    <b-form-input v-model="input.komen" type="text" class="form-control pass-input" @keypress.enter.prevent="onEnter" placeholder="Komentar Anda... Tekan Enter untuk Mengirim" :disabled="loadingkomen"/>
+                                    <b-form-input v-model="input.komen" type="text" class="form-control pass-input" placeholder="Komentar Anda... Tekan Enter untuk Mengirim" :disabled="loadingkomen" @keypress.enter.prevent="onEnter"/>
                                 </div>
                             </div>
 						</div>				

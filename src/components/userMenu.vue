@@ -59,16 +59,18 @@
 </template>
 
 <script>
+import emitter from '../eventBus';
+
 export default {
 	data() {
         return {
-            loading: false
-        }
+            loading: false,
+        };
 	},
 	methods:{
             async logout() {
                 try{
-                    this.loading = true
+                    this.loading = true;
                     const headers = {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
@@ -77,25 +79,28 @@ export default {
                     const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/logout', {}, { headers });
                    if(response.data.success == true){
                     localStorage.clear();
+                    emitter.emit('logout');
                     this.$toast.fire({
                         title: response.data.message,
                         icon: 'success',
-                    })
+                    });
                     this.$router.push('/login');
                    }else{
                     localStorage.clear();
+                    emitter.emit('logout');
                     this.$router.push('/login');
                    }
                 } catch (error) {
                     console.error(error.response.status);
                     if(error.response.status == 401){
                         localStorage.clear();
+                        emitter.emit('logout');
                         this.$router.push('/login');
                     }
-                } finally {
-                    this.loading = false;
                 }
-            },
-        },
-}
+                    this.loading = false;
+            }
+    },
+};
 </script>
+

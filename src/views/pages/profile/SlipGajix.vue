@@ -19,11 +19,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -43,10 +43,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.slipgaji.length == 0">
+											<tr v-if="slipgaji.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td>{{ item.tanggal }}</td>
                                                 <td>{{ item.nama }}<br/>
                                                     <small>{{ item.nip }}</small>
@@ -57,7 +57,7 @@
                                                 <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
                                                 <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
                                                 <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipGaji(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton>
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetakSlipGaji(item.id)"><b><i-ic-baseline-print /> CETAK</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>

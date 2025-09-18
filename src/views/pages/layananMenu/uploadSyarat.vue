@@ -40,24 +40,24 @@
 							    <h4>Upload File-File Syarat</h4>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="newRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="newRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                     <br/><br/>
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Proses Pembatalan....</b></span>
                                     </BButton>
@@ -226,12 +226,12 @@
                                 <hr/>
                                 </div>				
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
+                            <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'"  class="card-body">
                                 <span style="font-size: small;"><b><i>*) Wajib Diupload/Diisi</i></b></span>
 							    <div class="row">
 									<div class="row">
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
-                                            <div class="media-image" v-b-tooltip="item.keterangan">
+                                            <div v-b-tooltip="item.keterangan" class="media-image">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
                                                     <img v-if="item.fileUrl != 'NONE'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.fileUrl)" />
                                                     <img v-else :src="$assets+'/img/ikon/filenotfound.png'" />
@@ -258,7 +258,7 @@
 									</div>										
 								</div>					
 							</div>
-                            <div class="card-body"  v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'">
+                            <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK'"  class="card-body">
                                 <div class="profile-content">
                                     <div class="messages-form">
                                         <div class="card">
@@ -309,7 +309,7 @@
                                                         </div>
                                                     </div>
                                                     <div v-if="hasil.surat && hasil.surat != null && hasil.surat != 'NONE'" class="col-lg-4 col-md-4 featured-img1 centered">
-                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                             <h6 class="media-title">Hasil Surat / Surat Keluaran</h6>
                                                                 <img v-if="hasil.surat == null || hasil.surat == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                                 <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.surat)" />
@@ -319,7 +319,7 @@
                                                         </div>
                                                     </div>
                                                     <div v-if="hasil.lampiran1 && hasil.lampiran1 != null && hasil.lampiran1 != 'NONE'" class="col-lg-4 col-md-4 featured-img1 centered">
-                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                             <h6 class="media-title">Lampiran</h6>
                                                                 <img v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                                 <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran1)" />
@@ -329,7 +329,7 @@
                                                         </div>
                                                     </div>
                                                     <div v-if="hasil.lampiran2 && hasil.lampiran2 != 'NONE' && hasil.lampiran2 != null" class="col-lg-4 col-md-4 featured-img1 centered">
-                                                        <div class="media-image" v-b-tooltip="'Upload Surat Hasil Jika Ada'">
+                                                        <div v-b-tooltip="'Upload Surat Hasil Jika Ada'" class="media-image">
                                                             <h6 class="media-title">Lampiran</h6>
                                                                 <img v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'" :src="$assets+'/img/ikon/filenotfound.png'" />
                                                                 <img v-else :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(hasil.lampiran2)" />
@@ -367,7 +367,7 @@
                                         <div v-else class="comment bubble2 d-block d-sm-block d-md-none" style="margin:10px 10px 10px 10px;">{{ komen.komen }}<br /><br /> <p style="text-align:right;font-size:12px;"><i>{{ komen.waktu }}</i></p></div>
                                 </div>
                                 <div>
-                                    <b-form-input v-model="input.komen" type="text" class="form-control pass-input" @keypress.enter.prevent="onEnter" placeholder="Komentar Anda... Tekan Enter untuk Mengirim" :disabled="loadingkomen"/>
+                                    <b-form-input v-model="input.komen" type="text" class="form-control pass-input" placeholder="Komentar Anda... Tekan Enter untuk Mengirim" :disabled="loadingkomen" @keypress.enter.prevent="onEnter"/>
                                 </div>
                             </div>
 						</div>				

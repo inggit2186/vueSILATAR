@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div v-if="this.$route.params.xid == 'asn'" class="card-header centered d-none d-md-block">
+                                    <div v-if="$route.params.xid == 'asn'" class="card-header centered d-none d-md-block">
                                         <h5><BBadge pill variant="primary">Konsultan</BBadge><br/></h5>
                                         <img :src="data.petugaspp" style="max-width: 90px;margin-bottom: 4px;" />
                                         <br/><br/>
@@ -72,7 +72,7 @@
                         </table>
                         <div class="comment bubble d-block d-sm-block d-md-none" style="margin:10px 10px 10px 10px;"><b>Selamat Datang Bpk/Ibu {{ data.sender }}
                         </b><br />Apakah ada yang bisa kami bantu? &#128513; <p style="text-align:right;font-size:12px;"><i>{{ data.timex }}</i></p></div>
-                    <div v-if="komen != 'NONE'" v-for="komen in komen" :key="komen.id">
+                    <div v-for="komen in komen" v-if="komen != 'NONE'" :key="komen.id">
                         <table v-if ="komen.st =='petugas'" style="margin:10px 10px 10px 10px;" class="d-none d-md-block">
                                 <tr><td class="pp">
                                 <img class="imgkomen" :src="komen.pp" />
@@ -94,7 +94,7 @@
                     </div>
                     <br/>
                     <div>
-                        <b-form-input v-model="input.komen" type="text" class="form-control pass-input" @keypress.enter="addKomen" placeholder="Silahkan Tulis disini... Tekan Enter untuk Mengirim" :disabled="loadingkomen"/>
+                        <b-form-input v-model="input.komen" type="text" class="form-control pass-input" placeholder="Silahkan Tulis disini... Tekan Enter untuk Mengirim" :disabled="loadingkomen" @keypress.enter="addKomen"/>
                     </div>
                 </div>
 			</div>

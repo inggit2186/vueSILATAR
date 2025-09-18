@@ -12,13 +12,13 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Presensi PUSAKA</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2PUSAKA()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2PUSAKA()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Dokumen PUSAKA</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2PUSAKA()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2PUSAKA()" />
 									</div>
 								</div>
 								<hr/>
@@ -48,7 +48,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -59,14 +59,14 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.presensi.length == 0">
+											<tr v-if="presensi.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td style="font-size: 14px; font-weight: 650;">{{ item.satker }}</td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.presensi != 'NONE'" pill size="sm" variant="danger" @click.prevent="cetak(item.presensi,item.filepresensi)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.uangmakan != 'NONE'" pill size="sm" variant="secondary" @click.prevent="cetak(item.uangmakan,item.fileuangmakan)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
-                                                <td style="font-size: 14px;"><BButton v-if="item.tukin != 'NONE'" pill size="sm" variant="success" @click.prevent="cetak(item.tukin,item.filetukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.presensi != 'NONE'" pill size="sm" variant="danger" style="margin-bottom: 5px;" @click.prevent="cetak(item.presensi,item.filepresensi)"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.uangmakan != 'NONE'" pill size="sm" variant="secondary" style="margin-bottom: 5px;" @click.prevent="cetak(item.uangmakan,item.fileuangmakan)"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
+                                                <td style="font-size: 14px;"><BButton v-if="item.tukin != 'NONE'" pill size="sm" variant="success" style="margin-bottom: 5px;" @click.prevent="cetak(item.tukin,item.filetukin)"><b><i-ic-baseline-print /> Download</b></BButton><span v-else><i>Belum Diupload</i></span></td>
                                             </tr>
 										</tbody>
                                     </table>
@@ -77,7 +77,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -99,7 +99,7 @@
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td style="font-size: 14px; font-weight: 400;"> - </td>
                                                 <td>
-                                                    <BButton v-if="presensi.filep != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filep, presensi.downloadp)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
+                                                    <BButton v-if="presensi.filep != 'NONE'" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetak(presensi.filep, presensi.downloadp)"><b><i-ic-baseline-print /> Cetak Rekap Presensi</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
                                                 </td>
                                             </tr>
@@ -113,7 +113,7 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ rekapum.uangmakan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ rekapum.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ rekapum.nett_um.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td>
-                                                    <BButton v-if="presensi.fileum != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.fileum, presensi.downloadum)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
+                                                    <BButton v-if="presensi.fileum != 'NONE'" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetak(presensi.fileum, presensi.downloadum)"><b><i-ic-baseline-print /> Cetak Rekap UM</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
                                             </tr>
@@ -125,12 +125,12 @@
                                                 <td style="font-size: 14px; font-weight: 600;">-</td>
                                                 <td style="font-size: 14px; font-weight: 600;">Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
 												<td>
-                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
 												
                                             </tr>
-											<tr v-else v-for="(rekaptukin,index) in rekaptukin" :key="rekaptukin.id">
+											<tr v-for="(rekaptukin,index) in rekaptukin" v-else :key="rekaptukin.id">
                                                 <td v-if="index == 0" :rowspan=count style="font-size: 14px; font-weight: 600;">Tunjangan Kinerja</td>
                                                 <td style="font-size: 14px; font-weight: 400;">{{ rekaptukin.ketidakhadiran }} <b>({{ rekaptukin.jml_absen }} Hari)</b></td>
                                                 <td style="font-size: 14px; font-weight: 600;"> Rp.{{ rekaptukin.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
@@ -138,7 +138,7 @@
 													<span style="font-size: smaller;"><i><i-mdi-money /> (Rp.{{ tukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }} - Rp.{{ sumtukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }}) </i></span><br/>
 													Rp.{{ netttukin.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},-</td>
                                                 <td v-if="index == 0" :rowspan=count>
-                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
+                                                    <BButton v-if="presensi.filetukin != 'NONE'" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetak(presensi.filetukin, presensi.downloadtukin)"><b><i-ic-baseline-print /> Cetak Rekap Tukin</b></BButton>
 													<span v-else><i>Belum Diupload</i></span>
 												</td>
                                             </tr>

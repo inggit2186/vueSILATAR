@@ -27,7 +27,7 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Laporan Tukin "{{ tgl }}"</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipTukin()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2SlipTukin()" />
 											<!--
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -37,7 +37,7 @@
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Laporan Tukin "{{ tgl }}"</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2SlipTukin()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2SlipTukin()" />
 											<!--
 											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapKinerja()" style="float:right;margin-right: 10px;"><i-ri-file-ppt-2-fill /> <b>REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
@@ -77,10 +77,10 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-if="xid == 'nonguru'" v-for="column in columns3" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns3" v-if="xid == 'nonguru'" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
-												<th v-else v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+												<th v-for="column in columns2" v-else :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -91,10 +91,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else-if="!loading && xid == 'nonguru'">
-											<tr v-if="this.sliptukin.length == 0">
+											<tr v-if="sliptukin.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td>{{ item.nip }}<br/>
                                                     <small><i>{{ item.kode_gapok }}</i></small></td>
                                                 <td>{{ item.nama }}<br/>
@@ -108,17 +108,17 @@
                                                 <td>Rp. {{ item.potongan.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
                                                 <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") ?? '-' }},- </td>
                                                 <td>
-													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" @click.prevent="cetakSlipTukin(item.id)" style="margin-bottom: 5px;"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
+													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetakSlipTukin(item.id)"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tanggal)"><b><i-ph-trash-fill /> DELETE</b></BButton>
                                                     <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
 										<tbody v-else>
-											<tr v-if="this.sliptukin.length == 0">
+											<tr v-if="sliptukin.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><b>{{ item.nip }}</b><br/>
                                                     <small><i>{{ item.kode_gapok }}</i></small></td>
                                                 <td><b>{{ item.nama }}</b><br/>

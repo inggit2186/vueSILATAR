@@ -14,13 +14,13 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Laporan Pengaduan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Error()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Error()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Laporan Pengaduan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Error()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Error()" />
 									</div>
 								</div>
 								<hr/>
@@ -28,11 +28,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -41,10 +41,10 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-if="this.$route.params.id == 'admin'" v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns" v-if="$route.params.id == 'admin'" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
-												<th v-else v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+												<th v-for="column in columns2" v-else :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -54,11 +54,11 @@
                                                 <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
                                             </tr>
                                         </tbody>
-										<tbody v-else-if="!loading && this.$route.params.id == 'admin'">
-											<tr v-if="this.error.length == 0">
+										<tbody v-else-if="!loading && $route.params.id == 'admin'">
+											<tr v-if="error.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id" >
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id" >
                                                 <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.nama }}</b><br/>
 													<span style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.nip }}	</i></span>
 												</td>
@@ -78,10 +78,10 @@
                                             </tr>
 										</tbody>
 										<tbody v-else>
-											<tr v-if="this.error.length == 0">
+											<tr v-if="error.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id" >
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id" >
                                                 <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.kategori }}</b></td>
                                                 <td @click.prevent="cetak(item.id, item.filename)"><b>{{ item.tanggalmulai }}</b> &nbsp;s/d&nbsp; <b>{{ item.tanggalselesei }}</b></td>
                                                 <td @click.prevent="cetak(item.id, item.filename)">{{ item.keterangan }}</td>

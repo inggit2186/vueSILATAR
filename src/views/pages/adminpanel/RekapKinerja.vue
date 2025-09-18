@@ -12,20 +12,20 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Laporan CKH</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2CKH()" />
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Laporan CKH</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2CKH()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2CKH()" />
 									</div>
 								</div>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -34,7 +34,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -45,10 +45,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.ptsp.length == 0">
+											<tr v-if="ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="item in paginatedItem" :key="item.id">
+											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
                                                     <BBadge pill variant="info" style="font-size: medium;margin-bottom: 2px;"> {{ item.nama }} </BBadge><br/>
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>

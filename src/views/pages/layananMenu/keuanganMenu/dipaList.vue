@@ -71,14 +71,14 @@ export default {
             name: "/",
         };
     },
-    created() {
-        this.navid = this.$route.params.id
-        window.scrollTo(0,0)
-    },
     computed: {
         ruteTujuan(id) {
 			return id => `/${this.navid}/${id}`
     	},
+    },
+    created() {
+        this.navid = this.$route.params.id
+        window.scrollTo(0,0)
     }
 }
 </script>

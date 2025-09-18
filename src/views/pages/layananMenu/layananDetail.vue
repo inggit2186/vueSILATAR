@@ -28,7 +28,7 @@
 						  </div>
 						  <div class="col-lg-3">
 							  <div class="callnow">
-								  <BButton @click="addRequest()" variant="success" style="font-size: large"> <i class="feather-phone-call"></i>  &nbsp;<b>AJUKAN</b></BButton>
+								  <BButton variant="success" style="font-size: large" @click="addRequest()"> <i class="feather-phone-call"></i>  &nbsp;<b>AJUKAN</b></BButton>
 							  </div>
 						  </div>
 					 </div>
@@ -78,7 +78,7 @@
 							        <div class="row">
                                         <div v-for="item in syarat" id="item" :key="item.id" class="featureslist d-flex align-items-center col-lg-4 col-md-4">
                                             <div class="feature-img">
-                                                <img :src="this.$assets+'/img/featured/Feature-'+randNo()+'.svg'" alt="Room amenties" >
+                                                <img :src="$assets+'/img/featured/Feature-'+randNo()+'.svg'" alt="Room amenties" >
                                             </div>
                                             <div class="featues-info">
                                                 <h6 style="font-weight: 420;">{{ item.syarat }}<span v-if="item.wajib == 1">*</span><span v-else></span></h6>
@@ -96,7 +96,7 @@
 						<div class="stickysidebar">
 						<div class="rightsidebar">
 							<div class="card">
-							    <h4><img :src="this.$assets+'/img/statistic-icon.svg'" alt="location"> Statistic</h4>
+							    <h4><img :src="$assets+'/img/statistic-icon.svg'" alt="location"> Statistic</h4>
 							    <ul class="statistics-list">
 								    <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
 								       Views </div><span class="text-end"> 453563</span></li>

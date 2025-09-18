@@ -12,18 +12,18 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Rekap Pemberkasan</h4>
-											<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
-											<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+											<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2CKH()" />
+											<VueDatePicker v-else v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2CKH()" />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" style="float: right;" @click="rekapRequest()"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Rekap Pemberkasan</h4>
-										<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply />
-										<VueDatePicker v-else v-model="bulan" @update:model-value="get2CKH()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+										<VueDatePicker v-if="$route.params.xid == '1037' || $route.params.xid == '1082'" v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" year-picker auto-apply @update:model-value="get2CKH()" />
+										<VueDatePicker v-else v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2CKH()" />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" style="float: right;" @click="rekapRequest()"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
 									</div>
 								</div>
@@ -58,7 +58,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -78,10 +78,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.ptsp.length == 0">
+											<tr v-if="ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="item in paginatedItem" :key="item.id">
+											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
                                                     <BBadge pill variant="info" style="font-size: medium;margin-bottom: 2px;"> {{ item.nama }} </BBadge><br/>
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>
@@ -133,7 +133,7 @@
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
                                             </li>
                                             <li class="d-flex align-items-center" style="padding-left: 5px;">
-                                                <input type="number" v-model="goToPageNumber" min="1" :max="totalPages" class="form-control form-control-sm" style="width: 115px;" placeholder="Halaman" @keyup.enter="goToPage">
+                                                <input v-model="goToPageNumber" type="number" min="1" :max="totalPages" class="form-control form-control-sm" style="width: 115px;" placeholder="Halaman" @keyup.enter="goToPage">
                                                 <button class="btn btn-danger" style="margin-left: 5px;" @click="goToPage"><b>GO</b></button>
                                             </li>
                                         </ul>
@@ -193,13 +193,6 @@ export default {
 			goToPageNumber: ''
         }
     },
-	watch: {
-		$route(to, from) {
-			if (to.path !== from.path) {
-			this.getCKH();
-			}
-		}
-	},
     computed: {
 		tableHeader() {
 			return this.columns
@@ -226,6 +219,13 @@ export default {
 		totalPages() {
             return Math.ceil(this.ptsp.length / this.itemsPerPage);
         },
+	},
+	watch: {
+		$route(to, from) {
+			if (to.path !== from.path) {
+			this.getCKH();
+			}
+		}
 	},
   created() {
 		this.getCKH(),

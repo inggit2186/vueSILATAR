@@ -7,20 +7,20 @@
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
                     <div class="container">
-						<konsultasiMenu v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu'" @menu-changed="getPTSP" />
+						<konsultasiMenu v-if="$route.params.id == '777' || $route.params.id == 'janjitemu'" @menu-changed="getPTSP" />
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
                                 <div class="card-header">
                                     <h4>Daftar Request</h4>
-										<VueDatePicker v-model="bulan" @update:model-value="get2PTSP()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-										<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapRequest()" style="float: right;"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
+										<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2PTSP()" />
+										<a v-if="!loadingrekap" class="btn btn-warning" href="#" style="float: right;" @click="rekapRequest()"><i-ri-file-ppt-2-fill /> <b>DOWNLOAD REKAP</b></a>
 										<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>Merekap...</b></a>
                                 </div>
                             <div class="card-body">
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -35,25 +35,25 @@
                                         <hr>
                                     </div>
                                     <table v-else class="table table-hover centered">
-										<thead v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu'">
+										<thead v-if="$route.params.id == '777' || $route.params.id == 'janjitemu'">
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
                                         </thead>
                                         <thead v-else>
                                             <tr>
-                                                <th v-for="column in columns" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
                                         </thead>
-										<tbody v-if="this.$route.params.id == '777' || this.$route.params.id == 'janjitemu' ">
-											<tr v-if="this.ptsp.length == 0">
+										<tbody v-if="$route.params.id == '777' || $route.params.id == 'janjitemu' ">
+											<tr v-if="ptsp.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="item in paginatedItem" :key="item.id">
+											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a><br/><b>{{ item.jam }}</b></td>
                                                 <td>
                                                     {{ item.nama }}<br/>
@@ -64,7 +64,7 @@
                                                 </td>
 												<td>
                                                     <BBadge v-if="item.tipe == 'asn'" pill variant="primary" style="font-size: small;"> {{ item.staff }} </BBadge>
-                                                    <BBadge pill v-else variant="secondary" style="font-size: small;"> {{ item.staff }} </BBadge>
+                                                    <BBadge v-else pill variant="secondary" style="font-size: small;"> {{ item.staff }} </BBadge>
                                                 </td>
                                                 <td>
                                                     <BBadge v-if="item.status == 'APPOINTMENT'" variant="light">DIAJUKAN</BBadge>
@@ -88,10 +88,10 @@
                                             </tr>
 										</tbody>
                                         <tbody v-else>
-											<tr v-if="this.ptsp.length == 0">
+											<tr v-if="ptsp.length == 0">
 												<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-                                            <tr v-else v-for="item in paginatedItem" :key="item.id">
+                                            <tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tgl_surat }} </a><br/>
 													<span style="font-size: smaller;"><i><i-fluent-mdl2-date-time /> {{ item.tanggal }}	</i></span>
 												</td>
@@ -233,14 +233,14 @@ export default {
             return Math.ceil(this.ptsp.length / this.itemsPerPage);
         },
 	},
-  created() {
-		this.getPTSP(),
-		window.scrollTo(0,0)
-	},
 	watch: {
 		'$route.params.id': function(newId, oldId) {
 			this.getPTSP();
 		}
+	},
+  created() {
+		this.getPTSP(),
+		window.scrollTo(0,0)
 	},
   methods: {
 		async getPTSP() {

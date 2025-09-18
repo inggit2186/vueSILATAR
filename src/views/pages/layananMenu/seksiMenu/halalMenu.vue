@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 centered">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" @click.prevent="showAlurInfo" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up" @click.prevent="showAlurInfo">
                                 <img :src="$assets+'/img/ikon/73.png'" style="width:100%;" alt="car1">
                                 <h6>Informasi Alur Sertifikasi Halal</h6>
                                 <span>Informasi Alur Sertifikasi Halal</span>
@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 centered">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" @click.prevent="showPersyaratanInfo" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up" @click.prevent="showPersyaratanInfo">
                                 <img :src="$assets+'/img/ikon/79.png'" style="width:100%;" alt="car1">
                                 <h6>Persyaratan Sertifikasi Halal</h6>
                                 <span>Informasi Persyaratan  Sertifikasi Halal</span>
@@ -26,14 +26,14 @@
                         </div>
                         <div class="col-lg-4 col-md-4 centered">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" @click="tujuHalal()" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up" @click="tujuHalal()">
                                 <img :src="$assets+'/img/ikon/80.png'" style="width:100%;" alt="car1">
                                 <h6>Pendaftaran Sertifikasi Halal</h6>
                                 <span>Kunjungi Website PTSP.Halal.Go.ID</span>
                                 </a>
                             </div>
                         </div>
-                        <div v-if="this.$route.params.id == 'umk'" class="col-lg-4 col-md-4 centered">
+                        <div v-if="$route.params.id == 'umk'" class="col-lg-4 col-md-4 centered">
                             <router-link to='/umk/certhalal/domisili'>
                             <div class="listMenu categories-content">
                                 <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
@@ -46,7 +46,7 @@
                         </div>
                         <div v-else class="col-lg-4 col-md-4 centered">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" @click.prevent="showLPHInfo" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up" @click.prevent="showLPHInfo">
                                 <img :src="$assets+'/img/ikon/75.png'" style="width:100%;" alt="car1">
                                 <h6>Konsultasi dengan LPH</h6>
                                 <span>Konsultasi dengan Lembaga Pemeriksa Halal (LPH)</span>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 centered">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" @click.prevent="showHotlineInfo" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up" @click.prevent="showHotlineInfo">
                                 <img :src="$assets+'/img/ikon/76.png'" style="width:100%;" alt="car1">
                                 <h6>Hotline Sertifikasi Halal</h6>
                                 <span>Hubungi Badan Penyelenggara Jaminan Produk Halal (BPJPH)</span>

@@ -12,16 +12,16 @@
                                 <div class="d-none d-sm-block">
 									<div class="card-header">
 										<h4>Laporan Kehumasan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapHumas()" style="float: right;"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
+											<VueDatePicker v-model="bulan" style="max-width: 250px; margin-left: 50%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Kegiatan()" />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" style="float: right;" @click="rekapHumas()"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
 								<div class="d-block d-sm-none">
 									<div>
 										<h4>Laporan Kehumasan</h4>
-											<VueDatePicker v-model="bulan" @update:model-value="get2Kegiatan()" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply />
-											<a v-if="!loadingrekap" class="btn btn-warning" href="#" @click="rekapHumas()" style="float:right;margin-right: 10px;"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
+											<VueDatePicker v-model="bulan" style="float:left; max-width: 60%;margin-right: 10px;" month-picker auto-apply @update:model-value="get2Kegiatan()" />
+											<a v-if="!loadingrekap" class="btn btn-warning" href="#" style="float:right;margin-right: 10px;" @click="rekapHumas()"><i-fluent-mdl2-news-search /> <b>KIRIM</b></a>
 											<a v-else class="btn btn-danger" href="#" style="float: right;"><i-svg-spinners-clock /> <b>REKAP</b></a>
 									</div>
 								</div>
@@ -59,13 +59,13 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="float: right;margin-left:20px;"><i-subway-add/> <b>TAMBAH</b></a>
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" placeholder="Search...">
+                                            <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input type="text" v-model="keyword"  @input="filterTable" class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search...">
-                                            <a class="btn btn-danger" href="#" @click="changedetail(2,'Tambah',0)" style="margin-left:5px;float:right;"><i-subway-add/> <b>TAMBAH</b></a>
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <a class="btn btn-danger" href="#" style="margin-left:5px;float:right;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)" style="max-width: 20px;">
+                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -85,10 +85,10 @@
                                             </tr>
                                         </tbody>
 										<tbody v-else>
-											<tr v-if="this.kinerja.length == 0">
+											<tr v-if="kinerja.length == 0">
 												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
 											</tr>
-											<tr v-else v-for="(item,index) in paginatedItem" :key="item.id">
+											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td>{{ item.tanggal }}</td>
 												<td>
 													<div v-for="kerja in item.kegiatan" :key="kerja.id">
@@ -142,7 +142,7 @@
                         </div>
                     </div>
 
-                    <div ref="scroll1st" v-else-if="detail == 2" class="card-body">
+                    <div v-else-if="detail == 2" ref="scroll1st" class="card-body">
                         <div class="container">
                             <div  class="pagination">
                                 <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
@@ -156,17 +156,17 @@
                                             <h2>::: Laporan Kehumasan :::</h2>							
                                         </div>
                                         <div class="card-header">
-                                            <h4>{{ this.status }} Detail Kegiatan Humas</h4>							
+                                            <h4>{{ status }} Detail Kegiatan Humas</h4>							
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label class="col-form-label">Tanggal Terbit<span>*</span></label>								    
-                                                <VueDatePicker v-if="this.status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" readonly/>								   
+                                                <VueDatePicker v-if="status == 'Edit'" v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" readonly/>								   
                                                 <VueDatePicker v-else v-model="tanggal" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" required/>								   
                                             </div>
                                             <div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Pemberitaan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
-												<div id="inputArea" v-for="(kegiatan, index) in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
+												<div v-for="(kegiatan, index) in kegiatan" id="inputArea" :key="kegiatan.id" style="padding-bottom: 12px;">
                                                 	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan"/>
 													<b-form-select id="platform" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="max-width: 20%;float:left;margin-top:7px;">
 														<b-form-select-option value="" disabled selected>--Pilih Platform--</b-form-select-option>
@@ -182,7 +182,7 @@
 													<label :for="'file-' + index" class="custom-file-upload" style="max-width: 14%;float:left;margin-left:5px;margin-top:5px;">
 														<i class="fas fa-upload"></i> {{ kegiatan.filename }}
 													</label> &nbsp;&nbsp;<a v-if="kegiatan.file_path != 'NONE' && kegiatan.file_path != null" :href="apiUrl + kegiatan.file_path" target="_blank"><i-bi-camera-fill style="font-size: 20px;"/></a>
-													<input type="file" :id="'file-' + index" accept="image/*" @change="onFileChange(index, $event)" />   
+													<input :id="'file-' + index" type="file" accept="image/*" @change="onFileChange(index, $event)" />   
 													<br/>			   
 
 													<br/>				   
@@ -191,7 +191,7 @@
 											</div>
 											<div class="form-group d-block d-sm-none">
                                                 <label class="col-form-label">Kegiatan <span>*</span></label>&nbsp;&nbsp;<b-button variant="danger" size="sm" @click="clone()"><i-mingcute-plus-fill />Tambah</b-button>
-												<div id="inputArea" v-for="kegiatan in kegiatan" :key="kegiatan.id" style="padding-bottom: 12px;">
+												<div v-for="kegiatan in kegiatan" id="inputArea" :key="kegiatan.id" style="padding-bottom: 12px;">
                                                 	<b-form-input id="kegiatan" v-model="kegiatan.judul" type="text" class="form-control pass-input" placeholder="JUDUL" style="margin-bottom: 5px;"/>
 													<b-form-input id="volume" v-model="kegiatan.link" type="number" class="form-control pass-input" placeholder="Link Website Pemberitaan/Kegiatan" style="margin-bottom: 5px;" />
 													<b-form-select id="satuan" v-model="kegiatan.platform" class="form-control pass-input" placeholder="Platform" style="margin-bottom: 5px;">

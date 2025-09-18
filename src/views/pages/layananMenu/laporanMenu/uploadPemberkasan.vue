@@ -41,24 +41,24 @@
 							    <h4>Upload File-File Syarat</h4>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="newRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="newRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK' || request.status == 'DITOLAK'" style="float:right;">
-                                    <BButton block size="lg" variant="warning" @click="updateRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                     <br/><br/>
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
                                     </BButton>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
-                                    <BButton block size="lg" variant="danger" @click="cancelRequest()" :disabled="loadingRequest">
+                                    <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
                                         <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Proses Pembatalan....</b></span>
                                     </BButton>
@@ -108,7 +108,7 @@
 							    <div class="row">
 									<div class="row">
                                         <div v-for="item in syarat" id="item" :key="item.id" class="col-lg-4 col-md-4 featured-img1 centered">
-                                            <div class="media-image" v-b-tooltip="item.keterangan">
+                                            <div v-b-tooltip="item.keterangan" class="media-image">
                                                 <h6 class="media-title">{{ item.nama }}<span v-if="item.wajib == 1">*</span></h6>
                                                     <img v-if="item.fileUrl != 'NONE'" :src="$assets+'/img/ikon/FileUploaded.png'" alt="" @click="openFile(item.fileUrl)" />
                                                     <img v-else :src="$assets+'/img/ikon/filenotfound.png'" />
