@@ -5,11 +5,13 @@
     <FuturisticBottomNav v-if="!auth" v-model="selected" class="d-block d-sm-none" :options="options2" />
     <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" v-model="selected" class="d-block d-sm-none" :options="options3" />
     <FuturisticBottomNav v-else v-model="selected" class="d-block d-sm-none" :options="options2" />
-    <ChatWidget :isAuthenticated="auth" :currentUser="user" />
+    <ChatWidget :is-authenticated="auth" :current-user="user" />
   </div>
 </template>
 <script>
 import emitter from './eventBus';
+import { messaging, getFCMToken } from './firebaseConfig';
+import { onMessage } from 'firebase/messaging';
 
 export default {
   name: 'App',
@@ -72,6 +74,9 @@ export default {
       this.auth = false
       this.user = null
     })
+  },
+  mounted() {
+    this.requestNotificationPermission()
   },
   methods: {
     async cekAuth() {
@@ -423,6 +428,36 @@ export default {
 				this.loading = false
 			}
 		},
+    async requestNotificationPermission() {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+          const token = await getFCMToken();
+          if (token) {
+            console.log('FCM Token:', token);
+            // Store token in localStorage or send to server
+            localStorage.setItem('fcmToken', token);
+
+            // Set up foreground message listener
+            onMessage(messaging, (payload) => {
+              console.log('Foreground message received:', payload);
+              // Show notification
+              if (Notification.permission === 'granted') {
+                const { title, body, icon } = payload.notification || {};
+                if (title && body) {
+                  new Notification(title, { body, icon });
+                }
+              }
+            });
+          }
+        } else {
+          console.log('Notification permission denied.');
+        }
+      } catch (error) {
+        console.error('Error requesting notification permission:', error);
+      }
+    },
   }
 }
 </script>

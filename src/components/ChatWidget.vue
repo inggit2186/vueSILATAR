@@ -4,7 +4,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
       </svg>
-      <div v-if="hasNewMessage" class="new-message-notification">Pesan Baru !!</div>
+      <div v-if="hasNewMessage" class="new-message-notification">Ada Pesan Baru !!</div>
     </div>
     <div v-else ref="chatWindow" class="chat-window" @click.stop>
       <div class="chat-header">
@@ -108,6 +108,15 @@
         <button class="modal-start-btn" :disabled="!nameInput.trim()" @click="setGuestName">Start Chatting</button>
       </div>
     </div>
+    <!-- Notification Modal -->
+    <div v-if="showNotificationModal" class="notification-modal" @click.stop>
+      <div class="modal-content">
+        <h3>Aktifkan Notifikasi</h3>
+        <p>Untuk Menerima Notifikasi, Harap Aktifkan Notifikasi di Pengaturan Browser Anda.</p>
+        <button class="modal-enable-btn" @click="requestNotificationPermission">Aktifkan Notifikasi</button><br/>
+        <button class="modal-close-btn" @click="showNotificationModal = false">Close</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -152,6 +161,7 @@ export default {
       recordingTimeout: null,
       connectedUsers: [],
       typingUsers: [],
+      showNotificationModal: false,
       emojis: [
         // Faces and Emotions
         '😀', '😂', '😊', '😍', '🥰', '😘', '😉', '😎', '🤔', '😢', '😭', '😤', '😡', '🥺', '😴', '🤤', '😵', '🤯', '🤠', '🥳',
@@ -185,6 +195,12 @@ export default {
 
     this.checkAuth();
     this.initSocket();
+
+    // Check notification permission
+    if (Notification.permission === 'default') {
+      this.showNotificationModal = true;
+    }
+
     this.onLoginSuccess = () => this.checkAuth();
     this.onLogout = () => this.checkAuth();
     emitter.on('login-success', this.onLoginSuccess);
@@ -223,6 +239,8 @@ export default {
         if (!this.isOpen) {
           this.hasNewMessage = true;
         }
+        // Show desktop notification for new message
+        this.showNewMessageNotification(message);
         this.$nextTick(() => {
           this.scrollToBottom();
         });
@@ -230,6 +248,7 @@ export default {
 
       this.socket.on('user_joined', (userData) => {
         console.log('User joined:', userData);
+        this.showJoinNotification('User Joined', `${userData.name} has joined the chat.`);
       });
 
       this.socket.on('user_left', (userData) => {
@@ -259,6 +278,9 @@ export default {
         this.hasNewMessage = false;
         this.isLoading = true;
 
+        // Show welcome notification
+        this.showJoinNotification('Selamat Datang di Live Chat!', 'Anda Telah Bergabung ke Room.');
+
         // Join chat room
         const userData = this.isAuthenticated
           ? { name: this.currentUser.name, role: this.currentUser.role, pp: import.meta.env.VITE_APP_ST_URL+'/'+this.currentUser.noid+'/'+this.currentUser.pp || '../assets/img/profile-img.jpg' }
@@ -284,14 +306,11 @@ export default {
 
       let user, pp, role;
 
-      console.log(this.isAuthenticated)
       if (!this.isAuthenticated) {
-        console.log('1111')
         user = this.guestName;
         pp = 'assets/img/defaultpp.png';
         role = 'guest';
       } else {
-        console.log('2222')
         user = this.currentUser.name;
         pp = import.meta.env.VITE_APP_ST_URL+'/'+this.currentUser.noid+'/'+this.currentUser.pp || '../assets/img/profile-img.jpg';
         role = this.currentUser.role;
@@ -496,7 +515,103 @@ async recordVoice() {
       if (confirm('Are you sure you want to clear all chat messages?')) {
         this.socket.emit('clear_messages');
       }
-    }
+    },
+    showNewMessageNotification(message, isSent = false) {
+      // Request notification permission if not already granted
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted') {
+            this.createNotification(message, isSent);
+          }
+        });
+      } else if (Notification.permission === 'granted') {
+        this.createNotification(message, isSent);
+      }
+    },
+    showJoinNotification(title, body) {
+      // Request notification permission if not already granted
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted') {
+            this.createJoinNotification(title, body);
+          }
+        });
+      } else if (Notification.permission === 'granted') {
+        this.createJoinNotification(title, body);
+      }
+    },
+    createJoinNotification(title, body) {
+      const options = {
+        body: body,
+        icon: '/favicon.png',
+        badge: '/favicon.png',
+        tag: 'chat-join', // Prevents duplicate notifications
+        requireInteraction: false,
+        silent: false
+      };
+
+      const notification = new Notification(title, options);
+
+      // Auto-close notification after 5 seconds
+      setTimeout(() => {
+        notification.close();
+      }, 5000);
+
+      // Handle notification click
+      notification.onclick = () => {
+        window.location.href = window.location.origin;
+        notification.close();
+      };
+    },
+    createNotification(message, isSent = false) {
+      const senderRole = message.role ? ` (${message.role})` : '';
+      const messageText = message.type === 'audio' ? '🎵 Voice message' : message.text;
+
+      let title, body;
+
+      if (isSent) {
+        title = 'Message sent';
+        body = messageText;
+      } else {
+        title = `${message.sender}${senderRole}`;
+        body = messageText;
+      }
+
+      // Truncate body if too long (notifications have limits)
+      if (body && body.length > 100) {
+        body = body.substring(0, 97) + '...';
+      }
+
+      const options = {
+        body: body,
+        icon: message.pp || '/favicon.png',
+        badge: '/favicon.png',
+        tag: isSent ? 'chat-sent' : 'chat-message', // Prevents duplicate notifications
+        requireInteraction: false,
+        silent: false
+      };
+
+      const notification = new Notification(title, options);
+
+      // Auto-close notification after 5 seconds
+      setTimeout(() => {
+        notification.close();
+      }, 5000);
+
+      // Handle notification click
+      notification.onclick = () => {
+        window.location.href = window.location.origin;
+        notification.close();
+      };
+    },
+    requestNotificationPermission() {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          this.showNotificationModal = false;
+        }
+      });
+    },
+
   }
 }
 </script>
@@ -526,10 +641,6 @@ async recordVoice() {
 .chat-icon:hover {
   background: linear-gradient(135deg, #a777e3, #6e8efb);
   box-shadow: 0 0 20px 5px rgba(167, 119, 227, 0.8);
-}
-
-.chat-icon:hover {
-  background-color: #4752c4;
 }
 
 .chat-icon-svg {
@@ -1241,6 +1352,53 @@ async recordVoice() {
   background-color: #40444b;
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+/* Notification Modal Styles */
+.notification-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-enable-btn {
+  background-color: #5865f2;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  margin-right: 10px;
+}
+
+.modal-enable-btn:hover:not(:disabled) {
+  background-color: #4752c4;
+}
+
+.modal-close-btn {
+  background-color: #40444b;
+  border: none;
+  color: #b9bbbe;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: #36393f;
 }
 
 /* Mobile Responsiveness */

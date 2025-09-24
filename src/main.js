@@ -447,3 +447,14 @@ app.use(CoolLightBox);
 app.use(VueApexCharts);
 app.use(VueCarousel);
 app.use(router).mount('#app');
+
+// Register Firebase service worker for FCM
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('/firebase-messaging-sw.js')
+  .then((registration) => {
+      console.log('Service Worker registered successfully:', registration);
+    })
+    .catch((error) => {
+      console.log('Service Worker registration failed:', error);
+    });
+}
