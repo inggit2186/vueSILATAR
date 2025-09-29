@@ -215,6 +215,26 @@
 
             <scroll />
         </div>
+
+        <!-- Input Data Atasan Modal -->
+        <div v-if="showAtasanModal" class="atasan-modal" @click.stop>
+          <div class="modal-content">
+            <h3>Input Data Atasan</h3>
+            <p>Masukkan Data Atasan Anda untuk Laporan Kinerja.</p>
+            <div style="text-align: left; margin-bottom: 20px;">
+              <label for="atasanName" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff;">Nama Atasan</label>
+              <input id="atasanName" v-model="atasanName" class="modal-input" placeholder="Masukkan Nama Atasan" required />
+            </div>
+            <div style="text-align: left;">
+              <label for="atasanNip" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff;">NIP Atasan</label>
+              <input id="atasanNip" v-model="atasanNip" class="modal-input" placeholder="Masukkan NIP Atasan" required />
+            </div>
+            <div class="modal-buttons">
+              <button class="modal-save-btn" @click="saveAtasanData">Rekap CKH</button>
+              <button class="modal-cancel-btn" @click="cancelAtasanModal">Batal</button>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -263,6 +283,10 @@ export default {
 			recognition: null,
 			currentIndex: null,
 			recordingCount: {},
+			atasanName: '',
+			atasanNip: '',
+			showAtasanModal: false,
+			rekapDate: null,
         }
     },
     computed: {
@@ -316,6 +340,8 @@ export default {
                 this.tanggal = null,
                 this.isListening = {};
                 this.recordingCount = {};
+                this.atasanName = '';
+                this.atasanNip = '';
             }
             window.scrollTo(0,0)
         },
@@ -464,7 +490,12 @@ export default {
                 date = this.bulan.year+'-'+(this.bulan.month+1)+'-01'
             }
             this.loadingrekap = true;
-
+            const user = JSON.parse(localStorage.getItem('user'))
+            if(user.dept_id == 998 || user.dept_id == 999){
+                this.rekapDate = date
+                this.showAtasanModal = true
+                return
+            }
             try{
                 const headers = {
                         'Content-Type': 'application/json',
@@ -570,7 +601,9 @@ export default {
                     status: this.status,
                     tanggal: this.tanggal,
                     formx: this.kegiatan,
-                    n: this.counter
+                    n: this.counter,
+                    atasanName: this.atasanName,
+                    atasanNip: this.atasanNip
                 },{headers})
                 
                 if(response.data.success == true){
@@ -656,6 +689,172 @@ export default {
                 this.isListening[id] = true;
             }
         },
+        saveAtasanData() {
+            if (!this.atasanName || !this.atasanNip) {
+                this.$toast.fire({
+                    title: 'Nama Atasan dan NIP Atasan harus diisi',
+                    icon: 'error'
+                });
+                return;
+            }
+            this.showAtasanModal = false;
+            this.proceedRekap();
+        },
+        cancelAtasanModal() {
+            this.showAtasanModal = false;
+            this.loadingrekap = false;
+        },
+        async proceedRekap() {
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                };
+                const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/rekapBulanan', {
+                    bulan: this.rekapDate,
+                    atasanName: this.atasanName,
+                    atasanNip: this.atasanNip
+                }, { headers });
+
+                if (response.data.success == true) {
+                    this.ckh = this.ckh0
+                    if (response.data.status != null) {
+                        this.ckh = response.data.status
+                    }
+                    this.kinerja0 = response.data.data
+                    this.kinerja = response.data.data
+                    let item = response.data.file
+
+                    let frame = '<iframe src="' + item + '" width="100%" height="500"></iframe>'
+
+                    if (window.innerWidth < 768) {
+                        this.$swal.fire({
+                            width: "100%",
+                            allowOutsideClick: true,
+                            html: frame,
+                            showCloseButton: true,
+                            focusConfirm: false,
+                            showCancelButton: true,
+                            cancelButtonText: 'Tutup',
+                            confirmButtonText: "Download"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open(item, '_blank');
+                            }
+                        });
+                    } else {
+                        this.$swal.fire({
+                            width: "50%",
+                            html: frame,
+                            showCloseButton: true,
+                            focusConfirm: false,
+                            showCancelButton: true,
+                            cancelButtonText: 'Tutup',
+                            confirmButtonText: "Download"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open(item, '_blank');
+                            }
+                        });
+                    }
+                } else {
+                    this.$toast.fire({
+                        title: response.data.data,
+                        icon: 'error',
+                    })
+                }
+
+            } catch (error) {
+                this.$toast.fire({
+                    title: error,
+                    icon: 'error',
+                })
+            } finally {
+                this.loadingrekap = false
+            }
+        },
   }
 }
 </script>
+
+<style scoped>
+.atasan-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-save-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-save-btn:hover {
+  background-color: #218838;
+}
+
+.modal-cancel-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-cancel-btn:hover {
+  background-color: #c82333;
+}
+</style>

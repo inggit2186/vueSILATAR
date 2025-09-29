@@ -196,11 +196,6 @@ export default {
     this.checkAuth();
     this.initSocket();
 
-    // Check notification permission
-    if (Notification.permission === 'default') {
-      this.showNotificationModal = true;
-    }
-
     this.onLoginSuccess = () => this.checkAuth();
     this.onLogout = () => this.checkAuth();
     emitter.on('login-success', this.onLoginSuccess);
@@ -277,6 +272,11 @@ export default {
         this.isOpen = true;
         this.hasNewMessage = false;
         this.isLoading = true;
+
+        // Check notification permission
+        if (Notification.permission === 'default') {
+          this.showNotificationModal = true;
+        }
 
         // Show welcome notification
         this.showJoinNotification('Selamat Datang di Live Chat!', 'Anda Telah Bergabung ke Room.');
