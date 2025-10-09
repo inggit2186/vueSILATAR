@@ -233,7 +233,7 @@
 </template>
 
 <script>
-import { BBadge } from 'bootstrap-vue-3';
+import { BBadge } from 'bootstrap-vue-next';
 
 export default {
     data() {

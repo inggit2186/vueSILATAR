@@ -2,7 +2,7 @@
 import { createApp } from 'vue';
 import { router } from './router';
 import App from "./App.vue";
-import {BootstrapVue3, BToastPlugin} from 'bootstrap-vue-3';
+import BootstrapVueNext from 'bootstrap-vue-next';
 import VueApexCharts from "vue3-apexcharts";
 import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
@@ -137,7 +137,7 @@ import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
 import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
 import apkSilatar from './views/pages/profile/apkSilatar.vue';
 import listKonsultasi from './views/pages/profile/listKonsultasi.vue';
-import laporHumas from './views/pages/profile/laporHumas.vue';
+import laporHumas from './views/pages/profile/laporHumas2.vue';
 
 //satudata
 import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
@@ -180,7 +180,7 @@ import presensiMenu from './views/pages/layananMenu/keuanganMenu/presensiMenu.vu
 import amprahDoc from './views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
 import amprahGaji from './views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
 import dipaList from './views/pages/layananMenu/keuanganMenu/dipaList.vue';
-import listKeuangan from './views/pages/layananMenu/keuanganMenu/listKeuangan.vue';
+import ListKeuangan from './views/pages/layananMenu/keuanganMenu/ListKeuangan.vue';
 import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
 import laporanKeuangan from './views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue'
 import docAudit from './views/pages/layananMenu/keuanganMenu/docAudit.vue'
@@ -188,15 +188,15 @@ import rekapPresensi from './views/pages/layananMenu/keuanganMenu/rekapPresensi.
 
 //cPanel
 import adminasnList from './views/pages/adminpanel/asnList.vue'
-import adminMenu from './views/pages/adminpanel/adminMenu.vue'
-import listRequest from './views/pages/adminpanel/listRequest.vue'
-import detailRequest from './views/pages/adminpanel/detailRequest.vue'
+import AdminMenu from './views/pages/adminpanel/AdminMenu.vue'
+import ListRequest from './views/pages/adminpanel/ListRequest.vue'
+import DetailRequest from './views/pages/adminpanel/DetailRequest.vue'
 import detailTamu from './views/pages/tamu/detailTamu.vue'
 import verifCKH from './views/pages/adminpanel/LaporanKinerja.vue'
 import adminSatker from './views/pages/adminpanel/SatuanKerja.vue'
 import listSatker from './views/pages/adminpanel/ListSatker.vue'
 import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
-import allRekapKinerja from './views/pages/adminpanel/allRekapKinerja.vue'
+import AllRekapKinerja from './views/pages/adminpanel/AllRekapKinerja.vue'
 import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
 import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
@@ -216,7 +216,7 @@ import AboutBreadcrumb from './components/breadcrumb/AboutBreadcrumb.vue'
 import 'aos/dist/aos.css'
 import './assets/js/backToTop.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'ant-design-vue/dist/antd.css';
@@ -403,22 +403,22 @@ app.component('AmprahGaji', amprahGaji)
 app.component('AmprahDoc', amprahDoc)
 app.component('DipaList',dipaList)
 app.component('DocKeuangan',docKeuangan)
-app.component('ListKeuangan',listKeuangan)
+app.component('ListKeuangan',ListKeuangan)
 app.component('LaporanKeuangan',laporanKeuangan)
 app.component('DocAudit',docAudit)
 app.component('RekapPresensi',rekapPresensi)
 
 //cPanel
 app.component('AdminAsnList', adminasnList)
-app.component('AdminMenu', adminMenu)
-app.component('ListRequest', listRequest)
-app.component('DetailRequest', detailRequest)
+app.component('AdminMenu', AdminMenu)
+app.component('ListRequest', ListRequest)
+app.component('DetailRequest', DetailRequest)
 app.component('DetailTamu', detailTamu)
 app.component('VerifCKH',verifCKH)
 app.component('AdminSatker',adminSatker)
 app.component('ListSatker',listSatker)
 app.component('RekapKinerja',rekapKinerja)
-app.component('AllRekapKinerja',allRekapKinerja)
+app.component('AllRekapKinerja',AllRekapKinerja)
 app.component('SlipGaji',slipGaji)
 app.component('SlipTukin',slipTukin)
 app.component('RekapLaporan',rekapLaporan)
@@ -434,8 +434,7 @@ app.component('Breadcrumb',BreadCrumb)
 app.component('Aboutbreadcrumb',AboutBreadcrumb)
 app.component('VueDatePicker',VueDatePicker)
 
-.use(BootstrapVue3)
-.use(BToastPlugin)
+.use(BootstrapVueNext)
 .use(Antd)
 .use(AOS.init())
 app.use(VueEasyLightbox);

@@ -16,7 +16,7 @@
                     <i-healthicons-security-worker /> <span>Kinerja Bawahan</span>
                 </router-link>
             </li>
-            <li v-if="user.hakses.includes('humas')" :class="{ active: $route.name === 'Laporan Humas' }">
+            <li v-if="user.kat_jabatan == 'kepala' || user.hakses.includes('humas')" :class="{ active: $route.name === 'Laporan Humas' }">
                 <router-link to="laporan-humas">
                     <i-emojione-newspaper /> <span>Laporan Humas</span>
                 </router-link>

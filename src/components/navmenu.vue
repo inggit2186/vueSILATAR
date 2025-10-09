@@ -15,56 +15,7 @@ class="has-submenu megamenu active"
             <li :class="{'active': currentPath == 'satuanKerja/getSeksi'}">
                 <router-link to="/satuanKerja/getSeksi"><i-vaadin-office /> &nbsp;Satuan Kerja</router-link>
             </li>
-            <!--
-            <li class="has-submenu" :class=" ListingsMenu ? 'active' : 'notactive'">
-                <a href="javascrip:void(0)">Listings <i class="fas fa-chevron-down"></i></a>
-                <ul class="submenu" >
-                    <li :class="currentPath == 'listing-grid' ? 'active' : 'notactive'"><router-link to="/listing-grid">Listing Grid</router-link></li>
-                    <li :class="currentPath == 'listing-grid-sidebar' ? 'active' : 'notactive'"><router-link to="/listing-grid-sidebar">Listing Grid Sidebar</router-link></li>
-                    <li :class="currentPath == 'listing-list-sidebar' ? 'active' : 'notactive'"><router-link to="/listing-list-sidebar">Listing List Sidebar</router-link></li>
-                    <li :class="currentPath == 'listingmap-list' ? 'active' : 'notactive'"><router-link to="/listingmap-list">Listing List Map</router-link></li>
-                    <li :class="currentPath == 'listingmap-grid' ? 'active' : 'notactive'"><router-link to="/listingmap-grid">Listing Grid Map</router-link></li>
-                </ul>
-            </li>
-            <li class="has-submenu" :class=" PagesMenu ? 'active' : 'notactive'">
-                <router-link to="">Pages <i class="fas fa-chevron-down"></i></router-link>
-                <ul class="submenu">
-                    <li class="active" :class="currentPath == 'about' ? 'active' : 'notactive'"><router-link to="/about">About Us</router-link></li>
-                    <li :class="currentPath == 'service-details' ? 'active' : 'notactive'"><router-link to="/service-details">Service Details </router-link></li>
-                    <li :class="currentPath == 'pricing' ? 'active' : 'notactive'"><router-link to="/pricing">Pricing</router-link></li>
-                    <li :class="currentPath == 'faq' ? 'active' : 'notactive'"><router-link to="/faq">FAQ</router-link></li>
-                    <li :class="currentPath == 'gallery' ? 'active' : 'notactive'"><router-link to="/gallery">Gallery</router-link></li>
-                    <li :class="currentPath == 'categories' ? 'active' : 'notactive'"><router-link to="/categories">Category</router-link></li>
-                    <li :class="currentPath == 'howitworks' ? 'active' : 'notactive'"><router-link to="/howitworks">How it Works</router-link></li>
-                    <li :class="currentPath == 'terms-condition' ? 'active' : 'notactive'"><router-link to="/terms-condition">Terms & Conditions</router-link></li>
-                    <li :class="currentPath == 'privacy-policy' ? 'active' : 'notactive'"><router-link to="/privacy-policy">Privacy Policy</router-link></li>
-                    <li :class="currentPath == 'error-404' ? 'active' : 'notactive'"><router-link to="/error-404">404 Error</router-link></li>
-                    <li :class="currentPath == 'error-500' ? 'active' : 'notactive'"><router-link to="/error-500">500 Error</router-link></li>
-                </ul>
-            </li>
-            <li class="has-submenu" :class=" UserMenu ? 'active' : 'notactive'">
-                <a href="javascript:void()">User Pages <i class="fas fa-chevron-down"></i></a>
-                <ul class="submenu">
-                    <li :class="currentPath == 'dashboard' ? 'active' : 'notactive'"><router-link to="dashboard">Dashboard</router-link></li>
-                    <li :class="currentPath == 'profile' ? 'active' : 'notactive'"><router-link to="profile">Profile</router-link></li>
-                    <li :class="currentPath == 'my-listing' ? 'active' : 'notactive'"><router-link to="my-listing">My Listing</router-link></li>
-                    <li :class="currentPath == 'bookmarks' ? 'active' : 'notactive'"><router-link to="bookmarks">Bookmarks</router-link></li>
-                    <li :class="currentPath == 'messages' ? 'active' : 'notactive'"><router-link to="messages">Messages</router-link></li>
-                    <li :class="currentPath == 'reviews' ? 'active' : 'notactive'"><router-link to="reviews">Reviews</router-link></li>
-                    <li :class="currentPath == 'add-listing' ? 'active' : 'notactive'"><router-link to="add-listing">Add Listing</router-link></li>
-                </ul>
-            </li>
-            <li class="has-submenu" :class=" BlogMenu ? 'active' : 'notactive'">
-                <a href="javascript:void()">Blog <i class="fas fa-chevron-down"></i></a>
-                <ul class="submenu">
-                    <li :class="currentPath == 'blog-list' ? 'active' : 'notactive'"><router-link to="/blog-list">Blog List</router-link></li>
-                    <li :class="currentPath == 'blog-grid' ? 'active' : 'notactive'"><router-link to="/blog-grid">Blog Grid</router-link></li>
-                    <li :class="currentPath == 'blog-details' ? 'active' : 'notactive'"><router-link to="/blog-details">Blog Details</router-link></li>
-                    <li :class="currentPath == 'blog-list-sidebar' ? 'active' : 'notactive'"><router-link to="/blog-list-sidebar">Blog List Sidebar</router-link></li>
-                    <li :class="currentPath == 'blog-grid-sidebar' ? 'active' : 'notactive'"><router-link to="/blog-grid-sidebar">Blog Grid Sidebar</router-link></li>
-                </ul>
-            </li>
-            -->
+            
             <li :class="{'active': currentPath == 'contact'}">
                 <router-link to="/contact"><i-gg-phone /> &nbsp;Kontak Kami</router-link>
             </li>

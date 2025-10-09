@@ -4,6 +4,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon-svg">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
       </svg>
+      <span class="chat-text">Chat</span>
       <div v-if="hasNewMessage" class="new-message-notification">Ada Pesan Baru !!</div>
     </div>
     <div v-else ref="chatWindow" class="chat-window" @click.stop>
@@ -219,7 +220,7 @@ export default {
       }
     },
     initSocket() {
-      this.socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001');
+      this.socket = io(import.meta.env.VITE_SOCKET_URL || 'https://node.kemenagtd.top');
 
       this.socket.on('load_messages', (messages) => {
         this.messages = messages;
@@ -627,13 +628,14 @@ async recordVoice() {
 }
 
 .chat-icon {
-  width: 56px;
+  width: 120px;
   height: 56px;
   background: linear-gradient(135deg, #6e8efb, #a777e3);
-  border-radius: 50%;
+  border-radius: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   cursor: pointer;
   box-shadow: 0 0 15px 3px rgba(110, 142, 251, 0.7);
   transition: background 0.3s ease, box-shadow 0.3s ease;
@@ -652,6 +654,17 @@ async recordVoice() {
 }
 .chat-icon:hover .chat-icon-svg {
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
+}
+
+.chat-text {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  background: linear-gradient(135deg, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
 }
 
 .new-message-notification {
@@ -1403,6 +1416,21 @@ async recordVoice() {
 
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
+  .chat-icon {
+    width: 100px;
+    height: 48px;
+    border-radius: 24px;
+  }
+
+  .chat-icon-svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .chat-text {
+    font-size: 14px;
+  }
+
   .chat-window {
     width: 90vw;
     height: 80vh;

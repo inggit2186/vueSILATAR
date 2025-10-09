@@ -68,7 +68,7 @@
                                     <table class="table table-hover centered">
 										<thead>
                                             <tr>
-                                                <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
+                                                <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)">
                                                     {{ column.name }}
                                                 </th>
                                             </tr>
@@ -85,7 +85,7 @@
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
                                                 <td style="font-size: small;">
-                                                   <div v-for="kerja in item.kegiatan" :key="kerja.id">
+                                                   <div v-for="kerja in item.kegiatan" :key="kerja.id" style="word-wrap: break-word;">
 													{{ kerja.kegiatan }}  <b>({{ kerja.volume }} {{ kerja.satuan }})</b><br/>
 												   </div>
                                                 </td>
@@ -778,6 +778,10 @@ export default {
 </script>
 
 <style scoped>
+.table th:nth-child(1), .table td:nth-child(1) { width: auto; }
+.table th:nth-child(2), .table td:nth-child(2) { width: auto; }
+.table th:nth-child(3), .table td:nth-child(3) { width: auto; }
+
 .atasan-modal {
   position: fixed;
   top: 0;

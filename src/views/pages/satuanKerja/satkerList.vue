@@ -4,9 +4,9 @@
 
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
-            <route-view :key="$route.fullPath">
+            <router-view :key="$route.fullPath">
             <KantorData />
-            </route-view>
+            </router-view>
             <foot /> 
 
             <scroll />
