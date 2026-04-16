@@ -86,7 +86,7 @@
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
-                                                <td><b>{{ item.penulis }} </b></td>
+                                                <td><b>{{ item.penulis }} </b><br/><p v-if="$route.params.id == 999" style="font-size: smaller;"><i>( {{ item.satker }})</i></p></td>
                                                 <td style="font-size: small;">
                                                    <div v-for="kerja in item.kegiatan" :key="kerja.id">
 													{{ kerja.judul }}  <b>( • <a :href="kerja.link.startsWith('https://') ? kerja.link : 'https://' + kerja.link" target="_blank">{{ kerja.platform }}</a> • <a v-if="kerja.file_path != 'NONE'" :href="apiUrl + kerja.file_path" target="_blank"> &nbsp;<i-bi-camera-fill /> &nbsp;</a>)</b><br/>

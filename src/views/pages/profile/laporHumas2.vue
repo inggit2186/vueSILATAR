@@ -59,7 +59,7 @@
                                                 <td colspan="4" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
                                             </tr>
                                             <template v-else>
-                                                <tr v-for="(item,index) in paginatedItem" :key="item.id">
+                                                <tr v-for="(item,index) in paginatedItem" :key="item.tgl">
                                                     <td>{{ item.tanggal }}</td>
                                                     <td>
                                                         <div v-for="kerja in item.kegiatan" :key="kerja.id">
@@ -68,19 +68,23 @@
                                                     </td>
                                                     <td style="font-size: medium; padding: 10px;">
                                                         <div class="d-flex flex-wrap justify-content-center">
-                                                            <div v-for="platform in item.platformData.filter(p => (p.data.first.content && p.data.first.content.trim()) || (p.data.last.content && p.data.last.content.trim()))" :key="platform.platform" class="platform-logo mr-4 mb-3" @click="selectPlatform(platform)" style="cursor: pointer;">
-                                                                <i :class="platformIcons[platform.platform]" class="fa-2x"></i>&nbsp;&nbsp;&nbsp;
-                                                            </div>
+														<div v-for="platform in item.platformData.filter(p => (p.data.first.content && p.data.first.content.trim()) || (p.data.last.content && p.data.last.content.trim()))" :key="platform.platform" class="platform-logo mr-4 mb-3" style="cursor: pointer;" @click="selectPlatform(platform)">
+                                                            <i :class="platformIcons[platform.platform.toLowerCase()]" class="fa-2x"></i>&nbsp;&nbsp;&nbsp;
+                                                        </div>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <button v-if="!loadingaksi[item.id]" class="btn btn-warning btn-sm rounded-pill" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><b><i-fa-edit /> EDIT</b></button>&nbsp;
-                                                        <button v-if="!loadingaksi[item.id]" class="btn btn-danger btn-sm rounded-pill" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></button>
-                                                        <button v-else class="btn btn-outline-primary btn-sm rounded-pill"><b> <i-svg-spinners-bars-scale/> Loading...</b></button>
+                                                        <button v-if="!loadingaksi[item.id]" class="btn btn-warning btn-sm rounded-pill" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><i-fa-edit /> EDIT</button>&nbsp;
+                                                        <button v-if="!loadingaksi[item.id]" class="btn btn-danger btn-sm rounded-pill" @click.prevent="delAksi(item.tgl)"><i-ph-trash-fill /> DELETE</button>
+                                                        <button v-else class="btn btn-outline-primary btn-sm rounded-pill"><i-svg-spinners-bars-scale/> Loading...</button>
                                                         <div v-if="item.status === 'DISETUJUI'"><i class="fas fa-check-circle text-success"></i> <i style="font-size: small;">Sudah Diverifikasi</i></div>
                                                         <div v-else><i class="fas fa-clock text-warning"></i> <i style="font-size: small;">Belum Diverifikasi</i></div>
-                                                        <div v-if="item.status === 'DISETUJUI'"><i class="fas fa-user"></i> <i style="font-size: small;">{{ item.verifikator }}</i></div>
+                                                        <div v-if="item.status === 'DISETUJUI'"><i class="fas fa-user" style="font-size: 10px;"></i> <i style="font-size: 10px;">{{ item.verifikator }}</i></div>
                                                     </td>
+													<td>
+														<div><i class="fas fa-user"></i> &nbsp;<i>{{ item.userkomen }}</i><br/></div>
+														<div v-if="item.status === 'DISETUJUI' || item.status === 'DITOLAK'"><i class="fas fa-user-secret"></i> &nbsp;<i>{{ item.komen }}</i></div>
+													</td>
                                                 </tr>
                                             </template>
                                         </tbody>
@@ -144,22 +148,22 @@
 											<div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Data Posting per Platform <span>*</span></label>
 												<div v-for="platform in platforms" :key="platform" class="platform-card" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
-													<h5 class="text-center" style="margin-bottom: 15px; color: #333;"><i :class="platformIcons[platform]"></i> {{ platform }}</h5>
+													<h5 class="text-center" style="margin-bottom: 15px; color: #333;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="posting-section" style="padding: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
 																<h6 class="text-primary">Postingan Pertama</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
-																	<VueDatePicker v-model="platformData[platform].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
+																	<VueDatePicker v-model="platformData[platform.toLowerCase()].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
 																</div>
 																<div class="input-group mb-3">
 																	<span class="input-group-text"><i-mdi-comment-text /></span>
-																	<input v-model="platformData[platform].first.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" :disabled="!tanggal" />
+																	<input v-model="platformData[platform.toLowerCase()].first.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" :disabled="!tanggal" />
 																</div>
 																<div class="input-group mb-3">
 																	<span class="input-group-text"><i-mdi-link /></span>
-																	<input v-model="platformData[platform].first.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" :disabled="!tanggal" />
+																	<input v-model="platformData[platform.toLowerCase()].first.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" :disabled="!tanggal" />
 																</div>
 															</div>
 														</div>
@@ -168,15 +172,15 @@
 																<h6 class="text-success">Postingan Terakhir</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
-																	<VueDatePicker v-model="platformData[platform].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
+																	<VueDatePicker v-model="platformData[platform.toLowerCase()].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
 																</div>
 																<div class="input-group mb-3">
 																	<span class="input-group-text"><i-mdi-comment-text /></span>
-																	<input v-model="platformData[platform].last.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" :disabled="!tanggal" />
+																	<input v-model="platformData[platform.toLowerCase()].last.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" :disabled="!tanggal" />
 																</div>
 																<div class="input-group mb-3">
 																	<span class="input-group-text"><i-mdi-link /></span>
-																	<input v-model="platformData[platform].last.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" :disabled="!tanggal" />
+																	<input v-model="platformData[platform.toLowerCase()].last.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" :disabled="!tanggal" />
 																</div>
 															</div>
 														</div>
@@ -186,24 +190,28 @@
 											<div class="form-group d-block d-sm-none">
                                                 <label class="col-form-label">Data Posting per Platform <span>*</span></label>
 												<div v-for="platform in platforms" :key="platform" style="padding-bottom: 12px;">
-													<h5><i :class="platformIcons[platform]"></i> {{ platform }}</h5>
+													<h5><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
 													<label>Postingan Pertama</label>
 													<div style="display: flex; align-items: center; margin-bottom: 5px;">
 														<i-mdi-calendar style="margin-right: 5px;" />
-														<VueDatePicker v-model="platformData[platform].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
+														<VueDatePicker v-model="platformData[platform.toLowerCase()].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
 													</div>
-													<input v-model="platformData[platform].first.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
-													<input v-model="platformData[platform].first.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
+													<input v-model="platformData[platform.toLowerCase()].first.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
+													<input v-model="platformData[platform.toLowerCase()].first.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
 													<label>Postingan Terakhir</label>
 													<div style="display: flex; align-items: center; margin-bottom: 5px;">
 														<i-mdi-calendar style="margin-right: 5px;" />
-														<VueDatePicker v-model="platformData[platform].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
+														<VueDatePicker v-model="platformData[platform.toLowerCase()].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
 													</div>
-													<input v-model="platformData[platform].last.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
-													<input v-model="platformData[platform].last.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
+													<input v-model="platformData[platform.toLowerCase()].last.content" type="text" class="form-control pass-input" placeholder="Judul Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
+													<input v-model="platformData[platform.toLowerCase()].last.link" type="text" class="form-control pass-input" placeholder="Link Pemberitaan" style="margin-bottom: 5px;" :disabled="!tanggal" />
 													<hr/>
 												</div>
 											</div>
+											<div class="form-group">
+                                                <label class="col-form-label">Komentar / Kendala Yang Dihadapi<span>*</span></label>
+                                                <textarea v-model="userkomen" class="form-control pass-input" placeholder="Komentar/Kendala yang Dihadapi" rows="4" style="margin-bottom: 5px;" :disabled="!tanggal"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="centered">
@@ -230,13 +238,13 @@
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content shadow-lg border-0 rounded-3">
                         <div class="modal-header bg-gradient-primary text-white rounded-top-3">
-                            <h5 class="modal-title fw-bold"><i :class="platformIcons[selectedPlatformObj.platform]" class="me-2"></i>Data Posting per Platform</h5>
+                            <h5 class="modal-title fw-bold"><i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="me-2"></i>Data Posting per Platform</h5>
                             <button type="button" class="btn-close btn-close-white" @click="showModal = false"></button>
                         </div>
-                        <div class="modal-body p-4" v-if="selectedPlatformObj">
+                        <div v-if="selectedPlatformObj" class="modal-body p-4">
                             <div class="text-center mb-4">
-                                <i :class="platformIcons[selectedPlatformObj.platform]" class="fa-3x text-primary mb-3"></i>
-                                <h4 class="fw-bold">{{ selectedPlatformObj.platform }}</h4>
+                                <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x text-primary mb-3"></i>
+                                <h4 class="fw-bold">{{ capitalize(selectedPlatformObj.platform) }}</h4>
                             </div>
                             <div class="row g-4">
                                 <div class="col-md-6">
@@ -289,21 +297,22 @@ export default {
 				{ name: 'Pengirim', data: 'penulis' },
 				{ name: 'Detail', data: 'detail' },
 				{ name: 'Action', data: 'action' },
+				{ name: 'Komentar', data: 'komen' },
 			],
 			platforms: ['Facebook', 'Instagram', 'TikTok', 'Website', 'Youtube'],
 			platformIcons: {
-				Facebook: 'fab fa-facebook',
-				Instagram: 'fab fa-instagram',
-				TikTok: 'fab fa-tiktok',
-				Website: 'fas fa-globe',
-				Youtube: 'fab fa-youtube'
+				facebook: 'fab fa-facebook',
+				instagram: 'fab fa-instagram',
+				tiktok: 'fab fa-tiktok',
+				website: 'fas fa-globe',
+				youtube: 'fab fa-youtube'
 			},
 			platformData: {
-				Facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-				Instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-				TikTok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-				Website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-				Youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+				facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+				instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+				tiktok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+				website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+				youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
 			},
 			keyword: '',
 			currentSort: '',
@@ -316,6 +325,7 @@ export default {
 			kinerja: [],
 			kinerja0: [],
 			tanggal: null,
+			userkomen: null,
             detail: 1,
             status: null,
 			showModal: false,
@@ -360,19 +370,21 @@ export default {
 			return new Date(this.tanggal.year, this.tanggal.month + 1, 0);
 		},
 	},
+  watch: {
+        tanggal() {
+            // Reset first and last dates when Bulan Pelaporan changes, but not during Edit
+            if (this.status !== 'Edit') {
+                for (let platform in this.platformData) {
+                    this.platformData[platform].first.date = null;
+                    this.platformData[platform].last.date = null;
+                }
+            }
+        }
+    },
   created() {
 		this.getKegiatan(),
 		window.scrollTo(0,0)
 	},
-  watch: {
-        tanggal() {
-            // Reset first and last dates when Bulan Pelaporan changes
-            for (let platform in this.platformData) {
-                this.platformData[platform].first.date = null;
-                this.platformData[platform].last.date = null;
-            }
-        }
-    },
   methods: {
         changedetail(id,st,xid){
             if(st === 'Edit'){
@@ -380,24 +392,36 @@ export default {
 				this.detail = id;
 				this.tanggal = { year: new Date(this.kinerja[xid].tgl).getFullYear(), month: new Date(this.kinerja[xid].tgl).getMonth() };
 				this.platformData = {
-					Facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					TikTok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					tiktok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
 				};
 				for (let p of this.kinerja[xid].platformData) {
-					this.platformData[p.platform] = p.data;
+					const lowerKey = p.platform.toLowerCase();
+					this.platformData[lowerKey] = {
+						first: {
+							date: p.data.first.date ? new Date(p.data.first.date) : null,
+							content: p.data.first.content,
+							link: p.data.first.link
+						},
+						last: {
+							date: p.data.last.date ? new Date(p.data.last.date) : null,
+							content: p.data.last.content,
+							link: p.data.last.link
+						}
+					};
 				}
 			}else{
 				this.status = st,
 				this.detail = id;
 				this.platformData = {
-					Facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					TikTok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-					Youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					tiktok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+					youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
 				},
 				this.tanggal = null
 			}
@@ -446,7 +470,9 @@ export default {
 							kegiatan: [{penulis: month.laporan[0].penulis}],
 							platformData: month.laporan.map(p => ({platform: p.platform, data: p.data})),
 							status: rekap ? rekap.status : null,
-							verifikator: rekap ? rekap.verifikator : []
+							verifikator: rekap ? rekap.verifikator : [],
+							userkomen: rekap ? rekap.userkomen : '-',
+							komen: rekap ? rekap.komen : '-'
 						};
 					})
 					this.kinerja = this.kinerja0
@@ -491,7 +517,9 @@ export default {
 							kegiatan: [{penulis: month.laporan[0].penulis}],
 							platformData: month.laporan.map(p => ({platform: p.platform, data: p.data})),
 							status: rekap ? rekap.status : null,
-							verifikator: rekap ? rekap.verifikator : null
+							verifikator: rekap ? rekap.verifikator : null,
+							userkomen: rekap ? rekap.userkomen : '-',
+							komen: rekap ? rekap.komen : '-'
 						};
 					})
           			this.kinerja = this.kinerja0
@@ -533,7 +561,9 @@ export default {
 							kegiatan: [{penulis: month.laporan[0].penulis}],
 							platformData: month.laporan.map(p => ({platform: p.platform, data: p.data})),
 							status: rekap ? rekap.status : null,
-							verifikator: rekap ? rekap.verifikator : null
+							verifikator: rekap ? rekap.verifikator : null,
+							userkomen: rekap ? rekap.userkomen : '-',
+							komen: rekap ? rekap.komen : '-'
 						};
 					})
           			this.kinerja = this.kinerja0
@@ -655,12 +685,12 @@ export default {
 					const data = {
 						status: this.status,
 						tanggal: formattedTanggal,
-						platformData: this.platformData
+						platformData: this.platformData,
+						userkomen: this.userkomen
 					};
 
 					console.log(data);
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL + '/addLaporanHumasNew', data, { headers });
-
 				if(response.data.success == true){
 
 					this.$toast.fire({
@@ -676,17 +706,19 @@ export default {
 							kegiatan: [{penulis: month.laporan[0].penulis}],
 							platformData: month.laporan.map(p => ({platform: p.platform, data: p.data})),
 							status: rekap ? rekap.status : null,
-							verifikator: rekap ? rekap.verifikator : null
+							verifikator: rekap ? rekap.verifikator : null,
+							userkomen: rekap ? rekap.userkomen : '-',
+							komen: rekap ? rekap.komen : '-'
 						};
 					})
           			this.kinerja = this.kinerja0
 					this.tanggal = null
 					this.platformData = {
-						Facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-						Instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-						TikTok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-						Website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
-						Youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+						facebook: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+						instagram: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+						tiktok: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+						website: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
+						youtube: { first: { date: null, content: '', link: '' }, last: { date: null, content: '', link: '' } },
 					},
 					this.changedetail(1);
 				}else{
@@ -704,6 +736,10 @@ export default {
 			} finally {
 				this.loading = false
 			}
+		},
+		capitalize(platform) {
+			if (!platform) return '';
+			return platform.charAt(0).toUpperCase() + platform.slice(1).toLowerCase();
 		},
   }
 }

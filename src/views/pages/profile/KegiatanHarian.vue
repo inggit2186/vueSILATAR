@@ -438,7 +438,7 @@ export default {
         },
         async get2Kegiatan() {
             const today = new Date();
-            if(this.bulan.year < today.getFullYear()){
+            if(this.bulan.year > today.getFullYear()){
                 this.$swal.fire({
                     title: 'Mohon Maaf!',
                     html: '<p style="font-size: 16px">Dikarenakan Untuk Mengurangi Beban Server, Data Kinerja Harian Anda pada Tahun Sebelumnya <b>telah di Backup dan diArsipkan</b><br/><br/> Untuk Melihat Data Kinerja Harian(CKH) Bpk/Ibu Silahkan Lihat dan Download Rekap Kegiatan Bpk/Ibu di Bagian <b>Laporan Kinerja Bulanan</b><br/><br/><b>Terima Kasih</b></p> <hr/><p style="font-size: 13px;font-style: italic;">Untuk Permintaan dan Informasi Lebih Lanjut Silahkan Hubungi Admin SILATAR di Subbagian Tata Usaha Kantor Kementerian Agama Kabupaten Tanah Datar</p>',

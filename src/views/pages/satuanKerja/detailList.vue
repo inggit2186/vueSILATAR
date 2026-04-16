@@ -10,11 +10,12 @@
                             <img :src="satker.kepalapp" style="width:75%;border-radius: 50%;" alt="car1">
                             <h5>{{ kepala.name }}</h5>
 							<span class="ads">{{ kepala.nipx }}</span>
-                            <h7><i-healthicons-city-worker/>KEPALA</h7>
+                            <h7 v-if="satker.plh == true"><i-healthicons-city-worker/>KEPALA (PLT)</h7>
+                            <h7 v-else><i-healthicons-city-worker/>KEPALA</h7>
                             <span style="font-size:14px">{{ kepala.pekerjaan }}</span>
-							<BBadge v-if="kepala.sppt && kepala.sppt.status == 'sudah'" variant="success">SPT Pajak 2024 <i-ci-check-all /></BBadge>
-							<BBadge v-else-if="!kepala.sppt" variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
-							<BBadge v-else variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-if="kepala.sppt && kepala.sppt.status == 'sudah'" variant="success">SPT Pajak 2025 <i-ci-check-all /></BBadge>
+							<BBadge v-else-if="!kepala.sppt" variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-else variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
                             </a>								   
                         </div>
 						</router-link>
@@ -28,9 +29,9 @@
 							<span class="ads">{{ kaur.nipx }}</span>
                             <h7><i-healthicons-city-worker-outline/>KAUR</h7>
                             <span style="font-size:14px">{{ kaur.pekerjaan }}</span>
-							<BBadge v-if="kaur.sppt && kaur.sppt.status == 'sudah'" variant="success">SPT Pajak 2024 <i-ci-check-all /></BBadge>
-							<BBadge v-else-if="!kaur.sppt" variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
-							<BBadge v-else variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-if="kaur.sppt && kaur.sppt.status == 'sudah'" variant="success">SPT Pajak 2025 <i-ci-check-all /></BBadge>
+							<BBadge v-else-if="!kaur.sppt" variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
+							<BBadge v-else variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
                             </a>								   
                         </div>
 						</router-link>
@@ -53,9 +54,9 @@
 								<span class="ads">{{ item.nomor_induk }}</span>
 								<span>{{ item.pekerjaan }}</span>
 								<BBadge v-if="$route.params.id == 999 || $route.params.id == 998" pill variant="warning" style="font-size: x-small;">{{ item.satker }}</BBadge>
-								<BBadge v-if="item.sppt && item.sppt.status == 'sudah'" variant="success">SPT Pajak 2024 <i-ci-check-all /></BBadge>
-								<BBadge v-else-if="!item.sppt" variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
-								<BBadge v-else variant="danger">SPT Pajak 2024 <i-icomoon-free-cross /></BBadge>
+								<BBadge v-if="item.sppt && item.sppt.status == 'sudah'" variant="success">SPT Pajak 2025 <i-ci-check-all /></BBadge>
+								<BBadge v-else-if="!item.sppt" variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
+								<BBadge v-else variant="danger">SPT Pajak 2025 <i-icomoon-free-cross /></BBadge>
 								</a>								   
 							</div>
 							</router-link>

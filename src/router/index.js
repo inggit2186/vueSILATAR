@@ -95,6 +95,12 @@ import jenisUsaha from '@/views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
 import halalMenu from '@/views/pages/layananMenu/seksiMenu/halalMenu.vue';
 import kecMenu from '@/views/pages/layananMenu/seksiMenu/kecMenu.vue';
 import listp3h from '@/views/pages/layananMenu/seksiMenu/listp3h.vue';
+import ProfilMadrasahForm from '@/views/pages/madrasah/ProfilMadrasahForm.vue';
+import DataPegawaiMadrasah from '@/views/pages/madrasah/DataPegawaiMadrasah.vue';
+import DataGuruMadrasah from '@/views/pages/madrasah/DataGuruMadrasah.vue';
+import LaporanSemesterMadrasah from '@/views/pages/madrasah/LaporanSemesterMadrasah.vue';
+import LaporanBulananMadrasah from '@/views/pages/madrasah/LaporanBulananMadrasah.vue';
+import { canAccessMadrasah, getStoredUser } from '@/utils/madrasahAccess'
 
 //cPanel
 import adminasnList from '@/views/pages/adminpanel/asnList.vue'
@@ -111,12 +117,13 @@ import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue'
 import rekapPemberkasan from '@/views/pages/adminpanel/rekapPemberkasan.vue'
 import cekPemberkasan from '@/views/pages/adminpanel/cekPemberkasan.vue';
-import laporanHumas from '@/views/pages/adminpanel/laporanHumas.vue';
+import laporanHumas from '@/views/pages/adminpanel/laporanHumas2.vue';
 import nilaiSKP from '@/views/pages/adminpanel/nilaiSKP.vue';
 
 //other
 import AddSKP from '@/views/pages/adminpanel/addSKP.vue';
 import rekapnilaiSKP from '@/views/pages/adminpanel/rekapnilaiSKP.vue';
+import nilaiKinerja from '@/views/pages/adminpanel/nilaiKinerja.vue';
 
 const routes = [
     {
@@ -168,6 +175,35 @@ const routes = [
         path: '/satker/:id',
         name: 'Detail Satker',
         component: detailSatker
+    },
+    {
+        path: '/madrasah',
+        redirect: '/madrasah/profil'
+    },
+    {
+        path: '/madrasah/profil',
+        name: 'Profil Madrasah',
+        component: ProfilMadrasahForm
+    },
+    {
+        path: '/madrasah/pegawai',
+        name: 'Pegawai Madrasah',
+        component: DataPegawaiMadrasah
+    },
+    {
+        path: '/madrasah/guru',
+        name: 'Data Guru Madrasah',
+        component: DataGuruMadrasah
+    },
+    {
+        path: '/madrasah/laporan-semester',
+        name: 'Laporan Semester Madrasah',
+        component: LaporanSemesterMadrasah
+    },
+    {
+        path: '/madrasah/laporan-bulanan',
+        name: 'Laporan Bulanan Madrasah',
+        component: LaporanBulananMadrasah
     },
     {
         path: '/ASN/:id',
@@ -818,6 +854,14 @@ const routes = [
             requiresAdmin: true
           }
     },
+    {
+        path: '/kinerja/:xid/:id',
+        name: 'Rekap Penilaian Kinerja',
+        component: nilaiKinerja,
+        meta: {
+            requiresAdmin: true
+          }
+    },
    
 
 ]
@@ -828,7 +872,30 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (to.path.startsWith('/madrasah')) {
+        const userData = getStoredUser()
+        if (!userData) {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+            return
+        }
+
+        if (!canAccessMadrasah(userData)) {
+            Swal.fire({
+                title: ':: Restricted Area ::',
+                text: 'Anda tidak memiliki akses ke menu Madrasah.',
+                icon: 'error',
+            })
+            next({
+                path: '/',
+            })
+            return
+        }
+
+        next()
+    } else if (to.matched.some(record => record.meta.requiresAuth)) {
        // Check if the user is logged in
        if (localStorage.getItem('user')) {
          next();
@@ -958,4 +1025,3 @@ router.beforeEach((to, from, next) => {
        next();
     }
    });
-

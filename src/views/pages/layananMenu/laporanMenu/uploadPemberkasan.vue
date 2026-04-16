@@ -404,7 +404,7 @@ export default {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
-                
+                console.log(this.input)
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePemberkasan',{
                     statusx: 'sending',
 					noreq: noreq,

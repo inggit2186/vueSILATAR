@@ -257,7 +257,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest/',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest',{
 					id: id,
 					bulan: date
 				},{headers})
@@ -295,7 +295,7 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest/',{
+				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/getListRequest',{
 					id: id,
 					bulan: date
 				},{headers})

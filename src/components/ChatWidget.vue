@@ -124,6 +124,7 @@
 <script>
 import { io } from 'socket.io-client';
 import emitter from '../eventBus';
+import chatService from '../services/chatService';
 
 export default {
   name: 'ChatWidget',
@@ -221,6 +222,9 @@ export default {
     },
     initSocket() {
       this.socket = io(import.meta.env.VITE_SOCKET_URL || 'https://node.kemenagtd.top');
+      
+      // Initialize chatService with this socket (no more Firebase)
+      chatService.setSocket(this.socket);
 
       this.socket.on('load_messages', (messages) => {
         this.messages = messages;
@@ -512,9 +516,16 @@ async recordVoice() {
     playAudio(message) {
       // Optional: track play events if needed
     },
-    clearAllMessages() {
+    async clearAllMessages() {
       if (confirm('Are you sure you want to clear all chat messages?')) {
-        this.socket.emit('clear_messages');
+        try {
+          // Clear messages from Firestore database
+          // Emit socket event to clear messages from all connected clients
+          this.socket.emit('clear_messages');
+        } catch (error) {
+          console.error('Error clearing messages:', error);
+          alert('Failed to clear messages. Please try again.');
+        }
       }
     },
     showNewMessageNotification(message, isSent = false) {

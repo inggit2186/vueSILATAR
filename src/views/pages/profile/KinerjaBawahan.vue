@@ -8,6 +8,16 @@
                 <div class="dashboard-content">
                     <div class="container">
 						<kinerjaMenu />
+						<div v-if="satker && satker.plh" class="text-center mb-2">
+							<BButtonGroup class="d-flex justify-content-center">
+								<BButton :variant="selectedOption === 'data' ? 'success' : 'outline-success'" size="sm" class="mx-1" @click="setCkh('data')">
+									<i class="fas fa-users"></i> {{ satker.nama }}
+								</BButton>
+								<BButton :variant="selectedOption === 'data2' ? 'success' : 'outline-success'" size="sm" class="mx-1" @click="setCkh('data2')">
+									<i class="fas fa-user-tie"></i> {{ satker.deptplh }}
+								</BButton>
+							</BButtonGroup>
+						</div>
                         <div class="dash-listingcontent dashboard-info">
                             <div class="dash-cards card">
                                 <div class="d-none d-sm-block">
@@ -143,9 +153,15 @@ export default {
 			itemsPerPage: 12,
         	currentPage: 1,
 			ckh: [],
+			satker: null,
 			ckh0: [],
             xid: null,
-            sid: null
+            sid: null,
+            ckhData: [],
+            ckhData2: [],
+            ckh0Data: [],
+            ckh0Data2: [],
+            selectedOption: 'data'
         }
     },
     computed: {
@@ -203,12 +219,17 @@ export default {
 						};
 					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
 						xid: date,
+						uid: this.user.id,
 						id: this.user.dept_id,
 					},{headers})
 					
 					if(response.data.success == true){
-						this.ckh0 = response.data.data
-						this.ckh = response.data.data
+						this.ckh0Data = response.data.data
+						this.ckhData = response.data.data
+						this.ckh0Data2 = response.data.data2 || []
+						this.ckhData2 = response.data.data2 || []
+						this.satker = response.data.satker
+						this.setCkh(this.selectedOption)
 					}else{
 						this.$toast.fire({
 							title: response.data.message,
@@ -251,12 +272,17 @@ export default {
 						};
 					const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/rekapKinerja',{
 						xid: date,
+						uid: this.user.id,
 						id: this.user.dept_id,
 					},{headers})
 					
 					if(response.data.success == true){
-						this.ckh0 = response.data.data
-						this.ckh = response.data.data
+						this.ckh0Data = response.data.data
+						this.ckhData = response.data.data
+						this.ckh0Data2 = response.data.data2 || []
+						this.ckhData2 = response.data.data2 || []
+						this.satker = response.data.satker
+						this.setCkh(this.selectedOption)
 					}else{
 						this.$toast.fire({
 							title: response.data.message,
@@ -308,6 +334,17 @@ export default {
 		},
 		changePage(pageNumber) {
 			this.currentPage = pageNumber;
+		},
+		setCkh(option) {
+			this.selectedOption = option;
+			if (option === 'data') {
+				this.ckh0 = this.ckh0Data;
+				this.ckh = this.ckhData;
+			} else if (option === 'data2') {
+				this.ckh0 = this.ckh0Data2;
+				this.ckh = this.ckhData2;
+			}
+			this.currentPage = 1; // Reset to first page
 		},
         aksiStatus(id,file) {
             let frame = null;
@@ -374,6 +411,9 @@ export default {
         },
 		async updateStatus(id,komen,st){
 			this.loadingaksi[id] = true
+			let month = (this.xbulan.month)+1
+			let date = this.xbulan.year + '-' + month + '-01';
+			console.log(date)
 			try{
 				const headers = {
 						'Content-Type': 'application/json',
@@ -383,7 +423,8 @@ export default {
 					id: id,
 					komen: komen,
 					status: st,
-					xid: this.xbulan.month+1,
+					xid: date,
+					uid: this.user.id,
 					sid: this.user.dept_id,
 				},{headers})
 				
@@ -392,8 +433,18 @@ export default {
 						title: response.data.message,
 						icon: 'success',
 					})
-					this.ckh0 = response.data.data
-          			this.ckh = response.data.data	
+					console.log(response.data.data)
+					console.log(response.data.data2)
+					console.log(response.data.tes)
+					if (this.selectedOption === 'data') {
+						this.ckh0Data = response.data.data
+						this.ckhData = response.data.data
+					} else if (this.selectedOption === 'data2') {
+						this.ckh0Data2 = response.data.data2 || []
+						this.ckhData2 = response.data.data2 || []
+					}
+					this.satker = response.data.satker
+					this.setCkh(this.selectedOption)
 				}else{
 					this.$toast.fire({
 						title: response.data.data,

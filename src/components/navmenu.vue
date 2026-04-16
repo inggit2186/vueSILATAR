@@ -19,6 +19,9 @@ class="has-submenu megamenu active"
             <li :class="{'active': currentPath == 'contact'}">
                 <router-link to="/contact"><i-gg-phone /> &nbsp;Kontak Kami</router-link>
             </li>
+            <li v-if="hasMadrasahAccess" :class="{ 'active': MadrasahMenu }">
+                <router-link to="/madrasah"><i class="feather-book-open"></i> &nbsp;Madrasah</router-link>
+            </li>
             <li :class="{'active': currentPath == 'UnitKerja'}">
                 <router-link to="/UnitKerja"><BBadge variant="warning" style="font-size: medium;"><i-ri-customer-service-2-fill /> &nbsp;Pelayanan</BBadge></router-link>
             </li>
@@ -74,6 +77,8 @@ class="has-submenu megamenu active"
 </template>
 
 <script>
+import { canAccessMadrasah } from '@/utils/madrasahAccess'
+
 export default {
     data() {
         if (localStorage.getItem('user')) {
@@ -106,6 +111,12 @@ export default {
             },
             BlogMenu() {
                 return this.$route.name == 'blog-list' || this.$route.name == 'blog-grid' || this.$route.name == 'blog-details' || this.$route.name == 'blog-list-sidebar' || this.$route.name == 'blog-grid-sidebar';
+            },
+            MadrasahMenu() {
+                return this.$route.path.startsWith('/madrasah')
+            },
+            hasMadrasahAccess() {
+                return this.auth && canAccessMadrasah(this.user)
             }
         },
         mounted() {

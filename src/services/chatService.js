@@ -1,140 +1,64 @@
-import {
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-  limit,
-  getDocs
-} from 'firebase/firestore';
-import { db } from '../firebaseConfig.js';
+// Lightweight chat service using Socket.io
+// No external dependencies like Firebase
 
 class ChatService {
   constructor() {
-    this.messagesCollection = collection(db, 'chat_messages');
-    this.unsubscribe = null;
+    this.socket = null;
   }
 
-  // Save a new message to Firestore
-  async saveMessage(messageData) {
-    try {
-      const message = {
-        ...messageData,
-        timestamp: serverTimestamp(),
-        createdAt: new Date().toISOString()
-      };
-
-      const docRef = await addDoc(this.messagesCollection, message);
-      return docRef.id;
-    } catch (error) {
-      console.error('Error saving message to database:', error);
-      throw error;
-    }
-  }
-
-  // Get messages from Firestore (one-time fetch)
-  async getMessages() {
-    try {
-      // Query messages ordered by timestamp, limit to last 100 messages
-      const q = query(
-        this.messagesCollection,
-        orderBy('timestamp', 'asc'),
-        limit(100)
-      );
-
-      const querySnapshot = await getDocs(q);
-      const messages = [];
-
-      querySnapshot.forEach((doc) => {
-        const messageData = doc.data();
-        messages.push({
-          id: doc.id,
-          ...messageData,
-          // Convert Firestore timestamp to JavaScript Date
-          time: messageData.timestamp?.toDate?.() || new Date(messageData.createdAt)
+  // Get the socket instance (either existing or new)
+  getSocket() {
+    if (!this.socket) {
+      // Dynamic import to avoid issues if socket.io-client is not installed
+      import('socket.io-client').then(({ io }) => {
+        this.socket = io(import.meta.env.VITE_SOCKET_URL || 'https://node.kemenagtd.top', {
+          transports: ['websocket', 'polling']
         });
       });
-
-      return messages;
-    } catch (error) {
-      console.error('Error getting messages from database:', error);
-      return [];
     }
+    return this.socket;
   }
 
-  // Load messages from Firestore with real-time updates
-  loadMessages(callback) {
-    try {
-      // Query messages ordered by timestamp, limit to last 100 messages
-      const q = query(
-        this.messagesCollection,
-        orderBy('timestamp', 'asc'),
-        limit(100)
-      );
+  // Clear all messages - emits event to server
+  async clearAllMessages() {
+    return new Promise((resolve, reject) => {
+      // Get socket from window if available (ChatWidget's socket)
+      const socket = window.__CHAT_SOCKET__ || this.getSocket();
+      
+      if (!socket) {
+        reject(new Error('Socket not initialized'));
+        return;
+      }
 
-      this.unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const messages = [];
-        querySnapshot.forEach((doc) => {
-          const messageData = doc.data();
-          messages.push({
-            id: doc.id,
-            ...messageData,
-            // Convert Firestore timestamp to JavaScript Date
-            time: messageData.timestamp?.toDate?.() || new Date(messageData.createdAt)
+      // Wait for socket to be connected
+      if (socket.connected) {
+        socket.emit('clear_messages', (response) => {
+          if (response && response.success) {
+            resolve();
+          } else {
+            reject(new Error(response?.error || 'Failed to clear messages'));
+          }
+        });
+      } else {
+        // Wait for connection
+        socket.on('connect', () => {
+          socket.emit('clear_messages', (response) => {
+            if (response && response.success) {
+              resolve();
+            } else {
+              reject(new Error(response?.error || 'Failed to clear messages'));
+            }
           });
         });
-        callback(messages);
-      }, (error) => {
-        console.error('Error in Firestore listener:', error);
-        // Retry logic for connection errors
-        if (error.code === 'unavailable' || error.code === 'deadline-exceeded') {
-          console.log('Retrying Firestore connection in 5 seconds...');
-          setTimeout(() => {
-            this.loadMessages(callback);
-          }, 5000);
-        } else {
-          callback([]);
-        }
-      });
-    } catch (error) {
-      console.error('Error setting up Firestore listener:', error);
-      // Retry setup after a delay
-      setTimeout(() => {
-        this.loadMessages(callback);
-      }, 3000);
-      callback([]);
-    }
+      }
+    });
   }
 
-  // Clear all messages from database
-  async clearAllMessages() {
-    try {
-      // Note: In a real application, you might want to add admin checks here
-      const q = query(this.messagesCollection);
-      const querySnapshot = await getDocs(q);
-
-      const deletePromises = [];
-      querySnapshot.forEach((document) => {
-        deletePromises.push(deleteDoc(doc(db, 'chat_messages', document.id)));
-      });
-
-      await Promise.all(deletePromises);
-      console.log('All messages cleared from database');
-    } catch (error) {
-      console.error('Error clearing messages from database:', error);
-      throw error;
-    }
-  }
-
-  // Stop listening to real-time updates
-  unsubscribeFromMessages() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-      this.unsubscribe = null;
-    }
+  // Initialize with existing socket (call from ChatWidget)
+  setSocket(socket) {
+    this.socket = socket;
+    // Also set on window for easy access
+    window.__CHAT_SOCKET__ = socket;
   }
 }
 

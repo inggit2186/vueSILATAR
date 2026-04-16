@@ -173,6 +173,10 @@ import jenisUsaha from './views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
 import halalMenu from './views/pages/layananMenu/seksiMenu/halalMenu.vue';
 import kecMenu from './views/pages/layananMenu/seksiMenu/kecMenu.vue';
 import listp3h from './views/pages/layananMenu/seksiMenu/listp3h.vue';
+import ProfilMadrasahForm from './views/pages/madrasah/ProfilMadrasahForm.vue';
+import DataPegawaiMadrasah from './views/pages/madrasah/DataPegawaiMadrasah.vue';
+import DataGuruMadrasah from './views/pages/madrasah/DataGuruMadrasah.vue';
+import LaporanBulananMadrasah from './views/pages/madrasah/LaporanBulananMadrasah.vue';
 
 //keuangan
 import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
@@ -202,10 +206,11 @@ import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
 import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
 import rekapPemberkasan from './views/pages/adminpanel/rekapPemberkasan.vue';
 import cekPemberkasan from './views/pages/adminpanel/cekPemberkasan.vue';
-import laporanHumas from './views/pages/adminpanel/laporanHumas.vue';
+import laporanHumas from './views/pages/adminpanel/laporanHumas2.vue';
 import nilaiSKP from './views/pages/adminpanel/nilaiSKP.vue';
 import addSKP from './views/pages/adminpanel/addSKP.vue';
 import rekapnilaiSKP from './views/pages/adminpanel/rekapnilaiSKP.vue';
+import nilaiKinerja from './views/pages/adminpanel/nilaiKinerja.vue';
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -224,6 +229,7 @@ import './assets/css/feather.css';
 import './assets/css/style.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 import "bottom-navigation-vue/dist/style.css";
+import NilaiKinerja from './views/pages/adminpanel/nilaiKinerja.vue';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -395,6 +401,10 @@ app.component('JenisUsaha',jenisUsaha)
 app.component('HalalMenu',halalMenu)
 app.component('KecMenu',kecMenu)
 app.component('Listp3h',listp3h)
+app.component('ProfilMadrasahForm',ProfilMadrasahForm)
+app.component('DataPegawaiMadrasah',DataPegawaiMadrasah)
+app.component('DataGuruMadrasah',DataGuruMadrasah)
+app.component('LaporanBulananMadrasah',LaporanBulananMadrasah)
 
 //Keuangan
 app.component('KeuanganMenu', keuanganMenu)
@@ -428,6 +438,7 @@ app.component('LaporanHumas',laporanHumas)
 app.component('NilaiSKP',nilaiSKP)
 app.component('AddSKP',addSKP)
 app.component('RekapnilaiSKP', rekapnilaiSKP)
+app.component('NilaiKinerja',NilaiKinerja)
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)

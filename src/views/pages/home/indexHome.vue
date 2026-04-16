@@ -9,7 +9,7 @@
 								<div class="banner-content-blk centered">
 									<h1><b>SILATAR</b></h1><br/>
 									<img src="../../../assets/img/mhome.png" class="centered d-block d-sm-none" style="width: 70%"/><br/>
-									<h3>Kantor Kementerian Agama<br>Kab.Tanah Datar {{ kode }}</h3>
+									<h3>Kantor Kementerian Agama<br>Kab.Tanah Datar</h3>
 									<hr>
 									<h5>Sistem Informasi Layanan dan <br>Administrasi Tanah Datar</h5>
 								</div>
@@ -25,7 +25,9 @@
 							<img src="../../../assets/img/bg/cloud-02.png" alt="" class="cloud-two">
 						</div>
 						<div class="ban-image-02">
-							<img :src="imgz" style="float: right;width: 66%;" alt="opener">
+							<transition name="fade" mode="out-in">
+								<img :key="currentIndex" :src="imgz" style="float: right;width: 66%;" alt="opener">
+							</transition>
 						</div>
 						<div class="ban-image-03">
 							<img src="../../../assets/img/bg/run.png" alt="">
@@ -121,34 +123,48 @@
 export default {
 	data() {
         return {
-			
+
 			imgz: null,
+			banners: ['banner-02', 'banner-03', 'banner-04', 'banner-05', 'banner-06', 'banner-07', 'banner-08'],
+			currentIndex: 0,
+			intervalId: null,
+			kode: null,
 		}
 	},
 	created(){
-		this.Imgopener();
+		this.startSlideshow();
 		window.scrollTo(0,0)
 	},
+	beforeUnmount() {
+		if (this.intervalId) {
+			clearInterval(this.intervalId);
+		}
+	},
 	methods:{
-		Imgopener() {
-			const dt = new Date()
-			const index = dt.getDay()
-			let imgx = null
-			let kode =  Math.random().toString(36).slice(2);
-
-			if(index == 4){
-				imgx = 'banner-03';
-			}else if(index == 5){
-				imgx = 'banner-04';
-			}else if(index == 3){
-				imgx = 'banner-05';
-			}else if(index == 2){
-				imgx = 'banner-06';
-			}else{
-				imgx = 'banner-02';
-			}
-			this.imgz = this.$assets+'/img/bg/'+imgx+'.png?t='+kode
+		startSlideshow() {
+			this.kode = Math.random().toString(36).slice(2);
+			this.updateImage();
+			this.intervalId = setInterval(() => {
+				this.currentIndex = (this.currentIndex + 1) % this.banners.length;
+				this.updateImage();
+			}, 7000);
+		},
+		updateImage() {
+			const imgx = this.banners[this.currentIndex];
+			this.imgz = this.$assets + '/img/bg/' + imgx + '.png?t=' + this.kode;
 		}
 	}
 }
 </script>
+
+<style scoped>
+.fade-enter-active {
+	transition: opacity 2.5s ease;
+}
+.fade-leave-active {
+	transition: opacity 1.5s ease;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+</style>

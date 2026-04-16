@@ -133,14 +133,14 @@ export default {
                         this.$swal.fire({
                           width: '400px',
                           height: '350px',
-                          title: 'Laporkan SPT Tahun 2024!',
+                          title: 'Laporkan SPT Tahun 2025!',
                           html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
                           icon: "error",
                           closeButton: true,
                         })
                       }else{
                         this.$swal.fire({
-                          title: 'Laporkan SPT Tahun 2024!',
+                          title: 'Laporkan SPT Tahun 2025!',
                           html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
                           imageUrl: import.meta.env.VITE_UPL_API_URL+"appfiles/laporspt1.png",
                           imageWidth: 450,
@@ -190,14 +190,14 @@ export default {
                         this.$swal.fire({
                           width: '400px',
                           height: '350px',
-                          title: 'Laporkan SPT Tahun 2024!',
+                          title: 'Laporkan SPT Tahun 2025!',
                           html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
                           icon: "error",
                           closeButton: true,
                         })
                       }else{
                         this.$swal.fire({
-                          title: 'Laporkan SPT Tahun 2024!',
+                          title: 'Laporkan SPT Tahun 2025!',
                           html: '<p style="font-size: 17px">Segera Laporkan <b>SPT Pajak Tahun '+this.user.sppt_tahun+'</b> Bpk/Ibu ya !!!</p><hr/><p style="font-size: 15px">Pelaporan dilakukan di <i><a href="https://djponline.pajak.go.id/" target=_blank>https://djponline.pajak.go.id/</a></i></p>',
                           imageUrl: import.meta.env.VITE_APP_UPL_URL+"appfiles/laporspt1.png",
                           imageWidth: 450,

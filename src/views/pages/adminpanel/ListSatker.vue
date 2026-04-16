@@ -5,7 +5,7 @@
                 <div class="">
 					<ul class="dashborad-menus">
 						<li v-if="user.dept_id == 4" :class="{ active: $route.path === '/verif/'+bln+'/getSeksi' }">
-							<router-link v-if="$route.params.xid == 'humas'" :to="routeSeksi('4')">
+							<router-link v-if="$route.params.xid == 'humas' || $route.params.xid == 'kinerja'" :to="routeSeksi('4')">
 								<i class="feather-grid"></i> <span>Kantor</span>
 							</router-link>
 							<router-link v-else to="getSeksi">
@@ -32,7 +32,7 @@
 								<i class="fas fa-solid fa-university"></i> <span>MAN</span>
 							</router-link>
 						</li>
-						<li v-if="$route.params.xid != 'humas' && user.dept_id == 4 || user.dept_id == 7 || user.dept_id == 5" :class="{ active: $route.name === 'Lainnya' }">
+						<li v-if=" user.dept_id == 4 || user.dept_id == 7 || user.dept_id == 5" :class="{ active: $route.name === 'Lainnya' }">
 							<router-link :to="routeSeksi('999')">
 								<i class="fas fa-solid fa-chess-rook"></i> <span>Swasta / Lainnya</span>
 							</router-link>

@@ -1385,7 +1385,14 @@
 </template>
 
 <script>
+import VueCroppie from 'vue-croppie'
+import 'croppie/croppie.css'
+
+const image = import(`@/assets/img/profile-img.jpg`)
 export default {
+    components: {
+			VueCroppie
+		},
     data() {
         return {
             title: "Data Pegawai",
@@ -1518,6 +1525,20 @@ export default {
 		totalPages4() {
             return Math.ceil(this.kgb.length / this.itemsPerPage);
         },
+        imageExt() {
+			if (!this.imageUrl) return '';
+			if (this.imageUrl.startsWith('data:')) {
+				return this.imageUrl.split(';')[0].split('/')[1];
+			} else {
+				try {
+					const url = new URL(this.imageUrl);
+					const pathname = url.pathname;
+					return pathname.substring(pathname.lastIndexOf('.') + 1).split('?')[0];
+				} catch {
+					return this.imageUrl.substring(this.imageUrl.lastIndexOf('.') + 1).split('?')[0];
+				}
+			}
+		},
 	},
     created() {
         this.opener(),
@@ -1580,7 +1601,7 @@ export default {
 		reader.onload = (event) => {
 			this.imageUrl = event.target.result
 			this.imageName = file.name
-             if(file.size > 2560000){
+			if(file.size > 2560000){
                 this.$toast.fire({
                     title: "File Tidak Boleh lebih dari 2MB !",
                     icon: "warning"
@@ -1591,7 +1612,40 @@ export default {
                         icon: "warning"
                     });
             }else{
-                    this.uploadPP();
+				this.$swal.fire({
+					title: 'Crop Image',
+					html: '<div id="croppie-container" style="width: 70%; height: 70%;"></div>',
+					didOpen: () => {
+						const container = document.getElementById('croppie-container')
+						if (container) {
+							import('croppie').then((Croppie) => {
+								const croppie = new Croppie.default(container, {
+									viewport: { width: 300, height: 300, type: 'circle' },
+									boundary: { width: 400, height: 400 }
+								})
+								croppie.bind({
+									url: event.target.result
+								})
+								container.croppieInstance = croppie
+							})
+						}
+					},
+					showCancelButton: true,
+					confirmButtonText: 'Crop & Upload',
+					cancelButtonText: 'Cancel',
+					preConfirm: () => {
+						const container = document.getElementById('croppie-container')
+						if (container && container.croppieInstance) {
+							return container.croppieInstance.result()
+						}
+						return null
+					}
+				}).then((result) => {
+					if (result.isConfirmed && result.value) {
+						this.imageUrl = result.value
+						this.uploadPP()
+					}
+				})
              }
 		}
 
@@ -1646,11 +1700,27 @@ export default {
 								'Content-Type': 'application/json',
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
-
+                
+                console.log(this.imageUrl)
+                console.log(this.imageExt)
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/non/updatePP',{
                     id: this.user.id,
-					filex: this.imageUrl
+					filex: this.imageUrl,
+                    ext: this.imageExt
 				}, {headers})
+
+                if(response.data.success == true){
+
+					this.$toast.fire({
+							title: response.data.message,
+							icon: 'success',
+							})
+				}else{
+					this.$toast.fire({
+							title: response.data.message,
+							icon: 'error',
+							})
+				}
 			} catch (error) {
 				this.$toast.fire({
 					title: error,

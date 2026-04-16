@@ -25,8 +25,8 @@
 												</label>												
 											</div>	
 											<span>Max file size: 2 MB</span>
-										</div>                                        									
-                                        <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>										
+										</div>
+                                        <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>
 									</div>
 									<div class="profile-form">
 										    <div class="form-group">
@@ -218,8 +218,14 @@ v-else v-model="password2"
 </template>
 
 <script>
+import VueCroppie from 'vue-croppie'
+import 'croppie/croppie.css'
+
 const image = import(`@/assets/img/profile-img.jpg`)
 	export default {
+		components: {
+			VueCroppie
+		},
 		 data() {
 		const user = JSON.parse(localStorage.getItem('user'))
 		const pp = import.meta.env.VITE_APP_ST_URL+'/'+user.noid+'/'+user.pp
@@ -247,6 +253,20 @@ const image = import(`@/assets/img/profile-img.jpg`)
 		buttonLabel1() {
 			return this.showPassword2 ? "Hide" : "Show";
 		},
+		imageExt() {
+			if (!this.imageUrl) return '';
+			if (this.imageUrl.startsWith('data:')) {
+				return this.imageUrl.split(';')[0].split('/')[1];
+			} else {
+				try {
+					const url = new URL(this.imageUrl);
+					const pathname = url.pathname;
+					return pathname.substring(pathname.lastIndexOf('.') + 1).split('?')[0];
+				} catch {
+					return this.imageUrl.substring(this.imageUrl.lastIndexOf('.') + 1).split('?')[0];
+				}
+			}
+		},
 	},
 	methods: {
 		toggleShow() {
@@ -273,7 +293,40 @@ const image = import(`@/assets/img/profile-img.jpg`)
                         icon: "warning"
                     });
             }else{
-                    this.uploadPP();
+				this.$swal.fire({
+					title: 'Crop Image',
+					html: '<div id="croppie-container" style="width: 70%; height: 70%;"></div>',
+					didOpen: () => {
+						const container = document.getElementById('croppie-container')
+						if (container) {
+							import('croppie').then((Croppie) => {
+								const croppie = new Croppie.default(container, {
+									viewport: { width: 300, height: 300, type: 'circle' },
+									boundary: { width: 400, height: 400 }
+								})
+								croppie.bind({
+									url: event.target.result
+								})
+								container.croppieInstance = croppie
+							})
+						}
+					},
+					showCancelButton: true,
+					confirmButtonText: 'Crop & Upload',
+					cancelButtonText: 'Cancel',
+					preConfirm: () => {
+						const container = document.getElementById('croppie-container')
+						if (container && container.croppieInstance) {
+							return container.croppieInstance.result()
+						}
+						return null
+					}
+				}).then((result) => {
+					if (result.isConfirmed && result.value) {
+						this.imageUrl = result.value
+						this.uploadPP()
+					}
+				})
              }
 		}
 
@@ -287,12 +340,27 @@ const image = import(`@/assets/img/profile-img.jpg`)
 								'Authorization': `Bearer ${localStorage.getItem('token')}`
 							};
 
+				
 				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/updatePP',{
-					filex: this.imageUrl
+					filex: this.imageUrl,
+					ext: this.imageExt
 				}, {headers})
-				let user = JSON.parse(localStorage.getItem('user'));
-				user.pp = response.data.statuspp;
-				localStorage.setItem('user', JSON.stringify(user));
+
+				if(response.data.success == true){
+					let user = JSON.parse(localStorage.getItem('user'));
+					user.pp = response.data.statuspp;
+					localStorage.setItem('user', JSON.stringify(user));
+
+					this.$toast.fire({
+							title: response.data.message,
+							icon: 'success',
+							})
+				}else{
+					this.$toast.fire({
+							title: response.data.message,
+							icon: 'error',
+							})
+				}
 			} catch (error) {
 				this.$toast.fire({
 					title: error,
