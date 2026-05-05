@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+    <div class="page-wrapper detail-request-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1"/>
             
             <div class="dashboard-content">		
@@ -204,7 +204,7 @@
                                     </BButton>
                                     </div>
                                     <div v-else class="centered">
-                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Memproses data...</h4>
                                     </div>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" class="centered">
@@ -222,7 +222,7 @@
                                     </BButton>
                                     </div>
                                     <div v-else class="centered">
-                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Memproses data...</h4>
                                     </div>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" class="centered">
@@ -246,7 +246,7 @@
                                     </BButton>
                                      </div>
                                      <div v-else class="centered">
-                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar ya gan!.....</h4>
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Memproses data...</h4>
                                     </div>
                                 </div>
                                 <div v-else-if="request.status == 'SUKSES' || request.status == 'BATAL' || request.status == 'DITOLAK'" class="centered">
@@ -256,7 +256,7 @@
                                     </BButton>
                                      </div>
                                      <div v-else class="centered">
-                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar ya gan!.....</h4>
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Memproses data...</h4>
                                     </div>
                                 </div>
                                 <br/>
@@ -312,10 +312,10 @@
                                                             <div class="settings-upload-btn">
                                                                 <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['surat']" @change="onFileHasil('surat',$event)">
                                                                 <label v-if="!loadingfile['surat']" for="file" class="file-upload">
-                                                                    <span v-if="hasil.surat == null || hasil.surat == 'NONE'"><i-ph-upload-fill /> Upload File</span>
-                                                                    <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
-                                                                </label>
-                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                        <span v-if="hasil.surat == null || hasil.surat == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
+                                        <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
+                                    </label>
+                                        <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                             </div>
                                                             <br/>
                                                             <div>
@@ -339,10 +339,10 @@
                                                             <div  class="settings-upload-btn">
                                                                 <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['lampiran1']" @change="onFileHasil('lampiran1',$event)">
                                                                 <label v-if="!loadingfile['lampiran1']" for="file" class="file-upload">
-                                                                    <span v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                    <span v-if="hasil.lampiran1 == null || hasil.lampiran1 == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                                     <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                                 </label>
-                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                             </div>
                                                             <br/>
                                                             <div>
@@ -367,10 +367,10 @@
                                                             <div class="settings-upload-btn">
                                                                 <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['lampiran2']" @change="onFileHasil('lampiran2',$event)">
                                                                 <label v-if="!loadingfile['lampiran2']" for="file" class="file-upload">
-                                                                    <span v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                                    <span v-if="hasil.lampiran2 == null || hasil.lampiran2 == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                                     <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                                 </label>
-                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                                <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                             </div>
                                                             <br/>
                                                             <div>
@@ -399,7 +399,7 @@
                                                 </BButton>
                                                 <BButton v-else block size="md" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                                     <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Perubahan Data</b></span>
-                                                    <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                                    <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                                 </BButton>
                                                 </div>
                                                 <h3><u>DETAIL DATA REQUEST</u></h3>							
@@ -411,7 +411,7 @@
                                                 </BButton>
                                                 <BButton v-else block size="md" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                                     <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Perubahan Data</b></span>
-                                                    <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                                    <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                                 </BButton>
                                                 </div>
                                                 <br/><br/>
@@ -453,10 +453,10 @@
                                                     <div class="settings-upload-btn">
                                                         <input id="file" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
                                                         <label v-if="!loadingfile[item.id]" for="file" class="file-upload">
-                                                            <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                            <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                             <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                         </label>
-                                                        <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                        <label v-else for="file" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                     </div>
                                                     <br/>
                                                     <div>
@@ -514,7 +514,7 @@
 export default {
     data() {
         return {
-            title: "Upload File Syarat",
+            title: "Unggah Berkas Syarat",
             text: "Home",
             text1: "Upload Syarat",
             name: "/",
@@ -1081,9 +1081,105 @@ export default {
 </script>
 
 <style>
+.detail-request-page .card.media-section,
+.detail-request-page .messages-form .card {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+  color: #fff4dc;
+}
+
+.detail-request-page .card-header h4,
+.detail-request-page .detailhead,
+.detail-request-page .detailhead td,
+.detail-request-page .detailhead tr,
+.detail-request-page .detailhead th,
+.detail-request-page .card-body,
+.detail-request-page .card-body label,
+.detail-request-page .card-body h6,
+.detail-request-page .card-body span,
+.detail-request-page .card-body p,
+.detail-request-page .text-muted,
+.detail-request-page .text-primary,
+.detail-request-page .step2 .label,
+.detail-request-page .step2 .icons,
+.detail-request-page .step2 .step,
+.detail-request-page .step2 .step p,
+.detail-request-page .messages-form .card-header,
+.detail-request-page .messages-form .card-header h4,
+.detail-request-page .media-image,
+.detail-request-page .media-title,
+.detail-request-page .centered,
+.detail-request-page .centered h4,
+.detail-request-page .centered span {
+  color: #fff4dc;
+}
+
+.detail-request-page .detailhead td:nth-child(2) {
+  color: #f7d77f;
+}
+
+.detail-request-page .text-muted {
+  color: #fff2d1 !important;
+}
+
+.detail-request-page .text-primary {
+  color: #f7d77f !important;
+}
+
+.detail-request-page a:not(.btn) {
+  color: #f7d77f;
+}
+
+.detail-request-page a:not(.btn):hover {
+  color: #fff4dc;
+}
+
+.detail-request-page .media-image,
+.detail-request-page .messages-form .card {
+  border-color: rgba(201, 157, 79, 0.18);
+}
+
+.detail-request-page .step2 .step {
+  background-color: rgba(255, 244, 220, 0.14);
+  color: #fff4dc;
+  border: 1px solid rgba(201, 157, 79, 0.18);
+}
+
+.detail-request-page .step2 .active {
+  background-color: #c58a2a;
+  color: #fff;
+}
+
+.detail-request-page .bubble,
+.detail-request-page .bubble2 {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
+}
+
+.detail-request-page .bubble:after {
+  border-right-color: #6a1f2b;
+}
+
+.detail-request-page .bubble2:after {
+  border-left-color: #6a1f2b;
+}
+
+.detail-request-page .form-control,
+.detail-request-page .form-select {
+  background: rgba(255, 244, 220, 0.04);
+  color: #fff4dc;
+  border-color: rgba(201, 157, 79, 0.18);
+}
+
+.detail-request-page .form-control::placeholder {
+  color: rgba(255, 244, 220, 0.62);
+}
+
 .detailhead {
     font-weight: 700;
     font-size: large;
+    color: #fff4dc;
 }
 
 .comments {
@@ -1130,12 +1226,12 @@ export default {
 .comment {
   width: 100%;
   margin-bottom: 20px;
-  color: white;
+  color: #fff4dc;
 }
 
 .bubble {
   position: relative;
-  background: teal;
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
   padding: 20px;
   border-radius: 5px;
   margin-left: 20px;
@@ -1150,7 +1246,7 @@ export default {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 15px solid teal;
+  border-right: 15px solid #6a1f2b;
   border-left: 15px solid transparent;
   
   left: -30px;
@@ -1159,7 +1255,7 @@ export default {
 
 .bubble2 {
   position: relative;
-  background: teal;
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
   padding: 20px;
   border-radius: 5px;
   margin-left: 20px;
@@ -1175,7 +1271,7 @@ export default {
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 15px solid transparent;
-  border-left: 15px solid teal;
+  border-left: 15px solid #6a1f2b;
   
   right: -30px;
   top: 10px;
@@ -1198,7 +1294,7 @@ export default {
 
 .step2 ul li .icons {
     font-size: 25px;
-    color: #1b761b;
+    color: #c58a2a;
     margin: 0 60px;
 }
 
@@ -1207,18 +1303,18 @@ export default {
     letter-spacing: 1px;
     font-size: 14px;
     font-weight: bold;
-    color: #1b761b;
+    color: #fff4dc;
 }
 
 .step2 ul li .step {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background-color: #d7d7c3;
+    background-color: rgba(255, 244, 220, 0.14);
     margin: 16px 0 10px;
     display: grid;
     place-items: center;
-    color: ghostwhite;
+    color: #fff4dc;
     position: relative;
     cursor: pointer;
 }
@@ -1228,7 +1324,7 @@ export default {
     position: absolute;
     width: 197px;
     height: 3px;
-    background-color: #d7d7c3;
+    background-color: rgba(201, 157, 79, 0.18);
     right: 30px;
 }
 
@@ -1246,11 +1342,11 @@ export default {
 }
 
 .step2 ul li .active {
-    background-color: #1b761b;
+    background-color: #c58a2a;
 }
 
 .step2 li .active::after {
-    background-color: #1b761b;
+    background-color: #c58a2a;
 
 }
 

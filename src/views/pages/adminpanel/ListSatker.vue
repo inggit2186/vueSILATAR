@@ -1,6 +1,6 @@
 <template>
     <!-- Bookmark Content -->
-    <div class="dashboard-content">		
+    <div class="dashboard-content list-satker-page">		
 			<div class="container">	
                 <div class="">
 					<ul class="dashborad-menus">
@@ -63,7 +63,7 @@
 							<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 							<br>
 							<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-							<h3>::: Nyangkul Data dulu :::</h3>
+							<h3>::: Memuat data :::</h3>
 							<hr>
 						</div>
 					    <div v-for="item in paginatedSeksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6 centered">
@@ -146,6 +146,68 @@
 	</div>		
 		<!-- /Bookmark Content -->
 </template>
+
+<style scoped>
+.list-satker-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+  padding: 1rem 0 2.5rem;
+}
+
+.list-satker-page :deep(.dashborad-menus li a),
+.list-satker-page :deep(.dashborad-menus li.active a) {
+  color: #fff4dc;
+}
+
+.list-satker-page :deep(.card),
+.list-satker-page :deep(.PTSP),
+.list-satker-page :deep(.categories-content) {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.96), rgba(24, 14, 17, 0.96));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  color: #fff4dc;
+}
+
+.list-satker-page :deep(.card h5),
+.list-satker-page :deep(.card h6),
+.list-satker-page :deep(.card span),
+.list-satker-page :deep(.card p),
+.list-satker-page :deep(.card a),
+.list-satker-page :deep(.card i),
+.list-satker-page :deep(.bloglist-content),
+.list-satker-page :deep(.blog-features),
+.list-satker-page :deep(.blog-location-details),
+.list-satker-page :deep(.ratings) {
+  color: #fff4dc;
+}
+
+.list-satker-page :deep(.card .blog-author span),
+.list-satker-page :deep(.card .location-info) {
+  color: rgba(255, 244, 220, 0.88);
+}
+
+.list-satker-page :deep(.card .featured-text),
+.list-satker-page :deep(.card .Featured-text) {
+  color: #fff4dc;
+  background: rgba(214, 171, 76, 0.16);
+}
+
+.list-satker-page :deep(.card .fav-icon) {
+  color: #fff4dc;
+}
+
+.list-satker-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.list-satker-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 export default {

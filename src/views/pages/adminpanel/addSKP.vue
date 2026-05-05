@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper add-skp-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -233,3 +233,61 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.add-skp-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.add-skp-page :deep(.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.add-skp-page :deep(.card-header) {
+  background: transparent;
+  border-bottom: 1px solid rgba(201, 157, 79, 0.12);
+}
+
+.add-skp-page :deep(.card-header h4),
+.add-skp-page :deep(.card-header h3),
+.add-skp-page :deep(.col-form-label),
+.add-skp-page :deep(label) {
+  color: #fff2d1;
+}
+
+.add-skp-page :deep(.form-control),
+.add-skp-page :deep(.form-select),
+.add-skp-page :deep(.b-form-select),
+.add-skp-page :deep(textarea) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+  color: #fff4dc;
+}
+
+.add-skp-page :deep(.form-control::placeholder),
+.add-skp-page :deep(textarea::placeholder) {
+  color: rgba(255, 244, 220, 0.55);
+}
+
+.add-skp-page :deep(.btn-primary) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  border: none;
+  color: #fff;
+}
+
+.add-skp-page :deep(.centered) {
+  margin-top: 18px;
+}
+
+@media (max-width: 767px) {
+  .add-skp-page :deep(.card) {
+    border-radius: 18px;
+  }
+}
+</style>

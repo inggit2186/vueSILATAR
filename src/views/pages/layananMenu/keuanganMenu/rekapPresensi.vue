@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper keuangan-rekap-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -26,19 +26,19 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block" style="float: left;">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
+											<input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
 										<div class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
-												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
+												<span v-if="!loadingfile" style="color: #fff2d1;"><i-subway-add /> <b>Unggah Data</b></span>
+												<span v-else style="color: #fff2d1;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 											</label>
                                         </div>
 										<br/>
 										<div class="group-img d-block d-sm-none">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
+											<input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
                                     </div>
@@ -55,12 +55,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="presensi.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td style="font-size: 14px; font-weight: 650;">{{ item.satker }}</td>
@@ -84,12 +84,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="presensi == null">
-                                                <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
                                             </tr>
 											<tr v-else>
                                                 <td style="font-size: 14px; font-weight: 600;">Presensi<br/>

@@ -18,7 +18,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                         </thead>
                                         <tbody>
 											<tr v-if="data.length == 0">
-												<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
                                             <tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td><b>{{ item.data }}</b><br/>

@@ -7,7 +7,7 @@
 						<div class="bloglist-widget">
 						    <div v-for="item in BlogList" :key="item.id" class="blog grid-blog">
 								<div class="blog-image">
-									<router-link to="blog-details"><img class="img-fluid" :src="import(`../../../../assets/img/blog/${item.img1}`)" alt="Post Image"></router-link>
+									<router-link to="blog-details"><img class="img-fluid" :src="$asset(`blog/${item.img1}`)" alt="Post Image"></router-link>
 								</div>
 							   	<div class="blog-content">
 									<p class="blog-category">
@@ -17,7 +17,7 @@
 										<li>
 											<div class="post-author">
 											     <div class="post-author-img">
-										       	       <img :src="import(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
+										       	       <img :src="$asset(`profiles/${item.img2}`)" alt="author">
 												 </div>
 											<a href="javascript:void(0)"><span> {{ item.name }} </span></a>
 											</div>
@@ -72,7 +72,7 @@
 						<div class="stickysidebar">
 				        <div class="rightsidebar blogsidebar">
 						    <div class="card">
-						      <h4><img src="../../../../assets/img/details-icon.svg" alt="details-icon"> Filter</h4>
+						      <h4><img :src="$asset('details-icon.svg')" alt="details-icon"> Filter</h4>
 						      <div class="filter-content looking-input form-group">
 								  <input type="text" class="form-control" placeholder="To Search type and hit enter">
 							  </div>

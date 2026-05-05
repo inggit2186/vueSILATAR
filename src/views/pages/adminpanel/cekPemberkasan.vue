@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+    <div class="page-wrapper pemberkasan-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -37,7 +37,7 @@
                                         <BBadge v-else-if="request.status == 'DITOLAK'" variant="danger">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'BATAL'" variant="dark">{{ request.status }}</BBadge>
                                 </div>
-							    <h4>Upload File-File Syarat</h4>
+							    <h4>Unggah Berkas Syarat</h4>
                                 <hr/>
                                 <table class="detailhead">
                                     <tr>
@@ -93,7 +93,7 @@
                                     </BButton>
                                     </div>
                                     <div v-else class="centered">
-                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Harap Bersabar.....</h4>
+                                        <i-svg-spinners-blocks-shuffle-3 />&nbsp; <h4>Memproses data...</h4>
                                     </div>
                                 </div>
                                 <br/>			
@@ -153,7 +153,7 @@
 export default {
     data() {
         return {
-            title: "Upload File Syarat",
+            title: "Unggah Berkas Syarat",
             text: "Home",
             text1: "Upload Syarat",
             name: "/",
@@ -503,6 +503,49 @@ export default {
 </script>
 
 <style>
+.pemberkasan-page .card.media-section,
+.pemberkasan-page .messages-form .card {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+  color: #fff4dc;
+}
+
+.pemberkasan-page .card-header h4,
+.pemberkasan-page .detailhead,
+.pemberkasan-page .detailhead td,
+.pemberkasan-page .detailhead tr,
+.pemberkasan-page .card-body,
+.pemberkasan-page .card-body label,
+.pemberkasan-page .card-body span,
+.pemberkasan-page .card-body h6,
+.pemberkasan-page .card-body p,
+.pemberkasan-page .media-image,
+.pemberkasan-page .media-title,
+.pemberkasan-page .centered {
+  color: #fff4dc;
+}
+
+.pemberkasan-page .detailhead td:nth-child(2) {
+  color: rgba(255, 244, 220, 0.55);
+}
+
+.pemberkasan-page .media-image,
+.pemberkasan-page .messages-form .card {
+  border-color: rgba(201, 157, 79, 0.18);
+}
+
+.pemberkasan-page .form-control,
+.pemberkasan-page .form-select {
+  background: rgba(255, 244, 220, 0.04);
+  color: #fff4dc;
+  border-color: rgba(201, 157, 79, 0.18);
+}
+
+.pemberkasan-page .form-control::placeholder {
+  color: rgba(255, 244, 220, 0.62);
+}
+
 .comments {
   width: 430px;
   margin: 10px;
@@ -547,12 +590,12 @@ export default {
 .comment {
   width: 100%;
   margin-bottom: 20px;
-  color: white;
+  color: #fff4dc;
 }
 
 .bubble {
   position: relative;
-  background: teal;
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
   padding: 20px;
   border-radius: 5px;
   margin-left: 20px;
@@ -567,7 +610,7 @@ export default {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 15px solid teal;
+  border-right: 15px solid #6a1f2b;
   border-left: 15px solid transparent;
   
   left: -30px;
@@ -576,7 +619,7 @@ export default {
 
 .bubble2 {
   position: relative;
-  background: teal;
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
   padding: 20px;
   border-radius: 5px;
   margin-left: 20px;
@@ -592,7 +635,7 @@ export default {
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 15px solid transparent;
-  border-left: 15px solid teal;
+  border-left: 15px solid #6a1f2b;
   
   right: -30px;
   top: 10px;

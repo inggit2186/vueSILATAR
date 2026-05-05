@@ -1,5 +1,5 @@
-/* eslint-disable vue/multi-word-component-names */
-import { createApp } from 'vue';
+﻿/* eslint-disable vue/multi-word-component-names */
+import { createApp, defineAsyncComponent } from 'vue';
 import { router } from './router';
 import App from "./App.vue";
 import BootstrapVueNext from 'bootstrap-vue-next';
@@ -8,12 +8,9 @@ import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
 import VueEasyLightbox from "vue-easy-lightbox";
 import Antd from 'ant-design-vue';
-import AOS from 'aos'
 import VueCarousel from 'vue-carousel';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import StarRating from 'vue-star-rating'
-import pdfjsLib from 'pdfjs-dist'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import VueCryptojs from 'vue-cryptojs';
 import VueSignaturePad from 'vue-signature-pad';
@@ -21,7 +18,7 @@ import bottomNavigationVue from "bottom-navigation-vue";
 
 
 // Header Components
-import Navbar from './components/navbar.vue'
+import Header from './views/layouts/header.vue'
 import UserNavbar from './components/UserpageNavbar.vue'
 import NavbarTwo from './components/navbarTwo.vue'
 import NavbarTwoHeader from './components/navbarTwoHeader.vue'
@@ -37,180 +34,160 @@ import userlayananMenu from './components/userlayananMenu.vue'
 import konsultasiMenu from './components/konsultasiMenu.vue'
 import asnMenu from './components/asnMenu.vue';
 
-// Page Components
-import Header from './views/layouts/header.vue'
-import IndexExplore from './views/pages/index/IndexExplore.vue'
-import IndexCategory from './views/pages/index/IndexCategory.vue'
-import Indexfeatured from './views/pages/index/IndexFeatured.vue'
-import IndexPopular from './views/pages/index/IndexPopular.vue'
-import IndexAds from './views/pages/index/IndexAds.vue'
-import IndexCta from './views/pages/index/IndexCTA.vue'
-import IndexClient from './views/pages/index/IndexClient.vue'
-import IndexPartners from './views/pages/index/IndexPartners.vue'
-import IndexPricing from './views/pages/index/IndexPricing.vue'
-import IndexBlog from './views/pages/index/IndexBlog.vue'
-import Foot from './views/pages/Footer.vue'
-import Scroll from './views/pages/Scroll.vue'
-import AboutContent from './views/pages/about/AboutContent.vue'
-import AboutPopular from './views/pages/about/AboutPopular.vue'
-import AboutPartners from './views/pages/about/AboutPartners.vue'
-import AddListing from './views/pages/add-listing/AddListing.vue'
-import BlogContent from './views/pages/blog/blog-details/BlogContent.vue'
-import BlogGridSidebar from './views/pages/blog/blog-grid-sidebar/BlogGridSidebar.vue'
-import BlogGridList from './views/pages/blog/blog-grid/BlogGridList.vue'
-import BlogListSidebar from './views/pages/blog/blog-list-sidebar/BlogListSidebar.vue'
-import BlogList from './views/pages/blog/blog-list/BlogList.vue'
-import BookContent from './views/pages/bookmarks/BookmarkContent.vue'
-import CategoriesList from './views/pages/categories/CategoriesList.vue'
-import ContactInfo from './views/pages/contact/ContactInformation.vue'
-import FaqContent from './views/pages/faq/FaqContent.vue'
-import ForgotPassword from './views/pages/forgot-password/ForgotPassword.vue'
-import Gallerypage from './views/pages/gallery/GalleryPage.vue'
-import HowWorks from './views/pages/howitworks/Works.vue'
-import HowItPricing from './views/pages/howitworks/Pricing.vue'
-import ListGridSidebar from './views/pages/list/listing-grid-sidebar/ListingGridSidebar.vue'
-import Listgrid from './views/pages/layananMenu/DashboardContent.vue'
-import ListContent from './views/pages/list/listing-list-sidebar/ListContent.vue'
-import ListMapContent from './views/pages/list/listingmap-grid/ListingmapContent.vue'
-import ListinglistContent from './views/pages/list/listingmap-list/ListingListContent.vue'
-import LoginForm from './views/pages/Login/LoginForm.vue'
-import PricingPlan from './views/pages/pricing/PricingPlan.vue'
-import PrivacyPolicy from './views/pages/privacy-policy/PrivacyTerms.vue'
+// Page Components are registered lazily to keep the initial bundle smaller.
+const pageModules = import.meta.glob([
+  './views/pages/**/*.vue',
+  './views/pages/**/*.js',
+]);
 
-import ServiceGallery from './views/pages/service-details/ServiceGallery.vue'
-import ServiceDescription from './views/pages/service-details/ServiceDescription.vue'
-import ServiceContent from './views/pages/service-details/ServiceContent.vue'
-import SignupLogin from './views/pages/signup/SignupLogin.vue'
-import TermsContent from './views/pages/terms-conditions/TermsContent'
-import IndexWedding from './views/pages/indextwo/indexwedding.vue'
-import IndexCelebrate from './views/pages/indextwo/indexCelebrate.vue'
-import IndexVendor from './views/pages/indextwo/indexVendor.vue'
-import IndexPackage from './views/pages/indextwo/indexPackage.vue'
-import IndexPortfolio from './views/pages/indextwo/indexPortfolio.vue'
-import IndexTimeline from './views/pages/indextwo/indexTimeline.vue'
-import WeddingIndexBlog from './views/pages/indextwo/indexBlog.vue'
-import IndexAppointment from './views/pages/indextwo/indexAppointment.vue'
-import WeddingFooter from './views/pages/indextwo/footer/footer.vue'
+const loadPageComponent = (path) => {
+  const loader = pageModules[`./${path}`];
+  if (!loader) {
+    throw new Error(`Missing page component: ${path}`);
+  }
+  return defineAsyncComponent(loader);
+};
 
-import IndexHome from './views/pages/home/indexHome.vue'
-import IndexThreeDestination from './views/pages/home/indexDestination.vue'
-import IndexOffer from './views/pages/home/indexOffer.vue'
-import IndexPromo from './views/pages/home/indexPromo.vue'
-import IndexTestimonial from './views/pages/home/indexTestimonial.vue'
-import IndexPrice from './views/pages/home/indexPrice.vue'
-import IndexSubscribe from './views/pages/home/indexSubscribe.vue'
-import IndexActivity from './views/pages/home/indexActivity'
-import IndexDesc from './views/pages/home/indexDesc.vue'
-import NavThreeFooter from './views/pages/home/footer.vue'
-
-import IndexNow from './views/pages/indexfour/indexNow.vue'
-import IndexCowork from './views/pages/indexfour/indexCowork.vue'
-import IndexSpace from './views/pages/indexfour/indexSpace.vue'
-import IndexFourClient from './views/pages/indexfour/indexFourClient.vue'
-import IndexFourPricing from './views/pages/indexfour/indexFourPricing.vue'
-import IndexFourBlog from './views/pages/indexfour/indexFourBlog.vue'
-import IndexFourFooter from './views/pages/indexfour/footer.vue'
-import RecommendSlide from './views/pages/home/recommendSlide.vue'
-import NextTripSlide from './views/pages/home/nextTripSlide.vue'
-
-import IndexDiscover from './views/pages/indexfive/indexDiscover.vue'
-import IndexBusiness from './views/pages/indexfive/indexBusiness.vue'
-import IndexFiveSpace from './views/pages/indexfive/indexSpace.vue'
-import IndexFiveClient from './views/pages/indexfive/indexClient.vue'
-import IndexFiveFooter from './views/pages/indexfive/footer.vue'
-import ServiceReview from './views/pages/service-details/serviceReview.vue'
-
-//profil
-import MessageContent from './views/pages/messages/MessageContent.vue'
-import MyListing from './views/pages/my-listing/MyListing.vue'
-import Dashboard from './views/pages/dashboard/DashboardContent.vue'
-import ProfileDashboard from './views/pages/profile/ProfileDashboard.vue'
-import ReviewDashboard from './views/pages/reviews/ReviewDashboard.vue'
-import JanjiTemu from './views/pages/profile/JanjiTemu.vue'
-import UserData from './views/pages/profile/UserData.vue'
-import KegiatanHarian from './views/pages/profile/KegiatanHarian.vue'
-import LaporanKinerja from './views/pages/profile/LaporanKinerja.vue'
-import KinerjaBawahan from './views/pages/profile/KinerjaBawahan.vue'
-import slipGajix from './views/pages/profile/SlipGajix.vue'
-import rekapPresensiASN from './views/pages/profile/rekapPresensi.vue'
-import laporanPengaduan from './views/pages/profile/laporanPengaduan.vue'
-import laporanKetidakhadiran from './views/pages/profile/laporanKetidakhadiran.vue'
-import apkSilatar from './views/pages/profile/apkSilatar.vue';
-import listKonsultasi from './views/pages/profile/listKonsultasi.vue';
-import laporHumas from './views/pages/profile/laporHumas2.vue';
-
-//satudata
-import SatudataHome from './views/pages/satudata/SatuDataHome.vue'
-
-//Pelayanan
-import pelayananList from './views/pages/layananMenu/pelayananList.vue'
-import layananMenu from './views/pages/layananMenu/layananMenu.vue'
-import satkerList from './views/pages/satuanKerja/satkerList.vue'
-import asnList from './views/pages/satuanKerja/asnList.vue'
-import KantorData from './views/pages/satuanKerja/kantorData.vue'
-import satkerMenu from './components/satkerMenu.vue'
-import detailSatker from './views/pages/satuanKerja/detailSatker.vue'
-import detailList from './views/pages/satuanKerja/detailList.vue'
-import menuList from './views/pages/InternalKantor/menuList.vue'
-import kategoriTamu from './views/pages/InternalKantor/kategoriTamu.vue'
-import internalSatker from './views/pages/InternalKantor/internalSatker.vue'
-import addBukuTamu from './views/pages/InternalKantor/addBukuTamu.vue'
-import listPetugas from './views/pages/InternalKantor/listPetugas.vue'
-import listPetugas2 from './views/pages/layananMenu/listPetugas2.vue'
-import rateUs from './views/pages/InternalKantor/rateUs.vue'
-import layananDetail from './views/pages/layananMenu/layananDetail.vue'
-import addRequest from './views/pages/layananMenu/addRequest.vue'
-import uploadSyarat from './views/pages/layananMenu/uploadSyarat.vue'
-import addAppointment from './views/pages/layananMenu/addAppointment.vue'
-import satuData from './views/pages/layananMenu/satuData.vue'
-import pengaduanMenu from './views/pages/layananMenu/pengaduanMenu.vue'
-import persuratanMenu from './views/pages/layananMenu/persuratanMenu.vue'
-import peraturanSE from './views/pages/layananMenu/peraturanSE.vue'
-import ruangKonsultasi from './views/pages/layananMenu/ruangKonsultasi.vue';
-import uploadLaporan from './views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
-import uploadPemberkasan from './views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
-import jenisUsaha from './views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
-import halalMenu from './views/pages/layananMenu/seksiMenu/halalMenu.vue';
-import kecMenu from './views/pages/layananMenu/seksiMenu/kecMenu.vue';
-import listp3h from './views/pages/layananMenu/seksiMenu/listp3h.vue';
-import ProfilMadrasahForm from './views/pages/madrasah/ProfilMadrasahForm.vue';
-import DataPegawaiMadrasah from './views/pages/madrasah/DataPegawaiMadrasah.vue';
-import DataGuruMadrasah from './views/pages/madrasah/DataGuruMadrasah.vue';
-import LaporanBulananMadrasah from './views/pages/madrasah/LaporanBulananMadrasah.vue';
-
-//keuangan
-import keuanganMenu from './views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
-import presensiMenu from './views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
-import amprahDoc from './views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
-import amprahGaji from './views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
-import dipaList from './views/pages/layananMenu/keuanganMenu/dipaList.vue';
-import ListKeuangan from './views/pages/layananMenu/keuanganMenu/ListKeuangan.vue';
-import docKeuangan from './views/pages/layananMenu/keuanganMenu/docKeuangan.vue'
-import laporanKeuangan from './views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue'
-import docAudit from './views/pages/layananMenu/keuanganMenu/docAudit.vue'
-import rekapPresensi from './views/pages/layananMenu/keuanganMenu/rekapPresensi.vue';
-
-//cPanel
-import adminasnList from './views/pages/adminpanel/asnList.vue'
-import AdminMenu from './views/pages/adminpanel/AdminMenu.vue'
-import ListRequest from './views/pages/adminpanel/ListRequest.vue'
-import DetailRequest from './views/pages/adminpanel/DetailRequest.vue'
-import detailTamu from './views/pages/tamu/detailTamu.vue'
-import verifCKH from './views/pages/adminpanel/LaporanKinerja.vue'
-import adminSatker from './views/pages/adminpanel/SatuanKerja.vue'
-import listSatker from './views/pages/adminpanel/ListSatker.vue'
-import rekapKinerja from './views/pages/adminpanel/RekapKinerja.vue'
-import AllRekapKinerja from './views/pages/adminpanel/AllRekapKinerja.vue'
-import slipGaji from './views/pages/adminpanel/SlipGaji.vue'
-import slipTukin from './views/pages/adminpanel/SlipTukin.vue'
-import rekapLaporan from './views/pages/adminpanel/rekapLaporan.vue';
-import rekapPemberkasan from './views/pages/adminpanel/rekapPemberkasan.vue';
-import cekPemberkasan from './views/pages/adminpanel/cekPemberkasan.vue';
-import laporanHumas from './views/pages/adminpanel/laporanHumas2.vue';
-import nilaiSKP from './views/pages/adminpanel/nilaiSKP.vue';
-import addSKP from './views/pages/adminpanel/addSKP.vue';
-import rekapnilaiSKP from './views/pages/adminpanel/rekapnilaiSKP.vue';
-import nilaiKinerja from './views/pages/adminpanel/nilaiKinerja.vue';
+const asyncPageComponents = {
+  Aboutcontent: 'views/pages/about/AboutContent.vue',
+  Aboutpartners: 'views/pages/about/AboutPartners.vue',
+  Aboutpopular: 'views/pages/about/AboutPopular.vue',
+  AddAppointment: 'views/pages/layananMenu/addAppointment.vue',
+  AddBukuTamu: 'views/pages/InternalKantor/addBukuTamu.vue',
+  Addlisting: 'views/pages/add-listing/AddListing.vue',
+  AddRequest: 'views/pages/layananMenu/addRequest.vue',
+  AddSKP: 'views/pages/adminpanel/addSKP.vue',
+  AdminAsnList: 'views/pages/adminpanel/asnList.vue',
+  AdminMenu: 'views/pages/adminpanel/AdminMenu.vue',
+  AdminSatker: 'views/pages/adminpanel/SatuanKerja.vue',
+  AllRekapKinerja: 'views/pages/adminpanel/AllRekapKinerja.vue',
+  AmprahDoc: 'views/pages/layananMenu/keuanganMenu/amprahDoc.vue',
+  AmprahGaji: 'views/pages/layananMenu/keuanganMenu/amprahGaji.vue',
+  ApkSilatar: 'views/pages/profile/apkSilatar.vue',
+  AsnList: 'views/pages/satuanKerja/asnList.vue',
+  Bookmarkcontent: 'views/pages/bookmarks/BookmarkContent.vue',
+  Blogcontent: 'views/pages/blog/blog-details/BlogContent.vue',
+  Bloggridlist: 'views/pages/blog/blog-grid/BlogGridList.vue',
+  Bloggridsidebar: 'views/pages/blog/blog-grid-sidebar/BlogGridSidebar.vue',
+  Bloglist: 'views/pages/blog/blog-list/BlogList.vue',
+  Bloglistsidebar: 'views/pages/blog/blog-list-sidebar/BlogListSidebar.vue',
+  Categorieslist: 'views/pages/categories/CategoriesList.vue',
+  CekPemberkasan: 'views/pages/adminpanel/cekPemberkasan.vue',
+  Contactinformation: 'views/pages/contact/ContactInformation.vue',
+  DataGuruMadrasah: 'views/pages/madrasah/DataGuruMadrasah.vue',
+  DataPegawaiMadrasah: 'views/pages/madrasah/DataPegawaiMadrasah.vue',
+  Dashboardcontent: 'views/pages/dashboard/DashboardContent.vue',
+  DetailRequest: 'views/pages/adminpanel/DetailRequest.vue',
+  DetailSatker: 'views/pages/satuanKerja/detailSatker.vue',
+  DetailTamu: 'views/pages/tamu/detailTamu.vue',
+  DipaList: 'views/pages/layananMenu/keuanganMenu/dipaList.vue',
+  DocAudit: 'views/pages/layananMenu/keuanganMenu/docAudit.vue',
+  DocKeuangan: 'views/pages/layananMenu/keuanganMenu/docKeuangan.vue',
+  Faqcontent: 'views/pages/faq/FaqContent.vue',
+  Foot: 'views/pages/Footer.vue',
+  Forgotpassword: 'views/pages/forgot-password/ForgotPassword.vue',
+  Gallerypage: 'views/pages/gallery/GalleryPage.vue',
+  HalalMenu: 'views/pages/layananMenu/seksiMenu/halalMenu.vue',
+  Howworks: 'views/pages/howitworks/Works.vue',
+  Indexactivity: 'views/pages/home/indexActivity.vue',
+  Indexads: 'views/pages/index/IndexAds.vue',
+  Indexappointment: 'views/pages/indextwo/indexAppointment.vue',
+  Indexbusiness: 'views/pages/indexfive/indexBusiness.vue',
+  Indexblog: 'views/pages/index/IndexBlog.vue',
+  Indexcategory: 'views/pages/index/IndexCategory.vue',
+  Indexcelebrate: 'views/pages/indextwo/indexCelebrate.vue',
+  Indexclient: 'views/pages/index/IndexClient.vue',
+  Indexcowork: 'views/pages/indexfour/indexCowork.vue',
+  Indexcta: 'views/pages/index/IndexCTA.vue',
+  IndexDesc: 'views/pages/home/indexDesc.vue',
+  Indexdiscover: 'views/pages/indexfive/indexDiscover.vue',
+  Indexexplore: 'views/pages/index/IndexExplore.vue',
+  Indexfeatured: 'views/pages/index/IndexFeatured.vue',
+  Indexfourpricing: 'views/pages/indexfour/indexFourPricing.vue',
+  Indexhome: 'views/pages/home/indexHome.vue',
+  Indexnow: 'views/pages/indexfour/indexNow.vue',
+  Indexoffer: 'views/pages/home/indexOffer.vue',
+  Indexpackage: 'views/pages/indextwo/indexPackage.vue',
+  Indexpartners: 'views/pages/index/IndexPartners.vue',
+  Indexportfolio: 'views/pages/indextwo/indexPortfolio.vue',
+  Indexpopular: 'views/pages/index/IndexPopular.vue',
+  Indexprice: 'views/pages/home/indexPrice.vue',
+  Indexpricing: 'views/pages/index/IndexPricing.vue',
+  Indexpromo: 'views/pages/home/indexPromo.vue',
+  Indexspace: 'views/pages/indexfour/indexSpace.vue',
+  Indexsubscribe: 'views/pages/home/indexSubscribe.vue',
+  Indextestimonial: 'views/pages/home/indexTestimonial.vue',
+  Indextimeline: 'views/pages/indextwo/indexTimeline.vue',
+  Indexthreedestination: 'views/pages/home/indexDestination.vue',
+  Indexvendor: 'views/pages/indextwo/indexVendor.vue',
+  Indexwedding: 'views/pages/indextwo/indexwedding.vue',
+  JanjiTemu: 'views/pages/profile/JanjiTemu.vue',
+  JenisUsaha: 'views/pages/layananMenu/seksiMenu/jenisUsaha.vue',
+  KecMenu: 'views/pages/layananMenu/seksiMenu/kecMenu.vue',
+  KeuanganMenu: 'views/pages/layananMenu/keuanganMenu/keuanganMenu.vue',
+  KantorData: 'views/pages/satuanKerja/kantorData.vue',
+  KinerjaBawahan: 'views/pages/profile/KinerjaBawahan.vue',
+  KategoriTamu: 'views/pages/InternalKantor/kategoriTamu.vue',
+  LaporanBulananMadrasah: 'views/pages/madrasah/LaporanBulananMadrasah.vue',
+  LaporanKetidakhadiran: 'views/pages/profile/laporanKetidakhadiran.vue',
+  LaporanKeuangan: 'views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue',
+  LaporanKinerja: 'views/pages/profile/LaporanKinerja.vue',
+  LaporanPengaduan: 'views/pages/profile/laporanPengaduan.vue',
+  Listcontent: 'views/pages/list/listing-list-sidebar/ListContent.vue',
+  Listgridsidebar: 'views/pages/list/listing-grid-sidebar/ListingGridSidebar.vue',
+  Listgrid: 'views/pages/layananMenu/DashboardContent.vue',
+  ListKeuangan: 'views/pages/layananMenu/keuanganMenu/listKeuangan.vue',
+  ListKonsultasi: 'views/pages/profile/listKonsultasi.vue',
+  Listmapcontent: 'views/pages/list/listingmap-grid/ListingmapContent.vue',
+  ListPetugas: 'views/pages/InternalKantor/listPetugas.vue',
+  ListPetugas2: 'views/pages/layananMenu/listPetugas2.vue',
+  Listp3h: 'views/pages/layananMenu/seksiMenu/listp3h.vue',
+  ListRequest: 'views/pages/adminpanel/ListRequest.vue',
+  ListSatker: 'views/pages/adminpanel/ListSatker.vue',
+  Listinglistcontent: 'views/pages/list/listingmap-list/ListingListContent.vue',
+  Loginform: 'views/pages/Login/LoginForm.vue',
+  MenuList: 'views/pages/InternalKantor/menuList.vue',
+  Messagecontent: 'views/pages/messages/MessageContent.vue',
+  Mylisting: 'views/pages/my-listing/MyListing.vue',
+  Navbarthreefooter: 'views/pages/home/footer.vue',
+  Nexttripslide: 'views/pages/home/nextTripSlide.vue',
+  NilaiKinerja: 'views/pages/adminpanel/nilaiKinerja.vue',
+  NilaiSKP: 'views/pages/adminpanel/nilaiSKP.vue',
+  PelayananList: 'views/pages/layananMenu/pelayananList.vue',
+  PengaduanMenu: 'views/pages/layananMenu/pengaduanMenu.vue',
+  PersuratanMenu: 'views/pages/layananMenu/persuratanMenu.vue',
+  PeraturanSE: 'views/pages/layananMenu/peraturanSE.vue',
+  Profiledashboard: 'views/pages/profile/ProfileDashboard.vue',
+  RateUs: 'views/pages/InternalKantor/rateUs.vue',
+  RekapKinerja: 'views/pages/adminpanel/RekapKinerja.vue',
+  RekapLaporan: 'views/pages/adminpanel/rekapLaporan.vue',
+  RekapnilaiSKP: 'views/pages/adminpanel/rekapnilaiSKP.vue',
+  RekapPemberkasan: 'views/pages/adminpanel/rekapPemberkasan.vue',
+  RekapPresensi: 'views/pages/layananMenu/keuanganMenu/rekapPresensi.vue',
+  RekapPresensiASN: 'views/pages/profile/rekapPresensi.vue',
+  Reviewdashboard: 'views/pages/reviews/ReviewDashboard.vue',
+  Recommendslide: 'views/pages/home/recommendSlide.vue',
+  RuangKonsultasi: 'views/pages/layananMenu/ruangKonsultasi.vue',
+  SatuData: 'views/pages/layananMenu/satuData.vue',
+  SatuDataHome: 'views/pages/satudata/SatuDataHome.vue',
+  SatkerList: 'views/pages/satuanKerja/satkerList.vue',
+  Signuplogin: 'views/pages/signup/SignupLogin.vue',
+  SlipGaji: 'views/pages/adminpanel/SlipGaji.vue',
+  SlipGajix: 'views/pages/profile/SlipGajix.vue',
+  SlipTukin: 'views/pages/adminpanel/SlipTukin.vue',
+  Servicecontent: 'views/pages/service-details/ServiceContent.vue',
+  Servicedescription: 'views/pages/service-details/ServiceDescription.vue',
+  Servicereview: 'views/pages/service-details/serviceReview.vue',
+  Servicegallery: 'views/pages/service-details/ServiceGallery.vue',
+  Termscontent: 'views/pages/terms-conditions/TermsContent.vue',
+  UploadLaporan: 'views/pages/layananMenu/laporanMenu/uploadLaporan.vue',
+  UploadPemberkasan: 'views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue',
+  UploadSyarat: 'views/pages/layananMenu/uploadSyarat.vue',
+  UserData: 'views/pages/profile/UserData.vue',
+  Weddingfooter: 'views/pages/indextwo/footer/footer.vue',
+  Weddingindexblog: 'views/pages/indextwo/indexBlog.vue',
+  DetailList: 'views/pages/satuanKerja/detailList.vue',
+};
 
 // Breadcrumbs 
 import BreadCrumb from './components/breadcrumb/Component.vue'
@@ -229,7 +206,6 @@ import './assets/css/feather.css';
 import './assets/css/style.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 import "bottom-navigation-vue/dist/style.css";
-import NilaiKinerja from './views/pages/adminpanel/nilaiKinerja.vue';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -243,14 +219,15 @@ const Toast = Swal.mixin({
     }
   })
 const assetSrc = new URL(`${window.location.origin}/v2/assets`, import.meta.url).href;
+const assetPath = (relativePath) => new URL(`./assets/img/${relativePath}`, import.meta.url).href;
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$swal = Swal;
 app.config.globalProperties.$toast = Toast;
 app.config.globalProperties.$assets = assetSrc;
+app.config.globalProperties.$asset = assetPath;
 app.component('Layouts',Header)
-app.component('Navbar',Navbar)
 app.component('Usernavbar',UserNavbar)
 app.component('Navbartwo',NavbarTwo)
 app.component('NavbartwoHeader',NavbarTwoHeader)
@@ -266,192 +243,19 @@ app.component('UserlayananMenu',userlayananMenu)
 app.component('KonsultasiMenu',konsultasiMenu)
 app.component('AsnMenu',asnMenu)
 
-app.component('Indexcategory',IndexCategory)
-app.component('Indexexplore',IndexExplore)
-app.component('Indexfeatured',Indexfeatured)
-app.component('Indexpopular',IndexPopular)
-app.component('Indexads',IndexAds)
-app.component('Indexcta',IndexCta)
-app.component('Indexclient',IndexClient)
-app.component('Indexpartners',IndexPartners)
-app.component('Indexpricing',IndexPricing)
-app.component('Indexblog',IndexBlog)
-app.component('Foot',Foot)
-app.component('Scroll',Scroll)
-app.component('Aboutcontent',AboutContent)
-app.component('Aboutpopular',AboutPopular)
-app.component('Aboutpartners',AboutPartners)
-app.component('Addlisting',AddListing)
-app.component('Blogcontent',BlogContent)
-app.component('Bloggridsidebar',BlogGridSidebar)
-app.component('Bloggridlist',BlogGridList)
-app.component('Bloglistsidebar',BlogListSidebar)
-app.component('Bloglist',BlogList)
-app.component('Bookmarkcontent',BookContent)
-app.component('Categorieslist',CategoriesList)
-app.component('Contactinformation',ContactInfo)
-app.component('Faqcontent',FaqContent)
-app.component('Forgotpassword',ForgotPassword)
-app.component('Gallerypage',Gallerypage)
-app.component('Howworks',HowWorks)
-app.component('Howitpricing',HowItPricing)
-app.component('Listgridsidebar',ListGridSidebar)
-app.component('Listgrid',Listgrid)
-app.component('Listcontent',ListContent)
-app.component('Listmapcontent',ListMapContent)
-app.component('Litinglistcontent',ListinglistContent)
-app.component('Loginform',LoginForm)
-app.component('Messagecontent',MessageContent)
-app.component('Pricingplan',PricingPlan)
-app.component('Privacypolicy',PrivacyPolicy)
-app.component('Servicegallery',ServiceGallery)
-app.component('Servicedescription',ServiceDescription)
-app.component('Servicecontent',ServiceContent)
-app.component('Signuplogin',SignupLogin)
-app.component('Termscontent',TermsContent)
-app.component('Indexwedding',IndexWedding)
-app.component('Indexcelebrate',IndexCelebrate)
-app.component('Indexvendor',IndexVendor)
-app.component('Indexpackage',IndexPackage)
-app.component('Indexportfolio',IndexPortfolio)
-app.component('Indextimeline',IndexTimeline)
-app.component('Weddingindexblog',WeddingIndexBlog)
-app.component('Indexappointment',IndexAppointment)
-app.component('Weddingfooter',WeddingFooter)
-
-app.component('Indexhome',IndexHome)
-app.component('IndexDesc',IndexDesc)
-app.component('Indexthreedestination',IndexThreeDestination)
-app.component('Indexoffer',IndexOffer)
-app.component('Indexpromo',IndexPromo)
-app.component('Indextestimonial',IndexTestimonial)
-app.component('Indexprice',IndexPrice)
-app.component('Indexsubscribe',IndexSubscribe)
-app.component('Indexactivity',IndexActivity)
-app.component('Navbarthreefooter',NavThreeFooter)
-
-app.component('Indexnow',IndexNow)
-app.component('Indexcowork',IndexCowork)
-app.component('Indexspace',IndexSpace)
-app.component('Indexfourclient',IndexFourClient)
-app.component('Indexfourpricing',IndexFourPricing)
-app.component('Indexfourblog',IndexFourBlog)
-app.component('Indexfourfooter',IndexFourFooter)
-app.component('Recommendslide',RecommendSlide)
-
-app.component('Nexttripslide',NextTripSlide)
-
-app.component('Indexdiscover',IndexDiscover)
-app.component('Indexbusiness',IndexBusiness)
-app.component('Indexfivespace',IndexFiveSpace)
-app.component('Indexfiveclient',IndexFiveClient)
-app.component('Indexfivefooter',IndexFiveFooter)
-app.component('Servicereview',ServiceReview)
-
-//profil
-app.component('Profiledashboard',ProfileDashboard)
-app.component('Reviewdashboard',ReviewDashboard)
-app.component('Mylisting',MyListing)
-app.component('Dashboardcontent',Dashboard)
-app.component('JanjiTemu',JanjiTemu)
-app.component('UserData',UserData)
-app.component('KegiatanHarian',KegiatanHarian)
-app.component('LaporanKinerja',LaporanKinerja)
-app.component('KinerjaBawahan',KinerjaBawahan)
-app.component('SlipGajix',slipGajix)
-app.component('RekapPresensiASN',rekapPresensiASN)
-app.component('LaporanPengaduan',laporanPengaduan)
-app.component('LaporanKetidakhadiran',laporanKetidakhadiran)
-app.component('ApkSilatar',apkSilatar)
-app.component('ListKonsultasi',listKonsultasi)
-app.component('LaporHumas',laporHumas)
-
-//satudata
-app.component('SatuDataHome',SatudataHome)
-
-//Pelayanan
-app.component('PelayananList',pelayananList)
-app.component('LayananMenu',layananMenu)
-app.component('SatkerList', satkerList)
-app.component('AsnList', asnList)
-app.component('KantorData', KantorData)
-app.component('Satkermenu',satkerMenu)
-app.component('DetailSatker',detailSatker)
-app.component('DetailList',detailList)
-app.component('MenuList',menuList)
-app.component('KategoriTamu', kategoriTamu)
-app.component('InternalSarker',internalSatker)
-app.component('AddBukuTamu',addBukuTamu)
-app.component('ListPetugas',listPetugas)
-app.component('ListPetugas2',listPetugas2)
-app.component('RateUs',rateUs)
-app.component('StarRating',StarRating)
-app.component('LayananDetail',layananDetail)
-app.component('AddRequest',addRequest)
-app.component('UploadSyarat',uploadSyarat)
-app.component('AddAppointment',addAppointment)
-app.component('SatuData',satuData)
-app.component('PengaduanMenu',pengaduanMenu)
-app.component('PersuratanMenu',persuratanMenu)
-app.component('PeraturanSE',peraturanSE)
-app.component('RuangKonsultasi',ruangKonsultasi)
-app.component('UploadLaporan',uploadLaporan)
-app.component('UploadPemberkasan',uploadPemberkasan)
-app.component('JenisUsaha',jenisUsaha)
-app.component('HalalMenu',halalMenu)
-app.component('KecMenu',kecMenu)
-app.component('Listp3h',listp3h)
-app.component('ProfilMadrasahForm',ProfilMadrasahForm)
-app.component('DataPegawaiMadrasah',DataPegawaiMadrasah)
-app.component('DataGuruMadrasah',DataGuruMadrasah)
-app.component('LaporanBulananMadrasah',LaporanBulananMadrasah)
-
-//Keuangan
-app.component('KeuanganMenu', keuanganMenu)
-app.component('PresensiMenu', presensiMenu)
-app.component('AmprahGaji', amprahGaji)
-app.component('AmprahDoc', amprahDoc)
-app.component('DipaList',dipaList)
-app.component('DocKeuangan',docKeuangan)
-app.component('ListKeuangan',ListKeuangan)
-app.component('LaporanKeuangan',laporanKeuangan)
-app.component('DocAudit',docAudit)
-app.component('RekapPresensi',rekapPresensi)
-
-//cPanel
-app.component('AdminAsnList', adminasnList)
-app.component('AdminMenu', AdminMenu)
-app.component('ListRequest', ListRequest)
-app.component('DetailRequest', DetailRequest)
-app.component('DetailTamu', detailTamu)
-app.component('VerifCKH',verifCKH)
-app.component('AdminSatker',adminSatker)
-app.component('ListSatker',listSatker)
-app.component('RekapKinerja',rekapKinerja)
-app.component('AllRekapKinerja',AllRekapKinerja)
-app.component('SlipGaji',slipGaji)
-app.component('SlipTukin',slipTukin)
-app.component('RekapLaporan',rekapLaporan)
-app.component('RekapPemberkasan',rekapPemberkasan)
-app.component('CekPemberkasan',cekPemberkasan)
-app.component('LaporanHumas',laporanHumas)
-app.component('NilaiSKP',nilaiSKP)
-app.component('AddSKP',addSKP)
-app.component('RekapnilaiSKP', rekapnilaiSKP)
-app.component('NilaiKinerja',NilaiKinerja)
+Object.entries(asyncPageComponents).forEach(([name, path]) => {
+  app.component(name, loadPageComponent(path));
+});
 
 // Breadcrumb
 app.component('Breadcrumb',BreadCrumb)
-app.component('Aboutbreadcrumb',AboutBreadcrumb)
 app.component('VueDatePicker',VueDatePicker)
 
 .use(BootstrapVueNext)
 .use(Antd)
-.use(AOS.init())
 app.use(VueEasyLightbox);
 app.use(VueSignaturePad);
 app.use(bottomNavigationVue);
-app.use(pdfjsLib);
 app.use(VueCryptojs);
 app.use(CoolLightBox);
 app.use(VueApexCharts);

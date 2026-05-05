@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper nilai-kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -25,7 +25,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -41,12 +41,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -299,19 +299,19 @@ export default {
                     <div class="container-fluid" style="text-align: left; padding: 20px;">
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <label for="jumlahTidakApel" class="form-label fw-bold text-primary">
+                                <label for="jumlahTidakApel" class="form-label fw-bold" style="color:#8f1d2c;">
                                     <i class="fas fa-calendar-times"></i> Jumlah Tidak Apel/Upacara:
                                 </label>
-                                <input id="jumlahTidakApel" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah tidak ikut Apel/Upacara" min="0" style="border-radius: 10px; border: 2px solid #007bff;">
+                                <input id="jumlahTidakApel" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah tidak ikut Apel/Upacara" min="0" style="border-radius: 10px; border: 2px solid #c58a2a; background:#2a191a; color:#fff2d1;">
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="jumlahKeluar" class="form-label fw-bold text-success">
+                                <label for="jumlahKeluar" class="form-label fw-bold" style="color:#c58a2a;">
                                     <i class="fas fa-sign-out-alt"></i> Jumlah Keluar saat Jam Kerja:
                                 </label>
-                                <input id="jumlahKeluar" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah keluar pada saat Jam Kerja" min="0" style="border-radius: 10px; border: 2px solid #28a745;">
+                                <input id="jumlahKeluar" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah keluar pada saat Jam Kerja" min="0" style="border-radius: 10px; border: 2px solid #8f1d2c; background:#2a191a; color:#fff2d1;">
                             </div>
                         </div>
-                        <div class="alert alert-info mt-3" style="border-radius: 10px;">
+                        <div class="alert mt-3" style="border-radius: 10px; background:rgba(201,157,79,0.1); color:#fff2d1; border:1px solid rgba(201,157,79,0.22);">
                             <i class="fas fa-info-circle"></i> Pastikan data yang dimasukkan akurat untuk perhitungan kinerja.
                         </div>
                     </div>
@@ -319,7 +319,7 @@ export default {
                 showCancelButton: true,
                 confirmButtonText: '<i class="fas fa-save"></i> Submit',
                 cancelButtonText: '<i class="fas fa-times"></i> Cancel',
-                confirmButtonColor: '#007bff',
+                confirmButtonColor: '#8f1d2c',
                 cancelButtonColor: '#6c757d',
                 customClass: {
                     popup: 'swal2-popup-custom',
@@ -387,3 +387,60 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.nilai-kinerja-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.nilai-kinerja-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+}
+
+.nilai-kinerja-page :deep(.card-header),
+.nilai-kinerja-page :deep(.card-body) {
+  color: #fff2d1;
+}
+
+.nilai-kinerja-page :deep(.card-header h4),
+.nilai-kinerja-page :deep(.listing-search .form-control),
+.nilai-kinerja-page :deep(.pagination .page-link) {
+  color: #fff4dc;
+}
+
+.nilai-kinerja-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+}
+
+.nilai-kinerja-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+}
+
+.nilai-kinerja-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff2d1;
+}
+
+.nilai-kinerja-page :deep(.btn-outline-primary) {
+  border-color: rgba(201, 157, 79, 0.42);
+  color: #fff4dc;
+}
+
+.nilai-kinerja-page :deep(.btn-outline-primary:hover) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .nilai-kinerja-page :deep(.dash-cards.card) {
+    border-radius: 18px;
+  }
+}
+</style>

@@ -5,8 +5,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-heading-two text-center">
-                        <p>Try This</p>
-                        <h2>Venues by Category</h2>
+                        <p>Koleksi Pilihan</p>
+                        <h2>Galeri Berdasarkan Kategori</h2>
                         <img src="../../../assets/img/title-img.png" class="img-fluid" alt="title-img">
                     </div>
                     <div class="row">
@@ -69,15 +69,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-heading-two text-center">
-                        <p>Portfolio</p>
-                        <h2>Our Amazing Work</h2>
+                        <p>Portofolio</p>
+                        <h2>Dokumentasi Kegiatan</h2>
                         <img src="../../../assets/img/title-img.png" class="img-fluid" alt="title-img">
                     </div>
                     <div class="owl-carousel portfolio-slider">
                         <Carousel :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
 					        <Slide v-for="(src, index) in imgs" :key="index" @click="() => showImg(index)">
                                 <div class="portfolio-wrap">
-                                    <div class="row gx-2 bg-white port-wrap">
+                                    <div class="row gx-2 port-wrap port-wrap-dark">
                                         <div class="col-md-3 col-sm-6">
                                             <div class="portfolio-item">
                                                 <div class="portfolio-img">
@@ -86,8 +86,8 @@
                                                 <div class="portfolio-overlay-item">
                                                     
                                                         <div class="portfolio-overlay">
-                                                            <h6>Wedding Venues</h6>
-                                                            <p>15 Photos and 5 Videos</p>
+                                                            <h6>Dokumentasi Kegiatan</h6>
+                                                            <p>15 foto dan 5 video</p>
                                                         </div>
                                                     
                                                 </div>
@@ -99,8 +99,8 @@
                                                 <div class="portfolio-overlay-item">
                                                     
                                                         <div class="portfolio-overlay">
-                                                            <h6>Wedding Venues</h6>
-                                                            <p>55 Photos and 5 Videos</p>
+                                                            <h6>Dokumentasi Kegiatan</h6>
+                                                            <p>55 foto dan 5 video</p>
                                                         </div>
                                                    
                                                 </div>
@@ -114,8 +114,8 @@
                                                 <div class="portfolio-overlay-item">
                                                     
                                                         <div class="portfolio-overlay">
-                                                            <h6>Wedding Venues</h6>
-                                                            <p>135 Photos and 5 Videos</p>
+                                                            <h6>Dokumentasi Kegiatan</h6>
+                                                            <p>135 foto dan 5 video</p>
                                                         </div>
                                                     
                                                 </div>
@@ -133,8 +133,8 @@ src="../../../assets/img/gallery/gallery-04.jpg" class="img-fluid"
                                                         <div class="portfolio-overlay-item">
                                                            
                                                                 <div class="portfolio-overlay">
-                                                                    <h6>Wedding Venues</h6>
-                                                                    <p>115 Photos and 5 Videos</p>
+                                                                    <h6>Dokumentasi Kegiatan</h6>
+                                                                    <p>115 foto dan 5 video</p>
                                                                 </div>
                                                             
                                                         </div>
@@ -150,8 +150,8 @@ src="../../../assets/img/gallery/gallery-05.jpg" class="img-fluid"
                                                         <div class="portfolio-overlay-item">
                                                             
                                                                 <div class="portfolio-overlay">
-                                                                    <h6>Wedding Venues</h6>
-                                                                    <p>155 Photos and 5 Videos</p>
+                                                                    <h6>Dokumentasi Kegiatan</h6>
+                                                                    <p>155 foto dan 5 video</p>
                                                                 </div>
                                                            
                                                         </div>
@@ -167,8 +167,8 @@ src="../../../assets/img/gallery/gallery-06.jpg" class="img-fluid"
                                                         <div class="portfolio-overlay-item">
                                                             
                                                                 <div class="portfolio-overlay">
-                                                                    <h6>Wedding Venues</h6>
-                                                                    <p>155 Photos and 5 Videos</p>
+                                                                    <h6>Dokumentasi Kegiatan</h6>
+                                                                    <p>155 foto dan 5 video</p>
                                                                 </div>
                                                             
                                                         </div>

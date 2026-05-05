@@ -37,23 +37,23 @@
                                         <BBadge v-else-if="request.status == 'DITOLAK'" variant="danger">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'BATAL'" variant="dark">{{ request.status }}</BBadge>
                                 </div>
-							    <h4>Upload File-File Syarat</h4>
+							    <h4>Unggah Berkas Syarat</h4>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" style="float:right;">
                                     <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="newRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK'" style="float:right;">
                                     <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                     <br/><br/>
                                     <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
@@ -242,10 +242,10 @@
                                                 <div class="settings-upload-btn">
                                                     <input :id='"file"+item.id' type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
                                                     <label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
-                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                         <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                     </label>
-                                                    <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                    <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                 </div>
                                                 <br/>
                                                 <div>
@@ -385,7 +385,7 @@
 export default {
     data() {
         return {
-            title: "Upload File Syarat",
+            title: "Unggah Berkas Syarat",
             text: "Home",
             text1: "Upload Syarat",
             name: "/",

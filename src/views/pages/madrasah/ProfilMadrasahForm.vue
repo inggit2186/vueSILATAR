@@ -1,13 +1,13 @@
 <template>
-    <div class="main-wrapper">
-		<layouts></layouts>
-        <div class="page-wrapper">
-            <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
+    <div :class="isAdminMadrasahView ? 'admin-madrasah-embedded' : 'main-wrapper'">
+		<layouts v-if="!isAdminMadrasahView"></layouts>
+        <div :class="isAdminMadrasahView ? 'admin-madrasah-embedded-page' : 'page-wrapper'">
+            <breadcrumb v-if="!isAdminMadrasahView" :title="title" :name="name" :text="text" :text1="text1" />
 
   <div class="dashboard-content">
     <div class="container">
       <div class="report-shell madrasah-page-shell">
-        <MadrasahHeaderMenu />
+        <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
         <div class="hero madrasah-hero">
           <div>
             <h2>Profil Madrasah</h2>
@@ -65,7 +65,7 @@
                       <div class="group-img">
                         <i class="feather-home"></i>
                         <b-form-input 
-                          v-model="formData.nama_madrasah" 
+                          v-model="formData.nama" 
                           type="text" 
                           class="form-control" 
                           placeholder="Nama Madrasah" 
@@ -608,11 +608,54 @@
 import MadrasahHeaderMenu from '@/components/MadrasahHeaderMenu.vue'
 import {
   canAccessMadrasah,
+  canManageAnyMadrasah,
+  getMadrasahCategory,
   getMadrasahClassLevelCount,
+  getMadrasahClassLevelCountForCategory,
+  getMadrasahDefaultStatusForCategory,
   getMadrasahDefaultStatus,
   getMadrasahLabel,
+  getMadrasahLabelForCategory,
   getStoredUser
 } from '@/utils/madrasahAccess'
+
+const createDefaultFormData = () => ({
+  nama: '',
+  nsm: '',
+  npsm: '',
+  status_lembaga: '',
+  jalan: '',
+  jorong: '',
+  nagari: '',
+  kecamatan: '',
+  koordinat: '',
+  telepon: '',
+  email: '',
+  website: '',
+  waktu_belajar: '',
+  visi: '',
+  sk_pendirian: '',
+  tanggal_sk: '',
+  komite_lembaga: '',
+  akreditasi: '',
+  tanggal_akreditasi: '',
+  status_kkm: '',
+  jarak_pusat_provinsi: '',
+  jarak_pusat_kabupaten: '',
+  jarak_kecamatan: '',
+  jarak_kanwil_kemenag: '',
+  jarak_kemenag_kab: '',
+  jarak_kua: '',
+  jarak_ra_terdekat: '',
+  jarak_mi_terdekat: '',
+  jarak_mts_terdekat: '',
+  jarak_ma_terdekat: '',
+  jarak_pontren_terdekat: '',
+  jarak_tk_terdekat: '',
+  jarak_sd_terdekat: '',
+  jarak_smp_terdekat: '',
+  jarak_sma_terdekat: ''
+})
 
 export default {
   name: 'ProfilMadrasahForm',
@@ -621,66 +664,132 @@ export default {
   },
   data() {
     return {
-      formData: {
-        nama_madrasah: '',
-        nsm: '',
-        npsm: '',
-        status_lembaga: '',
-        jalan: '',
-        jorong: '',
-        nagari: '',
-        kecamatan: '',
-        koordinat: '',
-        telepon: '',
-        email: '',
-        website: '',
-        waktu_belajar: '',
-        visi: '',
-        sk_pendirian: '',
-        tanggal_sk: '',
-        komite_lembaga: '',
-        akreditasi: '',
-        tanggal_akreditasi: '',
-        status_kkm: '',
-        jarak_pusat_provinsi: '',
-        jarak_pusat_kabupaten: '',
-        jarak_kecamatan: '',
-        jarak_kanwil_kemenag: '',
-        jarak_kemenag_kab: '',
-        jarak_kua: '',
-        jarak_ra_terdekat: '',
-        jarak_mi_terdekat: '',
-        jarak_mts_terdekat: '',
-        jarak_ma_terdekat: '',
-        jarak_pontren_terdekat: '',
-        jarak_tk_terdekat: '',
-        jarak_sd_terdekat: '',
-        jarak_smp_terdekat: '',
-        jarak_sma_terdekat: ''
-      }
+      formData: createDefaultFormData(),
+      activeMadrasahId: null,
+      activeMadrasahCategory: getMadrasahCategory(),
+      isSubmitting: false
     }
   },
   computed: {
+    isAdminMadrasahView() {
+      return String(this.$route?.path || '').startsWith('/admin/madrasah')
+    },
     madrasahAllowed() {
-      return canAccessMadrasah()
+      return canAccessMadrasah() || canManageAnyMadrasah()
     },
     madrasahFormLocked() {
       return this.madrasahAllowed
     },
     madrasahTypeLabel() {
-      return getMadrasahLabel()
+      return getMadrasahLabelForCategory(this.activeMadrasahCategory) || getMadrasahLabel()
     },
     madrasahClassLevelCount() {
-      return getMadrasahClassLevelCount()
+      return getMadrasahClassLevelCountForCategory(this.activeMadrasahCategory) || getMadrasahClassLevelCount()
     },
     madrasahDefaultStatus() {
-      return getMadrasahDefaultStatus()
+      return getMadrasahDefaultStatusForCategory(this.activeMadrasahCategory) || getMadrasahDefaultStatus()
     }
   },
-  mounted() {
+  watch: {
+    '$route.query.dept_id': {
+      immediate: false,
+      async handler() {
+        const nextDeptId = this.getDeptId()
+        if ((this.activeMadrasahId || null) === (nextDeptId || null)) {
+          return
+        }
+
+        this.activeMadrasahId = nextDeptId
+        await this.fetchProfileByDeptId()
+        this.applyDeptDefaults()
+      }
+    }
+  },
+  async mounted() {
+    this.activeMadrasahId = this.getDeptId()
+    await this.fetchProfileByDeptId()
     this.applyDeptDefaults()
   },
   methods: {
+    getDeptId() {
+      if (canManageAnyMadrasah() && this.$route?.query?.dept_id) {
+        return String(this.$route.query.dept_id).trim()
+      }
+
+      const user = getStoredUser()
+      return user?.dept_id ?? user?.dept?.id ?? user?.dept?.dept_id ?? null
+    },
+    getStorageKey() {
+      return this.activeMadrasahId
+        ? `profil-madrasah-${this.activeMadrasahId}`
+        : 'profil-madrasah-default'
+    },
+    getAuthHeaders() {
+      return {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    },
+    loadProfileByDeptId() {
+      try {
+        const raw = localStorage.getItem(this.getStorageKey())
+        if (!raw) return
+
+        const parsed = JSON.parse(raw)
+        const normalizedData = {
+          ...parsed,
+          nama: parsed?.nama ?? parsed?.nama_madrasah ?? ''
+        }
+
+        this.formData = {
+          ...createDefaultFormData(),
+          ...normalizedData
+        }
+      } catch (error) {
+        console.error('Gagal memuat profil madrasah dari localStorage', error)
+      }
+    },
+    async fetchProfileByDeptId() {
+      if (!this.activeMadrasahId) {
+        this.loadProfileByDeptId()
+        return
+      }
+
+      try {
+        const response = await this.$axios.get(
+          `${import.meta.env.VITE_APP_API_URL}/getMadrasahProfil/${this.activeMadrasahId}`,
+          { headers: this.getAuthHeaders() }
+        )
+
+        const data = response?.data?.data
+
+        if (data) {
+          this.activeMadrasahCategory = String(data?.kategori || this.activeMadrasahCategory || '').trim().toLowerCase()
+          this.formData = {
+            ...createDefaultFormData(),
+            ...data,
+            nama: data?.nama ?? ''
+          }
+          this.saveProfileByDeptId()
+          return
+        }
+      } catch (error) {
+        console.error('Gagal memuat profil madrasah dari API', error)
+      }
+
+      this.activeMadrasahCategory = getMadrasahCategory()
+      this.loadProfileByDeptId()
+    },
+    saveProfileByDeptId() {
+      try {
+        const payload = {
+          id: this.activeMadrasahId,
+          ...this.formData
+        }
+        localStorage.setItem(this.getStorageKey(), JSON.stringify(payload))
+      } catch (error) {
+        console.error('Gagal menyimpan profil madrasah ke localStorage', error)
+      }
+    },
     applyDeptDefaults() {
       const user = getStoredUser()
       if (!user?.dept) return
@@ -690,18 +799,23 @@ export default {
       }
 
       const deptName =
-        user.dept.nama_madrasah ||
         user.dept.nama ||
+        user.dept.nama_madrasah ||
         user.dept.name ||
         user.dept.nm ||
         ''
 
-      if (!this.formData.nama_madrasah && deptName) {
-        this.formData.nama_madrasah = deptName
+      if (!this.formData.nama && deptName) {
+        this.formData.nama = deptName
       }
 
       const nsm = user.dept.nsm || user.dept.nsm_madrasah || ''
       const npsm = user.dept.npsm || user.dept.npsm_madrasah || ''
+      const koordinat =
+        user.dept.koordinat ||
+        ((user.dept.latitude || user.dept.longitude)
+          ? `${user.dept.latitude || ''}${user.dept.latitude && user.dept.longitude ? ', ' : ''}${user.dept.longitude || ''}`
+          : '')
 
       if (!this.formData.nsm && nsm) {
         this.formData.nsm = nsm
@@ -710,10 +824,14 @@ export default {
       if (!this.formData.npsm && npsm) {
         this.formData.npsm = npsm
       }
+
+      if (!this.formData.koordinat && koordinat) {
+        this.formData.koordinat = koordinat
+      }
     },
-    submitForm() {
+    async submitForm() {
       // Basic validation
-      if (!this.formData.nama_madrasah || !this.formData.nsm || !this.formData.npsm) {
+      if (!this.formData.nama || !this.formData.nsm || !this.formData.npsm) {
         this.$toast.fire({
           title: 'Harap lengkapi field wajib (*)',
           icon: 'warning'
@@ -721,17 +839,49 @@ export default {
         return;
       }
 
-      // Simulate API submission
-      this.$toast.fire({
-        title: 'Data berhasil disimpan!',
-        icon: 'success'
-      });
-      console.log('Form Data:', this.formData);
+      this.isSubmitting = true
+
+      try {
+        const payload = {
+          id: this.activeMadrasahId,
+          ...this.formData
+        }
+
+        const response = await this.$axios.post(
+          `${import.meta.env.VITE_APP_API_URL}/saveMadrasahProfil`,
+          payload,
+          { headers: this.getAuthHeaders() }
+        )
+
+        const savedData = response?.data?.data ?? payload
+        this.formData = {
+          ...createDefaultFormData(),
+          ...savedData,
+          nama: savedData?.nama ?? payload.nama
+        }
+        this.saveProfileByDeptId()
+
+        this.$toast.fire({
+          title: this.activeMadrasahId
+            ? `Data madrasah ID ${this.activeMadrasahId} berhasil disimpan!`
+            : 'Data berhasil disimpan!',
+          icon: 'success'
+        });
+      } catch (error) {
+        console.error('Gagal menyimpan profil madrasah ke API', error)
+        this.saveProfileByDeptId()
+
+        this.$toast.fire({
+          title: error?.response?.data?.message || 'Data gagal disimpan ke server',
+          icon: 'error'
+        });
+      } finally {
+        this.isSubmitting = false
+      }
     },
     resetForm() {
-      Object.keys(this.formData).forEach(key => {
-        this.formData[key] = '';
-      });
+      this.formData = createDefaultFormData()
+      localStorage.removeItem(this.getStorageKey())
       this.applyDeptDefaults()
       this.$toast.fire({
         title: 'Form telah direset',
@@ -749,6 +899,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.admin-madrasah-embedded-page {
+  padding: 0;
 }
 
 .madrasah-page-shell {
@@ -823,10 +977,10 @@ export default {
 }
 
 .card-section {
-  background: #fff;
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
   border-radius: 24px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  border: 1px solid #e8eef7;
+  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+  border: 1px solid rgba(201, 157, 79, 0.22);
   overflow: hidden;
 }
 
@@ -840,10 +994,11 @@ export default {
 .profile-card :deep(.b-form-select),
 .profile-card :deep(textarea.form-control) {
   min-height: 48px;
-  border: 1px solid #dbe4f4;
+  border: 1px solid rgba(201, 157, 79, 0.18);
   border-radius: 14px;
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  background: rgba(255, 244, 216, 0.05);
+  color: #fff2d1;
+  box-shadow: 0 8px 20px rgba(22, 12, 13, 0.08);
 }
 
 .profile-card :deep(.form-control:focus),
@@ -851,18 +1006,19 @@ export default {
 .profile-card :deep(.b-form-input:focus),
 .profile-card :deep(.b-form-select:focus),
 .profile-card :deep(textarea.form-control:focus) {
-  border-color: #3f72af;
-  box-shadow: 0 0 0 0.22rem rgba(63, 114, 175, 0.14);
+  border-color: rgba(246, 212, 122, 0.55);
+  box-shadow: 0 0 0 0.22rem rgba(201, 157, 79, 0.16);
+  background: rgba(255, 244, 216, 0.08);
 }
 
 .section-block {
   padding: 1.3rem 1.2rem 0.75rem;
   margin-left: 0;
   margin-right: 0;
-  border: 1px solid #e8eef7;
+  border: 1px solid rgba(201, 157, 79, 0.18);
   border-radius: 20px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  box-shadow: 0 10px 24px rgba(22, 12, 13, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -874,28 +1030,28 @@ export default {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  opacity: 0.08;
+  opacity: 0.12;
   pointer-events: none;
 }
 
 .section-block-info::after {
-  background: #1f3c88;
+  background: #c99d4f;
 }
 
 .section-block-address::after {
-  background: #0f766e;
+  background: #8f1d2c;
 }
 
 .section-block-contact::after {
-  background: #8b5cf6;
+  background: #d4a54a;
 }
 
 .section-block-docs::after {
-  background: #d97706;
+  background: #7a482f;
 }
 
 .section-block-distance::after {
-  background: #475569;
+  background: #c58a2a;
 }
 
 .section-heading {
@@ -1048,6 +1204,92 @@ export default {
 .context-item strong {
   color: #213555;
   font-size: 0.98rem;
+}
+
+.report-shell {
+  color: #fff2d1;
+}
+
+.card-section {
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  border: 1px solid rgba(201, 157, 79, 0.22);
+  box-shadow: 0 18px 36px rgba(22, 12, 13, 0.22);
+}
+
+.profile-card {
+  background: transparent;
+}
+
+.profile-card :deep(.form-control),
+.profile-card :deep(.form-select),
+.profile-card :deep(.b-form-input),
+.profile-card :deep(.b-form-select),
+.profile-card :deep(textarea.form-control) {
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  background: rgba(255, 244, 216, 0.05);
+  color: #fff2d1;
+}
+
+.profile-card :deep(.form-control:focus),
+.profile-card :deep(.form-select:focus),
+.profile-card :deep(.b-form-input:focus),
+.profile-card :deep(.b-form-select:focus),
+.profile-card :deep(textarea.form-control:focus) {
+  border-color: rgba(246, 212, 122, 0.55);
+  box-shadow: 0 0 0 0.22rem rgba(201, 157, 79, 0.16);
+  background: rgba(255, 244, 216, 0.08);
+}
+
+.section-block {
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  box-shadow: 0 12px 26px rgba(22, 12, 13, 0.18);
+}
+
+.section-heading h5 {
+  color: #fff2d1;
+}
+
+.section-heading p {
+  color: rgba(255, 240, 197, 0.8);
+}
+
+.section-kicker {
+  color: #f0d8ac;
+  background: rgba(255, 244, 216, 0.05);
+  border-color: rgba(201, 157, 79, 0.16);
+}
+
+.section-number {
+  color: #fff2d1;
+  background: rgba(255, 244, 216, 0.06);
+  border-color: rgba(201, 157, 79, 0.16);
+}
+
+.section-icon-badge {
+  box-shadow: 0 14px 28px rgba(22, 12, 13, 0.18);
+}
+
+.madrasah-context {
+  gap: 0.9rem;
+}
+
+.context-item {
+  background: rgba(255, 244, 216, 0.05);
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  box-shadow: 0 10px 22px rgba(22, 12, 13, 0.12);
+}
+
+.context-item span {
+  color: #c9a26d;
+}
+
+.context-item strong {
+  color: #fff2d1;
+}
+
+h5 {
+  color: #fff2d1;
 }
 
 * {
@@ -1230,6 +1472,91 @@ h5::before {
   background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.report-shell :deep(.card-section),
+.report-shell :deep(.profile-card),
+.report-shell :deep(.section-block) {
+  background: linear-gradient(180deg, #2a191a 0%, #201214 100%) !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.section-heading h5),
+.report-shell :deep(.section-heading p),
+.report-shell :deep(.section-kicker),
+.report-shell :deep(.section-number),
+.report-shell :deep(.context-item span),
+.report-shell :deep(.context-item strong),
+.report-shell :deep(.hero-chip span),
+.report-shell :deep(.hero-chip strong),
+.report-shell :deep(.hero p),
+.report-shell :deep(.madrasah-context),
+.report-shell :deep(.madrasah-context span),
+.report-shell :deep(.madrasah-context strong),
+.report-shell :deep(.profile-card label),
+.report-shell :deep(.profile-card .col-form-label),
+.report-shell :deep(.profile-card small),
+.report-shell :deep(.profile-card h5) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.section-heading-info h5),
+.report-shell :deep(.section-heading-address h5),
+.report-shell :deep(.section-heading-contact h5),
+.report-shell :deep(.section-heading-docs h5),
+.report-shell :deep(.section-heading-distance h5),
+.report-shell :deep(.section-heading p),
+.report-shell :deep(.section-heading span),
+.report-shell :deep(.context-item span),
+.report-shell :deep(.context-item strong) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.section-heading),
+.report-shell :deep(.section-heading h3),
+.report-shell :deep(.section-heading p),
+.report-shell :deep(.section-heading span),
+.report-shell :deep(label),
+.report-shell :deep(.col-form-label),
+.report-shell :deep(small),
+.report-shell :deep(h5) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.form-control),
+.report-shell :deep(.form-select),
+.report-shell :deep(textarea.form-control) {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #fff2d1 !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+}
+
+.report-shell :deep(.form-control::placeholder),
+.report-shell :deep(textarea.form-control::placeholder) {
+  color: rgba(255, 240, 197, 0.58) !important;
+}
+
+.report-shell :deep(.text-primary),
+.report-shell :deep(.text-muted),
+.report-shell :deep(.text-success),
+.report-shell :deep(.text-danger),
+.report-shell :deep(.text-warning),
+.report-shell :deep(.text-info) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.bg-white),
+.report-shell :deep(.bg-light) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
+  color: #fff4dc !important;
+}
+
+.report-shell :deep(.card-body),
+.report-shell :deep(.card-header),
+.report-shell :deep(.profile-card),
+.report-shell :deep(.section-block) {
+  color: #fff4dc !important;
 }
 
 @media (max-width: 768px) {

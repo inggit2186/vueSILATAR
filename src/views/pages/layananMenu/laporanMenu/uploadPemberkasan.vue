@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper pemberkasan-upload-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -38,23 +38,23 @@
                                         <BBadge v-else-if="request.status == 'DITOLAK'" variant="danger">{{ request.status }}</BBadge>
                                         <BBadge v-else-if="request.status == 'BATAL'" variant="dark">{{ request.status }}</BBadge>
                                 </div>
-							    <h4>Upload File-File Syarat</h4>
+							    <h4>Unggah Berkas Syarat</h4>
                                 <hr/>
                                 <div v-if="request.status == 'DRAFT'" style="float:right;">
                                     <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="newRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Kirim Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                 </div>
                                 <div v-if="request.status == 'UNCHECK' || request.status == 'DITOLAK'" style="float:right;">
                                     <BButton block size="lg" variant="warning" :disabled="loadingRequest" @click="updateRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Ubah Pengajuan</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                     <br/><br/>
                                     <BButton block size="lg" variant="danger" :disabled="loadingRequest" @click="cancelRequest()">
                                         <span v-if="!loadingRequest"><b><i-fluent-send-48-filled /> &nbsp;&nbsp;Batalkan Request</b></span>
-                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; JNE Berangkat....</b></span>
+                                        <span v-else><b><i-svg-spinners-6-dots-scale-middle /> &nbsp;&nbsp; Sedang memproses...</b></span>
                                     </BButton>
                                 </div>
                                 <div v-else-if="request.status == 'PENDING' || request.status == 'DITERIMA' || request.status == 'DIPROSES'" style="float:right;">
@@ -119,10 +119,10 @@
                                                 <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'" class="settings-upload-btn">
                                                     <input :id='"file"+item.id' type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id, $event)">
                                                     <label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
-                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                        <span v-if="item.filename == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                         <span v-else><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                                     </label>
-                                                    <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                                    <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                                 </div>
                                                 <br/>
                                                 <div v-if="request.status == 'DRAFT' || request.status == 'UNCHECK' || request.status == 'PENDING' || request.status == 'DITOLAK'">
@@ -172,7 +172,7 @@
 export default {
     data() {
         return {
-            title: "Upload File Syarat",
+            title: "Unggah Berkas Syarat",
             text: "Home",
             text1: "Upload Syarat",
             name: "/",
@@ -555,6 +555,139 @@ export default {
 </script>
 
 <style>
+.pemberkasan-upload-page {
+  background:
+    radial-gradient(circle at top, rgba(170, 24, 58, 0.16), transparent 42%),
+    linear-gradient(180deg, #231419 0%, #160d11 100%);
+}
+
+.pemberkasan-upload-page .dashboard-content {
+  padding: 1.25rem 0 2.5rem;
+}
+
+.pemberkasan-upload-page .pagination .btn-primary {
+  background: linear-gradient(135deg, #d8a64a, #a92d38);
+  border: none;
+  color: #fffaf0;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.pemberkasan-upload-page .card.media-section {
+  background: linear-gradient(180deg, rgba(42, 24, 28, 0.96), rgba(28, 16, 18, 0.96));
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  border-radius: 22px;
+  color: #fff4dc;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+}
+
+.pemberkasan-upload-page .card-header,
+.pemberkasan-upload-page .card-body,
+.pemberkasan-upload-page .profile-content,
+.pemberkasan-upload-page .detailhead,
+.pemberkasan-upload-page .media-image,
+.pemberkasan-upload-page .media-title,
+.pemberkasan-upload-page .card-header h4,
+.pemberkasan-upload-page .card-body h4,
+.pemberkasan-upload-page .card-body h5,
+.pemberkasan-upload-page .card-body h6,
+.pemberkasan-upload-page .card-body p,
+.pemberkasan-upload-page .card-body span,
+.pemberkasan-upload-page .card-body small,
+.pemberkasan-upload-page .card-body label,
+.pemberkasan-upload-page .detailhead td {
+  color: #fff4dc;
+}
+
+.pemberkasan-upload-page .card-header {
+  background: rgba(80, 48, 31, 0.92);
+  border-bottom: 1px solid rgba(214, 171, 76, 0.18);
+}
+
+.pemberkasan-upload-page .detailhead {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: separate;
+  border-spacing: 0 0.45rem;
+}
+
+.pemberkasan-upload-page .detailhead td {
+  vertical-align: top;
+}
+
+.pemberkasan-upload-page .detailhead td:first-child {
+  color: #f0d7a4;
+  width: 130px;
+}
+
+.pemberkasan-upload-page .media-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.4rem;
+}
+
+.pemberkasan-upload-page .media-image img {
+  max-width: 170px;
+  max-height: 170px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.22));
+}
+
+.pemberkasan-upload-page .media-title {
+  color: #fff4dc;
+}
+
+.pemberkasan-upload-page .file-upload,
+.pemberkasan-upload-page .btn-primary,
+.pemberkasan-upload-page .btn-danger,
+.pemberkasan-upload-page .btn-success,
+.pemberkasan-upload-page .btn-warning,
+.pemberkasan-upload-page .btn-secondary {
+  border: none;
+  border-radius: 14px;
+  color: #fffaf0 !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.pemberkasan-upload-page .file-upload,
+.pemberkasan-upload-page .btn-primary,
+.pemberkasan-upload-page .btn-warning {
+  background: linear-gradient(135deg, #d8a64a, #a92d38);
+}
+
+.pemberkasan-upload-page .btn-success {
+  background: linear-gradient(135deg, #d8a64a, #8d2731);
+}
+
+.pemberkasan-upload-page .btn-danger {
+  background: linear-gradient(135deg, #b94d32, #8d1e2a);
+}
+
+.pemberkasan-upload-page .btn-secondary {
+  background: linear-gradient(135deg, #6f7684, #434b58);
+}
+
+.pemberkasan-upload-page .badge {
+  color: #fffaf0;
+}
+
+.pemberkasan-upload-page .card hr,
+.pemberkasan-upload-page hr {
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.pemberkasan-upload-page .form-control,
+.pemberkasan-upload-page .form-select {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(214, 171, 76, 0.3);
+  color: #fff4dc;
+}
+
+.pemberkasan-upload-page .form-control::placeholder {
+  color: rgba(255, 244, 220, 0.58);
+}
+
 .comments {
   width: 430px;
   margin: 10px;
@@ -648,5 +781,11 @@ export default {
   
   right: -30px;
   top: 10px;
+}
+
+@media (max-width: 768px) {
+  .pemberkasan-upload-page .detailhead td:first-child {
+    width: 110px;
+  }
 }
 </style>

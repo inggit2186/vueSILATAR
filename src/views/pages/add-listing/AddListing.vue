@@ -342,7 +342,7 @@
 											</div>
 											<div class="settings-upload-btn">
 												<input id="file" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileChange">
-												<label for="file" class="file-upload">Upload File</label>
+												<label for="file" class="file-upload">Unggah berkas</label>
 											</div>
 											</div>
 											<div class="col-lg-6 col-md-6 featured-img2">
@@ -352,7 +352,7 @@
 											</div>
 											<div class="settings-upload-btn">
 												<input id="file1" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onLogoChange">
-												<label for="file1" class="file-upload">Upload File</label>
+												<label for="file1" class="file-upload">Unggah berkas</label>
 											</div>
 										</div>
 									</div>										
@@ -383,7 +383,7 @@
 									</div>	
                                     <div class="settings-upload-btn">
 										<input id="file2" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="OnFileSelect">
-										<label for="file2" class="file-upload">Upload File</label>												
+										<label for="file2" class="file-upload">Unggah berkas</label>												
 									</div>									
 								</div>								
 							</div>
@@ -397,8 +397,8 @@
 </template>
 
 <script>
-const img1 = import(`@/assets/img/mediaimg-2.jpg`)
-const img2 = import(`@/assets/img/mediaimg-1.jpg`)
+const img1 = new URL('../../../assets/img/mediaimg-2.jpg', import.meta.url).href
+const img2 = new URL('../../../assets/img/mediaimg-1.jpg', import.meta.url).href
 export default {
 	components: {},
 	data() {

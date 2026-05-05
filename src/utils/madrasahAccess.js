@@ -35,6 +35,7 @@ const MADRASAH_CONFIG = {
 }
 
 export const MADRASAH_ALLOWED_CATEGORIES = Object.keys(MADRASAH_CONFIG)
+export const MADRASAH_ADMIN_ROLES = ['admin', 'petugas', 'kepala', 'kasubbag', 'kasi']
 
 export const getStoredUser = () => {
   const rawUser = localStorage.getItem('user')
@@ -60,8 +61,20 @@ export const canAccessMadrasah = (user = getStoredUser()) => {
   return MADRASAH_ALLOWED_CATEGORIES.includes(getMadrasahCategory(user))
 }
 
+export const canManageAnyMadrasah = (user = getStoredUser()) => {
+  const role = String(user?.role || '').trim().toLowerCase()
+  const hakses = Array.isArray(user?.hakses) ? user.hakses.map((item) => String(item).trim().toLowerCase()) : []
+
+  return MADRASAH_ADMIN_ROLES.includes(role) || hakses.includes('admin')
+}
+
 export const getMadrasahLabel = (user = getStoredUser()) => {
   const config = getMadrasahConfig(getMadrasahCategory(user))
+  return config ? config.label : 'Madrasah'
+}
+
+export const getMadrasahLabelForCategory = (category) => {
+  const config = getMadrasahConfig(String(category || '').trim().toLowerCase())
   return config ? config.label : 'Madrasah'
 }
 
@@ -72,6 +85,11 @@ export const getMadrasahShortLabel = (user = getStoredUser()) => {
 
 export const getMadrasahDefaultStatus = (user = getStoredUser()) => {
   const config = getMadrasahConfig(getMadrasahCategory(user))
+  return config ? config.defaultStatus : ''
+}
+
+export const getMadrasahDefaultStatusForCategory = (category) => {
+  const config = getMadrasahConfig(String(category || '').trim().toLowerCase())
   return config ? config.defaultStatus : ''
 }
 

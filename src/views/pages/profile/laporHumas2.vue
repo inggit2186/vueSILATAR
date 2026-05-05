@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <Usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper humas2-page">
             <Breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
@@ -32,11 +32,11 @@
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
                                             <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Cari data..." @input="filterTable">
                                             <a class="btn btn-danger" href="#" style="margin-left:5px;float:right;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
@@ -53,10 +53,10 @@
                                         </thead>
                                         <tbody>
                                             <tr v-if="loading">
-                                                <td colspan="4"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="4"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                             <tr v-else-if="kinerja.length == 0">
-                                                <td colspan="4" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                <td colspan="4" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
                                             </tr>
                                             <template v-else>
                                                 <tr v-for="(item,index) in paginatedItem" :key="item.tgl">
@@ -76,7 +76,7 @@
                                                     <td>
                                                         <button v-if="!loadingaksi[item.id]" class="btn btn-warning btn-sm rounded-pill" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><i-fa-edit /> EDIT</button>&nbsp;
                                                         <button v-if="!loadingaksi[item.id]" class="btn btn-danger btn-sm rounded-pill" @click.prevent="delAksi(item.tgl)"><i-ph-trash-fill /> DELETE</button>
-                                                        <button v-else class="btn btn-outline-primary btn-sm rounded-pill"><i-svg-spinners-bars-scale/> Loading...</button>
+                                                        <button v-else class="btn btn-outline-primary btn-sm rounded-pill"><i-svg-spinners-bars-scale/> Memuat data...</button>
                                                         <div v-if="item.status === 'DISETUJUI'"><i class="fas fa-check-circle text-success"></i> <i style="font-size: small;">Sudah Diverifikasi</i></div>
                                                         <div v-else><i class="fas fa-clock text-warning"></i> <i style="font-size: small;">Belum Diverifikasi</i></div>
                                                         <div v-if="item.status === 'DISETUJUI'"><i class="fas fa-user" style="font-size: 10px;"></i> <i style="font-size: 10px;">{{ item.verifikator }}</i></div>
@@ -147,12 +147,12 @@
                                             </div>
 											<div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Data Posting per Platform <span>*</span></label>
-												<div v-for="platform in platforms" :key="platform" class="platform-card" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
-													<h5 class="text-center" style="margin-bottom: 15px; color: #333;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
+												<div v-for="platform in platforms" :key="platform" class="platform-card" style="margin-bottom: 20px; border: 1px solid rgba(246, 215, 138, 0.18); border-radius: 16px; padding: 15px; background: linear-gradient(180deg, rgba(47, 20, 21, 0.94) 0%, rgba(36, 18, 19, 0.94) 100%); box-shadow: 0 18px 40px rgba(13, 8, 10, 0.22);">
+													<h5 class="text-center" style="margin-bottom: 15px; color: #f6d78a;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
 													<div class="row">
 														<div class="col-md-6">
-															<div class="posting-section" style="padding: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-																<h6 class="text-primary">Postingan Pertama</h6>
+															<div class="posting-section" style="padding: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(246, 215, 138, 0.14); border-radius: 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.12);">
+																<h6 style="color:#f6d78a;">Postingan Pertama</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
 																	<VueDatePicker v-model="platformData[platform.toLowerCase()].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
@@ -168,8 +168,8 @@
 															</div>
 														</div>
 														<div class="col-md-6">
-															<div class="posting-section" style="padding: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-																<h6 class="text-success">Postingan Terakhir</h6>
+															<div class="posting-section" style="padding: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(246, 215, 138, 0.14); border-radius: 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.12);">
+																<h6 style="color:#f8ecd1;">Postingan Terakhir</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
 																	<VueDatePicker v-model="platformData[platform.toLowerCase()].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
@@ -190,7 +190,7 @@
 											<div class="form-group d-block d-sm-none">
                                                 <label class="col-form-label">Data Posting per Platform <span>*</span></label>
 												<div v-for="platform in platforms" :key="platform" style="padding-bottom: 12px;">
-													<h5><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
+													<h5 style="color:#f6d78a;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
 													<label>Postingan Pertama</label>
 													<div style="display: flex; align-items: center; margin-bottom: 5px;">
 														<i-mdi-calendar style="margin-right: 5px;" />
@@ -236,20 +236,20 @@
             <!-- Custom Modal -->
             <div v-if="showModal" class="modal fade show d-flex align-items-center justify-content-center" style="display: block; background-color: rgba(0,0,0,0.5);" @click.self="showModal = false">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content shadow-lg border-0 rounded-3">
-                        <div class="modal-header bg-gradient-primary text-white rounded-top-3">
+                    <div class="modal-content shadow-lg border-0 rounded-3" style="background: linear-gradient(180deg, #261315 0%, #1d1012 100%); color: #f8ecd1; border: 1px solid rgba(246, 215, 138, 0.18);">
+                        <div class="modal-header rounded-top-3" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
                             <h5 class="modal-title fw-bold"><i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="me-2"></i>Data Posting per Platform</h5>
                             <button type="button" class="btn-close btn-close-white" @click="showModal = false"></button>
                         </div>
-                        <div v-if="selectedPlatformObj" class="modal-body p-4">
+                        <div v-if="selectedPlatformObj" class="modal-body p-4" style="background: rgba(255,255,255,0.02);">
                             <div class="text-center mb-4">
-                                <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x text-primary mb-3"></i>
+                                <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x mb-3" style="color:#f6d78a;"></i>
                                 <h4 class="fw-bold">{{ capitalize(selectedPlatformObj.platform) }}</h4>
                             </div>
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-primary shadow-sm">
-                                        <div class="card-header bg-primary text-white text-center fw-bold">
+                                    <div class="card h-100 border-primary shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
                                             <i class="fas fa-play-circle me-2"></i>Postingan Pertama
                                         </div>
                                         <div class="card-body">
@@ -260,8 +260,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-success shadow-sm">
-                                        <div class="card-header bg-success text-white text-center fw-bold">
+                                    <div class="card h-100 border-success shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #2f5f48 0%, #6a1f2b 100%); color: #fff;">
                                             <i class="fas fa-stop-circle me-2"></i>Postingan Terakhir
                                         </div>
                                         <div class="card-body">
@@ -273,8 +273,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-center border-0 bg-light rounded-bottom-3">
-                            <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-bold" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
+                        <div class="modal-footer justify-content-center border-0 rounded-bottom-3" style="background: rgba(255,255,255,0.03);">
+                            <button type="button" class="btn px-4 py-2 fw-bold" style="background:#f6d78a;color:#241213;border:0;" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
                         </div>
                     </div>
                 </div>
@@ -746,6 +746,55 @@ export default {
 </script>
 
 <style>
+.humas2-page .dash-cards,
+.humas2-page .card,
+.humas2-page .card-header,
+.humas2-page .card-body {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+  color: #fff4dc !important;
+}
+
+.humas2-page .card-header h4,
+.humas2-page .card-body,
+.humas2-page .card-body span,
+.humas2-page .card-body p,
+.humas2-page .card-body small,
+.humas2-page .table,
+.humas2-page .table td,
+.humas2-page .table th,
+.humas2-page .form-control,
+.humas2-page .form-select {
+  color: #fff4dc !important;
+}
+
+.humas2-page .table thead th {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  color: #fff !important;
+}
+
+.humas2-page .table tbody td {
+  background: rgba(255, 244, 220, 0.04) !important;
+  color: #fff4dc !important;
+  border-color: rgba(201, 157, 79, 0.12) !important;
+}
+
+.humas2-page .custom-file-upload {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff4dc;
+  border: 1px solid rgba(201, 157, 79, 0.18);
+}
+
+.humas2-page .alert-info {
+  background: rgba(201, 157, 79, 0.12);
+  border-color: rgba(201, 157, 79, 0.18);
+  color: #fff4dc;
+}
+
+.humas2-page .text-muted {
+  color: rgba(255, 244, 220, 0.68) !important;
+}
+
 .alert {
   padding: 10px;
   border-radius: 5px;
@@ -754,9 +803,9 @@ export default {
 }
 
 .alert-info {
-  background-color: #cce5ff;
-  border-color: #b8daff;
-  color: #004085;
+  background: rgba(201, 157, 79, 0.12);
+  border-color: rgba(201, 157, 79, 0.18);
+  color: #fff4dc;
 }
 
 /* Hide the default file input */
@@ -769,8 +818,8 @@ input[type="file"] {
     display: inline-block;
     padding: 8px 10px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+    color: #fff4dc;
     border-radius: 6px;
     font-size: 16px;
 	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -779,7 +828,7 @@ input[type="file"] {
 }
 
 .custom-file-upload:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
 }
 
 .custom-file-upload i {

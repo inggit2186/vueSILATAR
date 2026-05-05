@@ -1,31 +1,40 @@
 <template>
   <div>
     <div v-if="showSubmenu" class="submenu">
-      <div
+      <button
         v-for="sub in submenuOptions"
         :key="sub.id"
         class="submenu-item"
+        type="button"
         @click="handleSubClick(sub)"
       >
         <i :class="sub.icon" class="submenu-icon"></i>
         <span>{{ sub.title }}</span>
-      </div>
+      </button>
     </div>
     <div v-if="isOpen" class="futuristic-bottom-nav">
-      <div
+      <button
         v-for="option in options"
         :key="option.id"
         class="nav-item"
         :class="{ active: modelValue === option.id }"
+        type="button"
+        :aria-current="modelValue === option.id ? 'page' : null"
         @click="handleClick(option)"
       >
         <i :class="option.icon" class="nav-icon"></i>
         <span class="nav-title">{{ option.title }}</span>
-      </div>
+      </button>
     </div>
-    <div class="menu-icon" @click="toggleMenu">
+    <button
+      class="menu-icon"
+      type="button"
+      :aria-expanded="isOpen"
+      aria-label="Toggle bottom navigation"
+      @click="toggleMenu"
+    >
       <i :class="isOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -117,6 +126,13 @@ export default {
   transition: all 0.3s ease;
 }
 
+.menu-icon,
+.nav-item,
+.submenu-item {
+  appearance: none;
+  border: 0;
+}
+
 .menu-icon:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateX(-50%) scale(1.1);
@@ -136,6 +152,8 @@ export default {
   padding: 5px;
   border-radius: 10px;
   min-width: 60px;
+  background: transparent;
+  color: inherit;
 }
 
 .nav-item:hover {
@@ -187,6 +205,9 @@ export default {
   cursor: pointer;
   border-radius: 5px;
   transition: background 0.3s;
+  background: transparent;
+  color: inherit;
+  text-align: left;
 }
 
 .submenu-item:hover {

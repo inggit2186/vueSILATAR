@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper slip-gajix-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -19,11 +19,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -39,12 +39,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="slipgaji.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td>{{ item.tanggal }}</td>
@@ -58,7 +58,7 @@
                                                 <td>Rp. {{ item.total.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.") }},- </td>
                                                 <td>
 													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetakSlipGaji(item.id)"><b><i-ic-baseline-print /> CETAK</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -354,3 +354,65 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.slip-gajix-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.slip-gajix-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+}
+
+.slip-gajix-page :deep(.card-header),
+.slip-gajix-page :deep(.card-body) {
+  color: #fff2d1;
+}
+
+.slip-gajix-page :deep(.card-header h4),
+.slip-gajix-page :deep(.listing-search .form-control),
+.slip-gajix-page :deep(.pagination .page-link) {
+  color: #fff4dc;
+}
+
+.slip-gajix-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+}
+
+.slip-gajix-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+}
+
+.slip-gajix-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff2d1;
+}
+
+.slip-gajix-page :deep(.btn-dark) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  border: none;
+}
+
+.slip-gajix-page :deep(.btn-outline-primary) {
+  border-color: rgba(201, 157, 79, 0.42);
+  color: #fff4dc;
+}
+
+.slip-gajix-page :deep(.btn-outline-primary:hover) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .slip-gajix-page :deep(.dash-cards.card) {
+    border-radius: 18px;
+  }
+}
+</style>

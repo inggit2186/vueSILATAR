@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper asn-list-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -19,7 +19,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -35,12 +35,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -326,3 +326,153 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.asn-list-page {
+	background:
+		radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
+		linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.asn-list-page .dashboard-content {
+	padding: 1rem 0 2.5rem;
+}
+
+.asn-list-page .profile-content .card,
+.asn-list-page .dash-cards {
+	background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+	border: 1px solid rgba(214, 171, 76, 0.18);
+	border-radius: 22px;
+	box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+	color: #fff4dc;
+}
+
+.asn-list-page .card-header {
+	background: transparent;
+	border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+	color: #fff4dc;
+}
+
+.asn-list-page .media-section h5,
+.asn-list-page .media-section h3,
+.asn-list-page .media-section h4,
+.asn-list-page .media-section span,
+.asn-list-page .media-section label {
+	color: #fff4dc;
+}
+
+.asn-list-page .categorieslist-section {
+	background:
+		radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
+		linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.asn-list-page .categorieslist-section :deep(.categories-content a),
+.asn-list-page .categorieslist-section :deep(.categories-content a:hover),
+.asn-list-page .categorieslist-section :deep(.categories-content a:focus) {
+	background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98)) !important;
+	background-color: #1f1216 !important;
+	border-color: rgba(214, 171, 76, 0.22) !important;
+	color: #fff4dc !important;
+}
+
+.asn-list-page .categorieslist-section :deep(.categories-content a h6),
+.asn-list-page .categorieslist-section :deep(.categories-content a span),
+.asn-list-page .categorieslist-section :deep(.categories-content a *) {
+	color: inherit !important;
+}
+
+.asn-list-page :deep(.table) {
+	color: #fff4dc;
+}
+
+.asn-list-page :deep(.table thead th) {
+	background: rgba(214, 171, 76, 0.12);
+	color: #fff4dc;
+	border-color: rgba(214, 171, 76, 0.18);
+}
+
+.asn-list-page :deep(.table tbody td) {
+	border-color: rgba(255, 244, 220, 0.08);
+	color: #3b2418 !important;
+	background: #fffdf7 !important;
+	vertical-align: middle;
+}
+
+.asn-list-page :deep(.table tbody td *) {
+	color: inherit !important;
+}
+
+.asn-list-page :deep(.table tbody td:nth-child(3)) {
+	color: #5a3d2c !important;
+}
+
+.asn-list-page :deep(.table tbody td:nth-child(4)) {
+	color: #3b2418 !important;
+}
+
+.asn-list-page :deep(.table tbody td a) {
+	color: #7a162b !important;
+}
+
+.asn-list-page :deep(.table tbody td b),
+.asn-list-page :deep(.table tbody td strong) {
+	color: #2f1d14 !important;
+}
+
+.asn-list-page :deep(.table tbody td span),
+.asn-list-page :deep(.table tbody td i),
+.asn-list-page :deep(.table tbody td small) {
+	color: #5a3d2c !important;
+}
+
+.asn-list-page :deep(.table tbody td .badge) {
+	color: #fff !important;
+}
+
+.asn-list-page :deep(.table tbody td .btn-outline-primary),
+.asn-list-page :deep(.table tbody td .btn-outline-primary:hover),
+.asn-list-page :deep(.table tbody td .btn-outline-primary:focus) {
+	color: #7a162b !important;
+	border-color: rgba(171, 23, 57, 0.35) !important;
+	background: #fff9f1 !important;
+	box-shadow: 0 10px 22px rgba(171, 23, 57, 0.08);
+}
+
+.asn-list-page :deep(.table tbody td .btn-danger),
+.asn-list-page :deep(.table tbody td .btn-danger:hover),
+.asn-list-page :deep(.table tbody td .btn-danger:focus) {
+	color: #fffdf6 !important;
+}
+
+.asn-list-page :deep(.table tbody tr:hover) {
+	background: rgba(214, 171, 76, 0.06);
+}
+
+.asn-list-page :deep(.page-link) {
+	background: rgba(255, 244, 220, 0.08);
+	border-color: rgba(214, 171, 76, 0.2);
+	color: #fff4dc;
+}
+
+.asn-list-page :deep(.page-item.active .page-link) {
+	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	border-color: transparent;
+	color: #fff4dc;
+}
+
+.asn-list-page :deep(.file-upload) {
+	color: #fff4dc;
+}
+
+.asn-list-page :deep(.file-upload span),
+.asn-list-page :deep(.file-upload i) {
+	color: inherit !important;
+}
+
+@media (max-width: 768px) {
+	.asn-list-page .dashboard-content {
+		padding-inline: 0.5rem;
+	}
+}
+</style>

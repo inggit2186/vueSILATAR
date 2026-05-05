@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper profile-userdata-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -10,7 +10,7 @@
                 <b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
                 <br>
                 <i-svg-spinners-bars-scale style="font-size: 2em;"/>
-                <h3>::: Nyangkul Data dulu :::</h3>
+                <h3>::: Memuat data :::</h3>
                 <hr>
             </div>
             <div v-else class="container">
@@ -92,7 +92,7 @@
                                             <span><i class="fas fa-book-open-reader" aria-hidden="true"></i><b>&nbsp; Cek Dokumen</b></span>
                                         </b-button>
                                         <a class="btn btn-danger btn-sm" href="#" style="float: right;margin-right: 20px;" @click="changedetail(0)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
-                                        <h4 style="float: left;">Profile Details</h4>														
+                                        <h4 style="float: left;">Detail Profil</h4>														
                                     </div>
                                     <b-form @submit.prevent="updateProfil">
                                     <div class="card-body">
@@ -104,11 +104,11 @@
                                                 <div class="settings-upload-btn">
                                                     <input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
                                                     <label for="filex" class="file-upload" :disable="loadingpp">
-                                                        <span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> <b>Photo Profil</b></span>
-                                                        <span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
+                                                        <span v-if="!loadingpp" style="color: #fff4dc;"><i class="fa fa-upload" aria-hidden="true"></i> <b>Unggah Foto Profil</b></span>
+                                                        <span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
                                                     </label>												
                                                 </div>&nbsp;&nbsp;
-                                                <span>Max file size: 2 MB</span>
+                                                <span>Maks. ukuran file: 2 MB</span>
                                             </div>                                        									
                                             <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>										
                                         </div>
@@ -348,7 +348,7 @@
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
                                                     <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="aksiDetail('new')"><i-subway-add/> <b>TAMBAH</b></a>
-                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
+                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable" >
                                                     <i class="feather-search"></i>
                                                 </div>
                                             </div>
@@ -364,7 +364,7 @@
                                                 </thead>
                                                 <tbody v-if="pendidikan.length == 0">
                                                     <tr>
-                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
                                                     </tr>
                                                 </tbody>
                                                 <tbody v-else>
@@ -437,7 +437,7 @@
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
                                                     <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="jDetail('new')"><i-subway-add/> <b>TAMBAH</b></a>
-                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable3" >
+                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable3" >
                                                     <i class="feather-search"></i>
                                                 </div>
                                             </div>
@@ -453,7 +453,7 @@
                                                 </thead>
                                                 <tbody v-if="pekerjaan.length == 0">
                                                     <tr>
-                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
                                                     </tr>
                                                 </tbody>
                                                 <tbody v-else>
@@ -527,7 +527,7 @@
                                             <div class="filter-content form-group">
                                                 <div class="group-img">
                                                     <a class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="kDetail('new')"><i-subway-add/> <b>TAMBAH</b></a>
-                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable4" >
+                                                    <input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable4" >
                                                     <i class="feather-search"></i>
                                                 </div>
                                             </div>
@@ -543,7 +543,7 @@
                                                 </thead>
                                                 <tbody v-if="kgb.length == 0">
                                                     <tr>
-                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+                                                        <td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
                                                     </tr>
                                                 </tbody>
                                                 <tbody v-else>
@@ -621,10 +621,10 @@
                                         <div class="settings-upload-btn">
                                             <input :id='"file"+item.id' type="file" name="image" accept="image/*, application/pdf" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
                                             <label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
-                                                <span v-if="item.filename == null || item.filename == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="item.filename == null || item.filename == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -656,10 +656,10 @@
                                         <div class="settings-upload-btn">
                                             <input id="fileijazah" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['ijazah']" @change="onFilePendidikan(datap.id,'ijazah',$event)">
                                             <label v-if="!loadingfile['ijazah']" for="fileijazah" class="file-upload">
-                                                <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="fileijazah" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="fileijazah" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -681,10 +681,10 @@
                                         <div  class="settings-upload-btn">
                                             <input id="filetranskrip" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['transkrip']" @change="onFilePendidikan(datap.id,'transkrip',$event)">
                                             <label v-if="!loadingfile['transkrip']" for="filetranskrip" class="file-upload">
-                                                <span v-if="datap.files_transkrip == null || datap.files_transkrip == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.files_transkrip == null || datap.files_transkrip == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filetranskrip" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filetranskrip" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -805,10 +805,10 @@
                                         <div class="settings-upload-btn">
                                             <input id="filesk" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['sk']" @change="onFilePekerjaan(datap.id,'sk',$event)">
                                             <label v-if="!loadingfile['sk']" for="filesk" class="file-upload">
-                                                <span v-if="datap.file_sk == null || datap.file_sk == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.file_sk == null || datap.file_sk == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filesk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filesk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -830,10 +830,10 @@
                                         <div  class="settings-upload-btn">
                                             <input id="filespmt" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmt']" @change="onFilePekerjaan(datap.id,'spmt',$event)">
                                             <label v-if="!loadingfile['spmt']" for="filespmt" class="file-upload">
-                                                <span v-if="datap.file_spmt == null || datap.file_spmt == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.file_spmt == null || datap.file_spmt == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filespmt" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespmt" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -855,10 +855,10 @@
                                         <div  class="settings-upload-btn">
                                             <input id="filespmj" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spmj']" @change="onFilePekerjaan(datap.id,'spmj',$event)">
                                             <label v-if="!loadingfile['spmj']" for="filespmj" class="file-upload">
-                                                <span v-if="datap.file_spmj == null || datap.file_spmj == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.file_spmj == null || datap.file_spmj == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filespmj" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespmj" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -880,10 +880,10 @@
                                         <div  class="settings-upload-btn">
                                             <input id="filespp" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['spp']" @change="onFilePekerjaan(datap.id,'spp',$event)">
                                             <label v-if="!loadingfile['spp']" for="filespp" class="file-upload">
-                                                <span v-if="datap.file_spp == null || datap.file_spp == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.file_spp == null || datap.file_spp == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filespp" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filespp" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -905,10 +905,10 @@
                                         <div  class="settings-upload-btn">
                                             <input id="filekk" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kontrak']" @change="onFilePekerjaan(datap.id,'kontrak',$event)">
                                             <label v-if="!loadingfile['kontrak']" for="filekk" class="file-upload">
-                                                <span v-if="datap.file_kontrak == null || datap.file_kontrak == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.file_kontrak == null || datap.file_kontrak == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filekk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filekk" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -1217,10 +1217,10 @@
                                         <div class="settings-upload-btn">
                                             <input id="filekgb" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile['kgb']" @change="onFileKGB(datap.id,'kgb',$event)">
                                             <label v-if="!loadingfile['kgb']" for="filekgb" class="file-upload">
-                                                <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Upload File</span>
+                                                <span v-if="datap.files == null || datap.files == 'NONE'"><i-ph-upload-fill /> Unggah berkas</span>
                                                 <span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
                                             </label>
-                                            <label v-else for="filekgb" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+                                            <label v-else for="filekgb" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
                                         </div>
                                         <br/>
                                         <div>
@@ -1388,7 +1388,7 @@
 import VueCroppie from 'vue-croppie'
 import 'croppie/croppie.css'
 
-const image = import(`@/assets/img/profile-img.jpg`)
+const image = new URL('../../../assets/img/profile-img.jpg', import.meta.url).href
 export default {
     components: {
 			VueCroppie
@@ -2546,5 +2546,32 @@ export default {
 <style>
 .col-form-label{
     font-weight: bold;
+}
+
+.profile-userdata-page .media-section,
+.profile-userdata-page .categories-content,
+.profile-userdata-page .listMenu {
+	background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
+	border: 1px solid rgba(201, 157, 79, 0.18);
+	box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+	color: #fff4dc;
+}
+
+.profile-userdata-page .card-header,
+.profile-userdata-page .foto h5,
+.profile-userdata-page .foto div,
+.profile-userdata-page .categories-content span,
+.profile-userdata-page .categories-content b,
+.profile-userdata-page .listMenu span,
+.profile-userdata-page .listMenu b {
+	color: #fff4dc;
+}
+
+.profile-userdata-page .categories-content {
+	border-radius: 18px;
+}
+
+.profile-userdata-page .categories-content img {
+	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 </style>

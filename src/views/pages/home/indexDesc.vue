@@ -1,211 +1,223 @@
 <template>
-		<!-- Success Section -->
-		<section class="success-section">
-		    <div class="container">
-			    <div class="row align-items-center">
-			        <div class="col-md-5 aos" data-aos="fade-up">
-						<div class="success-img">
-							<img src="../../../assets/img/success-img.png" class="img-fluid" alt="img">
-						</div>	
-					</div>	
-					<div class="col-md-7 aos" data-aos="fade-up">
-						<div class="success-wrap">
-							<div class="section-heading-two text-center">
-								<p>Aparatus Sipil Negara Kankemenag Kab.Tanah Datar</p>
-								<h2>MAKLUMAT PELAYANAN</h2>
-								<img src="../../../assets/img/title-img.png" class="img-fluid" alt="title-img">
-							</div>		
-							<div class="success-sec">
-								<div class="row justify-content-center">
-									<div data-aos="fade-up">
-										<div class="success-item">
-											<div class="centered"><span style="font-size: 55px;"><i-mingcute-announcement-line /></span>
-											<h6>Kami Seluruh Aparatur Kantor Kementerian Agama Kabupaten Tanah Datar</h6>
-											<h6>Dengan Ini Menyatakan</h6></div>
-                                            <hr/>
-											<p>1. Sanggup Menyelenggarakan Pelayanan Sesuai dengan Standar Pelayanan yang ditetapkan</p>
-											<p>2. Akan Memberikan Pelayanan Sesuai dengan Kewajiban</p>
-											<p>3. Akan Melakukan Perbaikan secara Terus Menerus</p>
-											<p>4. Bersedia Menerima Sanksi Sesuai Ketentuan yang Berlaku, Apabila Pelayanan yang Kami Berikan Tidak Sesuai Standar.</p>
-										</div>
+	<section class="home-story-section">
+		<div class="container">
+			<div class="home-story-shell">
+				<div class="home-story-grid">
+					<div class="home-story-visual">
+						<div class="home-story-visual-card">
+							<img :src="successImg" class="img-fluid" alt="Maklumat pelayanan">
+						</div>
+						<div class="home-story-visual-chip">
+							<span class="home-story-visual-label">Komitmen pelayanan</span>
+							<strong>Nilai adat dijaga, layanan dibuat ringkas dan jelas.</strong>
+						</div>
+					</div>
+
+					<div class="home-story-copy">
+						<div class="section-heading-two text-start">
+							<p>Tanah Datar, Luhak Nan Tuo</p>
+							<h2>Maklumat Pelayanan</h2>
+							<img :src="titleImg" class="img-fluid home-section-title-img" alt="title-img">
+						</div>
+
+						<div class="home-story-card">
+							<div class="home-story-card-head">
+								<div class="home-story-icon">
+									<i-mingcute-announcement-line />
+								</div>
+								<div>
+									<h5>Kami seluruh aparatur Kantor Kementerian Agama Kabupaten Tanah Datar berkomitmen untuk:</h5>
+									<p>Memberikan pelayanan dengan standar yang jelas, tampilan yang ringan, serta pengalaman yang lebih tertata dan mudah dipahami.</p>
+								</div>
+							</div>
+
+							<div class="home-story-list">
+								<div class="home-story-list-item">
+									<span class="home-story-list-number">1</span>
+									<div>
+										<h6>Menyelenggarakan pelayanan sesuai standar yang telah ditetapkan.</h6>
+									</div>
+								</div>
+								<div class="home-story-list-item">
+									<span class="home-story-list-number">2</span>
+									<div>
+										<h6>Memberikan pelayanan secara tertib, transparan, dan bertanggung jawab.</h6>
+									</div>
+								</div>
+								<div class="home-story-list-item">
+									<span class="home-story-list-number">3</span>
+									<div>
+										<h6>Melakukan perbaikan berkelanjutan demi kualitas layanan yang lebih baik.</h6>
+									</div>
+								</div>
+								<div class="home-story-list-item">
+									<span class="home-story-list-number">4</span>
+									<div>
+										<h6>Bersedia menerima sanksi sesuai ketentuan apabila pelayanan tidak sesuai standar.</h6>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<br/>
-					<hr/>
-					<div style="display: flex; flex-direction: row; gap: 10px;" data-aos="fade-up">
-						<div style="flex: 1;">
-							<img src="../../../assets/img/grafitikasi.png" style="width: 102%; height: auto;" />
-						</div>
-						<div style="flex: 1;">
-							<img src="../../../assets/img/5bk.png" style="width: 105%; height: auto;" />
-						</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="home-testimonial-section">
+		<div class="container">
+			<div class="home-testimonial-shell">
+				<div class="section-heading-two text-center">
+					<p>Suara masyarakat</p>
+					<h2>Testimoni Pelayanan</h2>
+					<img :src="titleImg" class="img-fluid home-section-title-img" alt="title-img">
+				</div>
+
+				<div class="home-testimonial-topline">
+					<div class="home-testimonial-badge">
+						<span>Putaran otomatis</span>
+						<strong>{{ total }} ulasan</strong>
 					</div>
-				</div>			   
-			</div>		
-		</section>
-		<section class="feedback-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-heading-two text-center">
-                        <p>Silahkan Dilihat-lihat</p>
-                        <h2>Testimonials Kami</h2>
-                        <img src="../../../assets/img/title-img.png" class="img-fluid" alt="title-img">
-                    </div>
-                    <div class="owl-carousel feedback-slider">
-                        <Carousel :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
-					        <Slide v-for="item in IndexTwoFeedback" :key="item.id">
-                                <div class="testimonial-item" >
-                                    <div class="testimonial-content">
-										<p v-if="item.rating == 1"><i-openmoji-star /></p>
-										<p v-else-if="item.rating == 2"><i-openmoji-star /><i-openmoji-star /></p>
-										<p v-else-if="item.rating == 3"><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /></p>
-										<p v-else-if="item.rating == 4"><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /></p>
-										<p v-else-if="item.rating == 5"><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /><i-openmoji-star /></p>
-										<hr/>
-                                        <p>{{ item.keterangan }}</p>
-                                        <span class="testi-icon"><i class="fa-solid fa-quote-left"></i></span>
-                                    </div>
-                                    <div class="testimonial-user-info">
-                                        <img class="img-fluid" src="../../../assets/img/defaultpp.png" alt="Post Image">
-                                        <div class="testimonial-user">
-                                            <h6>{{ item.nama }}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Slide>
-                                <template #addons>
-                                    <Navigation />
-                                </template>
-				        </Carousel>	
-						<br/>
-						<div class="centered">
-							<span style="font-size: 25px;>" ><b>Overall Rating : {{ total }}</b></span>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>	
-		<!-- /Celebrating Section -->
+					<p>Ulasan disajikan ringkas dan tetap bergerak otomatis agar nyaman dibaca tanpa memperpanjang halaman.</p>
+				</div>
+
+				<div class="owl-carousel feedback-slider">
+					<Carousel :wrap-around="true" :settings="settings" :breakpoints="breakpoints">
+						<Slide v-for="item in testimonialItems" :key="item.id">
+							<div class="home-testimonial-card">
+								<div class="home-testimonial-rating">
+									<span v-for="star in item.rating" :key="star" class="home-rating-star">
+										<i-openmoji-star />
+									</span>
+								</div>
+
+								<p class="home-testimonial-quote">
+									{{ item.keterangan }}
+								</p>
+
+								<div class="home-testimonial-user">
+									<img :src="defaultAvatar" class="img-fluid" alt="Post Image">
+									<div>
+										<h6>{{ item.nama }}</h6>
+										<span>Pengguna layanan</span>
+									</div>
+								</div>
+							</div>
+						</Slide>
+
+						<template #addons>
+							<Navigation />
+						</template>
+					</Carousel>
+				</div>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
-import { Carousel, Pagination, Navigation, Slide } from "vue3-carousel";
-import IndexTwoFeedback from '../../../assets/json/indexTwoFeedback.json';
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
+import testimonialFallback from '../../../assets/json/indexTwoFeedback.json';
+import successImg from '../../../assets/img/success-img.png';
+import titleImg from '../../../assets/img/title-img.png';
+import defaultAvatar from '../../../assets/img/defaultpp.png';
 
 export default {
 	components: {
-			Carousel,
-			Slide,
-			Pagination,
-			Navigation,
-		},
-    data() {
-        return {
-            IndexTwoFeedback: [],
+		Carousel,
+		Slide,
+		Navigation,
+	},
+	data() {
+		return {
+			testimonialItems: testimonialFallback.map((item, index) => ({
+				id: item.id || index + 1,
+				keterangan: item.content,
+				nama: item.name,
+				rating: 5,
+			})),
 			total: null,
-            settings: {
+			successImg,
+			titleImg,
+			defaultAvatar,
+			settings: {
 				itemsToShow: 1,
 				snapAlign: "center"
 			},
 			breakpoints: {
-                575: {
-					itemsToShow: 2,
+				575: {
+					itemsToShow: 1,
 					snapAlign: "center"
 				},
-				// 700px and up
 				767: {
 					itemsToShow: 2,
 					snapAlign: "center"
 				},
-                // 991 and up
-                991: {
-                    itemsToShow: 3,
+				991: {
+					itemsToShow: 3,
 					snapAlign: "center"
-                },
-				// 1024 and up
+				},
 				1024: {
 					itemsToShow: 3,
 					snapAlign: "start"
 				}
 			},
-        }
-    },
+		}
+	},
 	created() {
-		this.getRating(),
-		window.scrollTo(0,0)
+		this.total = this.testimonialItems.length;
+		this.getRating();
+		window.scrollTo(0, 0);
 	},
 	methods: {
 		async getRating() {
 			this.loading = true;
-			try{
-				const sid = this.$route.params.id
-				const headers = {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${localStorage.getItem('token')}`
-					};
-				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL+'/getRating')
-				
-				if(response.data.success == true){
-					//console.log(response.data.data)
-					this.IndexTwoFeedback = response.data.data
-					this.total = response.data.total
+			try {
+				const response = await this.$axios.get(import.meta.env.VITE_APP_API_URL + '/getRating');
 
-					if(response.data.iklan != 'NONE' && !localStorage.getItem('token')){
-								const isMobile = window.innerWidth < 768;
-								const showConfirmButton = response.data.iklan.layanan == 1;
-								this.$swal.fire({
-                                  html: `
-                                    <a href="${response.data.iklan.url}" target="_blank">
-                                      <img src="${response.data.iklan.img}" width="${isMobile ? '390' : '520'}" height="${isMobile ? '390' : '520'}" alt="Iklan"></img>
-                                    </a>
-                                  `,
-                                  padding: "0",
-                                  width: isMobile ? '90%' : '580px',
-                                  height: isMobile ? 'auto' : '520px',
-                                  imageAlt: "Pengumuman",
-								  showConfirmButton: showConfirmButton ? 'true' : false,
-                                  confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
-                                  showCloseButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        this.$router.push('/usaha');
-                                    }
-                                });
-                  }
+				if (response.data.success === true) {
+					if (Array.isArray(response.data.data) && response.data.data.length) {
+						this.testimonialItems = response.data.data.map((item, index) => ({
+							id: item.id || index + 1,
+							keterangan: item.keterangan || item.content || '-',
+							nama: item.nama || item.name || 'Pengguna layanan',
+							rating: Math.max(1, Math.min(5, Number(item.rating) || 5)),
+						}));
+					}
+					this.total = response.data.total || this.testimonialItems.length;
 
-				}else{
-					this.$toast.fire({
-						title: response.data.data,
-						icon: 'error',
-					})
+					if (response.data.iklan !== 'NONE' && !localStorage.getItem('token')) {
+						const isMobile = window.innerWidth < 768;
+						const showConfirmButton = response.data.iklan.layanan == 1;
+						this.$swal.fire({
+							html: `
+								<a href="${response.data.iklan.url}" target="_blank" rel="noopener">
+									<img src="${response.data.iklan.img}" width="${isMobile ? '390' : '520'}" height="${isMobile ? '390' : '520'}" alt="Iklan"></img>
+								</a>
+							`,
+							padding: "0",
+							width: isMobile ? '90%' : '580px',
+							height: isMobile ? 'auto' : '520px',
+							imageAlt: "Pengumuman",
+							showConfirmButton: showConfirmButton ? true : false,
+							confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
+							showCloseButton: true,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								this.$router.push('/usaha');
+							}
+						});
+					}
+				} else {
+					this.total = this.testimonialItems.length;
 				}
-		
 			} catch (error) {
-				this.$toast.fire({
-					title: error,
-					icon: 'error',
-				})
+				this.total = this.testimonialItems.length;
 			} finally {
-				this.loading = false
+				this.loading = false;
 			}
 		}
 	}
 }
 </script>
-
-<style>
-.carousel__item {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-right: 24px;
-}
-.grid-blog{
-    margin-right: 24px;
-}
-</style>

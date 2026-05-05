@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper slip-gaji-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -37,24 +37,24 @@
 										<div class="settings-upload-btn d-none d-sm-block" style="float: right;margin-left:20px;">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="filex" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
-												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
+												<span v-if="!loadingfile" style="color: #fff4dc;"><i-subway-add /> <b>Unggah Data</b></span>
+												<span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 											</label>
                                         </div>
 										<div class="group-img d-none d-sm-block" style="float: left;">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
+											<input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
 										<div class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: aliceblue;"><i-subway-add /> <b>Tambah</b></span>
-												<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
+												<span v-if="!loadingfile" style="color: #fff4dc;"><i-subway-add /> <b>Unggah Data</b></span>
+												<span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 											</label>
                                         </div>
 										<br/>
 										<div class="group-img d-block d-sm-none">
-											<input v-model="keyword" type="text" class="form-control" placeholder="Search..." @input="filterTable" >
+											<input v-model="keyword" type="text" class="form-control" placeholder="Cari data..." @input="filterTable" >
 											<i class="feather-search"></i>
 										</div>
                                     </div>
@@ -70,12 +70,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="slipgaji.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td>{{ item.nip }}</td>
@@ -90,7 +90,7 @@
                                                 <td>
 													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="dark" style="margin-bottom: 5px;" @click.prevent="cetakSlipGaji(item.id)"><b><i-ic-baseline-print /> CETAK</b></BButton><br/>
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -503,3 +503,39 @@ export default {
   }
 }
 </script>
+
+<style>
+.slip-gaji-page .dash-cards {
+	background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
+	border: 1px solid rgba(201, 157, 79, 0.18);
+	box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+	color: #fff4dc;
+}
+
+.slip-gaji-page .card-header h4,
+.slip-gaji-page .card-body,
+.slip-gaji-page .table,
+.slip-gaji-page .pagination .page-link,
+.slip-gaji-page .group-img .form-control,
+.slip-gaji-page .group-img i,
+.slip-gaji-page small {
+	color: #fff4dc;
+}
+
+.slip-gaji-page .table thead th {
+	background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+	color: #fff;
+	border-color: rgba(201, 157, 79, 0.18);
+}
+
+.slip-gaji-page .table tbody td {
+	background: rgba(255, 244, 220, 0.04);
+	color: #fff4dc;
+	border-color: rgba(201, 157, 79, 0.12);
+}
+
+.slip-gaji-page .group-img .form-control {
+	background: rgba(255, 244, 220, 0.04);
+	border-color: rgba(201, 157, 79, 0.18);
+}
+</style>

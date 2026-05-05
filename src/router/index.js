@@ -1,135 +1,124 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Swal from 'sweetalert2';
 
-import Index from '../views/pages/index/index.vue'
-import About from '../views/pages/about/about.vue'
-import Listing from '../views/pages/add-listing/Add.vue'
-import BlogDetail from '../views/pages/blog/blog-details/BlogDetails.vue'
-import BlogGridSidebar from '../views/pages/blog/blog-grid-sidebar/BlogGrid.vue'
-import blogGrid from '../views/pages/blog/blog-grid/BlogGrid.vue'
-import BlogListSidebar from '../views/pages/blog/blog-list-sidebar/BlogLsidebar.vue'
-import BlogList from '../views/pages/blog/blog-list/BList.vue'
-import BookMark from '../views/pages/bookmarks/Bookmark'
-import Categories from '../views/pages/categories/Categories.vue'
-import Contact from '../views/pages/contact/Contact.vue'
-import Dashboard from '../views/pages/dashboard/Dashboard.vue'
-import Error404 from '../views/pages/Error/error404/Error404.vue'
-import Error500 from '../views/pages/Error/error500/Error500.vue'
-import Faq from '../views/pages/faq/Faq.vue'
-import ForgotPass from '../views/pages/forgot-password/Password.vue'
-import Gallery from '../views/pages/gallery/Gallery.vue'
-import HowItWorks from '../views/pages/howitworks/HowitWorks.vue'
-import ListingGridSidebar from '../views/pages/list/listing-grid-sidebar/GridSidebar.vue'
-import listGrid from '../views/pages/list/listing-grid/ListingGrid.vue'
-import ListingSidebar from '../views/pages/list/listing-list-sidebar/ListingListSidebar.vue'
-import ListMapGrid from '../views/pages/list/listingmap-grid/ListingmapGrid.vue'
-import listListingMap from '../views/pages/list/listingmap-list/ListingmapList.vue'
-import LoginPage from '../views/pages/Login/Login.vue'
-import Message from '../views/pages/messages/Message.vue'
-import MyListing from '../views/pages/my-listing/List.vue'
-import PricingPage from '../views/pages/pricing/Pricing.vue'
-import Privacy from '../views/pages/privacy-policy/PrivacyPolicy.vue'
-import Profiles from '../views/pages/profile/Profile.vue'
-import Reviews from '../views/pages/reviews/Review.vue'
-import Service from '../views/pages/service-details/ServiceDetails.vue'
-import SignUp from '../views/pages/signup/Signup.vue'
-import TermsAndConditions from '../views/pages/terms-conditions/TermsConditions.vue'
-import IndexTwo from '../views/pages/indextwo/indexTwo.vue'
-import IndexThree from '../views/pages/home/indexTemplate.vue'
-import IndexFour from '../views/pages/indexfour/indexFour.vue'
-import IndexFive from '../views/pages/indexfive/indexFive.vue'
-
-//profil
-import JanjiTemu from '../views/pages/profile/JanjiTemu.vue'
-import UserData from '../views/pages/profile/UserData.vue'
-import KegiatanHarian from '../views/pages/profile/KegiatanHarian.vue'
-import LaporanKinerja from '../views/pages/profile/LaporanKinerja.vue'
-import KinerjaBawahan from '../views/pages/profile/KinerjaBawahan.vue'
-import slipGajix from '../views/pages/profile/SlipGajix.vue'
-import rekapPresensiASN from '@/views/pages/profile/rekapPresensi.vue';
-import laporanPengaduan from '@/views/pages/profile/laporanPengaduan.vue'
-import laporanKetidakhadiran from '@/views/pages/profile/laporanKetidakhadiran.vue'
-import apkSilatar from '@/views/pages/profile/apkSilatar.vue';
-import listKonsultasi from '@/views/pages/profile/listKonsultasi.vue';
-import laporHumas from '@/views/pages/profile/laporHumas2.vue';
-
-//satudata
-import SatudataHome from '../views/pages/satudata/SatuDataHome.vue'
-
-//keuangan
-import keuanganMenu from '@/views/pages/layananMenu/keuanganMenu/keuanganMenu.vue';
-import presensiMenu from '@/views/pages/layananMenu/keuanganMenu/presensiMenu.vue';
-import amprahGaji from '@/views/pages/layananMenu/keuanganMenu/amprahGaji.vue';
-import amprahDoc from '@/views/pages/layananMenu/keuanganMenu/amprahDoc.vue';
-import listKeuangan from '@/views/pages/layananMenu/keuanganMenu/ListKeuangan.vue';
-import docKeuangan from '@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue';
-import dipaList from '@/views/pages/layananMenu/keuanganMenu/dipaList.vue';
-import laporanKeuangan from '@/views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue';
-import docAudit from '@/views/pages/layananMenu/keuanganMenu/docAudit.vue';
-import rekapPresensi from '@/views/pages/layananMenu/keuanganMenu/rekapPresensi.vue';
-
-import layananMenu from '../views/pages/layananMenu/ListingGrid.vue'
-import pelayananList from '@/views/pages/layananMenu/pelayananList.vue'
-import satkerList from '@/views/pages/satuanKerja/satkerList.vue';
-import detailPegawai from '@/views/pages/satuanKerja/asnList.vue'
-import detailSatker from '@/views/pages/satuanKerja/detailSatker.vue';
-import menuList from '@/views/pages/InternalKantor/menuList.vue'
-import kategoriTamu from '@/views/pages/InternalKantor/kategoriTamu.vue';
-import internalSatkerVue from '@/views/pages/InternalKantor/internalSatker.vue';
-import addBukuTamuVue from '@/views/pages/InternalKantor/addBukuTamu.vue';
-import listPetugasVue from '@/views/pages/InternalKantor/listPetugas.vue';
-import listPetugas2Vue from '@/views/pages/layananMenu/listPetugas2';
-import rateUsVue from '@/views/pages/InternalKantor/rateUs.vue';
-import layananDetailVue from '@/views/pages/layananMenu/layananDetail.vue';
-import addRequestVue from '@/views/pages/layananMenu/addRequest.vue';
-import uploadSyaratVue from '@/views/pages/layananMenu/uploadSyarat.vue';
-import addAppointmentVue from '@/views/pages/layananMenu/addAppointment.vue';
-import satuDataVue from '@/views/pages/layananMenu/satuData.vue';
-import pengaduanMenuVue from '@/views/pages/layananMenu/pengaduanMenu.vue'
-import persuratanMenuVue from '@/views/pages/layananMenu/persuratanMenu.vue'
-import peraturanSE from '@/views/pages/layananMenu/peraturanSE.vue'
-import ruangKonsultasi from '@/views/pages/layananMenu/ruangKonsultasi.vue';
-import uploadLaporan from '@/views/pages/layananMenu/laporanMenu/uploadLaporan.vue';
-import uploadPemberkasan from '@/views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue';
-import jenisUsaha from '@/views/pages/layananMenu/seksiMenu/jenisUsaha.vue';
-import halalMenu from '@/views/pages/layananMenu/seksiMenu/halalMenu.vue';
-import kecMenu from '@/views/pages/layananMenu/seksiMenu/kecMenu.vue';
-import listp3h from '@/views/pages/layananMenu/seksiMenu/listp3h.vue';
-import ProfilMadrasahForm from '@/views/pages/madrasah/ProfilMadrasahForm.vue';
-import DataPegawaiMadrasah from '@/views/pages/madrasah/DataPegawaiMadrasah.vue';
-import DataGuruMadrasah from '@/views/pages/madrasah/DataGuruMadrasah.vue';
-import LaporanSemesterMadrasah from '@/views/pages/madrasah/LaporanSemesterMadrasah.vue';
-import LaporanBulananMadrasah from '@/views/pages/madrasah/LaporanBulananMadrasah.vue';
 import { canAccessMadrasah, getStoredUser } from '@/utils/madrasahAccess'
 
-//cPanel
-import adminasnList from '@/views/pages/adminpanel/asnList.vue'
-import AdminMenuVue from '@/views/pages/adminpanel/AdminMenu.vue'
-import ListRequestVue from '@/views/pages/adminpanel/ListRequest.vue'
-import DetailRequestVue from '@/views/pages/adminpanel/DetailRequest.vue'
-import DetailTamu from '@/views/pages/tamu/detailTamu.vue'
-import VerifCKH from '@/views/pages/adminpanel/LaporanKinerja.vue'
-import adminSatker from '@/views/pages/adminpanel/SatuanKerja.vue'
-import rekapKinerja from '@/views/pages/adminpanel/RekapKinerja.vue'
-import allRekapKinerja from '@/views/pages/adminpanel/AllRekapKinerja.vue'
-import slipGaji from '@/views/pages/adminpanel/SlipGaji.vue'
-import slipTukin from '@/views/pages/adminpanel/SlipTukin.vue'
-import rekapLaporan from '@/views/pages/adminpanel/rekapLaporan.vue'
-import rekapPemberkasan from '@/views/pages/adminpanel/rekapPemberkasan.vue'
-import cekPemberkasan from '@/views/pages/adminpanel/cekPemberkasan.vue';
-import laporanHumas from '@/views/pages/adminpanel/laporanHumas2.vue';
-import nilaiSKP from '@/views/pages/adminpanel/nilaiSKP.vue';
-
-//other
-import AddSKP from '@/views/pages/adminpanel/addSKP.vue';
-import rekapnilaiSKP from '@/views/pages/adminpanel/rekapnilaiSKP.vue';
-import nilaiKinerja from '@/views/pages/adminpanel/nilaiKinerja.vue';
+const About = () => import('../views/pages/about/about.vue')
+const AddSKP = () => import('@/views/pages/adminpanel/addSKP.vue')
+const AdminMadrasahBulanan = () => import('@/views/pages/adminpanel/AdminMadrasahLaporanBulanan.vue')
+const AdminMadrasahGuru = () => import('@/views/pages/adminpanel/AdminMadrasahGuru.vue')
+const AdminMadrasahIndex = () => import('@/views/pages/adminpanel/AdminMadrasahIndex.vue')
+const AdminMadrasahPegawai = () => import('@/views/pages/adminpanel/AdminMadrasahPegawai.vue')
+const AdminMadrasahProfil = () => import('@/views/pages/adminpanel/AdminMadrasahProfil.vue')
+const AdminMadrasahSemester = () => import('@/views/pages/adminpanel/AdminMadrasahLaporanSemester.vue')
+const adminasnList = () => import('@/views/pages/adminpanel/asnList.vue')
+const adminSatker = () => import('@/views/pages/adminpanel/SatuanKerja.vue')
+const AdminMenuVue = () => import('@/views/pages/adminpanel/AdminMenu.vue')
+const allRekapKinerja = () => import('@/views/pages/adminpanel/AllRekapKinerja.vue')
+const amprahDoc = () => import('@/views/pages/layananMenu/keuanganMenu/amprahDoc.vue')
+const amprahGaji = () => import('@/views/pages/layananMenu/keuanganMenu/amprahGaji.vue')
+const apkSilatar = () => import('@/views/pages/profile/apkSilatar.vue')
+const addAppointmentVue = () => import('@/views/pages/layananMenu/addAppointment.vue')
+const addBukuTamuVue = () => import('@/views/pages/InternalKantor/addBukuTamu.vue')
+const addRequestVue = () => import('@/views/pages/layananMenu/addRequest.vue')
+const layananDetailVue = () => import('@/views/pages/layananMenu/layananDetail.vue')
+const BlogDetail = () => import('../views/pages/blog/blog-details/BlogDetails.vue')
+const BlogGridSidebar = () => import('../views/pages/blog/blog-grid-sidebar/BlogGrid.vue')
+const blogGrid = () => import('../views/pages/blog/blog-grid/BlogGrid.vue')
+const BlogListSidebar = () => import('../views/pages/blog/blog-list-sidebar/BlogLsidebar.vue')
+const BlogList = () => import('../views/pages/blog/blog-list/BList.vue')
+const BookMark = () => import('../views/pages/bookmarks/Bookmark')
+const Categories = () => import('../views/pages/categories/Categories.vue')
+const cekPemberkasan = () => import('@/views/pages/adminpanel/cekPemberkasan.vue')
+const Contact = () => import('../views/pages/contact/Contact.vue')
+const Dashboard = () => import('../views/pages/dashboard/Dashboard.vue')
+const DataGuruMadrasah = () => import('@/views/pages/madrasah/DataGuruMadrasah.vue')
+const DataPegawaiMadrasah = () => import('@/views/pages/madrasah/DataPegawaiMadrasah.vue')
+const DetailTamu = () => import('@/views/pages/tamu/detailTamu.vue')
+const detailPegawai = () => import('@/views/pages/satuanKerja/asnList.vue')
+const detailSatker = () => import('@/views/pages/satuanKerja/detailSatker.vue')
+const dipaList = () => import('@/views/pages/layananMenu/keuanganMenu/dipaList.vue')
+const docAudit = () => import('@/views/pages/layananMenu/keuanganMenu/docAudit.vue')
+const docKeuangan = () => import('@/views/pages/layananMenu/keuanganMenu/docKeuangan.vue')
+const Error404 = () => import('../views/pages/Error/error404/Error404.vue')
+const Error500 = () => import('../views/pages/Error/error500/Error500.vue')
+const Faq = () => import('../views/pages/faq/Faq.vue')
+const ForgotPass = () => import('../views/pages/forgot-password/Password.vue')
+const Gallery = () => import('../views/pages/gallery/Gallery.vue')
+const halalMenu = () => import('@/views/pages/layananMenu/seksiMenu/halalMenu.vue')
+const HowItWorks = () => import('../views/pages/howitworks/HowItWorks.vue')
+const internalSatkerVue = () => import('@/views/pages/InternalKantor/internalSatker.vue')
+const JanjiTemu = () => import('../views/pages/profile/JanjiTemu.vue')
+const kecMenu = () => import('@/views/pages/layananMenu/seksiMenu/kecMenu.vue')
+const kategoriTamu = () => import('@/views/pages/InternalKantor/kategoriTamu.vue')
+const keuanganMenu = () => import('@/views/pages/layananMenu/keuanganMenu/keuanganMenu.vue')
+const kegiatanHarian = () => import('../views/pages/profile/KegiatanHarian.vue')
+const KinerjaBawahan = () => import('../views/pages/profile/KinerjaBawahan.vue')
+const laporanPengaduan = () => import('../views/pages/profile/laporanPengaduan.vue')
+const laporanHumas = () => import('@/views/pages/adminpanel/laporanHumas2.vue')
+const laporHumas = () => import('@/views/pages/profile/laporHumas2.vue')
+const laporanKetidakhadiran = () => import('../views/pages/profile/laporanKetidakhadiran.vue')
+const laporanKeuangan = () => import('@/views/pages/layananMenu/keuanganMenu/laporanKeuangan.vue')
+const laporanKinerja = () => import('../views/pages/profile/LaporanKinerja.vue')
+const LaporanBulananMadrasah = () => import('@/views/pages/madrasah/LaporanBulananMadrasah.vue')
+const LaporanSemesterMadrasah = () => import('@/views/pages/madrasah/LaporanSemesterMadrasah.vue')
+const listKonsultasi = () => import('../views/pages/profile/listKonsultasi.vue')
+const listKeuangan = () => import('@/views/pages/layananMenu/keuanganMenu/ListKeuangan.vue')
+const listPetugas2Vue = () => import('@/views/pages/layananMenu/listPetugas2')
+const listPetugasVue = () => import('@/views/pages/InternalKantor/listPetugas.vue')
+const listp3h = () => import('@/views/pages/layananMenu/seksiMenu/listp3h.vue')
+const listMapGrid = () => import('../views/pages/list/listingmap-grid/ListingmapContent.vue')
+const listListingMap = () => import('../views/pages/list/listingmap-list/ListingmapList.vue')
+const listGrid = () => import('../views/pages/list/listing-grid/ListingGrid.vue')
+const Listing = () => import('../views/pages/add-listing/Add.vue')
+const ListingGridSidebar = () => import('../views/pages/list/listing-grid-sidebar/GridSidebar.vue')
+const ListingSidebar = () => import('../views/pages/list/listing-list-sidebar/ListingListSidebar.vue')
+const loginPage = () => import('../views/pages/Login/Login.vue')
+const madrasahProfil = () => import('@/views/pages/madrasah/ProfilMadrasahForm.vue')
+const menuList = () => import('@/views/pages/InternalKantor/menuList.vue')
+const Message = () => import('../views/pages/messages/Message.vue')
+const MyListing = () => import('../views/pages/my-listing/List.vue')
+const nilaiKinerja = () => import('@/views/pages/adminpanel/nilaiKinerja.vue')
+const nilaiSKP = () => import('@/views/pages/adminpanel/nilaiSKP.vue')
+const pengaduanMenuVue = () => import('@/views/pages/layananMenu/pengaduanMenu.vue')
+const peraturanSE = () => import('@/views/pages/layananMenu/peraturanSE.vue')
+const persuratanMenuVue = () => import('@/views/pages/layananMenu/persuratanMenu.vue')
+const pelayananList = () => import('@/views/pages/layananMenu/pelayananList.vue')
+const Profiles = () => import('../views/pages/profile/Profile.vue')
+const privacy = () => import('../views/pages/privacy-policy/PrivacyPolicy.vue')
+const rekapKinerja = () => import('@/views/pages/adminpanel/RekapKinerja.vue')
+const rekapLaporan = () => import('@/views/pages/adminpanel/rekapLaporan.vue')
+const rekapnilaiSKP = () => import('@/views/pages/adminpanel/rekapnilaiSKP.vue')
+const rekapPemberkasan = () => import('@/views/pages/adminpanel/rekapPemberkasan.vue')
+const rekapPresensi = () => import('@/views/pages/layananMenu/keuanganMenu/rekapPresensi.vue')
+const rekapPresensiASN = () => import('@/views/pages/profile/rekapPresensi.vue')
+const rateUsVue = () => import('@/views/pages/InternalKantor/rateUs.vue')
+const reports = () => import('../views/pages/reviews/Review.vue')
+const ruangKonsultasi = () => import('@/views/pages/layananMenu/ruangKonsultasi.vue')
+const satuDataVue = () => import('@/views/pages/layananMenu/satuData.vue')
+const SatudataHome = () => import('../views/pages/satudata/SatuDataHome.vue')
+const satkerList = () => import('@/views/pages/satuanKerja/satkerList.vue')
+const SignUp = () => import('../views/pages/signup/Signup.vue')
+const slipGaji = () => import('@/views/pages/adminpanel/SlipGaji.vue')
+const slipGajix = () => import('../views/pages/profile/SlipGajix.vue')
+const slipTukin = () => import('@/views/pages/adminpanel/SlipTukin.vue')
+const TermsAndConditions = () => import('../views/pages/terms-conditions/TermsConditions.vue')
+const uploadLaporan = () => import('@/views/pages/layananMenu/laporanMenu/uploadLaporan.vue')
+const uploadPemberkasan = () => import('@/views/pages/layananMenu/laporanMenu/uploadPemberkasan.vue')
+const uploadSyaratVue = () => import('@/views/pages/layananMenu/uploadSyarat.vue')
+const UserData = () => import('../views/pages/profile/UserData.vue')
+const verifCKH = () => import('@/views/pages/adminpanel/LaporanKinerja.vue')
+const jenisUsaha = () => import('@/views/pages/layananMenu/seksiMenu/jenisUsaha.vue')
+const layananMenu = () => import('../views/pages/layananMenu/ListingGrid.vue')
+const ListRequestVue = () => import('@/views/pages/adminpanel/ListRequest.vue')
+const DetailRequestVue = () => import('@/views/pages/adminpanel/DetailRequest.vue')
+const indexThree = () => import('../views/pages/home/indexTemplate.vue')
 
 const routes = [
     {
         path: '/',
         name: 'index',
-        component: IndexThree
+        component: indexThree
     },
     {
         path: '/internal',
@@ -183,7 +172,7 @@ const routes = [
     {
         path: '/madrasah/profil',
         name: 'Profil Madrasah',
-        component: ProfilMadrasahForm
+        component: madrasahProfil
     },
     {
         path: '/madrasah/pegawai',
@@ -382,11 +371,6 @@ const routes = [
         component: Error404
     },
     {
-        path: '/error-500',
-        name: 'error-500',
-        component: Error500
-    },
-    {
         path: '/faq',
         name: 'faq',
         component: Faq
@@ -424,7 +408,7 @@ const routes = [
     {
         path: '/listingmap-grid',
         name: 'listingmap-grid',
-        component: ListMapGrid
+        component: listMapGrid
     },
     {
         path: '/listingmap-list',
@@ -434,7 +418,7 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: LoginPage
+        component: loginPage
     },
     {
         path: '/messages',
@@ -477,14 +461,9 @@ const routes = [
           }
     },
     {
-        path: '/pricing',
-        name: 'pricing',
-        component: PricingPage
-    },
-    {
         path: '/privacy-policy',
         name: 'privacy-policy',
-        component: Privacy
+        component: privacy
     },
     {
         path: '/profile',
@@ -497,7 +476,7 @@ const routes = [
     {
         path: '/kinerja-harian',
         name: 'Kinerja Harian',
-        component: KegiatanHarian,
+        component: kegiatanHarian,
         meta: {
             requiresAuth: true
           }
@@ -513,7 +492,7 @@ const routes = [
     {
         path: '/laporankinerja',
         name: 'Laporan Kinerja',
-        component: LaporanKinerja,
+        component: laporanKinerja,
         meta: {
             requiresAuth: true
           }
@@ -598,7 +577,7 @@ const routes = [
     {
         path: '/reviews',
         name: 'Reviews',
-        component: Reviews,
+        component: reports,
         meta: {
             requiresAuth: true
           }
@@ -665,6 +644,54 @@ const routes = [
           }
     },
     {
+        path: '/admin/madrasah',
+        name: 'Admin Fitur Madrasah',
+        component: AdminMadrasahIndex,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/admin/madrasah/profil',
+        name: 'Admin Profil Madrasah',
+        component: AdminMadrasahProfil,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/admin/madrasah/pegawai',
+        name: 'Admin Pegawai Madrasah',
+        component: AdminMadrasahPegawai,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/admin/madrasah/guru',
+        name: 'Admin Guru Madrasah',
+        component: AdminMadrasahGuru,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/admin/madrasah/laporan-semester',
+        name: 'Admin Laporan Semester Madrasah',
+        component: AdminMadrasahSemester,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
+        path: '/admin/madrasah/laporan-bulanan',
+        name: 'Admin Laporan Bulanan Madrasah',
+        component: AdminMadrasahBulanan,
+        meta: {
+            requiresAdmin: true
+          }
+    },
+    {
         path: '/listreq/:id',
         name: 'Daftar Request',
         component: ListRequestVue,
@@ -683,15 +710,7 @@ const routes = [
     {
         path: '/verifckh',
         name: 'Laporan CKH',
-        component: VerifCKH,
-        meta: {
-            requiresAdmin: true
-          }
-    },
-    {
-        path: '/verif/:xid/:id',
-        name: 'Verifikasi CKH',
-        component: adminSatker,
+        component: verifCKH,
         meta: {
             requiresAdmin: true
           }
@@ -905,7 +924,32 @@ router.beforeEach((to, from, next) => {
            query: { redirect: to.fullPath }
          });
        }
-    }else if (to.matched.some(record => record.meta.superAdmin)) {
+    } else if (to.matched.some(record => record.meta.requiresAdmin)) {
+        if (localStorage.getItem('user')) {
+            let userData = JSON.parse(localStorage.getItem("user"));
+            const role = String(userData?.role || '').trim().toLowerCase()
+            const hakses = Array.isArray(userData?.hakses) ? userData.hakses.map((item) => String(item).trim().toLowerCase()) : []
+            const allowedRoles = ['admin', 'petugas', 'kepala', 'kasubbag', 'kasi']
+
+            if(hakses.includes("admin") || allowedRoles.includes(role)){
+                next()
+            }else{
+                Swal.fire({
+                    title: ':: Restricted Area ::',
+                    text: 'Anda Tidak Memiliki Akses ke Bagian Ini !!',
+                    icon: 'error',
+                })
+                next({
+                    path: '/',
+                  });
+            }
+        } else {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          });
+        }
+     }else if (to.matched.some(record => record.meta.superAdmin)) {
         // Check if the user is logged in
         if (localStorage.getItem('user')) {
             let userData = JSON.parse(localStorage.getItem("user"));

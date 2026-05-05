@@ -95,7 +95,7 @@
 											<div class="d-flex">
 												<div class="flex-shrink-0">
 													<div class="icon-blk rounded-circle overflow-hidden">
-														<img :src="import(`../../../assets/img/profiles/${item.image}`)" alt="Dreamstrip Testimonials">
+														<img :src="$asset(`profiles/${item.image}`)" alt="Dreamstrip Testimonials">
 													</div>
 												</div>
 												<div class="flex-grow-1 ms-3">
@@ -109,13 +109,13 @@
 											<hr class="custom-hr">
 											<div class="testi-btm-blk">
 												<div class="circle-grp">
-													<img :src="import(`../../../assets/img/${item.circle1}`)" alt="">
-													<img :src="import(`../../../assets/img/${item.circle2}`)" alt="">
-													<img :src="import(`../../../assets/img/${item.circle3}`)" alt="">
-													<img :src="import(`../../../assets/img/${item.circle4}`)" alt="">
+													<img :src="$asset(item.circle1)" alt="">
+													<img :src="$asset(item.circle2)" alt="">
+													<img :src="$asset(item.circle3)" alt="">
+													<img :src="$asset(item.circle4)" alt="">
 												</div>
 												<div class="circle-right">
-													<img :src="import(`../../../assets/img/${item.icon}`)" alt="">
+													<img :src="$asset(item.icon)" alt="">
 												</div>
 											</div>
 										</div>

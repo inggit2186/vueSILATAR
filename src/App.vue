@@ -2,9 +2,12 @@
   <div v-if="loading" class="opening"></div>
   <div v-else id="app">
     <router-view />
-    <FuturisticBottomNav v-if="!auth" v-model="selected" class="d-block d-sm-none" :options="options2" />
-    <FuturisticBottomNav v-else-if="auth && user.dept.kategori == 'kantor'" v-model="selected" class="d-block d-sm-none" :options="options3" />
-    <FuturisticBottomNav v-else v-model="selected" class="d-block d-sm-none" :options="options2" />
+    <FuturisticBottomNav
+      v-if="showBottomNav"
+      v-model="selected"
+      class="d-block d-sm-none"
+      :options="bottomNavOptions"
+    />
     <ChatWidget :is-authenticated="auth" :current-user="user" />
   </div>
 </template>
@@ -16,19 +19,16 @@ import { onMessage } from 'firebase/messaging';
 export default {
   name: 'App',
   data() {
-    let auth;
-    let user;
+    let auth = false;
+    let user = null;
     if (localStorage.getItem('user')) {
             user = JSON.parse(localStorage.getItem('user'))
             auth = true
-        }else{
-            auth = false;
         }
     return {
       loading: false,
       user: user,
       auth: auth,
-      history: [],
       selected: 1,
       options2: [
         { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
@@ -45,6 +45,20 @@ export default {
     }
   },
   computed: {
+    showBottomNav() {
+      return !this.loading;
+    },
+    bottomNavOptions() {
+      if (!this.auth) {
+        return this.options2;
+      }
+
+      if (this.user?.dept?.kategori === 'kantor') {
+        return this.options3;
+      }
+
+      return this.options2;
+    },
     options3() {
       let base = [
         { id: 1, icon: "fas fa-home", title: "HOME", path: "/" },
@@ -68,15 +82,22 @@ export default {
     }
   },
   created() {
-    this.cekAuth()
-    emitter.on('login-success', this.cekAuth)
-    emitter.on('logout', () => {
+    this.handleLoginSuccess = () => this.cekAuth()
+    this.handleLogout = () => {
       this.auth = false
       this.user = null
-    })
+    }
+
+    this.cekAuth()
+    emitter.on('login-success', this.handleLoginSuccess)
+    emitter.on('logout', this.handleLogout)
   },
   mounted() {
     this.requestNotificationPermission()
+  },
+  beforeUnmount() {
+    emitter.off('login-success', this.handleLoginSuccess)
+    emitter.off('logout', this.handleLogout)
   },
   methods: {
     async cekAuth() {
@@ -90,9 +111,9 @@ export default {
 					source: 'VueJs',
 					version: 'Auto Update'
 				},{headers})
-        if(response.data.success == true){
+        if(response.data.success === true){
           
-            if(this.user.sppt == null || this.user.sppt == [] || this.user.sppt.length == 0){
+            if(!Array.isArray(this.user?.sppt) || this.user.sppt.length === 0){
               if (window.innerWidth < 768) {
                 this.$swal.fire({
                   width: '400px',
@@ -109,7 +130,7 @@ export default {
                   allowOutsideClick: false,
                   preConfirm: async (addsppt) => {
                     try {
-                      const response = this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
+                      const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
                           userid: this.user.id,
                           tahun:  this.user.sppt_tahun,
                           status: 'sudah'
@@ -166,7 +187,7 @@ export default {
                   allowOutsideClick: false,
                   preConfirm: async (addsppt) => {
                     try {
-                      const response = this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
+                      const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/addSPPT',{
                           userid: this.user.id,
                           tahun:  this.user.sppt_tahun,
                           status: 'sudah'
@@ -209,7 +230,7 @@ export default {
                   });
                 }
             }else{
-              if(this.user.hakses.includes('superadmin') || this.user.hakses.includes('admin')){
+              if((this.user?.hakses || []).includes('superadmin') || (this.user?.hakses || []).includes('admin')){
                 
                 let htmlx = "<center><table style='font-size: 14px;'>"
                 
@@ -226,7 +247,7 @@ export default {
 
                 if(response.data.iklan != 'NONE'){
                   const isMobile = window.innerWidth < 768;
-                    const showConfirmButton = response.data.iklan.layanan == 1;
+                    const showConfirmButton = Number(response.data.iklan.layanan) === 1;
                     this.$swal.fire({
                         html: `
                           <a href="${response.data.iklan.url}" target="_blank">
@@ -237,7 +258,7 @@ export default {
                         width: isMobile ? '90%' : '580px',
                         height: isMobile ? 'auto' : '520px',
                         imageAlt: "Pengumuman",
-                        showConfirmButton: showConfirmButton ? 'true' : false,
+                        showConfirmButton: showConfirmButton,
                         confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
                         showCloseButton: true,
                       }).then((result) => {
@@ -259,7 +280,7 @@ export default {
                 }
 
               }else{
-                if(this.user.rating.length == 0 || !(this.user.rating)){
+                if(!Array.isArray(this.user?.rating) || this.user.rating.length === 0){
                   this.$swal.fire({
                     html: "<span style='font-size: 17px'>Mohon Sedikit Waktu Anda untuk <b>memberikan Rating/Penilaian Pelayanan Kantor Kami (Online / Layanan Langsung di Kantor)</b> !!",
                     imageUrl: "https://kemenagtanahdatar.cloud/v2/assets/img/ikon/502.png",
@@ -318,7 +339,7 @@ export default {
                 }else{
                   if(response.data.iklan != 'NONE'){
                     const isMobile = window.innerWidth < 768;
-                    const showConfirmButton = response.data.iklan.layanan == 1;
+                    const showConfirmButton = Number(response.data.iklan.layanan) === 1;
                     this.$swal.fire({
                         html: `
                           <a href="${response.data.iklan.url}" target="_blank">
@@ -329,7 +350,7 @@ export default {
                         width: isMobile ? '90%' : '580px',
                         height: isMobile ? 'auto' : '520px',
                         imageAlt: "Pengumuman",
-                        showConfirmButton: showConfirmButton ? 'true' : false,
+                        showConfirmButton: showConfirmButton,
                         confirmButtonText: showConfirmButton ? 'Kunjungi Layanan' : undefined,
                         showCloseButton: true,
                       }).then((result) => {
@@ -430,6 +451,10 @@ export default {
 		},
     async requestNotificationPermission() {
       try {
+        if (!('Notification' in window)) {
+          return;
+        }
+
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           console.log('Notification permission granted.');

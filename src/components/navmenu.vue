@@ -19,9 +19,6 @@ class="has-submenu megamenu active"
             <li :class="{'active': currentPath == 'contact'}">
                 <router-link to="/contact"><i-gg-phone /> &nbsp;Kontak Kami</router-link>
             </li>
-            <li v-if="hasMadrasahAccess" :class="{ 'active': MadrasahMenu }">
-                <router-link to="/madrasah"><i class="feather-book-open"></i> &nbsp;Madrasah</router-link>
-            </li>
             <li :class="{'active': currentPath == 'UnitKerja'}">
                 <router-link to="/UnitKerja"><BBadge variant="warning" style="font-size: medium;"><i-ri-customer-service-2-fill /> &nbsp;Pelayanan</BBadge></router-link>
             </li>
@@ -35,8 +32,8 @@ class="has-submenu megamenu active"
                 <router-link to="/kinerja-harian"><BBadge variant="success" style="font-size: medium;"><i-mdi-worker /> &nbsp;Kinerja</BBadge></router-link>
             </li>
             <li v-if="!auth" class="d-block d-sm-none" style="padding:5% 5% 5% 5%;">
-                <lu><router-link to="/login"><BBadge variant="danger" style="font-size: medium;float: left;"><i-solar-login-3-bold /> &nbsp;LOGIN</BBadge></router-link></lu>
-                <lu><router-link to="/signup"><BBadge variant="dark" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></lu>
+                <li><router-link to="/login"><BBadge variant="danger" style="font-size: medium;float: left;"><i-solar-login-3-bold /> &nbsp;LOGIN</BBadge></router-link></li>
+                <li><router-link to="/signup"><BBadge variant="dark" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></li>
             </li>
         </ul>
         
@@ -59,22 +56,103 @@ class="has-submenu megamenu active"
                 </a>
                 <span v-else><i-svg-spinners-bars-scale-middle />  Good Bye...</span>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: gray;color: aliceblue;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
-                    <b-button class="dropdown-item" to="/userdata" style="background-color: seagreen;color: aliceblue;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
+                    <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: #6a1f2b;color: #f6d78a;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
+                    <b-button class="dropdown-item" to="/userdata" style="background-color: #1f3c2d;color: #f8ecd1;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profil</router-link>
                     <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; Layanan</router-link>
                     <router-link class="dropdown-item" to="/personal/rekappresensiasn/Personal"><i-heroicons-finger-print-16-solid />&nbsp; Laporan Presensi</router-link>
                     <router-link class="dropdown-item" to="/kinerja-harian"><i-mdi-worker />&nbsp; Laporan Kinerja</router-link>
+                    <router-link v-if="hasMadrasahAccess" class="dropdown-item" to="/madrasah"><i-feather-book-open />&nbsp; Laporan Madrasah</router-link>
                     <router-link class="dropdown-item" to="/apksilatar"><i-uil-android />&nbsp; SILATAR Android</router-link>
-                    <b-button class="dropdown-item" @click="logout()">
+                    <b-button class="dropdown-item logout-item" variant="danger" @click="logout()">
                         <span><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
                     </b-button>
                 </div>
             </li>						
         </div>
     </div>
+  
 </template>
+
+<style scoped>
+:deep(.dropdown-menu) {
+    background: linear-gradient(180deg, #2a171a 0%, #1a0f12 100%);
+    border: 1px solid rgba(214, 171, 76, 0.18);
+    box-shadow: 0 20px 40px rgba(12, 7, 9, 0.32);
+}
+
+:deep(.dropdown-menu .dropdown-item) {
+    color: #fff4dc;
+    border-bottom: 1px solid rgba(255, 244, 220, 0.08);
+    background: transparent;
+}
+
+:deep(.dropdown-menu .dropdown-item:hover),
+:deep(.dropdown-menu .dropdown-item:focus) {
+    background: rgba(214, 171, 76, 0.12);
+    color: #fff4dc;
+}
+
+:deep(.dropdown-menu .dropdown-item:last-child) {
+    border-bottom: none;
+}
+
+:deep(.dropdown-menu .btn.dropdown-item) {
+    text-align: left;
+}
+
+:deep(.dropdown-menu .btn.dropdown-item span) {
+    color: inherit;
+}
+
+:deep(.dropdown-menu .logout-item) {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    color: #fffdf6 !important;
+    border: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 18px rgba(171, 23, 57, 0.18);
+    text-align: left;
+    padding: 0.7rem 0.95rem;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    min-height: 42px;
+}
+
+:deep(.dropdown-menu .logout-item:hover),
+:deep(.dropdown-menu .logout-item:focus) {
+    background: linear-gradient(135deg, #e0ba62, #c82349) !important;
+    color: #fffdf6 !important;
+}
+
+:deep(.dropdown-menu .logout-item span) {
+    color: inherit !important;
+    font-weight: 700;
+}
+
+:deep(.dropdown-menu .logout-item i) {
+    color: inherit !important;
+}
+
+:deep(.dropdown-menu .logout-item.btn),
+:deep(.dropdown-menu .logout-item.btn-primary),
+:deep(.dropdown-menu .logout-item.btn-secondary),
+:deep(.dropdown-menu .logout-item.btn-danger) {
+    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    border: none !important;
+    color: #fffdf6 !important;
+}
+
+:deep(.dropdown-menu .logout-item.dropdown-item),
+:deep(.dropdown-menu .logout-item.dropdown-item:hover),
+:deep(.dropdown-menu .logout-item.dropdown-item:focus),
+:deep(.dropdown-menu .logout-item.btn-danger),
+:deep(.dropdown-menu .logout-item.btn-danger:hover),
+:deep(.dropdown-menu .logout-item.btn-danger:focus) {
+    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    color: #fffdf6 !important;
+}
+</style>
 
 <script>
 import { canAccessMadrasah } from '@/utils/madrasahAccess'
@@ -125,7 +203,7 @@ export default {
             if(this.$route.path != lastroute){
                 $('html').removeClass('menu-opened');
                 $('.sidebar-overlay').removeClass('opened');
-                $('main-wrapper').removeClass('slide-nav');
+                $('.main-wrapper').removeClass('slide-nav');
             }
             
             $(window).scroll(function(){
@@ -136,7 +214,7 @@ export default {
             });
             $('body').append('<div class="sidebar-overlay"></div>');
             $(document).on('click', '#mobile_btn', function () {
-                $('main-wrapper').toggleClass('slide-nav');
+                $('.main-wrapper').toggleClass('slide-nav');
                 $('.sidebar-overlay').toggleClass('opened');
                 $('html').addClass('menu-opened');
                 return false;
@@ -145,13 +223,13 @@ export default {
             $(document).on('click', '.sidebar-overlay', function () {
                 $('html').removeClass('menu-opened');
                 $(this).removeClass('opened');
-                $('main-wrapper').removeClass('slide-nav');
+                $('.main-wrapper').removeClass('slide-nav');
             });
 
             $(document).on('click', '#menu_close', function () {
                 $('html').removeClass('menu-opened');
                 $('.sidebar-overlay').removeClass('opened');
-                $('main-wrapper').removeClass('slide-nav');
+                $('.main-wrapper').removeClass('slide-nav');
             });
             
         },

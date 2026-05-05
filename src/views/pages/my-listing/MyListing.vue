@@ -15,7 +15,7 @@
 					<div class="listing-search">
 						<div class="filter-content form-group">
 							<div class="group-img">
-								<input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+								<input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
 								<i class="feather-search"></i>
 							</div>
 						</div>
@@ -31,12 +31,12 @@
 							</thead>
 							<tbody v-if="loading">
 								<tr>
-									<td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+									<td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
 								</tr>
 							</tbody>
 							<tbody v-if="!loading">
 								<tr v-if="ptsp.length == 0">
-									<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+									<td colspan="5" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 								</tr>
 								<tr v-for="item in paginatedItem" v-else :key="item.id">
 									<td><a href="#">{{ item.tanggal }} </a></td>
@@ -270,3 +270,95 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.dashboard-content {
+	background:
+		radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 44%),
+		linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.dashboard-content :deep(.dash-cards) {
+	background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+	border: 1px solid rgba(214, 171, 76, 0.18);
+	border-radius: 22px;
+	box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.card-header) {
+	background: transparent;
+	border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.card-header h4),
+.dashboard-content :deep(.dash-cards h4) {
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.form-control) {
+	background: rgba(255, 244, 220, 0.08);
+	border: 1px solid rgba(214, 171, 76, 0.24);
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.form-control::placeholder) {
+	color: rgba(255, 244, 220, 0.56);
+}
+
+.dashboard-content :deep(.table thead th) {
+	background: rgba(214, 171, 76, 0.12);
+	color: #fff4dc;
+	border-color: rgba(214, 171, 76, 0.18);
+}
+
+.dashboard-content :deep(.table tbody td) {
+	background: #fffdf7 !important;
+	border-color: rgba(59, 36, 24, 0.12);
+	color: #3b2418 !important;
+}
+
+.dashboard-content :deep(.table tbody td *) {
+	color: inherit !important;
+}
+
+.dashboard-content :deep(.table tbody tr:hover) {
+	background: rgba(214, 171, 76, 0.06);
+}
+
+.dashboard-content :deep(.btn-outline-primary) {
+	border-color: rgba(171, 23, 57, 0.28);
+	color: #ab1739;
+	background: #fff9f1;
+}
+
+.dashboard-content :deep(.btn-outline-primary:hover),
+.dashboard-content :deep(.btn-outline-primary:focus) {
+	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	border-color: transparent;
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.btn-danger) {
+	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	border-color: transparent;
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.badge) {
+	box-shadow: 0 6px 14px rgba(13, 7, 8, 0.12);
+}
+
+.dashboard-content :deep(.page-link) {
+	background: rgba(255, 244, 220, 0.08);
+	border-color: rgba(214, 171, 76, 0.2);
+	color: #fff4dc;
+}
+
+.dashboard-content :deep(.page-item.active .page-link) {
+	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	border-color: transparent;
+	color: #fff4dc;
+}
+</style>

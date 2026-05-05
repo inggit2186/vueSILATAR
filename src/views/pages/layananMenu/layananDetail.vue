@@ -2,7 +2,7 @@
     <div class="main-wrapper">
         <layouts></layouts>
 
-        <div class="page-wrapper">
+        <div class="page-wrapper layanan-detail-page">
                 <!--Details Description  Section-->
 		    <section class="details-description">
 		    <div class="container">
@@ -19,11 +19,11 @@
 					<div class="row">
 						  <div class="col-lg-9">
 							  <ul>
-								  <li><a href="javascript:void(0);"><i class="feather-map"></i> Get Directions</a></li>
-								  <li><a href="javascript:void(0);"><i class="feather-share-2"></i> Share</a></li>
-								  <li><a href="javascript:void(0);"><i class="fa-regular fa-comment-dots"></i> Write a review</a></li>
-								  <li><a href="javascript:void(0);"><i class="feather-flag"></i> Report</a></li>
-								  <li><a href="javascript:void(0);"><i class="feather-heart"></i> Save</a></li>
+								  <li><a href="javascript:void(0);"><i class="feather-map"></i> Petunjuk Lokasi</a></li>
+								  <li><a href="javascript:void(0);"><i class="feather-share-2"></i> Bagikan</a></li>
+								  <li><a href="javascript:void(0);"><i class="fa-regular fa-comment-dots"></i> Tulis Ulasan</a></li>
+								  <li><a href="javascript:void(0);"><i class="feather-flag"></i> Laporkan</a></li>
+								  <li><a href="javascript:void(0);"><i class="feather-heart"></i> Simpan</a></li>
 							  </ul>
 						  </div>
 						  <div class="col-lg-3">
@@ -96,20 +96,20 @@
 						<div class="stickysidebar">
 						<div class="rightsidebar">
 							<div class="card">
-							    <h4><img :src="$assets+'/img/statistic-icon.svg'" alt="location"> Statistic</h4>
+							    <h4><img :src="$assets+'/img/statistic-icon.svg'" alt="location"> Statistik</h4>
 							    <ul class="statistics-list">
 								    <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
-								       Views </div><span class="text-end"> 453563</span></li>
+								       Dilihat </div><span class="text-end"> 453563</span></li>
 									<li><div class="statistic-details"><span class="icons"><i class="feather-star"></i></span>
-									   Ratings </div><span class="text-end"> 153</span></li>
+									   Penilaian </div><span class="text-end"> 153</span></li>
 									<li><div class="statistic-details"><span class="icons"><i class="feather-heart"></i></span>
-										 Favuorites </div><span class="text-end"> 123</span></li>
+										 Favorit </div><span class="text-end"> 123</span></li>
 									<li class="mb-0"><div class="statistic-details"><span class="icons"><i class="feather-share-2"></i></span>
-									     Shares </div><span class="text-end"> 50</span></li>
+									     Dibagikan </div><span class="text-end"> 50</span></li>
 								</ul>
 							</div>
 						    <div class="card">
-							    <h4> <i class="feather-user"></i> Author</h4>
+							    <h4> <i class="feather-user"></i> Penulis</h4>
 							    <div class="sidebarauthor-details align-items-center">
 								   <div class="sideauthor-img">
 								     <img :src="layanan.author.pp" alt="author">
@@ -267,4 +267,132 @@ export default {
     }
 }
 </script>
+
+<style>
+.layanan-detail-page {
+    background:
+        radial-gradient(circle at top, rgba(170, 24, 58, 0.16), transparent 45%),
+        linear-gradient(180deg, #241519 0%, #160d11 100%);
+}
+
+.layanan-detail-page .details-description {
+    padding-top: 1.25rem;
+    color: #fff4dc;
+}
+
+.layanan-detail-page .headerDetail h3,
+.layanan-detail-page .headerMobile h2 {
+    color: #fff4dc;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+.layanan-detail-page .descriptionlinks ul {
+    gap: 0.75rem;
+}
+
+.layanan-detail-page .descriptionlinks ul li a {
+    color: #f5e4bf;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(214, 171, 76, 0.18);
+    border-radius: 999px;
+    padding: 0.55rem 0.9rem;
+}
+
+.layanan-detail-page .descriptionlinks ul li a:hover {
+    color: #fffaf0;
+    background: rgba(214, 171, 76, 0.16);
+}
+
+.layanan-detail-page .callnow .btn-success {
+    background: linear-gradient(135deg, #d8a64a, #a92d38);
+    border: none;
+    color: #fffaf0;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+}
+
+.layanan-detail-page .details-main-wrapper {
+    padding: 0 0 2.5rem;
+}
+
+.layanan-detail-page .card {
+    background: linear-gradient(180deg, rgba(42, 24, 28, 0.96), rgba(28, 16, 18, 0.96));
+    border: 1px solid rgba(214, 171, 76, 0.24);
+    border-radius: 22px;
+    color: #fff4dc;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+}
+
+.layanan-detail-page .card-header {
+    background: rgba(80, 48, 31, 0.92);
+    color: #fff4dc;
+    border-bottom: 1px solid rgba(214, 171, 76, 0.18);
+}
+
+.layanan-detail-page .card-header h4,
+.layanan-detail-page .card-body p,
+.layanan-detail-page .card-body h5,
+.layanan-detail-page .card-body h6,
+.layanan-detail-page .card-body span,
+.layanan-detail-page .card-body label,
+.layanan-detail-page .card-body small,
+.layanan-detail-page .sideauthor-info p,
+.layanan-detail-page .statistics-list li,
+.layanan-detail-page .statistics-list .text-end {
+    color: #fff4dc;
+}
+
+.layanan-detail-page .card-body p {
+    line-height: 1.75;
+}
+
+.layanan-detail-page .lisiting-featues .featureslist {
+    margin-bottom: 1rem;
+}
+
+.layanan-detail-page .feature-img img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.layanan-detail-page .featues-info h6 {
+    color: #fff4dc;
+}
+
+.layanan-detail-page .featues-info p {
+    color: rgba(255, 244, 220, 0.75);
+}
+
+.layanan-detail-page .stickysidebar .card {
+    background: linear-gradient(180deg, rgba(44, 28, 32, 0.96), rgba(28, 16, 18, 0.96));
+}
+
+.layanan-detail-page .statistics-list li {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+}
+
+.layanan-detail-page .sideauthor-info .authorname {
+    color: #fffaf0;
+}
+
+.layanan-detail-page .rightsidebar h4,
+.layanan-detail-page .rightsidebar h4 img {
+    color: #fff4dc;
+}
+
+.layanan-detail-page .card hr,
+.layanan-detail-page .details-description hr {
+    border-color: rgba(214, 171, 76, 0.18);
+}
+
+@media (max-width: 768px) {
+    .layanan-detail-page .descriptionlinks ul li a {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
 

@@ -25,7 +25,7 @@
                                     <div class="destination-widget">
                                         <a href="javascript:;" class="desti-link">
                                             <img
-:src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid"
+:src="$asset(`recommended/${item.image}`)" class="img-fluid"
                                                 alt="find your destination">
                                             <div class="desti-country-list">
                                                 <span class="desti-btn">{{ item.country }}</span>
@@ -65,7 +65,7 @@
                     <div class="service-info-card d-flex align-items-center">
                         <div class="flex-shrink-0">
                             <div class="img-blk">
-                                <img src="../../../assets/img/service-img.png" class="img-fluid" alt="Dreamstrip Services">
+                                <img :src="$asset('service-img.png')" class="img-fluid" alt="Dreamstrip Services">
                             </div>
                         </div>
                         <div class="service-content flex-grow-1">

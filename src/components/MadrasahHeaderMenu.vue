@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAllowed" class="madrasah-menu-shell">
+  <nav v-if="isAllowed" class="madrasah-menu-shell" aria-label="Navigasi Madrasah">
     <div class="madrasah-menu-hero">
       <div>
         <span class="madrasah-menu-kicker">Portal Madrasah</span>
@@ -19,12 +19,13 @@
         :to="item.to"
         class="madrasah-menu-tab"
         :class="{ active: isActive(item) }"
+        :aria-current="isActive(item) ? 'page' : null"
       >
         <i :class="item.icon"></i>
         <span>{{ item.shortLabel }}</span>
       </router-link>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -116,9 +117,12 @@ export default {
   gap: 1rem;
   padding: 1rem 1.15rem;
   border-radius: 18px;
-  background: linear-gradient(135deg, #173b78 0%, #2e5ea8 55%, #5a88cb 100%);
-  color: #fff;
-  box-shadow: 0 14px 34px rgba(24, 48, 92, 0.2);
+  background:
+    radial-gradient(circle at top right, rgba(214, 171, 76, 0.12), transparent 28%),
+    linear-gradient(135deg, #2a171a 0%, #431b20 52%, #1b1013 100%);
+  color: #fff4dc;
+  box-shadow: 0 16px 34px rgba(18, 10, 11, 0.26);
+  border: 1px solid rgba(214, 171, 76, 0.2);
 }
 
 .madrasah-menu-kicker {
@@ -147,14 +151,15 @@ export default {
   min-width: 120px;
   padding: 0.8rem 0.95rem;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.22);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
   font-weight: 700;
   backdrop-filter: blur(8px);
+  color: #fff4dc;
 }
 
 .madrasah-menu-badge i {
@@ -168,11 +173,11 @@ export default {
 }
 
 .madrasah-menu-tab {
-  border: 1px solid #d8e2f1;
+  border: 1px solid rgba(214, 171, 76, 0.2);
   border-radius: 16px;
   padding: 0.85rem 0.9rem;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  color: #32507c;
+  background: linear-gradient(180deg, rgba(42, 24, 28, 0.98) 0%, rgba(28, 16, 18, 0.98) 100%);
+  color: #fff4dc;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -186,24 +191,19 @@ export default {
 }
 
 .madrasah-menu-tab:hover {
-  border-color: #b7cae6;
-  color: #1f3c88;
+  border-color: rgba(214, 171, 76, 0.34);
+  color: #fffaf0;
   transform: translateY(-1px);
 }
 
 .madrasah-menu-tab.active {
-  background: linear-gradient(135deg, #eaf2ff 0%, #f7fbff 100%);
-  border-color: #90afdd;
-  color: #173b78;
-  box-shadow: 0 12px 28px rgba(27, 59, 120, 0.12);
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  border-color: rgba(201, 157, 79, 0.55);
+  color: #fffdf6;
+  box-shadow: 0 12px 28px rgba(27, 15, 16, 0.18);
 }
 
 @media (max-width: 992px) {
-  .madrasah-menu-hero,
-  .madrasah-menu-tabs {
-    grid-template-columns: 1fr;
-  }
-
   .madrasah-menu-hero {
     flex-direction: column;
     align-items: flex-start;
@@ -214,6 +214,10 @@ export default {
     width: 100%;
     flex-direction: row;
     justify-content: center;
+  }
+
+  .madrasah-menu-tabs {
+    grid-template-columns: 1fr;
   }
 }
 </style>

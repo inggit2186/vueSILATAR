@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper rekap-kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -25,7 +25,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -41,12 +41,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -69,7 +69,7 @@
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.id,item.filename)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -116,6 +116,101 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.rekap-kinerja-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.rekap-kinerja-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.rekap-kinerja-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+}
+
+.rekap-kinerja-page h4,
+.rekap-kinerja-page .card-header h4 {
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.rekap-kinerja-page :deep(.table) {
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page :deep(.table thead th) {
+  background: rgba(214, 171, 76, 0.12);
+  color: #fff4dc;
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.rekap-kinerja-page :deep(.table tbody td) {
+  border-color: rgba(255, 244, 220, 0.08);
+  color: #4a3323;
+  background: #fffdf7;
+}
+
+.rekap-kinerja-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.rekap-kinerja-page :deep(.table tbody td a) {
+  color: #a61d3a;
+}
+
+.rekap-kinerja-page :deep(.table tbody td b),
+.rekap-kinerja-page :deep(.table tbody td strong) {
+  color: #3a271b;
+}
+
+.rekap-kinerja-page :deep(.table tbody td span),
+.rekap-kinerja-page :deep(.table tbody td i),
+.rekap-kinerja-page :deep(.table tbody td small) {
+  color: #6a4b35;
+}
+
+.rekap-kinerja-page :deep(.table tbody tr:hover) {
+  background: rgba(214, 171, 76, 0.08);
+}
+
+.rekap-kinerja-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.rekap-kinerja-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 export default {

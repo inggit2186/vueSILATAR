@@ -14,7 +14,7 @@
 									<div class="blog-slide">
 										<div class="blog grid-blog">
 											<div class="blog-image">
-												<router-link to="/blog-details"><img class="img-fluid" :src="import(`../../../assets/img/blog/${item.image}`)" alt="Post Image"></router-link>
+												<router-link to="/blog-details"><img class="img-fluid" :src="$asset(`blog/${item.image}`)" alt="Post Image"></router-link>
 												<div :class="item.class">
 													<p>{{item.badge}}</p>
 												</div>
@@ -24,7 +24,7 @@
 													<li>
 														<div class="post-author">
 															<div class="post-author-img">
-																<img :src="import(`../../../assets/img/profiles/${item.profile}`)" alt="Post Author">
+																<img :src="$asset(`profiles/${item.profile}`)" alt="Post Author">
 															</div>
 															<a href="javascript:void(0);" class="mb-0"> <span> {{item.name}} </span></a>
 														</div>
@@ -58,22 +58,22 @@
 							<div class="row align-items-center">
 								<div class="col-md-6 d-sm-none d-md-block">
 									<div class="banner-blk">
-										<img src="../../../assets/img/subscribe-bg.png" class="img-fluid" alt="">
+										<img :src="$asset('subscribe-bg.png')" class="img-fluid" alt="">
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-6">
 									<div class="banner-info">
-										<h2>Your Travel Journey Starts Here</h2>
-										<p>Sign up and we'll send the best deals to you</p>
+										<h2>Tetap terhubung dengan layanan dan pembaruan terbaru</h2>
+										<p>Ikuti informasi resmi, pengumuman penting, dan pembaruan layanan dari SILATAR.</p>
 										<div class="row justify-content-center">
 											<div class="col-md-10">
-												<div class="subscribe-blk bg-white">
+												<div class="subscribe-blk home-subscribe-card">
 													<div class="input-group align-items-center">
 														<span id="basic-addon1" class="input-group-text material-icons">mail_outline</span>
-														<input type="email" class="form-control" placeholder="Enter your email here" aria-label="email" aria-describedby="basic-addon1">
+														<input type="email" class="form-control" placeholder="Masukkan email Anda" aria-label="email" aria-describedby="basic-addon1">
 														<div class="subscribe-btn-grp">
-															<input type="submit" class="btn" value="Subscribe">
-															<img src="../../../assets/img/mail-check.png" alt="">
+															<input type="submit" class="btn" value="Berlangganan">
+															<img :src="$asset('mail-check.png')" alt="">
 														</div>
 													</div>
 												</div>

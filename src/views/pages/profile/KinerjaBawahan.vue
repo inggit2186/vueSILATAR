@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper kinerja-bawahan-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -37,7 +37,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -53,12 +53,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ckh.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -81,7 +81,7 @@
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.id,item.filename)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -464,3 +464,65 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.kinerja-bawahan-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.kinerja-bawahan-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+}
+
+.kinerja-bawahan-page :deep(.card-header),
+.kinerja-bawahan-page :deep(.card-body) {
+  color: #fff2d1;
+}
+
+.kinerja-bawahan-page :deep(.card-header h4),
+.kinerja-bawahan-page :deep(.listing-search .form-control),
+.kinerja-bawahan-page :deep(.pagination .page-link),
+.kinerja-bawahan-page :deep(.dashborad-menus li a) {
+  color: #fff4dc;
+}
+
+.kinerja-bawahan-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+}
+
+.kinerja-bawahan-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+}
+
+.kinerja-bawahan-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff2d1;
+}
+
+.kinerja-bawahan-page :deep(.badge) {
+  color: #fff;
+}
+
+.kinerja-bawahan-page :deep(.btn-outline-primary) {
+  border-color: rgba(201, 157, 79, 0.42);
+  color: #fff4dc;
+}
+
+.kinerja-bawahan-page :deep(.btn-outline-primary:hover) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .kinerja-bawahan-page :deep(.dash-cards.card) {
+    border-radius: 18px;
+  }
+}
+</style>

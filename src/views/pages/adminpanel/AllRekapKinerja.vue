@@ -1,6 +1,6 @@
 <template>
     <div class="main-wrapper">
-        <div class="page-wrapper">
+        <div class="page-wrapper all-rekap-kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -17,7 +17,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -33,12 +33,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -234,3 +234,81 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.all-rekap-kinerja-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(143, 29, 44, 0.16), transparent 32%),
+    linear-gradient(180deg, #1f1213 0%, #28181a 100%);
+  color: #fff2d1;
+}
+
+.all-rekap-kinerja-page :deep(.breadcrumb) {
+  color: #fff2d1;
+}
+
+.all-rekap-kinerja-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(41, 25, 26, 0.96), rgba(28, 17, 18, 0.97));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 26px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+}
+
+.all-rekap-kinerja-page :deep(.card-header) {
+  background: transparent;
+  border-bottom: 1px solid rgba(201, 157, 79, 0.14);
+  color: #fff2d1;
+}
+
+.all-rekap-kinerja-page :deep(.card-header h4) {
+  color: #fff4dc;
+}
+
+.all-rekap-kinerja-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.05);
+  border: 1px solid rgba(201, 157, 79, 0.28);
+  color: #fff4dc;
+}
+
+.all-rekap-kinerja-page :deep(.listing-search .form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.55);
+}
+
+.all-rekap-kinerja-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+  border-color: rgba(201, 157, 79, 0.2);
+}
+
+.all-rekap-kinerja-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff4dc;
+  border-color: rgba(201, 157, 79, 0.12);
+}
+
+.all-rekap-kinerja-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.all-rekap-kinerja-page :deep(.badge) {
+  color: #fff;
+}
+
+.all-rekap-kinerja-page :deep(.pagination .page-link) {
+  background: rgba(255, 244, 220, 0.04);
+  color: #fff2d1;
+  border: 1px solid rgba(201, 157, 79, 0.2);
+}
+
+.all-rekap-kinerja-page :deep(.pagination .active .page-link) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .all-rekap-kinerja-page :deep(.dash-cards.card) {
+    border-radius: 20px;
+  }
+}
+</style>

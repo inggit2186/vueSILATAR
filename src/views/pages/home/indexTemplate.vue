@@ -1,8 +1,8 @@
 <template>
-    <div class="main-wrapper" style="width: 94%;">
+    <div class="main-wrapper home-app-shell">
         <navbarthree></navbarthree>
-        
-        <div class="page-wrapper">
+
+        <div class="page-wrapper home-page-wrapper">
             <indexhome />
 
             <IndexDesc />

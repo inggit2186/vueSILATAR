@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -54,11 +54,11 @@
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
                                             <a v-if="ckh != null && ckh.status != 'DISETUJUI'" class="btn btn-danger" href="#" style="float: right;margin-left:20px;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Cari data..." @input="filterTable">
                                             <a v-if="ckh != null && ckh.status != 'DISETUJUI'" class="btn btn-danger" href="#" style="margin-left:5px;float:right;" @click="changedetail(2,'Tambah',0)"><i-subway-add/> <b>TAMBAH</b></a>
                                             <i class="feather-search"></i>
                                         </div>
@@ -75,12 +75,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="kinerja.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
@@ -92,7 +92,7 @@
                                                 <td>
 													<BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="warning" @click.prevent="changedetail(2,'Edit',((currentPage*12)-12 + index))"><b><i-fa-edit /> EDIT</b></BButton>&nbsp;
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="danger" @click.prevent="delAksi(item.tgl)"><b><i-ph-trash-fill /> DELETE</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -222,11 +222,11 @@
             <h3>Input Data Atasan</h3>
             <p>Masukkan Data Atasan Anda untuk Laporan Kinerja.</p>
             <div style="text-align: left; margin-bottom: 20px;">
-              <label for="atasanName" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff;">Nama Atasan</label>
+              <label for="atasanName" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff2d1;">Nama Atasan</label>
               <input id="atasanName" v-model="atasanName" class="modal-input" placeholder="Masukkan Nama Atasan" required />
             </div>
             <div style="text-align: left;">
-              <label for="atasanNip" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff;">NIP Atasan</label>
+              <label for="atasanNip" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff2d1;">NIP Atasan</label>
               <input id="atasanNip" v-model="atasanNip" class="modal-input" placeholder="Masukkan NIP Atasan" required />
             </div>
             <div class="modal-buttons">
@@ -782,6 +782,148 @@ export default {
 .table th:nth-child(2), .table td:nth-child(2) { width: auto; }
 .table th:nth-child(3), .table td:nth-child(3) { width: auto; }
 
+.kinerja-page {
+  color: #f8ecd1;
+}
+
+.kinerja-page .dashboard-content {
+  background:
+    radial-gradient(circle at top left, rgba(246, 215, 138, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(106, 31, 43, 0.2), transparent 26%),
+    linear-gradient(180deg, #1a0e10 0%, #261416 100%);
+  padding-bottom: 42px;
+}
+
+.kinerja-page .dash-cards.card,
+.kinerja-page .messages-form .card,
+.kinerja-page .card {
+  background: linear-gradient(180deg, rgba(34, 17, 19, 0.98) 0%, rgba(23, 12, 13, 0.98) 100%);
+  border: 1px solid rgba(246, 215, 138, 0.16);
+  color: #f8ecd1;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.kinerja-page .card-header {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
+  border-bottom: 1px solid rgba(246, 215, 138, 0.12);
+}
+
+.kinerja-page .card-body,
+.kinerja-page .messages-form,
+.kinerja-page .profile-content {
+  color: #f8ecd1;
+}
+
+.kinerja-page .alert-info {
+  background: linear-gradient(180deg, rgba(246, 215, 138, 0.16) 0%, rgba(106, 31, 43, 0.18) 100%) !important;
+  color: #fff4dc !important;
+  border: 1px solid rgba(246, 215, 138, 0.18) !important;
+}
+
+.kinerja-page .alert-info hr {
+  border-color: rgba(246, 215, 138, 0.14);
+}
+
+.kinerja-page .alert-info ul,
+.kinerja-page .alert-info li,
+.kinerja-page .alert-info span {
+  color: #fff4dc;
+}
+
+.kinerja-page .listing-search .form-control,
+.kinerja-page .messages-form .form-control,
+.kinerja-page .messages-form .form-select,
+.kinerja-page .messages-form textarea,
+.kinerja-page .modal-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(246, 215, 138, 0.2);
+  color: #fff4dc;
+}
+
+.kinerja-page .listing-search .form-control::placeholder,
+.kinerja-page .messages-form .form-control::placeholder,
+.kinerja-page .messages-form textarea::placeholder,
+.kinerja-page .modal-input::placeholder {
+  color: rgba(248, 236, 209, 0.58);
+}
+
+.kinerja-page .table {
+  background: transparent;
+  color: #fff4dc;
+}
+
+.kinerja-page .table thead th {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
+  border-color: rgba(246, 215, 138, 0.14);
+}
+
+.kinerja-page .table tbody td {
+  color: #fff4dc;
+  background: rgba(255, 244, 216, 0.03);
+  border-color: rgba(201, 157, 79, 0.12);
+}
+
+.kinerja-page .table tbody tr:hover td {
+  background: rgba(255, 244, 216, 0.08);
+}
+
+.kinerja-page .table tbody td a {
+  color: #f6d78a;
+}
+
+.kinerja-page .pagination .page-link {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(246, 215, 138, 0.18);
+  color: #fff4dc;
+}
+
+.kinerja-page .pagination .page-item.active .page-link {
+  background: #f6d78a;
+  color: #241213;
+  border-color: #f6d78a;
+}
+
+.kinerja-page .btn-primary {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  border: 0;
+  color: #fff4dc;
+}
+
+.kinerja-page .btn-warning {
+  background: #f6d78a;
+  border: 0;
+  color: #241213;
+}
+
+.kinerja-page .btn-danger {
+  background: #b03b4a;
+  border: 0;
+  color: #fff4dc;
+}
+
+.kinerja-page .atasan-modal .modal-content {
+  background: linear-gradient(180deg, #241213 0%, #160b0c 100%);
+  border: 1px solid rgba(246, 215, 138, 0.18);
+}
+
+.kinerja-page .atasan-modal .modal-content h3,
+.kinerja-page .atasan-modal .modal-content p,
+.kinerja-page .atasan-modal .modal-content label {
+  color: #fff4dc !important;
+}
+
+.kinerja-page .modal-save-btn {
+  background: #f6d78a;
+  color: #241213;
+}
+
+.kinerja-page .modal-cancel-btn {
+  background: #6a1f2b;
+  color: #fff4dc;
+}
+
 .atasan-modal {
   position: fixed;
   top: 0;
@@ -796,38 +938,39 @@ export default {
 }
 
 .modal-content {
-  background-color: #333;
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
   padding: 20px;
   border-radius: 8px;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
   text-align: center;
+  color: #fff4dc;
 }
 
 .modal-content h3 {
   margin-bottom: 10px;
-  color: #fff;
+  color: #fff4dc;
 }
 
 .modal-content p {
   margin-bottom: 20px;
-  color: #ccc;
+  color: rgba(255, 244, 220, 0.72);
 }
 
 .modal-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #555;
+  border: 1px solid rgba(201, 157, 79, 0.18);
   border-radius: 4px;
-  background-color: #444;
-  color: #fff;
+  background-color: rgba(255, 244, 220, 0.04);
+  color: #fff4dc;
 }
 
 .modal-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #c58a2a;
 }
 
 .modal-buttons {
@@ -837,8 +980,8 @@ export default {
 }
 
 .modal-save-btn {
-  background-color: #28a745;
-  color: white;
+  background: linear-gradient(135deg, #2f5f48 0%, #6a1f2b 100%);
+  color: #fff4dc;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -846,12 +989,12 @@ export default {
 }
 
 .modal-save-btn:hover {
-  background-color: #218838;
+  filter: brightness(1.05);
 }
 
 .modal-cancel-btn {
-  background-color: #dc3545;
-  color: white;
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -859,6 +1002,39 @@ export default {
 }
 
 .modal-cancel-btn:hover {
-  background-color: #c82333;
+  filter: brightness(1.05);
+}
+
+.kinerja-page .card,
+.kinerja-page .card-header,
+.kinerja-page .card-body,
+.kinerja-page .dash-cards {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+  color: #fff4dc !important;
+}
+
+.kinerja-page .card-header h4,
+.kinerja-page .card-body,
+.kinerja-page .card-body label,
+.kinerja-page .card-body span,
+.kinerja-page .card-body p,
+.kinerja-page .card-body small,
+.kinerja-page .card-body h5,
+.kinerja-page .card-body h6,
+.kinerja-page .table,
+.kinerja-page .table td,
+.kinerja-page .table th {
+  color: #fff4dc !important;
+}
+
+.kinerja-page .table thead th {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  color: #fff !important;
+}
+
+.kinerja-page .table tbody td {
+  background: rgba(255, 244, 220, 0.04) !important;
+  color: #fff4dc !important;
 }
 </style>

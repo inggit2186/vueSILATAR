@@ -2,7 +2,7 @@
     <!-- Bookmark Content -->
     <div class="dashboard-content">		
 			<div class="container">	
-                <satkermenu />		
+                <satker-menu :nav="nav" />		
 				<div class="bookmarks-content grid-view featured-slider">
 				    <div class="row" :disabled="loading">
 						<div v-if="!loading && nav == 'getSeksi'" class="col-lg-3 col-md-4 centered">
@@ -10,7 +10,7 @@
 							<div class="PTSP categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
-								<h5>H. AMRIL, S.Ag, MM</h5>
+								<h5>H.HENDRI PANI DIAS,S.Ag,MA</h5>
 								<span style="font-size:14px">KEPALA KANTOR<br>Kementerian Agama Kab.Tanah Datar</span>
 								</a>								   
 							</div>
@@ -22,7 +22,7 @@
 							<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 							<br>
 							<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-							<h3>::: Nyangkul Data dulu :::</h3>
+							<h3>::: Memuat data :::</h3>
 							<hr>
 						</div>
 					    <div v-for="item in paginatedSeksi" v-else id="item" :key="item.id" class="col-lg-4 col-md-4 col-sm-6 centered">
@@ -107,6 +107,8 @@
 </template>
 
 <script>
+import SatkerMenu from '@/components/satkerMenu.vue';
+
 export default {
 	data() {
 			return {

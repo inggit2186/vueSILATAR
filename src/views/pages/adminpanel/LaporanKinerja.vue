@@ -2,7 +2,7 @@
     <div class="main-wrapper">
         <layouts></layouts>
 
-        <div class="page-wrapper">
+        <div class="page-wrapper admin-laporan-kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
             <!-- Categories Section -->
                 <div class="categorieslist-section">
@@ -83,3 +83,65 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.admin-laporan-kinerja-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(143, 29, 44, 0.18), transparent 32%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.admin-laporan-kinerja-page :deep(.breadcrumb) {
+  color: #fff2d1;
+}
+
+.admin-laporan-kinerja-page .categorieslist-section {
+  padding: 0.75rem 0 2.5rem;
+}
+
+.admin-laporan-kinerja-page h3 {
+  color: #fff4dc;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.admin-laporan-kinerja-page hr {
+  border-color: rgba(201, 157, 79, 0.18);
+  opacity: 1;
+}
+
+.admin-laporan-kinerja-page .categories-content {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 22px;
+  padding: 1rem;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.admin-laporan-kinerja-page .categories-content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+}
+
+.admin-laporan-kinerja-page .categories-content h6 {
+  color: #fff4dc;
+  font-weight: 700;
+}
+
+.admin-laporan-kinerja-page .categories-content span {
+  color: rgba(255, 244, 220, 0.76);
+}
+
+.admin-laporan-kinerja-page .categories-content img {
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.22));
+}
+
+@media (max-width: 767px) {
+  .admin-laporan-kinerja-page .categories-content {
+    border-radius: 18px;
+  }
+}
+</style>

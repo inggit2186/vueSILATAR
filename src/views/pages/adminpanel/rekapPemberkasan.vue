@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper rekap-pemberkasan-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -46,7 +46,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -62,12 +62,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td>
@@ -75,21 +75,21 @@
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>
                                                 </td>
                                                 <td>
-                                                    <BBadge v-if="item.status == 'DRAFT'" variant="warning">DRAFT</BBadge>
-                                                    <BBadge v-if="item.status == 'UNCHECK'" variant="light">DIAJUKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary">DISETUJUI</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
-                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark">BELUM UPLOAD</BBadge>
+                                                    <BBadge v-if="item.status == 'DRAFT'" variant="warning" class="status-badge status-badge-draft">DRAFT</BBadge>
+                                                    <BBadge v-if="item.status == 'UNCHECK'" variant="light" class="status-badge status-badge-submitted">DIAJUKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary" class="status-badge status-badge-received">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary" class="status-badge status-badge-approved">DISETUJUI</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger" class="status-badge status-badge-rejected">DITOLAK</BBadge>
+                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark" class="status-badge status-badge-none">BELUM UPLOAD</BBadge>
                                                     <br/>
-                                                    <span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
-													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mdi-person-tie /><i> {{ item.petugas }}	</i></span><br/>
-													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" style="font-size: smaller;"><i-mingcute-comment-fill /><i> {{ item.alasan }}	</i></span>
+                                                    <span v-if="item.status != 'NONE'" class="status-meta"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
+													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" class="status-meta"><i-mdi-person-tie /><i> {{ item.petugas }}	</i></span><br/>
+													<span v-if="item.status != 'DIKIRIM' && item.status != 'NONE'" class="status-meta"><i-mingcute-comment-fill /><i> {{ item.alasan }}	</i></span>
                                                 </td>
                                                 <td>
                                                     <BButton v-if="!loadingaksi[item.id] && item.status != 'NONE'" pill size="sm" variant="outline-primary" @click.prevent="aksiStatus(item.noreq)"><b><i-mdi-call-to-action /> Cek Detail!</b></BButton>
                                                     <span v-else-if="item.status == 'NONE'"><i-guidance-forbidden /></span>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
 													<br/>
 													<span v-if="xid == '1037'" style="font-size: smaller;font-style: italic;"><i-mdi-files/> {{ item.tipe }}</span>
                                                 </td>
@@ -663,3 +663,183 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.rekap-pemberkasan-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.rekap-pemberkasan-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+}
+
+.rekap-pemberkasan-page :deep(.card-header),
+.rekap-pemberkasan-page :deep(.card-body) {
+  color: #fff2d1;
+}
+
+.rekap-pemberkasan-page :deep(.card-header h4),
+.rekap-pemberkasan-page :deep(.dashborad-menus li a),
+.rekap-pemberkasan-page :deep(.listing-search .form-control),
+.rekap-pemberkasan-page :deep(.pagination .page-link) {
+  color: #fff4dc;
+}
+
+.rekap-pemberkasan-page :deep(.card-header h4) {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff7e8;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.rekap-pemberkasan-page :deep(.blog-pagination) {
+  margin-top: 1rem;
+}
+
+.rekap-pemberkasan-page :deep(.pagination) {
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.rekap-pemberkasan-page :deep(.pagination .page-item .page-link) {
+  background: rgba(255, 244, 220, 0.05);
+  border: 1px solid rgba(201, 157, 79, 0.28);
+  color: #fff7e8 !important;
+  border-radius: 12px;
+  min-width: 44px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.rekap-pemberkasan-page :deep(.pagination .page-item .page-link:hover),
+.rekap-pemberkasan-page :deep(.pagination .page-item .page-link:focus) {
+  background: rgba(201, 157, 79, 0.2);
+  border-color: rgba(241, 197, 111, 0.55);
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.rekap-pemberkasan-page :deep(.pagination .page-item.active .page-link) {
+  background: linear-gradient(135deg, #c58a2a 0%, #f1c56f 100%);
+  border-color: rgba(241, 197, 111, 0.9);
+  color: #2a191a !important;
+  box-shadow: 0 6px 16px rgba(197, 138, 42, 0.28);
+}
+
+.rekap-pemberkasan-page :deep(.pagination .page-item.disabled .page-link) {
+  background: rgba(255, 244, 220, 0.02);
+  color: rgba(255, 247, 232, 0.45) !important;
+  border-color: rgba(201, 157, 79, 0.12);
+  box-shadow: none;
+}
+
+.rekap-pemberkasan-page :deep(.pagination .page-item.nextlink .page-link),
+.rekap-pemberkasan-page :deep(.pagination .page-item.previtem .page-link) {
+  padding-inline: 0.9rem;
+}
+
+.rekap-pemberkasan-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+}
+
+.rekap-pemberkasan-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+}
+
+.rekap-pemberkasan-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff4dc;
+}
+
+.rekap-pemberkasan-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-draft) {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #fff8e6 !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-submitted) {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  color: #fff8ff !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-received) {
+  background: linear-gradient(135deg, #64748b 0%, #334155 100%);
+  color: #f8fafc !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-approved) {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #eff6ff !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-rejected) {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: #fff1f2 !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-badge-none) {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc !important;
+}
+
+.rekap-pemberkasan-page :deep(.status-meta) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  color: #fff8e6 !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+  opacity: 0.96;
+}
+
+.rekap-pemberkasan-page :deep(.btn-warning),
+.rekap-pemberkasan-page :deep(.btn-danger) {
+  border: none;
+}
+
+.rekap-pemberkasan-page :deep(.btn-warning) {
+  background: linear-gradient(135deg, #c58a2a 0%, #f1c56f 100%);
+  color: #2a191a;
+}
+
+.rekap-pemberkasan-page :deep(.btn-danger) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .rekap-pemberkasan-page :deep(.dash-cards.card) {
+    border-radius: 18px;
+  }
+}
+</style>

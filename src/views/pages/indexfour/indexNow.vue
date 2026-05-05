@@ -47,7 +47,7 @@
 						<div v-for="item in IndexNow" :key="item.id" class="col-lg-3 col-md-6 col-sm-6 d-flex aos" data-aos="fade-up">
 							<div class="category-box flex-fill">
 								<span>
-									<img :src="import(`../../../assets/img/icons/${item.img}`)" class="img-fluid" alt="img">
+									<img :src="$asset(`icons/${item.img}`)" class="img-fluid" alt="img">
 								</span>
 								<div class="category-info">
 									<h6>{{ item.title }}</h6>

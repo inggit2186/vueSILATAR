@@ -1,6 +1,6 @@
 <template>
     <div class="main-wrapper">
-        <div class="page-wrapper">
+        <div class="page-wrapper rekap-skp-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -17,7 +17,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -33,12 +33,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
 												<td>
@@ -100,6 +100,85 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.rekap-skp-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.rekap-skp-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.rekap-skp-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.rekap-skp-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+}
+
+.rekap-skp-page h4,
+.rekap-skp-page .card-header h4 {
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.rekap-skp-page :deep(.table) {
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.table thead th) {
+  background: rgba(214, 171, 76, 0.12);
+  color: #fff4dc;
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.rekap-skp-page :deep(.table tbody td) {
+  border-color: rgba(255, 244, 220, 0.08);
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.rekap-skp-page :deep(.table tbody tr:hover) {
+  background: rgba(214, 171, 76, 0.08);
+}
+
+.rekap-skp-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 export default {
@@ -258,3 +337,67 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.rekap-skp-page {
+  background:
+    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
+    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
+  color: #fff2d1;
+}
+
+.rekap-skp-page :deep(.dash-cards.card) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
+  border: 1px solid rgba(201, 157, 79, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.rekap-skp-page :deep(.card-header),
+.rekap-skp-page :deep(.card-body) {
+  color: #fff2d1;
+}
+
+.rekap-skp-page :deep(.card-header h4),
+.rekap-skp-page :deep(.listing-search .form-control),
+.rekap-skp-page :deep(.pagination .page-link),
+.rekap-skp-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.listing-search .form-control) {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.24);
+}
+
+.rekap-skp-page :deep(.table thead th) {
+  background: rgba(201, 157, 79, 0.14);
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.table tbody td) {
+  background: rgba(255, 244, 220, 0.03);
+  color: #fff2d1;
+}
+
+.rekap-skp-page :deep(.btn-outline-primary) {
+  border: 1px solid rgba(201, 157, 79, 0.42);
+  color: #fff4dc;
+}
+
+.rekap-skp-page :deep(.btn-outline-primary:hover) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+.rekap-skp-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .rekap-skp-page :deep(.dash-cards.card) {
+    border-radius: 18px;
+  }
+}
+</style>

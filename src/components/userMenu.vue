@@ -49,7 +49,7 @@
             </li>
         -->
             <li>
-                <b-button variant="primary w-70 logout-btn" :disabled="loading" @click="logout()">
+                <b-button variant="primary w-70 logout-btn logout-cta" :disabled="loading" @click="logout()">
                     <span v-if="!loading"><i class="fas fa-light fa-circle-arrow-left"></i>&nbsp; Logout</span>
                     <span v-else><i-svg-spinners-bars-scale-middle />&nbsp; Good Bye...</span>
                 </b-button>
@@ -103,4 +103,24 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.logout-cta {
+    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    border: none !important;
+    color: #fff8e6 !important;
+    box-shadow: 0 10px 24px rgba(171, 23, 57, 0.22);
+}
+
+.logout-cta:hover,
+.logout-cta:focus {
+    background: linear-gradient(135deg, #e0ba62, #c82349) !important;
+    color: #fffdf6 !important;
+}
+
+.logout-cta span {
+    color: inherit;
+    font-weight: 700;
+}
+</style>
 

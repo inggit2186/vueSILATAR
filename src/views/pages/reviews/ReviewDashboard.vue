@@ -30,7 +30,7 @@ href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="import(`../../../assets/img/${item.src}`)" class="img-fluid" alt="img">
+											<img :src="$asset(item.src)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">
@@ -66,7 +66,7 @@ href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="import(`../../../assets/img/${item.src2}`)" class="img-fluid" alt="img">
+											<img :src="$asset(item.src2)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">
@@ -88,7 +88,7 @@ href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
 								<li class="review-box">
 									<div class="review-profile">
 										<div class="review-img">
-											<img :src="import(`../../../assets/img/${item.src3}`)" class="img-fluid" alt="img">
+											<img :src="$asset(item.src3)" class="img-fluid" alt="img">
 										</div>
 									</div>
 									<div class="review-details">

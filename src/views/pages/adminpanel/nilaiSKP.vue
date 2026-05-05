@@ -2,7 +2,7 @@
     <div class="main-wrapper">
         <layouts></layouts>
 
-        <div class="page-wrapper">
+        <div class="page-wrapper nilai-skp-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
     <!-- Categories Section -->
 		<div class="categorieslist-section">
@@ -13,7 +13,7 @@
 						<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 						<br>
 						<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-						<h3>::: Nyangkul Data dulu :::</h3>
+						<h3>::: Memuat data :::</h3>
 						<hr>
 					</div>
 					<div v-for="item in paginatedLayanan" v-else :key="item.id" class="col-lg-3 col-md-4 centered">
@@ -66,6 +66,105 @@
 </div>
 </div>
 </template>
+
+<style scoped>
+.nilai-skp-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.nilai-skp-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.nilai-skp-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.nilai-skp-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+}
+
+.nilai-skp-page h4,
+.nilai-skp-page .card-header h4 {
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.nilai-skp-page :deep(.table) {
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.table thead th) {
+  background: rgba(214, 171, 76, 0.12);
+  color: #fff4dc;
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.nilai-skp-page :deep(.table tbody td) {
+  border-color: rgba(255, 244, 220, 0.08);
+  color: #4a3323;
+  background: #fffdf7;
+}
+
+.nilai-skp-page :deep(.table tbody td a) {
+  color: #a61d3a;
+}
+
+.nilai-skp-page :deep(.table tbody td b),
+.nilai-skp-page :deep(.table tbody td strong) {
+  color: #3a271b;
+}
+
+.nilai-skp-page :deep(.table tbody td span),
+.nilai-skp-page :deep(.table tbody td i),
+.nilai-skp-page :deep(.table tbody td small) {
+  color: #6a4b35;
+}
+
+.nilai-skp-page :deep(.table tbody tr:hover) {
+  background: rgba(214, 171, 76, 0.08);
+}
+
+.nilai-skp-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.btn-success),
+.nilai-skp-page :deep(.btn-secondary),
+.nilai-skp-page :deep(.btn-danger),
+.nilai-skp-page :deep(.btn-primary),
+.nilai-skp-page :deep(.btn-dark) {
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.nilai-skp-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 export default {

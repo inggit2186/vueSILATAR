@@ -21,7 +21,7 @@
 							<div class="space-wrap">
 								<div class="space-img">
 									<router-link to="/service-details">
-										<img :src="import(`../../../assets/img/work/${item.img1}`)" class="img-fluid" alt="blog-img">
+										<img :src="$asset(`work/${item.img1}`)" class="img-fluid" alt="blog-img">
 									</router-link>
 									<div class="fav-item">
 										<span class="featured-text">Featured</span>
@@ -29,7 +29,7 @@
 								</div>
 								<div class="space-content">
 									<div class="space-cat">
-										<img :src="import(`../../../assets/img/icons/${item.img2}`)" class="img-fluid" alt="img">
+										<img :src="$asset(`icons/${item.img2}`)" class="img-fluid" alt="img">
 									</div>
 									<div class="rating">
 										<i class="fas fa-star filled"></i>
@@ -50,7 +50,7 @@ href="javascript:void(0);" class="fav-icon"
                                         </li>
 									</ul>
 									<div class="price">
-										<img :src="import(`../../../assets/img/profiles/${item.img3}`)" class="img-fluid" alt="img">
+										<img :src="$asset(`profiles/${item.img3}`)" class="img-fluid" alt="img">
 										<span>{{ item.rate }}</span>
 									</div> 
 								</div> 
@@ -83,7 +83,7 @@ href="javascript:void(0);" class="fav-icon"
 						<div v-for="item in IndexCity" :key="item.id" class="col-lg-2 col-sm-6 aos" data-aos="fade-up">
 							<div class="city-wrap">
 								<div class="city-img">
-									<img :src="import(`../../../assets/img/work/${item.img}`)" class="img-fluid" alt="blog-img">										
+									<img :src="$asset(`work/${item.img}`)" class="img-fluid" alt="blog-img">										
 									<router-link to="/categories">
 										<i class="feather-arrow-right"></i>
 									</router-link>

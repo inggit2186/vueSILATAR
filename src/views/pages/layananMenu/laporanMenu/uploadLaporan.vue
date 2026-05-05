@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper laporan-upload-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -13,7 +13,7 @@
 								<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 								<br>
 								<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-								<h3>::: Nyangkul Data dulu :::</h3>
+								<h3>::: Memuat data dulu :::</h3>
 								<hr>
 							</div>
 							<div v-else ref="scroll1st" class="dash-cards card">
@@ -62,10 +62,10 @@
 													<div v-else>
 														<input :id='"file"+item.id' type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
 														<label v-if="!loadingfile[item.id]" :for='"file"+item.id' class="file-upload">
-															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Upload File</span>
+															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Unggah berkas</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
 														</label>
-														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
 													    </div>
 												</div>
 												<br/>
@@ -106,7 +106,7 @@
 															<span v-if="item.status == 'KOSONG' || item.status == 'DRAFT'"><i-ph-upload-fill /> Kirim Pengajuan</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ubah Pengajuan</span>
 														</label>
-														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Menuju Lokasi..</label>
+														<label v-else :for='"file"+item.id' class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
 													</div>
 												</div>
 												<br/>
@@ -464,3 +464,118 @@ export default {
   }
 }
 </script>
+
+<style>
+.laporan-upload-page {
+    background:
+        radial-gradient(circle at top, rgba(170, 24, 58, 0.16), transparent 42%),
+        linear-gradient(180deg, #231419 0%, #160d11 100%);
+}
+
+.laporan-upload-page .dashboard-content {
+    padding: 1.25rem 0 2.5rem;
+}
+
+.laporan-upload-page .dash-cards.card,
+.laporan-upload-page .card {
+    background: linear-gradient(180deg, rgba(42, 24, 28, 0.96), rgba(28, 16, 18, 0.96));
+    border: 1px solid rgba(214, 171, 76, 0.24);
+    border-radius: 22px;
+    color: #fff4dc;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+}
+
+.laporan-upload-page .card-header {
+    background: rgba(80, 48, 31, 0.92);
+    color: #fff4dc;
+    border-bottom: 1px solid rgba(214, 171, 76, 0.18);
+}
+
+.laporan-upload-page .card-body,
+.laporan-upload-page .media-image,
+.laporan-upload-page .featured-img1,
+.laporan-upload-page .media-title,
+.laporan-upload-page .card-header h4,
+.laporan-upload-page .card-body h4,
+.laporan-upload-page .card-body h5,
+.laporan-upload-page .card-body span,
+.laporan-upload-page .card-body small,
+.laporan-upload-page .card-body label {
+    color: #fff4dc;
+}
+
+.laporan-upload-page .media-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.4rem;
+}
+
+.laporan-upload-page .media-image img {
+    max-width: 170px;
+    max-height: 170px;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.22));
+}
+
+.laporan-upload-page .media-title {
+    color: #fff4dc;
+    text-decoration: none;
+}
+
+.laporan-upload-page .file-upload,
+.laporan-upload-page .btn-primary,
+.laporan-upload-page .btn-danger,
+.laporan-upload-page .btn-success,
+.laporan-upload-page .btn-warning,
+.laporan-upload-page .btn-secondary {
+    border: none;
+    border-radius: 14px;
+    color: #fffaf0 !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.laporan-upload-page .file-upload,
+.laporan-upload-page .btn-primary,
+.laporan-upload-page .btn-warning {
+    background: linear-gradient(135deg, #d8a64a, #a92d38);
+}
+
+.laporan-upload-page .btn-success {
+    background: linear-gradient(135deg, #d8a64a, #8d2731);
+}
+
+.laporan-upload-page .btn-danger {
+    background: linear-gradient(135deg, #b94d32, #8d1e2a);
+}
+
+.laporan-upload-page .btn-secondary {
+    background: linear-gradient(135deg, #6f7684, #434b58);
+}
+
+.laporan-upload-page .file-upload:hover,
+.laporan-upload-page .btn-primary:hover,
+.laporan-upload-page .btn-warning:hover,
+.laporan-upload-page .btn-success:hover,
+.laporan-upload-page .btn-danger:hover {
+    filter: brightness(1.04);
+}
+
+.laporan-upload-page .badge,
+.laporan-upload-page .table,
+.laporan-upload-page .form-control,
+.laporan-upload-page .form-select {
+    color: #fff4dc;
+}
+
+.laporan-upload-page .card hr {
+    border-color: rgba(214, 171, 76, 0.18);
+}
+
+@media (max-width: 768px) {
+    .laporan-upload-page .dashboard-content {
+        padding-top: 0.75rem;
+    }
+}
+</style>

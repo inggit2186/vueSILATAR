@@ -5,7 +5,7 @@
                 <Slide v-for="item in RecommendSlide" :key="item.id" class="carousel__slide recommended-widget">
                     <div class="img-blk">
                         <router-link to="/service-details">
-                            <img :src="import(`../../../assets/img/recommended/${item.image}`)" class="img-fluid" alt="List 1">
+                            <img :src="$asset(`recommended/${item.image}`)" class="img-fluid" alt="List 1">
                         </router-link>
                         <div :class="item.class">
                             <p>{{ item.badge }}</p>

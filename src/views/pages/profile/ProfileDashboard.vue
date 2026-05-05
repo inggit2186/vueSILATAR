@@ -1,6 +1,6 @@
 <template>
     <!-- Profile Content -->
-    <div class="dashboard-content">		
+    <div class="dashboard-content profile-dashboard-page">		
 			<div class="container">
 				<userMenu />
 				<div class="profile-content">
@@ -8,7 +8,7 @@
 					    <div class="col-lg-9">
 						    <div class="card dash-cards">
 								<div class="card-header">
-									<h4>Profile Details</h4>														
+										<h4>Detail Profil</h4>														
 								</div>
 								<b-form @submit.prevent="updateProfil">
                                 <div class="card-body">
@@ -20,8 +20,8 @@
 											<div class="settings-upload-btn">
 												<input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
 												<label for="filex" class="file-upload" :disable="loadingpp">
-													<span v-if="!loadingpp" style="color: aliceblue;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
-													<span v-else style="color: aliceblue;" ><i-svg-spinners-bars-scale-middle />&nbsp; JNE Berangkaattt... </span>
+												<span v-if="!loadingpp" style="color: #fff4dc;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
+												<span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 												</label>												
 											</div>	
 											<span>Max file size: 2 MB</span>
@@ -221,7 +221,7 @@ v-else v-model="password2"
 import VueCroppie from 'vue-croppie'
 import 'croppie/croppie.css'
 
-const image = import(`@/assets/img/profile-img.jpg`)
+const image = new URL('../../../assets/img/profile-img.jpg', import.meta.url).href
 	export default {
 		components: {
 			VueCroppie
@@ -467,4 +467,47 @@ const image = import(`@/assets/img/profile-img.jpg`)
 	},
 };
 </script>
+
+<style>
+.profile-dashboard-page .dash-cards,
+.profile-dashboard-page .profile-sidebar .card {
+	background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
+	border: 1px solid rgba(201, 157, 79, 0.18);
+	box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+	color: #fff4dc;
+}
+
+.profile-dashboard-page .card-header h4,
+.profile-dashboard-page .profile-form label,
+.profile-dashboard-page .profile-sidebar label,
+.profile-dashboard-page .profile-form span,
+.profile-dashboard-page .profile-sidebar span,
+.profile-dashboard-page .profile-form small,
+.profile-dashboard-page .profile-sidebar small {
+	color: #fff4dc;
+}
+
+.profile-dashboard-page .settings-upload-btn .file-upload {
+	border-color: rgba(201, 157, 79, 0.28);
+	background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+}
+
+.profile-dashboard-page .profile-form .form-control,
+.profile-dashboard-page .profile-sidebar .form-control {
+	background: rgba(255, 244, 220, 0.04);
+	border-color: rgba(201, 157, 79, 0.2);
+	color: #fff4dc;
+}
+
+.profile-dashboard-page .profile-form .form-control::placeholder,
+.profile-dashboard-page .profile-sidebar .form-control::placeholder {
+	color: rgba(255, 244, 220, 0.62);
+}
+
+.profile-dashboard-page .profile-form .form-control:focus,
+.profile-dashboard-page .profile-sidebar .form-control:focus {
+	border-color: rgba(201, 157, 79, 0.45);
+	box-shadow: 0 0 0 0.2rem rgba(201, 157, 79, 0.14);
+}
+</style>
 	

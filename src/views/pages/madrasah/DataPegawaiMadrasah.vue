@@ -1,13 +1,13 @@
 <template>
-  <div class="main-wrapper">
-    <layouts></layouts>
-    <div class="page-wrapper">
-      <breadcrumb :title="`Data ${entityPlural} Madrasah`" :name="entityPlural" text="Madrasah" text1="Semester Genap" />
+  <div :class="isAdminMadrasahView ? 'admin-madrasah-embedded' : 'main-wrapper'">
+    <layouts v-if="!isAdminMadrasahView"></layouts>
+    <div :class="isAdminMadrasahView ? 'admin-madrasah-embedded-page' : 'page-wrapper'">
+      <breadcrumb v-if="!isAdminMadrasahView" :title="`Data ${entityPlural} Madrasah`" :name="entityPlural" text="Madrasah" text1="Semester Genap" />
 
       <div class="dashboard-content">
         <div class="container">
           <div class="report-shell madrasah-page-shell">
-            <MadrasahHeaderMenu />
+            <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
             <div class="hero madrasah-hero">
               <div>
                 <h2>{{ headerTitle }}</h2>
@@ -552,9 +552,10 @@
 <script setup>
 import MadrasahHeaderMenu from '@/components/MadrasahHeaderMenu.vue'
 import { computed, ref, nextTick, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import Swal from 'sweetalert2'
 import madrasahService from '@/services/madrasahService'
-import { getMadrasahClassLevelCount, getMadrasahLabel, getStoredUser } from '@/utils/madrasahAccess'
+import { canManageAnyMadrasah, getMadrasahClassLevelCount, getMadrasahLabel, getStoredUser } from '@/utils/madrasahAccess'
 
 const props = defineProps({
   entitySingular: {
@@ -601,6 +602,8 @@ const sections = ref({
 const isLoading = ref(false)
 const isApiPegawaiData = ref(false)
 const jabatanFilter = props.showGuruFields ? 'guru' : 'adm'
+const route = useRoute()
+const isAdminMadrasahView = computed(() => String(route.path || '').startsWith('/admin/madrasah'))
 
 const notifySuccess = (message) => {
   Swal.fire({
@@ -681,6 +684,10 @@ const paginationEnd = computed(() => {
 })
 
 const getDeptId = () => {
+  if (canManageAnyMadrasah() && route.query?.dept_id) {
+    return String(route.query.dept_id).trim()
+  }
+
   const user = getStoredUser()
   return user?.dept_id ?? user?.dept?.id ?? user?.dept?.dept_id ?? null
 }
@@ -1026,6 +1033,14 @@ onMounted(async () => {
 })
 
 watch(
+  () => route.query?.dept_id,
+  async () => {
+    await loadPegawaiData()
+    resetForm()
+  }
+)
+
+watch(
   pegawaiData,
   () => {
     if (currentPage.value > totalPages.value) {
@@ -1066,6 +1081,10 @@ watch(
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.admin-madrasah-embedded-page {
+  padding: 0;
 }
 
 .madrasah-hero {
@@ -1136,10 +1155,10 @@ watch(
 }
 
 .card-section {
-  background: #fff;
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
   border-radius: 24px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  border: 1px solid #e8eef7;
+  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
+  border: 1px solid rgba(201, 157, 79, 0.22);
   overflow: hidden;
 }
 
@@ -1156,13 +1175,13 @@ watch(
 }
 
 .data-card :deep(thead th) {
-  background: linear-gradient(135deg, #1f3c88 0%, #3f72af 100%);
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
   color: #fff;
   border-bottom: none;
 }
 
 .data-card :deep(tbody tr:hover) {
-  background: #f7fbff;
+  background: rgba(255, 244, 216, 0.04);
 }
 
 .data-card :deep(.table-responsive) {
@@ -1311,6 +1330,99 @@ watch(
 .pegawai-name-meta small {
   color: #64748b;
   font-size: 0.78rem;
+}
+
+.report-shell {
+  color: #fff2d1;
+}
+
+.card-section {
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  border: 1px solid rgba(201, 157, 79, 0.22);
+  box-shadow: 0 18px 36px rgba(22, 12, 13, 0.22);
+}
+
+.data-card {
+  background: transparent;
+}
+
+.data-card :deep(.table-responsive) {
+  background: rgba(255, 244, 216, 0.03);
+  border: 1px solid rgba(201, 157, 79, 0.18);
+}
+
+.data-card :deep(thead th) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+.data-card :deep(tbody tr:hover) {
+  background: rgba(255, 244, 216, 0.04);
+}
+
+.data-card :deep(.b-table-empty-row) {
+  color: #f0d8ac;
+}
+
+.pegawai-table {
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  border: 1px solid rgba(201, 157, 79, 0.2);
+  box-shadow: 0 12px 24px rgba(22, 12, 13, 0.16);
+}
+
+.pegawai-table th {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  color: #fff;
+}
+
+.pegawai-table td {
+  color: #fff2d1;
+  border-bottom: 1px solid rgba(201, 157, 79, 0.12);
+}
+
+.pegawai-row-details {
+  background: rgba(255, 244, 216, 0.04);
+  border: 1px solid rgba(201, 157, 79, 0.18);
+}
+
+.details-title {
+  color: #fff2d1;
+}
+
+.details-title i {
+  color: #f0d8ac;
+}
+
+.details-item {
+  color: #f2e5c8;
+}
+
+.details-item strong {
+  color: #fff7e4;
+}
+
+.table-busy-state {
+  color: #f0d8ac;
+}
+
+.table-pagination-wrapper {
+  border-top-color: rgba(201, 157, 79, 0.16);
+}
+
+.table-pagination-info {
+  color: #f0d8ac;
+}
+
+.pegawai-avatar {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+}
+
+.pegawai-name-meta strong {
+  color: #fff2d1;
+}
+
+.pegawai-name-meta small {
+  color: rgba(255, 240, 197, 0.72);
 }
 
 /* MODAL ENHANCEMENTS */
@@ -1525,10 +1637,10 @@ watch(
 .input-floating :deep(.form-select),
 .input-floating .floating-input {
   min-height: 46px !important;
-  border: 1px solid #dbe2ea !important;
+  border: 1px solid rgba(201, 157, 79, 0.18) !important;
   border-radius: 10px !important;
-  background: #fff !important;
-  color: #1e293b !important;
+  background: rgba(255, 244, 216, 0.05) !important;
+  color: #fff2d1 !important;
   padding-left: 2.35rem !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1536,13 +1648,13 @@ watch(
 .input-floating :deep(.form-control:focus),
 .input-floating :deep(.form-select:focus),
 .input-floating .floating-input:focus {
-  border-color: #667eea !important;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+  border-color: rgba(246, 212, 122, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(201, 157, 79, 0.16) !important;
 }
 
 .input-floating:focus-within > i,
 .input-floating:focus-within > .input-icon {
-  color: #667eea;
+  color: #f6d78a;
 }
 
 .input-floating :deep(textarea.form-control) {
@@ -1716,5 +1828,225 @@ watch(
   width: 18px !important;
   height: 18px !important;
   margin-top: 0 !important;
+}
+
+.report-shell {
+  color: #fff2d1;
+}
+
+.report-shell .card-section,
+.report-shell .card,
+.report-shell .media-section,
+.report-shell .categories-content,
+.report-shell .custom-modal,
+.report-shell .custom-modal-header,
+.report-shell .custom-modal-body,
+.report-shell .custom-modal-footer {
+  background: linear-gradient(180deg, #2a191a 0%, #241516 100%);
+  color: #fff2d1;
+  border-color: rgba(201, 157, 79, 0.18);
+}
+
+.report-shell .card-section,
+.report-shell .card,
+.report-shell .media-section {
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  box-shadow: 0 14px 28px rgba(22, 12, 13, 0.16);
+}
+
+.report-shell .card-header,
+.report-shell .custom-modal-header {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  color: #fff !important;
+  border-color: rgba(246, 212, 122, 0.28) !important;
+}
+
+.report-shell .card-header h5,
+.report-shell .card-header h4,
+.report-shell .custom-modal-header h5 {
+  color: #fff !important;
+}
+
+.report-shell .card-body,
+.report-shell .profile-form,
+.report-shell .profile-photo,
+.report-shell .categorieslist-section,
+.report-shell .listMenu,
+.report-shell .categories-content {
+  background: transparent;
+  color: #fff2d1;
+}
+
+.report-shell .listMenu {
+  border: 1px solid rgba(201, 157, 79, 0.18);
+  border-radius: 16px;
+}
+
+.report-shell .categories-content span,
+.report-shell .categories-content b,
+.report-shell .profile-photo span,
+.report-shell .profile-form label,
+.report-shell .col-form-label,
+.report-shell h5,
+.report-shell h4,
+.report-shell small {
+  color: #fff2d1 !important;
+}
+
+.report-shell .form-control,
+.report-shell .form-select,
+.report-shell :deep(.form-control),
+.report-shell :deep(.form-select),
+.report-shell :deep(textarea.form-control) {
+  background: rgba(255, 244, 216, 0.05) !important;
+  color: #fff2d1 !important;
+  border: 1px solid rgba(201, 157, 79, 0.18) !important;
+}
+
+.report-shell .form-control::placeholder,
+.report-shell :deep(.form-control::placeholder) {
+  color: rgba(255, 240, 197, 0.58) !important;
+}
+
+.report-shell .btn-primary,
+.report-shell .btn-warning,
+.report-shell .btn-danger,
+.report-shell .btn-secondary {
+  border: 0 !important;
+  color: #fff !important;
+}
+
+.report-shell .btn-primary,
+.report-shell .btn-warning {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+}
+
+.report-shell .btn-danger,
+.report-shell .btn-secondary {
+  background: linear-gradient(135deg, #4b2327 0%, #8f1d2c 100%) !important;
+}
+
+.report-shell .table-responsive,
+.report-shell .b-table,
+.report-shell table {
+  background: transparent;
+  color: #fff2d1;
+}
+
+.report-shell thead th {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  color: #fff !important;
+}
+
+.report-shell tbody tr:hover {
+  background: rgba(255, 244, 216, 0.04) !important;
+}
+
+.report-shell .custom-modal-backdrop {
+  background: rgba(14, 8, 10, 0.72);
+}
+
+.report-shell .custom-modal-footer {
+  border-top: 1px solid rgba(201, 157, 79, 0.16);
+}
+
+.report-shell .btn-close {
+  filter: invert(1) grayscale(1);
+}
+
+.report-shell :deep(.card-section),
+.report-shell :deep(.data-card),
+.report-shell :deep(.pegawai-table),
+.report-shell :deep(.pegawai-row-details),
+.report-shell :deep(.section-block),
+.report-shell :deep(.profile-card),
+.report-shell :deep(.custom-modal),
+.report-shell :deep(.custom-modal-header),
+.report-shell :deep(.custom-modal-body),
+.report-shell :deep(.custom-modal-footer) {
+  background: linear-gradient(180deg, #2a191a 0%, #201214 100%) !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.card-section h4),
+.report-shell :deep(.data-card h4),
+.report-shell :deep(.pegawai-row-details h5),
+.report-shell :deep(.details-title),
+.report-shell :deep(.pegawai-name-meta strong),
+.report-shell :deep(.pegawai-name-meta small),
+.report-shell :deep(.pegawai-row-details .details-item),
+.report-shell :deep(.pegawai-row-details .details-item strong),
+.report-shell :deep(.table-busy-state),
+.report-shell :deep(label),
+.report-shell :deep(.col-form-label),
+.report-shell :deep(small) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.pegawai-name-meta small),
+.report-shell :deep(.pegawai-row-details .details-item),
+.report-shell :deep(.pegawai-row-details .details-item strong),
+.report-shell :deep(.table-busy-state),
+.report-shell :deep(.details-item-full a),
+.report-shell :deep(.b-badge) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.data-card th),
+.report-shell :deep(.pegawai-table th),
+.report-shell :deep(table thead th) {
+  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  color: #fff !important;
+}
+
+.report-shell :deep(.data-card td),
+.report-shell :deep(.pegawai-table td),
+.report-shell :deep(table tbody td) {
+  background: rgba(255, 244, 216, 0.04) !important;
+  color: #fff2d1 !important;
+  border-color: rgba(201, 157, 79, 0.1) !important;
+}
+
+.report-shell :deep(.form-control),
+.report-shell :deep(.form-select),
+.report-shell :deep(textarea.form-control) {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #fff2d1 !important;
+  border-color: rgba(201, 157, 79, 0.18) !important;
+}
+
+.report-shell :deep(.form-control::placeholder),
+.report-shell :deep(textarea.form-control::placeholder) {
+  color: rgba(255, 240, 197, 0.58) !important;
+}
+
+.report-shell :deep(.btn-primary),
+.report-shell :deep(.btn-secondary),
+.report-shell :deep(.btn-warning),
+.report-shell :deep(.btn-danger) {
+  color: #fff4dc !important;
+}
+
+.report-shell :deep(.text-primary),
+.report-shell :deep(.text-muted),
+.report-shell :deep(.text-success),
+.report-shell :deep(.text-danger),
+.report-shell :deep(.text-warning),
+.report-shell :deep(.text-info) {
+  color: #fff2d1 !important;
+}
+
+.report-shell :deep(.bg-white),
+.report-shell :deep(.bg-light) {
+  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
+  color: #fff4dc !important;
+}
+
+.report-shell :deep(.card-body),
+.report-shell :deep(.card-header),
+.report-shell :deep(.custom-modal-body),
+.report-shell :deep(.custom-modal-header) {
+  color: #fff4dc !important;
 }
 </style>

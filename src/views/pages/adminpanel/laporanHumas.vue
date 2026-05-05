@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper humas-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -57,11 +57,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -77,12 +77,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="kinerja.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
@@ -553,6 +553,125 @@ export default {
 </script>
 
 <style>
+.humas-page {
+  color: #f8ecd1;
+}
+
+.humas-page .dashboard-content {
+  background:
+    radial-gradient(circle at top left, rgba(246, 215, 138, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(106, 31, 43, 0.2), transparent 26%),
+    linear-gradient(180deg, #1a0e10 0%, #261416 100%);
+  padding-bottom: 42px;
+}
+
+.humas-page .dash-cards.card,
+.humas-page .messages-form .card,
+.humas-page .card {
+  background: linear-gradient(180deg, rgba(34, 17, 19, 0.98) 0%, rgba(23, 12, 13, 0.98) 100%);
+  border: 1px solid rgba(246, 215, 138, 0.16);
+  color: #f8ecd1;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.humas-page .card-header {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
+  border-bottom: 1px solid rgba(246, 215, 138, 0.12);
+}
+
+.humas-page .card-body,
+.humas-page .messages-form,
+.humas-page .profile-content {
+  color: #f8ecd1;
+}
+
+.humas-page .alert-info {
+  background: linear-gradient(180deg, rgba(246, 215, 138, 0.16) 0%, rgba(106, 31, 43, 0.18) 100%) !important;
+  color: #fff4dc !important;
+  border: 1px solid rgba(246, 215, 138, 0.18) !important;
+}
+
+.humas-page .alert-info hr {
+  border-color: rgba(246, 215, 138, 0.14);
+}
+
+.humas-page .alert-info ul,
+.humas-page .alert-info li,
+.humas-page .alert-info span {
+  color: #fff4dc;
+}
+
+.humas-page .listing-search .form-control,
+.humas-page .messages-form .form-control,
+.humas-page .messages-form .form-select,
+.humas-page .messages-form textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(246, 215, 138, 0.2);
+  color: #fff4dc;
+}
+
+.humas-page .listing-search .form-control::placeholder,
+.humas-page .messages-form .form-control::placeholder,
+.humas-page .messages-form textarea::placeholder {
+  color: rgba(248, 236, 209, 0.58);
+}
+
+.humas-page .table {
+  background: transparent;
+  color: #fff4dc;
+}
+
+.humas-page .table thead th {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  color: #fff4dc;
+  border-color: rgba(246, 215, 138, 0.14);
+}
+
+.humas-page .table tbody td {
+  color: #fff4dc;
+  background: rgba(255, 244, 216, 0.03);
+  border-color: rgba(201, 157, 79, 0.12);
+}
+
+.humas-page .table tbody tr:hover td {
+  background: rgba(255, 244, 216, 0.08);
+}
+
+.humas-page .table tbody td a {
+  color: #f6d78a;
+}
+
+.humas-page .pagination .page-link {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(246, 215, 138, 0.18);
+  color: #fff4dc;
+}
+
+.humas-page .pagination .page-item.active .page-link {
+  background: #f6d78a;
+  color: #241213;
+  border-color: #f6d78a;
+}
+
+.humas-page .btn-primary {
+  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  border: 0;
+  color: #fff4dc;
+}
+
+.humas-page .btn-warning {
+  background: #f6d78a;
+  border: 0;
+  color: #241213;
+}
+
+.humas-page .btn-danger {
+  background: #b03b4a;
+  border: 0;
+  color: #fff4dc;
+}
+
 /* Hide the default file input */
 input[type="file"] {
     display: none;
@@ -563,8 +682,8 @@ input[type="file"] {
     display: inline-block;
     padding: 8px 10px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+    color: #fff4dc;
     border-radius: 6px;
     font-size: 16px;
 	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -573,7 +692,7 @@ input[type="file"] {
 }
 
 .custom-file-upload:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #7c2330 0%, #b16a2c 100%);
 }
 
 .custom-file-upload i {

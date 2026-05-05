@@ -42,7 +42,7 @@
 											<div class="blog-img">
 												<router-link to="service-details">
 													<img
-:src="import(`../../../../assets/img/list/${item.image}`)"
+:src="$asset(`list/${item.image}`)"
 														class="img-fluid" alt="blog-img">
 												</router-link>
 												<div class="fav-item">
@@ -57,7 +57,7 @@
 													<div class="blogfeaturelink">
 														<div class="grid-author">
 															<img
-:src="import(`../../../../assets/img/profiles/${item.author}`)"
+:src="$asset(`profiles/${item.author}`)"
 																alt="author">
 														</div>
 														<div class="blog-features">
@@ -254,15 +254,16 @@ import Slider from "@vueform/slider";
 import ListingMapGrid from '../../../../assets/json/listingMapGrid.json'
 
 
+const asset = (relativePath) => new URL(`../../../../assets/img/${relativePath}`, import.meta.url).href;
 const icons = {
-	'default': import('@/assets/img/icons/marker.png'),
-	'icon2': import('@/assets/img/icons/marker1.png'),
-	'icon3': import('@/assets/img/icons/marker2.png'),
-	'icon4': import('@/assets/img/icons/marker3.png'),
-	'icon5': import('@/assets/img/icons/marker4.png'),
-	'icon6': import('@/assets/img/icons/marker5.png'),
-	'icon7': import('@/assets/img/icons/marker6.png'),
-	'icon8': import('@/assets/img/icons/marker7.png')
+	'default': asset('icons/marker.png'),
+	'icon2': asset('icons/marker1.png'),
+	'icon3': asset('icons/marker2.png'),
+	'icon4': asset('icons/marker3.png'),
+	'icon5': asset('icons/marker4.png'),
+	'icon6': asset('icons/marker5.png'),
+	'icon7': asset('icons/marker6.png'),
+	'icon8': asset('icons/marker7.png')
 };
 const locations = [
 			{
@@ -413,7 +414,7 @@ export default {
 
 		function setInfo(marker) {
 		const content = `
-			<div class="profile-widget" style="width: 276px; background: url(${import(`@/assets/img/${marker.image}`)}) center center / cover no-repeat; position: relative; padding: 90px 0; display: inline-block; border-radius: 10px;">
+			<div class="profile-widget" style="width: 276px; background: url(${asset(marker.image)}) center center / cover no-repeat; position: relative; padding: 90px 0; display: inline-block; border-radius: 10px;">
 				<div class="pro-content">
 					<h3 class="title">
 						<a href="javascript:void(0)">${marker.doc_name}</a>

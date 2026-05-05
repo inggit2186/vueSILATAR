@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper laporan-pengaduan-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -28,11 +28,11 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
 										<div class="group-img d-none d-sm-block">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
 										<div class="group-img d-block d-sm-none">
-                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" style="float:left; max-width: 50%;margin-right: 5px;" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -51,12 +51,12 @@
                                         </thead>
                                         <tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else-if="!loading && $route.params.id == 'admin'">
 											<tr v-if="error.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id" >
                                                 <td><a href="#">{{ item.nama }} </a><br/>
@@ -80,7 +80,7 @@
 										</tbody>
 										<tbody v-else>
 											<tr v-if="error.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="(item,index) in paginatedItem" v-else :key="item.id" >
                                                 <td><a href="#">{{ item.tanggal }} </a></td>
@@ -142,6 +142,102 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.laporan-pengaduan-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.laporan-pengaduan-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.laporan-pengaduan-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page h4,
+.laporan-pengaduan-page .card-header h4 {
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.laporan-pengaduan-page :deep(.table) {
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page :deep(.table thead th) {
+  background: rgba(214, 171, 76, 0.12);
+  color: #fff4dc;
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.laporan-pengaduan-page :deep(.table tbody td) {
+  border-color: rgba(255, 244, 220, 0.08);
+  color: #3b2418 !important;
+  background: #fffdf7 !important;
+}
+
+.laporan-pengaduan-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.laporan-pengaduan-page :deep(.table tbody td a) {
+  color: #7a162b !important;
+}
+
+.laporan-pengaduan-page :deep(.table tbody td b),
+.laporan-pengaduan-page :deep(.table tbody td strong) {
+  color: #2f1d14 !important;
+}
+
+.laporan-pengaduan-page :deep(.table tbody td span),
+.laporan-pengaduan-page :deep(.table tbody td i),
+.laporan-pengaduan-page :deep(.table tbody td small) {
+  color: #5a3d2c !important;
+}
+
+.laporan-pengaduan-page :deep(.table tbody tr:hover) {
+  background: rgba(214, 171, 76, 0.06);
+}
+
+.laporan-pengaduan-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.laporan-pengaduan-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 import PresensiMenu from '@/components/presensiMenu.vue';

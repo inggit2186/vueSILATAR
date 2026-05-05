@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper laporan-kinerja-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -14,7 +14,7 @@
 								<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 								<br>
 								<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-								<h3>::: Nyangkul Data dulu :::</h3>
+								<h3>::: Memuat data :::</h3>
 								<hr>
 							</div>
 							<div v-else ref="scroll1st" class="dash-cards card">
@@ -46,10 +46,10 @@
 													<div v-else>
 														<input :id="'file' + item.id" type="file" accept="application/pdf" name="image" class="hide-input image-upload" :disabled="loadingfile[item.id]" @change="onFileChange(item.id,$event)">
 														<label v-if="!loadingfile[item.id]" :for="'file' + item.id" class="file-upload">
-															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Upload File</span>
+															<span v-if="item.status == 'KOSONG'"><i-ph-upload-fill /> Unggah berkas</span>
 															<span v-else ><i-material-symbols-change-circle-rounded /> Ganti File</span>
 														</label>
-														<label v-else :for="'file' + item.id" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Kirim File..</label>
+														<label v-else :for="'file' + item.id" class="file-upload"><i-svg-spinners-6-dots-scale-middle /> Sedang memproses...</label>
 														<br/>
 														<span v-if="item.status != 'KOSONG' && item.status != 'DIKIRIM'" style="font-size: small;font-style: italic;font-weight: 700;"><i-mingcute-comment-fill /> {{ item.alasan }} </span>
 													</div>
@@ -78,6 +78,76 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.laporan-kinerja-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.laporan-kinerja-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.laporan-kinerja-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page h4,
+.laporan-kinerja-page .card-header h4,
+.laporan-kinerja-page .media-title {
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.laporan-kinerja-page .media-image {
+  background: rgba(255, 244, 220, 0.04);
+  border: 1px solid rgba(214, 171, 76, 0.14);
+  border-radius: 18px;
+  padding: 1rem;
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page .media-image img {
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+}
+
+.laporan-kinerja-page .file-upload {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  color: #fff4dc;
+  border: 1px solid transparent;
+}
+
+.laporan-kinerja-page .file-upload:hover {
+  background: linear-gradient(135deg, #d6ab4c, #ab1739);
+  color: #fff4dc;
+}
+
+.laporan-kinerja-page :deep(.btn-danger) {
+  background: linear-gradient(135deg, #8f1c31, #ab1739);
+  border: none;
+}
+</style>
 
 <script>
 export default {

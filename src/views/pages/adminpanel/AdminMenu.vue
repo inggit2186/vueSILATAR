@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper">
+        <div class="page-wrapper admin-menu-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
             <div class="categorieslist-section">
                 <div class="container ">
@@ -15,125 +15,136 @@
 							<hr>
 						</div>
                         <div v-for="item in submenu" v-else :key="item.id" class="col-lg-4 col-md-4 centered">
-                            <router-link :to="adminLayanan(item.id)">
+                            <router-link class="admin-menu-link" :to="adminLayanan(item.id)">
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/'+item.id+'.png'" style="width:100%;" alt="car1" @error="handleBrokenImage(item)">
                                 <h6>{{ item.nama }}</h6>
                                 <span>{{ item.deskripsi }}</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <hr/>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/admin/laporanketidakhadiran'>
+                            <router-link class="admin-menu-link" to='/admin/laporanketidakhadiran'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/presensi.png'" style="width:100%;" alt="car1">
                                 <h6>Laporan Presensi</h6>
                                 <span>Laporan Presensi Pegawai Jajaran Kantor Kementerian Agama Kab.Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link :to='tujuLayanan()'>
+                            <router-link class="admin-menu-link" :to='tujuLayanan()'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/LaporanKinerja.png'" style="width:100%;" alt="car1">
                                 <h6>Laporan Kinerja</h6>
                                 <span>Verifikasi Laporan Kinerja Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/verif/humas/getKUA'>
+                            <router-link class="admin-menu-link" to='/verif/humas/getKUA'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/humas.png'" style="width:100%;" alt="car1">
                                 <h6>Laporan Kehumasan</h6>
                                 <span>Verifikasi Laporan Kehumasan Jajaran Kantor Kementerian Agama Kab.Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/slipgaji'>
+                            <router-link class="admin-menu-link" to='/slipgaji'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/516.png'" style="width:100%;" alt="car1">
                                 <h6>Slip Gaji</h6>
                                 <span>Rekap Slip Gaji Pegawai Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/verif/kinerja/getKUA'>
+                            <router-link class="admin-menu-link" to='/verif/kinerja/getKUA'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/518.png'" style="width:100%;" alt="car1">
                                 <h6>Penilaian Kinerja</h6>
                                 <span>Rekap Penilain Kinerja Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/penilaianskp'>
+                            <router-link class="admin-menu-link" to='/penilaianskp'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/517.png'" style="width:100%;" alt="car1">
                                 <h6>Penilaian SKP</h6>
                                 <span>Rekap Penilain SKP Jajaran Kantor Kementerian Agama Kabupaten Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/listreq/777'>
+                            <router-link class="admin-menu-link" to='/listreq/777'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/777.png'" style="width:100%;" alt="car1">
                                 <h6>Konsultasi & Appointment</h6>
                                 <span>Layanan Konsultasi / Appointment Pegawai Kantor Kementerian Agama Kab.Tanah Datar</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/listreq/888'>
+                            <router-link class="admin-menu-link" to='/listreq/888'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/888.png'" style="width:100%;" alt="car1">
                                 <h6>Pengaduan</h6>
                                 <span>Layanan Pengaduan yang masuk dari StakeHolder / Pengguna</span>
-                                </a>								   
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <div class="col-lg-3 col-md-3 centered">
-                            <router-link to='/listreq/999'>
+                            <router-link class="admin-menu-link" to='/listreq/999'>
                             <div class="listMenu categories-content">
-                                <a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
                                 <img :src="$assets+'/img/ikon/999.png'" style="width:100%;" alt="car1">
                                 <h6>Lainnya</h6>
                                 <span>Menu Untuk Aplikasi Layanan Lainnya</span>
-                                </a>								   
+                                </div>								   
+                            </div>
+                            </router-link>
+                        </div>
+                        <div class="col-lg-3 col-md-3 centered">
+                            <router-link class="admin-menu-link" to='/admin/madrasah'>
+                            <div class="listMenu categories-content">
+                                <div class="text-center aos aos-init aos-animate" data-aos="fade-up">
+                                <img :src="$assets+'/img/ikon/518.png'" style="width:100%;" alt="admin-madrasah">
+                                <h6>Fitur Madrasah</h6>
+                                <span>Kelola profil, pegawai, guru, laporan semester, dan laporan bulanan madrasah dari panel admin</span>
+                                </div>								   
                             </div>
                             </router-link>
                         </div>
                         <hr/>
                         <div v-for="itemx in paginatedLayanan" :key="itemx.id" class="col-lg-3 col-md-4 centered">
-							<router-link :to='"/listreq/"+itemx.id'>
+							<router-link class="admin-menu-link" :to='"/listreq/"+itemx.id'>
 							<div class="categories-content">
-								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
+								<div class="text-center aos aos-init aos-animate" data-aos="fade-up">
 								<img :src="$assets+'/img/ikon/'+itemx.imgid+'.png'" style="width:80%;" alt="car1" @error="handleBrokenImage(itemx)">
 								<h6>{{ itemx.nama }}</h6>
 								<span>{{ itemx.deskripsi }}</span>
-								</a>								   
+								</div>								   
 							</div>
 							</router-link>
 						</div>
@@ -173,6 +184,111 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.admin-menu-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.admin-menu-page .categorieslist-section {
+  padding: 1rem 0 2.75rem;
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%) !important;
+}
+
+.admin-menu-page .admin-menu-link,
+.admin-menu-page .admin-menu-link:visited,
+.admin-menu-page .admin-menu-link:hover,
+.admin-menu-page .admin-menu-link:focus {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none !important;
+  color: #fff4dc !important;
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98)) !important;
+  background-color: #1f1216 !important;
+  border: 1px solid rgba(214, 171, 76, 0.22) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 16px 30px rgba(13, 7, 8, 0.2) !important;
+  overflow: hidden !important;
+}
+
+.admin-menu-page .admin-menu-link .listMenu.categories-content,
+.admin-menu-page .admin-menu-link .categories-content {
+  display: block;
+  min-height: 210px;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+  color: #fff4dc !important;
+  overflow: hidden;
+}
+
+.admin-menu-page :deep(.listMenu.categories-content),
+.admin-menu-page :deep(.categories-content) {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.96), rgba(24, 14, 17, 0.96)) !important;
+  background-color: #231518 !important;
+  border: 1px solid rgba(214, 171, 76, 0.18) !important;
+  border-radius: 22px;
+  box-shadow: 0 16px 30px rgba(13, 7, 8, 0.2);
+  color: #fff4dc;
+}
+
+.admin-menu-page .admin-menu-link img {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
+}
+
+.admin-menu-page .admin-menu-link,
+.admin-menu-page .admin-menu-link h6,
+.admin-menu-page .admin-menu-link span {
+  color: #fff4dc !important;
+}
+
+.admin-menu-page .admin-menu-link * {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+.admin-menu-page .admin-menu-link h6 {
+  font-weight: 800;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.admin-menu-page .admin-menu-link span {
+  color: rgba(255, 244, 220, 0.9) !important;
+}
+
+.admin-menu-page .admin-menu-link:hover,
+.admin-menu-page .admin-menu-link:focus,
+.admin-menu-page .admin-menu-link:hover .listMenu.categories-content,
+.admin-menu-page .admin-menu-link:focus .listMenu.categories-content {
+  transform: translateY(-2px);
+  border-color: rgba(214, 171, 76, 0.3);
+  box-shadow: 0 22px 34px rgba(13, 7, 8, 0.28);
+}
+
+.admin-menu-page .admin-menu-link:hover,
+.admin-menu-page .admin-menu-link:focus {
+  text-decoration: none;
+}
+
+.admin-menu-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.admin-menu-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 

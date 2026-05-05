@@ -8,7 +8,7 @@
 						<div class="gallery-widget">
 							<a href="javascript:void()" data-fancybox="gallery2">
 								<img
-:src="import(`../../../assets/img/gallery/gallery2/${src.src}`)" class="img-fluid"
+:src="$asset(`gallery/gallery2/${src.src}`)" class="img-fluid"
 									alt="Image">
 							</a>
 						</div>

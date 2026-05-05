@@ -8,7 +8,7 @@
 						<b-img :src="$assets+'/img/loading.gif'" v-bind="mainProps" rounded alt="loading-gif"></b-img>
 						<br>
 						<i-svg-spinners-bars-scale style="font-size: 2em;"/>
-						<h3>::: Nyangkul Data dulu :::</h3>
+						<h3>::: Memuat data :::</h3>
 						<hr>
 					</div>
 						<div v-else-if="!loading">

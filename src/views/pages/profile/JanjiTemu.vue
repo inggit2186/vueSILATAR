@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper">
+        <div class="page-wrapper janji-temu-page">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -20,7 +20,7 @@
                                 <div class="listing-search">
                                     <div class="filter-content form-group">
                                         <div class="group-img">
-                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Search..." @input="filterTable">
+                                            <input v-model="keyword" type="text"  class="form-control" placeholder="Cari data..." @input="filterTable">
                                             <i class="feather-search"></i>
                                         </div>
                                     </div>
@@ -36,12 +36,12 @@
                                         </thead>
 										<tbody v-if="loading">
                                             <tr>
-                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Mencari Data...</b></span></td>
+                                                <td colspan="5"><span style="font-size: 20px;"><i-svg-spinners-blocks-wave /><b> &nbsp;Memuat data...</b></span></td>
                                             </tr>
                                         </tbody>
 										<tbody v-else>
 											<tr v-if="ptsp.length == 0">
-												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum Ada Data...</b></td>
+												<td colspan="6" style="font-size: 20px;"><b><i-icon-park-twotone-pouting-face /> &nbsp;Belum ada data.</b></td>
 											</tr>
 											<tr v-for="item in paginatedItem" v-else :key="item.id">
                                                 <td><a href="#">{{ item.tanggal }} </a><br/><b>{{ item.jam }}</b></td>
@@ -70,7 +70,7 @@
                                                 </td>
                                                 <td v-if="item.status == 'APPOINTMENT' || item.status == 'PENDING' || item.status == 'DITERIMA' || item.status == 'ON SITE'" >
                                                     <BButton v-if="!loadingaksi[item.id]" pill size="sm" variant="outline-primary" @click.prevent="aksiTamu(item.id)"><b><i-mdi-call-to-action /> AKSI</b></BButton>
-                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Loading...</b></BButton>
+                                                    <BButton v-else pill size="sm" variant="outline-primary"><b> <i-svg-spinners-bars-scale/> Memuat data...</b></BButton>
                                                 </td>
 												<td v-else>
 													&nbsp;
@@ -120,6 +120,100 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+.janji-temu-page {
+  background:
+    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
+    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+}
+
+.janji-temu-page .dashboard-content {
+  padding: 1rem 0 2.5rem;
+}
+
+.janji-temu-page .dash-cards {
+  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
+  border: 1px solid rgba(214, 171, 76, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
+  color: #fff4dc;
+}
+
+.janji-temu-page .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+  color: #fff4dc;
+}
+
+.janji-temu-page h4,
+.janji-temu-page .card-header h4 {
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.form-control) {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid rgba(214, 171, 76, 0.24);
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.form-control::placeholder) {
+  color: rgba(255, 244, 220, 0.56);
+}
+
+.janji-temu-page :deep(.table) {
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.table thead th) {
+  background: rgba(214, 171, 76, 0.12);
+  color: #fff4dc;
+  border-color: rgba(214, 171, 76, 0.18);
+}
+
+.janji-temu-page :deep(.table tbody td) {
+  background: #fffdf7 !important;
+  border-color: rgba(59, 36, 24, 0.12);
+  color: #3b2418 !important;
+}
+
+.janji-temu-page :deep(.table tbody td *) {
+  color: inherit !important;
+}
+
+.janji-temu-page :deep(.table tbody tr:hover) {
+  background: rgba(214, 171, 76, 0.08);
+}
+
+.janji-temu-page :deep(.badge) {
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.btn-outline-primary) {
+  border-color: rgba(171, 23, 57, 0.28);
+  color: #ab1739;
+  background: #fff9f1;
+}
+
+.janji-temu-page :deep(.btn-outline-primary:hover),
+.janji-temu-page :deep(.btn-outline-primary:focus) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.page-link) {
+  background: rgba(255, 244, 220, 0.08);
+  border-color: rgba(214, 171, 76, 0.2);
+  color: #fff4dc;
+}
+
+.janji-temu-page :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  border-color: transparent;
+  color: #fff4dc;
+}
+</style>
 
 <script>
 import LayananMenu from '../layananMenu/layananMenu.vue';

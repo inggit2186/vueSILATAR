@@ -7,7 +7,7 @@
 		            <div class="stickysidebar">
 			            <div class="listings-sidebar">
 						    <div class="card">
-				                <h4><img  src="../../../../assets/img/details-icon.svg" alt="details-icon"> Filter</h4>
+				                <h4><img :src="$asset('details-icon.svg')" alt="details-icon"> Filter</h4>
 							    <b-form>
 								    <div class="filter-content looking-input form-group">
 									  <b-form-input type="text" class="form-control" placeholder="What are you looking for?" />
@@ -138,7 +138,7 @@
 						        <div class="blog-widget">
 						            <div class="blog-img">
 								        <router-link to="service-details.">
-									        <img :src="import(`../../../../assets/img/blog/${item.img1}`)" class="img-fluid" alt="blog-img">
+									        <img :src="$asset(`blog/${item.img1}`)" class="img-fluid" alt="blog-img">
                                         </router-link>
                                         <div class="fav-item">
 											<span class="Featured-text">Featured</span>
@@ -155,7 +155,7 @@
                                                 </div>																	  
 											    <div class="blog-author"> 
 												  <div class="blog-author-img">
-												    <img :src="import(`../../../../assets/img/profiles/${item.img2}`)" alt="author">
+												    <img :src="$asset(`profiles/${item.img2}`)" alt="author">
 												  </div>
 												  <a href="javascript:void(0);">{{ item.name }}</a>
 										        </div>

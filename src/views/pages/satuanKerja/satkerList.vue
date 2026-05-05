@@ -5,7 +5,7 @@
         <div class="page-wrapper">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             <router-view :key="$route.fullPath">
-            <KantorData />
+                <KantorData />
             </router-view>
             <foot /> 
 
