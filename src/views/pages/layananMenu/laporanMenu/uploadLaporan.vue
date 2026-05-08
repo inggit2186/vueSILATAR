@@ -468,8 +468,8 @@ export default {
 <style>
 .laporan-upload-page {
     background:
-        radial-gradient(circle at top, rgba(170, 24, 58, 0.16), transparent 42%),
-        linear-gradient(180deg, #231419 0%, #160d11 100%);
+        radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+        linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .laporan-upload-page .dashboard-content {
@@ -478,17 +478,17 @@ export default {
 
 .laporan-upload-page .dash-cards.card,
 .laporan-upload-page .card {
-    background: linear-gradient(180deg, rgba(42, 24, 28, 0.96), rgba(28, 16, 18, 0.96));
-    border: 1px solid rgba(214, 171, 76, 0.24);
+    background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+    border: 1px solid rgba(31, 95, 191, 0.12);
     border-radius: 22px;
-    color: #fff4dc;
-    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+    color: #1f2937;
+    box-shadow: 0 22px 48px rgba(31, 95, 191, 0.08);
 }
 
 .laporan-upload-page .card-header {
-    background: rgba(80, 48, 31, 0.92);
-    color: #fff4dc;
-    border-bottom: 1px solid rgba(214, 171, 76, 0.18);
+    background: rgba(255, 255, 255, 0.92);
+    color: #1f2937;
+    border-bottom: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .laporan-upload-page .card-body,
@@ -501,7 +501,7 @@ export default {
 .laporan-upload-page .card-body span,
 .laporan-upload-page .card-body small,
 .laporan-upload-page .card-body label {
-    color: #fff4dc;
+    color: #1f2937;
 }
 
 .laporan-upload-page .media-image {
@@ -516,11 +516,11 @@ export default {
     max-width: 170px;
     max-height: 170px;
     object-fit: contain;
-    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.22));
+    filter: drop-shadow(0 14px 20px rgba(31, 95, 191, 0.12));
 }
 
 .laporan-upload-page .media-title {
-    color: #fff4dc;
+    color: #113f82;
     text-decoration: none;
 }
 
@@ -532,26 +532,26 @@ export default {
 .laporan-upload-page .btn-secondary {
     border: none;
     border-radius: 14px;
-    color: #fffaf0 !important;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    color: #ffffff !important;
+    box-shadow: 0 12px 24px rgba(31, 95, 191, 0.12);
 }
 
 .laporan-upload-page .file-upload,
 .laporan-upload-page .btn-primary,
 .laporan-upload-page .btn-warning {
-    background: linear-gradient(135deg, #d8a64a, #a92d38);
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c);
 }
 
 .laporan-upload-page .btn-success {
-    background: linear-gradient(135deg, #d8a64a, #8d2731);
+    background: linear-gradient(135deg, #2e7dd4, #c89b3c);
 }
 
 .laporan-upload-page .btn-danger {
-    background: linear-gradient(135deg, #b94d32, #8d1e2a);
+    background: linear-gradient(135deg, #d46b39, #8f1d2c);
 }
 
 .laporan-upload-page .btn-secondary {
-    background: linear-gradient(135deg, #6f7684, #434b58);
+    background: linear-gradient(135deg, #7f8aa3, #4b5870);
 }
 
 .laporan-upload-page .file-upload:hover,
@@ -566,11 +566,11 @@ export default {
 .laporan-upload-page .table,
 .laporan-upload-page .form-control,
 .laporan-upload-page .form-select {
-    color: #fff4dc;
+    color: #1f2937;
 }
 
 .laporan-upload-page .card hr {
-    border-color: rgba(214, 171, 76, 0.18);
+    border-color: rgba(31, 95, 191, 0.12);
 }
 
 @media (max-width: 768px) {

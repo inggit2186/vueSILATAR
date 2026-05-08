@@ -118,11 +118,11 @@ export default {
   padding: 1rem 1.15rem;
   border-radius: 18px;
   background:
-    radial-gradient(circle at top right, rgba(214, 171, 76, 0.12), transparent 28%),
-    linear-gradient(135deg, #2a171a 0%, #431b20 52%, #1b1013 100%);
-  color: #fff4dc;
-  box-shadow: 0 16px 34px rgba(18, 10, 11, 0.26);
-  border: 1px solid rgba(214, 171, 76, 0.2);
+    radial-gradient(circle at top right, rgba(31, 95, 191, 0.08), transparent 28%),
+    linear-gradient(135deg, #ffffff 0%, #f3f7ff 52%, #eef4ff 100%);
+  color: #1f2937;
+  box-shadow: 0 16px 34px rgba(31, 95, 191, 0.08);
+  border: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .madrasah-menu-kicker {
@@ -151,15 +151,15 @@ export default {
   min-width: 120px;
   padding: 0.8rem 0.95rem;
   border-radius: 16px;
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.22);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
   font-weight: 700;
   backdrop-filter: blur(8px);
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .madrasah-menu-badge i {
@@ -173,11 +173,11 @@ export default {
 }
 
 .madrasah-menu-tab {
-  border: 1px solid rgba(214, 171, 76, 0.2);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 16px;
   padding: 0.85rem 0.9rem;
-  background: linear-gradient(180deg, rgba(42, 24, 28, 0.98) 0%, rgba(28, 16, 18, 0.98) 100%);
-  color: #fff4dc;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 249, 255, 0.94) 100%);
+  color: #1f2937;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -191,16 +191,16 @@ export default {
 }
 
 .madrasah-menu-tab:hover {
-  border-color: rgba(214, 171, 76, 0.34);
-  color: #fffaf0;
+  border-color: rgba(31, 95, 191, 0.2);
+  color: #113f82;
   transform: translateY(-1px);
 }
 
 .madrasah-menu-tab.active {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-  border-color: rgba(201, 157, 79, 0.55);
-  color: #fffdf6;
-  box-shadow: 0 12px 28px rgba(27, 15, 16, 0.18);
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
+  border-color: rgba(31, 95, 191, 0.22);
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(31, 95, 191, 0.12);
 }
 
 @media (max-width: 992px) {

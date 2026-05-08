@@ -1,6 +1,6 @@
 <template>
     <div class="main-wrapper">
-        <div class="page-wrapper rekap-skp-page">
+        <div class="page-wrapper rekap-skp-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -177,6 +177,65 @@
   background: linear-gradient(135deg, #ab1739, #d6ab4c);
   border-color: transparent;
   color: #fff4dc;
+}
+
+.rekap-skp-page.theme-report-shell {
+  background:
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+}
+
+.rekap-skp-page.theme-report-shell .dash-cards {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.rekap-skp-page.theme-report-shell .card-header,
+.rekap-skp-page.theme-report-shell .card-header h4,
+.rekap-skp-page.theme-report-shell .card-body,
+.rekap-skp-page.theme-report-shell .table,
+.rekap-skp-page.theme-report-shell .group-img .form-control,
+.rekap-skp-page.theme-report-shell .group-img i,
+.rekap-skp-page.theme-report-shell .page-link {
+  color: #0f172a !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.form-control) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(31, 95, 191, 0.16) !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.form-control::placeholder) {
+  color: #64748b !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.table thead th) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.table tbody td) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.badge) {
+  color: #ffffff !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.page-link) {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
+}
+
+.rekap-skp-page.theme-report-shell :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
 }
 </style>
 

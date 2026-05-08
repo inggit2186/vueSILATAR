@@ -9,7 +9,7 @@
 							<router-link to="/ASN/197304241998031008">
 							<div class="PTSP categories-content">
 								<a href="javascript:void(0);" class="text-center aos aos-init aos-animate" data-aos="fade-up">
-								<img :src="$assets+'/img/profiles/kakankemenag-01.jpg'" alt="car1">
+								<img :src="$cacheBust($assets+'/img/profiles/kakankemenag-01.png')" alt="car1">
 								<h5>H.HENDRI PANI DIAS,S.Ag,MA</h5>
 								<span style="font-size:14px">KEPALA KANTOR<br>Kementerian Agama Kab.Tanah Datar</span>
 								</a>								   
@@ -43,7 +43,7 @@
 										<div class="card-body">
 											<div class="blogfeaturelink">
 											    <div class="grid-author">
-												    <img :src="item.ppkepala ?? $assets+'/img/profiles/avatar-01.jpg'" alt="author">
+												    <img :src="$cacheBust(item.ppkepala ?? $assets+'/img/profiles/avatar-01.jpg')" alt="author">
                                                 </div>
 												<div class="blog-features">
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.kode }}</span></a>

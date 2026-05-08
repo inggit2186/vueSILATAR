@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-    <div class="page-wrapper pemberkasan-page">
+    <div class="page-wrapper pemberkasan-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             <div class="dashboard-content">		
@@ -544,6 +544,86 @@ export default {
 
 .pemberkasan-page .form-control::placeholder {
   color: rgba(255, 244, 220, 0.62);
+}
+
+.pemberkasan-page.theme-report-shell {
+  background:
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 40%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+}
+
+.pemberkasan-page.theme-report-shell .card.media-section,
+.pemberkasan-page.theme-report-shell .messages-form .card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.pemberkasan-page.theme-report-shell .card-header h4,
+.pemberkasan-page.theme-report-shell .detailhead,
+.pemberkasan-page.theme-report-shell .detailhead td,
+.pemberkasan-page.theme-report-shell .card-body,
+.pemberkasan-page.theme-report-shell .card-body label,
+.pemberkasan-page.theme-report-shell .card-body h6,
+.pemberkasan-page.theme-report-shell .card-body span,
+.pemberkasan-page.theme-report-shell .card-body p,
+.pemberkasan-page.theme-report-shell .text-muted,
+.pemberkasan-page.theme-report-shell .text-primary,
+.pemberkasan-page.theme-report-shell .step2 .label,
+.pemberkasan-page.theme-report-shell .step2 .icons,
+.pemberkasan-page.theme-report-shell .step2 .step,
+.pemberkasan-page.theme-report-shell .step2 .step p,
+.pemberkasan-page.theme-report-shell .media-title,
+.pemberkasan-page.theme-report-shell .centered,
+.pemberkasan-page.theme-report-shell .centered h4,
+.pemberkasan-page.theme-report-shell .centered span,
+.pemberkasan-page.theme-report-shell .detailhead {
+  color: #0f172a !important;
+}
+
+.pemberkasan-page.theme-report-shell .detailhead td:nth-child(2) {
+  color: #1d4ed8 !important;
+}
+
+.pemberkasan-page.theme-report-shell .media-image {
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.pemberkasan-page.theme-report-shell .step2 .step {
+  background: rgba(219, 234, 254, 0.72) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(31, 95, 191, 0.16) !important;
+}
+
+.pemberkasan-page.theme-report-shell .step2 .active {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+}
+
+.pemberkasan-page.theme-report-shell .bubble,
+.pemberkasan-page.theme-report-shell .bubble2 {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.12), rgba(200, 155, 60, 0.18)) !important;
+  color: #0f172a !important;
+}
+
+.pemberkasan-page.theme-report-shell .form-control,
+.pemberkasan-page.theme-report-shell .form-select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.pemberkasan-page.theme-report-shell .form-control::placeholder {
+  color: #64748b !important;
+}
+
+.pemberkasan-page.theme-report-shell .btn-primary,
+.pemberkasan-page.theme-report-shell .btn-warning,
+.pemberkasan-page.theme-report-shell .btn-danger,
+.pemberkasan-page.theme-report-shell .btn-secondary,
+.pemberkasan-page.theme-report-shell .btn-dark {
+  color: #ffffff !important;
 }
 
 .comments {

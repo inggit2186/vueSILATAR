@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <Usernavbar />
-        <div class="page-wrapper humas2-page">
+        <div class="page-wrapper humas2-page theme-report-shell">
             <Breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
@@ -224,47 +224,47 @@
             <Scroll />
 
             <!-- Custom Modal -->
-            <div v-if="showModal" class="modal fade show d-flex align-items-center justify-content-center" style="display: block; background-color: rgba(0,0,0,0.5);" @click.self="showModal = false">
+            <div v-if="showModal" class="modal fade show d-flex align-items-center justify-content-center" style="display: block; background-color: rgba(15,23,42,0.18);" @click.self="showModal = false">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content shadow-lg border-0 rounded-3" style="background: linear-gradient(180deg, #261315 0%, #1d1012 100%); color: #f8ecd1; border: 1px solid rgba(246, 215, 138, 0.18);">
-                        <div class="modal-header rounded-top-3" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
+                    <div class="modal-content shadow-lg border-0 rounded-3" style="background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%); color: #0f172a; border: 1px solid rgba(31, 95, 191, 0.12);">
+                        <div class="modal-header rounded-top-3" style="background: linear-gradient(135deg, rgba(31, 95, 191, 0.08) 0%, rgba(200, 155, 60, 0.12) 100%); color: #0f172a;">
                             <h5 class="modal-title fw-bold"><i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="me-2"></i>Data Posting per Platform</h5>
                             <button type="button" class="btn-close btn-close-white" @click="showModal = false"></button>
                         </div>
-                        <div v-if="selectedPlatformObj" class="modal-body p-4" style="background: rgba(255,255,255,0.02);">
+                        <div v-if="selectedPlatformObj" class="modal-body p-4" style="background: rgba(255,255,255,0.88);">
                             <div class="text-center mb-4">
                                 <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x mb-3" style="color:#f6d78a;"></i>
                                 <h4 class="fw-bold">{{ capitalize(selectedPlatformObj.platform) }}</h4>
                             </div>
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-primary shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
-                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
+                                    <div class="card h-100 border-primary shadow-sm" style="background: #ffffff; border-color: rgba(31, 95, 191, 0.12) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, rgba(31, 95, 191, 0.96) 0%, rgba(200, 155, 60, 0.96) 100%); color: #fff;">
                                             <i class="fas fa-play-circle me-2"></i>Postingan Pertama
                                         </div>
                                         <div class="card-body">
                                             <p class="mb-2 small"><i class="fas fa-calendar-alt me-2" style="color:#f7d77f;"></i><strong>Tanggal:</strong> {{ selectedPlatformObj.data.first.date ? new Date(selectedPlatformObj.data.first.date).toLocaleDateString('id-ID') : '-' }}</p>
                                             <p class="mb-2 small"><i class="fas fa-heading me-2" style="color:#f7d77f;"></i><strong>Judul:</strong> {{ selectedPlatformObj.data.first.content || '-' }}</p>
-                                            <p class="mb-0 small"><i class="fas fa-link me-2" style="color:#f7d77f;"></i><strong>Link:</strong> <a v-if="selectedPlatformObj.data.first.link" :href="selectedPlatformObj.data.first.link" target="_blank" class="text-decoration-none" style="color:#fff4dc;">Klik Disini</a><span v-else style="color:rgba(255,244,220,0.8);">-</span></p>
+                                            <p class="mb-0 small"><i class="fas fa-link me-2" style="color:#c89b3c;"></i><strong>Link:</strong> <a v-if="selectedPlatformObj.data.first.link" :href="selectedPlatformObj.data.first.link" target="_blank" class="text-decoration-none" style="color:#1f5fbf;">Klik Disini</a><span v-else style="color:#64748b;">-</span></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-success shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
-                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #2f5f48 0%, #6a1f2b 100%); color: #fff;">
+                                    <div class="card h-100 border-success shadow-sm" style="background: #ffffff; border-color: rgba(31, 95, 191, 0.12) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, rgba(47, 95, 72, 0.96) 0%, rgba(31, 95, 191, 0.96) 100%); color: #fff;">
                                             <i class="fas fa-stop-circle me-2"></i>Postingan Terakhir
                                         </div>
                                         <div class="card-body">
                                             <p class="mb-2 small"><i class="fas fa-calendar-alt me-2" style="color:#f7d77f;"></i><strong>Tanggal:</strong> {{ selectedPlatformObj.data.last.date ? new Date(selectedPlatformObj.data.last.date).toLocaleDateString('id-ID') : '-' }}</p>
                                             <p class="mb-2 small"><i class="fas fa-heading me-2" style="color:#f7d77f;"></i><strong>Judul:</strong> {{ selectedPlatformObj.data.last.content || '-' }}</p>
-                                            <p class="mb-0 small"><i class="fas fa-link me-2" style="color:#f7d77f;"></i><strong>Link:</strong> <a v-if="selectedPlatformObj.data.last.link" :href="selectedPlatformObj.data.last.link" target="_blank" class="text-decoration-none" style="color:#fff4dc;">Klik Disini</a><span v-else style="color:rgba(255,244,220,0.8);">-</span></p>
+                                            <p class="mb-0 small"><i class="fas fa-link me-2" style="color:#c89b3c;"></i><strong>Link:</strong> <a v-if="selectedPlatformObj.data.last.link" :href="selectedPlatformObj.data.last.link" target="_blank" class="text-decoration-none" style="color:#1f5fbf;">Klik Disini</a><span v-else style="color:#64748b;">-</span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-center border-0 rounded-bottom-3" style="background: rgba(255,255,255,0.03);">
-                            <button type="button" class="btn px-4 py-2 fw-bold" style="background:#f6d78a;color:#241213;border:0;" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
+                        <div class="modal-footer justify-content-center border-0 rounded-bottom-3" style="background: rgba(255,255,255,0.95);">
+                            <button type="button" class="btn px-4 py-2 fw-bold" style="background:linear-gradient(135deg,#1f5fbf,#c89b3c);color:#fff;border:0;" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
                         </div>
                     </div>
                 </div>
@@ -648,9 +648,9 @@ export default {
 .humas2-page .card,
 .humas2-page .card-header,
 .humas2-page .card-body {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
-  border-color: rgba(201, 157, 79, 0.18) !important;
-  color: #fff4dc !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 249, 255, 0.96) 100%) !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+  color: #0f172a !important;
 }
 
 .humas2-page .card-header h4,
@@ -663,57 +663,50 @@ export default {
 .humas2-page .table th,
 .humas2-page .form-control,
 .humas2-page .form-select {
-  color: #fff4dc !important;
+  color: #0f172a !important;
 }
 
 .humas2-page .table thead th {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96) 0%, rgba(200, 155, 60, 0.96) 100%) !important;
   color: #fff !important;
 }
 
 .humas2-page .table tbody td {
-  background: rgba(255, 244, 220, 0.04) !important;
-  color: #fff4dc !important;
-  border-color: rgba(201, 157, 79, 0.12) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
 }
 
 .humas2-page .text-muted {
-  color: #fff2d1 !important;
+  color: #64748b !important;
 }
 
 .humas2-page .modal-body .small,
 .humas2-page .modal-body p,
 .humas2-page .modal-body span,
 .humas2-page .modal-body strong {
-  color: #fff4dc !important;
-}
-
-.humas2-page .modal-body .small,
-.humas2-page .modal-body strong,
-.humas2-page .modal-body p,
-.humas2-page .modal-body span {
-  color: #fff4dc !important;
+  color: #0f172a !important;
 }
 
 .humas2-page a:not(.btn) {
-  color: #f7d77f;
+  color: #1f5fbf;
 }
 
 .humas2-page a:not(.btn):hover {
-  color: #fff4dc;
+  color: #0f172a;
 }
 
 .alert {
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .alert-info {
-  background: rgba(201, 157, 79, 0.12);
-  border-color: rgba(201, 157, 79, 0.18);
-  color: #fff4dc;
+  background: rgba(219, 234, 254, 0.72);
+  border-color: rgba(31, 95, 191, 0.16);
+  color: #0f172a;
 }
 
 /* Hide the default file input */
@@ -726,17 +719,18 @@ input[type="file"] {
     display: inline-block;
     padding: 8px 10px;
     cursor: pointer;
-    background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-    color: #fff4dc;
-    border-radius: 6px;
+    background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
+    color: #fff;
+    border-radius: 10px;
     font-size: 16px;
-	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-family: var(--theme-font-heading);
 	font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .custom-file-upload:hover {
-    background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+    background: linear-gradient(135deg, #1d4ed8 0%, #b8862f 100%);
+    transform: translateY(-1px);
 }
 
 .custom-file-upload i {

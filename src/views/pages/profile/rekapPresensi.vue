@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper rekap-presensi-page">
+        <div class="page-wrapper rekap-presensi-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
@@ -77,7 +77,7 @@
                                 <!--Pagination--> 
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -118,8 +118,8 @@
 <style scoped>
 .rekap-presensi-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .rekap-presensi-page .dashboard-content {
@@ -127,79 +127,79 @@
 }
 
 .rekap-presensi-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
+  box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+  color: #1f2937;
 }
 
 .rekap-presensi-page .card-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-  color: #fff4dc;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.1);
+  color: #1f2937;
 }
 
 .rekap-presensi-page h4,
 .rekap-presensi-page .card-header h4 {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .rekap-presensi-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
+  background: #ffffff;
+  border: 1px solid rgba(31, 95, 191, 0.16);
+  color: #1f2937;
 }
 
 .rekap-presensi-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
+  color: #8aa0c3;
 }
 
 .rekap-presensi-page :deep(.table) {
-  color: #fff4dc;
+  color: #1f2937;
 }
 
 .rekap-presensi-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.14);
 }
 
 .rekap-presensi-page :deep(.table tbody td) {
-  border-color: rgba(255, 244, 220, 0.08);
-  color: #3b2418 !important;
+  border-color: rgba(31, 95, 191, 0.08);
+  color: #2f3b4f !important;
   background: #fffdf7 !important;
 }
 
 .rekap-presensi-page :deep(.table tbody td a) {
-  color: #7a162b !important;
+  color: #1f5fbf !important;
 }
 
 .rekap-presensi-page :deep(.table tbody td b),
 .rekap-presensi-page :deep(.table tbody td strong) {
-  color: #2f1d14 !important;
+  color: #1f2937 !important;
 }
 
 .rekap-presensi-page :deep(.table tbody td span),
 .rekap-presensi-page :deep(.table tbody td i),
 .rekap-presensi-page :deep(.table tbody td small) {
-  color: #5a3d2c !important;
+  color: #5b6677 !important;
 }
 
 .rekap-presensi-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.08);
+  background: rgba(31, 95, 191, 0.05);
 }
 
 .rekap-presensi-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
+  background: #ffffff;
+  border-color: rgba(31, 95, 191, 0.14);
+  color: #1f5fbf;
 }
 
 .rekap-presensi-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 </style>
 
@@ -382,8 +382,8 @@ export default {
 <style>
 .rekap-presensi-page {
     background:
-        radial-gradient(circle at top, rgba(170, 24, 58, 0.18), transparent 42%),
-        linear-gradient(180deg, #231419 0%, #180d11 100%);
+        radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+        linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .rekap-presensi-page .dashboard-content {
@@ -391,22 +391,22 @@ export default {
 }
 
 .rekap-presensi-page .dash-cards.card {
-    background: linear-gradient(180deg, rgba(44, 28, 32, 0.96), rgba(28, 16, 18, 0.96));
-    border: 1px solid rgba(214, 171, 76, 0.28);
+    background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+    border: 1px solid rgba(31, 95, 191, 0.12);
     border-radius: 22px;
-    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.34);
-    color: #fff4dc;
+    box-shadow: 0 22px 55px rgba(31, 95, 191, 0.08);
+    color: #1f2937;
 }
 
 .rekap-presensi-page .card-header {
-    background: rgba(80, 48, 31, 0.92);
-    color: #fff4dc;
-    border-bottom: 1px solid rgba(214, 171, 76, 0.18);
+    background: rgba(255, 255, 255, 0.92);
+    color: #1f2937;
+    border-bottom: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .rekap-presensi-page .card-body {
     background: transparent;
-    color: #fff4dc;
+    color: #1f2937;
 }
 
 .rekap-presensi-page .card-header h4,
@@ -417,36 +417,36 @@ export default {
 .rekap-presensi-page .card-body span,
 .rekap-presensi-page .card-body b,
 .rekap-presensi-page .card-body label {
-    color: #fff4dc;
+    color: #1f2937;
 }
 
 .rekap-presensi-page .group-img .form-control {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(214, 171, 76, 0.35);
-    color: #fff4dc;
+    background: #ffffff;
+    border: 1px solid rgba(31, 95, 191, 0.16);
+    color: #1f2937;
 }
 
 .rekap-presensi-page .group-img .form-control::placeholder {
-    color: rgba(255, 244, 220, 0.58);
+    color: #8aa0c3;
 }
 
 .rekap-presensi-page .table {
-    background: rgba(30, 18, 21, 0.94);
+    background: #ffffff;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(214, 171, 76, 0.24);
+    border: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .rekap-presensi-page .table thead th {
-    background: linear-gradient(135deg, #4a2129, #28161b);
-    color: #fff4dc;
-    border-color: rgba(214, 171, 76, 0.18);
+    background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+    color: #113f82;
+    border-color: rgba(31, 95, 191, 0.14);
 }
 
 .rekap-presensi-page .table tbody td {
-    color: #3b2418 !important;
+    color: #2f3b4f !important;
     background: #fffdf7 !important;
-    border-color: rgba(214, 171, 76, 0.12);
+    border-color: rgba(31, 95, 191, 0.08);
 }
 
 .rekap-presensi-page .table tbody td * {
@@ -454,27 +454,27 @@ export default {
 }
 
 .rekap-presensi-page .table tbody td a {
-    color: #7a162b !important;
+    color: #1f5fbf !important;
 }
 
 .rekap-presensi-page .table tbody td b,
 .rekap-presensi-page .table tbody td strong {
-    color: #2f1d14 !important;
+    color: #1f2937 !important;
 }
 
 .rekap-presensi-page .table tbody tr:hover {
-    background: rgba(214, 171, 76, 0.14);
+    background: rgba(31, 95, 191, 0.05);
 }
 
 .rekap-presensi-page .pagination .page-link {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff4dc;
-    border-color: rgba(214, 171, 76, 0.22);
+    background: #ffffff;
+    color: #1f5fbf;
+    border-color: rgba(31, 95, 191, 0.14);
 }
 
 .rekap-presensi-page .pagination .page-item.active .page-link {
-    background: linear-gradient(135deg, #d7a645, #a12b35);
-    color: #fffaf0;
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c);
+    color: #ffffff;
 }
 
 .rekap-presensi-page .pagination .page-item.disabled .page-link {
@@ -482,7 +482,7 @@ export default {
 }
 
 .rekap-presensi-page .card hr {
-    border-color: rgba(214, 171, 76, 0.18);
+    border-color: rgba(31, 95, 191, 0.12);
 }
 
 @media (max-width: 768px) {

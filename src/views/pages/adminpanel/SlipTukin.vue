@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper slip-tukin-page">
+        <div class="page-wrapper slip-tukin-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -614,5 +614,48 @@ export default {
 .slip-tukin-page .group-img .form-control {
 	background: rgba(255, 244, 220, 0.04);
 	border-color: rgba(201, 157, 79, 0.18);
+}
+
+.slip-tukin-page.theme-report-shell .dash-cards {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96));
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08);
+	color: #0f172a;
+}
+
+.slip-tukin-page.theme-report-shell .card-header h4,
+.slip-tukin-page.theme-report-shell .card-body,
+.slip-tukin-page.theme-report-shell .table,
+.slip-tukin-page.theme-report-shell .pagination .page-link,
+.slip-tukin-page.theme-report-shell .group-img .form-control,
+.slip-tukin-page.theme-report-shell .group-img i,
+.slip-tukin-page.theme-report-shell small {
+	color: #0f172a !important;
+}
+
+.slip-tukin-page.theme-report-shell .table thead th {
+	background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96));
+	color: #ffffff;
+	border-color: rgba(31, 95, 191, 0.14);
+}
+
+.slip-tukin-page.theme-report-shell .table tbody td {
+	background: #ffffff;
+	color: #0f172a;
+	border-color: rgba(31, 95, 191, 0.08);
+}
+
+.slip-tukin-page.theme-report-shell .group-img .form-control {
+	background: #ffffff;
+	border-color: rgba(31, 95, 191, 0.16);
+}
+
+.slip-tukin-page.theme-report-shell .file-upload span {
+	color: #0f172a !important;
+}
+
+.slip-tukin-page.theme-report-shell .pagination .page-link {
+	background: rgba(255, 255, 255, 0.96);
+	border-color: rgba(31, 95, 191, 0.14);
 }
 </style>

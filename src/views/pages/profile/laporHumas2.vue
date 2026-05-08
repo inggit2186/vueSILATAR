@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <Usernavbar />
-        <div class="page-wrapper humas2-page">
+        <div class="page-wrapper humas2-page theme-report-shell">
             <Breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
@@ -94,7 +94,7 @@
                                 <!--Pagination-->
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -125,7 +125,7 @@
 
                     <div v-else-if="detail == 2" ref="scroll1st" class="card-body">
                         <div class="container">
-                            <div  class="pagination">
+                            <div  class="pagination theme-pagination">
                                 <a class="btn btn-primary" href="#" @click="changedetail(1)"><i class="fas fa-regular fa-arrow-left"></i> <b>KEMBALI</b></a>
                             </div>
                             <hr/>
@@ -147,12 +147,12 @@
                                             </div>
 											<div class="form-group d-none d-sm-block">
                                                 <label class="col-form-label">Data Posting per Platform <span>*</span></label>
-												<div v-for="platform in platforms" :key="platform" class="platform-card" style="margin-bottom: 20px; border: 1px solid rgba(246, 215, 138, 0.18); border-radius: 16px; padding: 15px; background: linear-gradient(180deg, rgba(47, 20, 21, 0.94) 0%, rgba(36, 18, 19, 0.94) 100%); box-shadow: 0 18px 40px rgba(13, 8, 10, 0.22);">
-													<h5 class="text-center" style="margin-bottom: 15px; color: #f6d78a;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
+												<div v-for="platform in platforms" :key="platform" class="platform-card" style="margin-bottom: 20px;">
+													<h5 class="text-center" style="margin-bottom: 15px; color: #113f82;"><i :class="platformIcons[platform.toLowerCase()]"></i> {{ platform }}</h5>
 													<div class="row">
 														<div class="col-md-6">
-															<div class="posting-section" style="padding: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(246, 215, 138, 0.14); border-radius: 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.12);">
-																<h6 style="color:#f6d78a;">Postingan Pertama</h6>
+															<div class="posting-section" style="padding: 10px;">
+																<h6 style="color:#113f82;">Postingan Pertama</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
 																	<VueDatePicker v-model="platformData[platform.toLowerCase()].first.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
@@ -168,8 +168,8 @@
 															</div>
 														</div>
 														<div class="col-md-6">
-															<div class="posting-section" style="padding: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(246, 215, 138, 0.14); border-radius: 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.12);">
-																<h6 style="color:#f8ecd1;">Postingan Terakhir</h6>
+															<div class="posting-section" style="padding: 10px;">
+																<h6 style="color:#113f82;">Postingan Terakhir</h6>
 																<div style="display: flex; align-items: center; margin-bottom: 10px;">
 																	<i-mdi-calendar style="margin-right: 5px;" />
 																	<VueDatePicker v-model="platformData[platform.toLowerCase()].last.date" format="dd MMMM yyyy" placeholder="Tanggal Terbit" auto-apply :enable-time-picker="false" :disabled="!tanggal" :min-date="minDate" :max-date="maxDate" />
@@ -234,22 +234,22 @@
             <Scroll />
 
             <!-- Custom Modal -->
-            <div v-if="showModal" class="modal fade show d-flex align-items-center justify-content-center" style="display: block; background-color: rgba(0,0,0,0.5);" @click.self="showModal = false">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content shadow-lg border-0 rounded-3" style="background: linear-gradient(180deg, #261315 0%, #1d1012 100%); color: #f8ecd1; border: 1px solid rgba(246, 215, 138, 0.18);">
-                        <div class="modal-header rounded-top-3" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
+            <div v-if="showModal" class="modal fade show d-flex align-items-center justify-content-center" style="display: block; background-color: rgba(31,95,191,0.18);" @click.self="showModal = false">
+                <div class="modal-dialog modal-lg modal-dialog-centered theme-modal">
+                    <div class="modal-content shadow-lg border-0 rounded-3" style="background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%); color: #1f2937; border: 1px solid rgba(31, 95, 191, 0.12);">
+                        <div class="modal-header rounded-top-3" style="background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%); color: #113f82;">
                             <h5 class="modal-title fw-bold"><i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="me-2"></i>Data Posting per Platform</h5>
                             <button type="button" class="btn-close btn-close-white" @click="showModal = false"></button>
                         </div>
-                        <div v-if="selectedPlatformObj" class="modal-body p-4" style="background: rgba(255,255,255,0.02);">
+                        <div v-if="selectedPlatformObj" class="modal-body p-4" style="background: rgba(255,255,255,0.98);">
                             <div class="text-center mb-4">
-                                <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x mb-3" style="color:#f6d78a;"></i>
+                                <i :class="platformIcons[selectedPlatformObj.platform.toLowerCase()]" class="fa-3x mb-3" style="color:#1f5fbf;"></i>
                                 <h4 class="fw-bold">{{ capitalize(selectedPlatformObj.platform) }}</h4>
                             </div>
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-primary shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
-                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%); color: #fff;">
+                                    <div class="card h-100 border-primary shadow-sm" style="background: rgba(255,255,255,0.98); border-color: rgba(31, 95, 191, 0.12) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%); color: #113f82;">
                                             <i class="fas fa-play-circle me-2"></i>Postingan Pertama
                                         </div>
                                         <div class="card-body">
@@ -260,8 +260,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-success shadow-sm" style="background: rgba(255,255,255,0.03); border-color: rgba(246, 215, 138, 0.18) !important;">
-                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #2f5f48 0%, #6a1f2b 100%); color: #fff;">
+                                    <div class="card h-100 border-success shadow-sm" style="background: rgba(255,255,255,0.98); border-color: rgba(31, 95, 191, 0.12) !important;">
+                                        <div class="card-header text-center fw-bold" style="background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%); color: #113f82;">
                                             <i class="fas fa-stop-circle me-2"></i>Postingan Terakhir
                                         </div>
                                         <div class="card-body">
@@ -273,8 +273,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-center border-0 rounded-bottom-3" style="background: rgba(255,255,255,0.03);">
-                            <button type="button" class="btn px-4 py-2 fw-bold" style="background:#f6d78a;color:#241213;border:0;" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
+                        <div class="modal-footer justify-content-center border-0 rounded-bottom-3" style="background: rgba(255,255,255,0.98);">
+                            <button type="button" class="btn px-4 py-2 fw-bold" style="background:linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);color:#ffffff;border:0;" @click="showModal = false"><i class="fas fa-times me-2"></i>Tutup</button>
                         </div>
                     </div>
                 </div>
@@ -744,94 +744,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.humas2-page .dash-cards,
-.humas2-page .card,
-.humas2-page .card-header,
-.humas2-page .card-body {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
-  border-color: rgba(201, 157, 79, 0.18) !important;
-  color: #fff4dc !important;
-}
-
-.humas2-page .card-header h4,
-.humas2-page .card-body,
-.humas2-page .card-body span,
-.humas2-page .card-body p,
-.humas2-page .card-body small,
-.humas2-page .table,
-.humas2-page .table td,
-.humas2-page .table th,
-.humas2-page .form-control,
-.humas2-page .form-select {
-  color: #fff4dc !important;
-}
-
-.humas2-page .table thead th {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
-  color: #fff !important;
-}
-
-.humas2-page .table tbody td {
-  background: rgba(255, 244, 220, 0.04) !important;
-  color: #fff4dc !important;
-  border-color: rgba(201, 157, 79, 0.12) !important;
-}
-
-.humas2-page .custom-file-upload {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-  color: #fff4dc;
-  border: 1px solid rgba(201, 157, 79, 0.18);
-}
-
-.humas2-page .alert-info {
-  background: rgba(201, 157, 79, 0.12);
-  border-color: rgba(201, 157, 79, 0.18);
-  color: #fff4dc;
-}
-
-.humas2-page .text-muted {
-  color: rgba(255, 244, 220, 0.68) !important;
-}
-
-.alert {
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.alert-info {
-  background: rgba(201, 157, 79, 0.12);
-  border-color: rgba(201, 157, 79, 0.18);
-  color: #fff4dc;
-}
-
-/* Hide the default file input */
-input[type="file"] {
-    display: none;
-}
-
-/* Style the custom file upload label */
-.custom-file-upload {
-    display: inline-block;
-    padding: 8px 10px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-    color: #fff4dc;
-    border-radius: 6px;
-    font-size: 16px;
-	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.custom-file-upload:hover {
-    background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-}
-
-.custom-file-upload i {
-    margin-right: 5px;
-}
-</style>

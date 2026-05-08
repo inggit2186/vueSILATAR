@@ -2,7 +2,7 @@
     <div class="main-wrapper">
         <layouts></layouts>
 
-        <div class="page-wrapper satuan-kerja-page">
+        <div class="page-wrapper satuan-kerja-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             <route-view :key="$route.fullPath">
             <ListSatker />
@@ -53,6 +53,44 @@
   background: linear-gradient(135deg, #ab1739, #d6ab4c);
   border-color: transparent;
   color: #fff4dc;
+}
+
+.satuan-kerja-page.theme-report-shell {
+  background:
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+}
+
+.satuan-kerja-page.theme-report-shell :deep(.card),
+.satuan-kerja-page.theme-report-shell :deep(.dash-cards),
+.satuan-kerja-page.theme-report-shell :deep(.listMenu.categories-content),
+.satuan-kerja-page.theme-report-shell :deep(.categories-content) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  color: #0f172a !important;
+}
+
+.satuan-kerja-page.theme-report-shell :deep(.card h5),
+.satuan-kerja-page.theme-report-shell :deep(.card h6),
+.satuan-kerja-page.theme-report-shell :deep(.card span),
+.satuan-kerja-page.theme-report-shell :deep(.card p),
+.satuan-kerja-page.theme-report-shell :deep(.card a),
+.satuan-kerja-page.theme-report-shell :deep(.card i),
+.satuan-kerja-page.theme-report-shell :deep(label),
+.satuan-kerja-page.theme-report-shell :deep(.col-form-label),
+.satuan-kerja-page.theme-report-shell :deep(small) {
+  color: #0f172a !important;
+}
+
+.satuan-kerja-page.theme-report-shell :deep(.page-link) {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
+  color: #1d4ed8 !important;
+}
+
+.satuan-kerja-page.theme-report-shell :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
 }
 </style>
 

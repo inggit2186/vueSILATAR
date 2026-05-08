@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper asn-list-page">
+        <div class="page-wrapper asn-list-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -468,6 +468,46 @@ export default {
 .asn-list-page :deep(.file-upload span),
 .asn-list-page :deep(.file-upload i) {
 	color: inherit !important;
+}
+
+.asn-list-page.theme-report-shell {
+	background:
+		radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 44%),
+		radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 28%),
+		linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+	color: #0f172a;
+}
+
+.asn-list-page.theme-report-shell :deep(.dash-cards),
+.asn-list-page.theme-report-shell :deep(.card),
+.asn-list-page.theme-report-shell :deep(.card-header),
+.asn-list-page.theme-report-shell :deep(.card-body) {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+	border-color: rgba(31, 95, 191, 0.12) !important;
+	color: #0f172a !important;
+}
+
+.asn-list-page.theme-report-shell :deep(.table thead th) {
+	background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12)) !important;
+	color: #113f82 !important;
+	border-color: rgba(31, 95, 191, 0.14) !important;
+}
+
+.asn-list-page.theme-report-shell :deep(.table tbody td) {
+	background: #ffffff !important;
+	color: #0f172a !important;
+	border-color: rgba(31, 95, 191, 0.08) !important;
+}
+
+.asn-list-page.theme-report-shell :deep(.page-link) {
+	background: #ffffff !important;
+	border-color: rgba(31, 95, 191, 0.14) !important;
+	color: #1f5fbf !important;
+}
+
+.asn-list-page.theme-report-shell :deep(.page-item.active .page-link) {
+	background: linear-gradient(135deg, #1f5fbf, #c89b3c) !important;
+	color: #ffffff !important;
 }
 
 @media (max-width: 768px) {

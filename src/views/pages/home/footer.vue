@@ -5,9 +5,9 @@
 				<div class="home-footer-top">
 					<div class="home-footer-brand">
 						<div class="home-footer-badge">Kankemenag Tanah Datar</div>
-						<h3>Layanan yang berwibawa dalam nuansa Rumah Gadang.</h3>
+						<h3>Layanan yang prima dan efisien.</h3>
 						<p>
-							Portal ini dirancang agar identitas Kemenag tetap tegas, namun tampil lebih hangat, tertata, dan selaras dengan budaya Sumatera Barat.
+							Portal ini dirancang agar identitas Kemenag tetap tegas, namun tampil lebih hangat, tertata, dan selaras dengan budaya kenyamanan.
 						</p>
 					</div>
 

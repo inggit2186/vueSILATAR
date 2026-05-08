@@ -114,8 +114,8 @@
 <style scoped>
 .apk-silatar-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.08), transparent 44%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .apk-silatar-page .dashboard-content {
@@ -123,67 +123,67 @@
 }
 
 .apk-silatar-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
+  box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+  color: #1f2937;
 }
 
 .apk-silatar-page .card-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-  color: #fff4dc;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.12);
+  color: #113f82;
 }
 
 .apk-silatar-page h4,
 .apk-silatar-page .card-header h4 {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .apk-silatar-page .card-body > h4 {
-  color: #fff4dc;
+  color: #1f2937;
   line-height: 1.75;
 }
 
 .apk-silatar-page :deep(.btn-warning) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border: none;
-  color: #fff4dc;
+  color: #ffffff;
 }
 
 .apk-silatar-page :deep(.btn-warning:hover) {
-  background: linear-gradient(135deg, #d6ab4c, #ab1739);
+  background: linear-gradient(135deg, #c89b3c, #1f5fbf);
 }
 
 .apk-silatar-page :deep(.btn-danger) {
-  background: linear-gradient(135deg, #8f1c31, #ab1739);
+  background: linear-gradient(135deg, #1f5fbf, #113f82);
   border: none;
 }
 
 .apk-silatar-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  color: #1f2937;
 }
 
 .apk-silatar-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
+  color: #64748b;
 }
 
 .apk-silatar-page :deep(.table) {
-  color: #fff4dc;
+  color: #1f2937;
 }
 
 .apk-silatar-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
+  background: linear-gradient(180deg, rgba(219, 234, 254, 0.72), rgba(255, 241, 207, 0.76));
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.12);
 }
 
 .apk-silatar-page :deep(.table tbody td) {
-  border-color: rgba(255, 244, 220, 0.08);
-  color: #3b2418 !important;
+  border-color: rgba(31, 95, 191, 0.08);
+  color: #1f2937 !important;
   background: #fffdf7 !important;
 }
 
@@ -192,34 +192,34 @@
 }
 
 .apk-silatar-page :deep(.table tbody td a) {
-  color: #7a162b !important;
+  color: #1f5fbf !important;
 }
 
 .apk-silatar-page :deep(.table tbody td b),
 .apk-silatar-page :deep(.table tbody td strong) {
-  color: #2f1d14 !important;
+  color: #113f82 !important;
 }
 
 .apk-silatar-page :deep(.table tbody td span),
 .apk-silatar-page :deep(.table tbody td i),
 .apk-silatar-page :deep(.table tbody td small) {
-  color: #5a3d2c !important;
+  color: #475569 !important;
 }
 
 .apk-silatar-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.14);
+  background: rgba(31, 95, 191, 0.05);
 }
 
 .apk-silatar-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(31, 95, 191, 0.12);
+  color: #113f82;
 }
 
 .apk-silatar-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 </style>
 

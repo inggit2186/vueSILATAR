@@ -238,53 +238,53 @@ export default {
 <style scoped>
 .all-rekap-kinerja-page {
   background:
-    radial-gradient(circle at top left, rgba(201, 157, 79, 0.12), transparent 30%),
-    radial-gradient(circle at top right, rgba(143, 29, 44, 0.16), transparent 32%),
-    linear-gradient(180deg, #1f1213 0%, #28181a 100%);
-  color: #fff2d1;
+    radial-gradient(circle at top left, rgba(31, 95, 191, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(200, 155, 60, 0.08), transparent 32%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+  color: #0f172a;
 }
 
 .all-rekap-kinerja-page :deep(.breadcrumb) {
-  color: #fff2d1;
+  color: #0f172a;
 }
 
 .all-rekap-kinerja-page :deep(.dash-cards.card) {
-  background: linear-gradient(180deg, rgba(41, 25, 26, 0.96), rgba(28, 17, 18, 0.97));
-  border: 1px solid rgba(201, 157, 79, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96));
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 26px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 18px 50px rgba(31, 95, 191, 0.08);
 }
 
 .all-rekap-kinerja-page :deep(.card-header) {
   background: transparent;
-  border-bottom: 1px solid rgba(201, 157, 79, 0.14);
-  color: #fff2d1;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.12);
+  color: #0f172a;
 }
 
 .all-rekap-kinerja-page :deep(.card-header h4) {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .all-rekap-kinerja-page :deep(.listing-search .form-control) {
-  background: rgba(255, 244, 220, 0.05);
-  border: 1px solid rgba(201, 157, 79, 0.28);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.16);
+  color: #0f172a;
 }
 
 .all-rekap-kinerja-page :deep(.listing-search .form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.55);
+  color: #8aa0c3;
 }
 
 .all-rekap-kinerja-page :deep(.table thead th) {
-  background: rgba(201, 157, 79, 0.14);
-  color: #fff4dc;
-  border-color: rgba(201, 157, 79, 0.2);
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.14);
 }
 
 .all-rekap-kinerja-page :deep(.table tbody td) {
-  background: rgba(255, 244, 220, 0.03);
-  color: #fff4dc;
-  border-color: rgba(201, 157, 79, 0.12);
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(31, 95, 191, 0.08);
 }
 
 .all-rekap-kinerja-page :deep(.table tbody td *) {
@@ -296,13 +296,13 @@ export default {
 }
 
 .all-rekap-kinerja-page :deep(.pagination .page-link) {
-  background: rgba(255, 244, 220, 0.04);
-  color: #fff2d1;
-  border: 1px solid rgba(201, 157, 79, 0.2);
+  background: #ffffff;
+  color: #1f5fbf;
+  border: 1px solid rgba(31, 95, 191, 0.14);
 }
 
 .all-rekap-kinerja-page :deep(.pagination .active .page-link) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
   color: #fff;
 }
 

@@ -10,7 +10,7 @@
                         <!-- Footer Widget -->
                         <div class="footer-widget">
                             <div class="footer-logo">
-                                <a href="#"><img src="../../../assets/img/logo.png" alt="logo"></a>
+                                <a href="#"><img src="../../../assets/img/footerlogo.svg" alt="logo"></a>
                             </div>
                             <div class="footer-content">
                                 <p>Discover amazing things to do everywhere you go.</p>

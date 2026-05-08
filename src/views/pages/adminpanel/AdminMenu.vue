@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-        <div class="page-wrapper admin-menu-page">
+        <div class="page-wrapper admin-menu-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" :text2="text2"/>
             <div class="categorieslist-section">
                 <div class="container ">
@@ -188,15 +188,17 @@
 <style scoped>
 .admin-menu-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 28%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .admin-menu-page .categorieslist-section {
   padding: 1rem 0 2.75rem;
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%) !important;
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 28%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%) !important;
 }
 
 .admin-menu-page .admin-menu-link,
@@ -207,12 +209,12 @@
   width: 100%;
   height: 100%;
   text-decoration: none !important;
-  color: #fff4dc !important;
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98)) !important;
-  background-color: #1f1216 !important;
-  border: 1px solid rgba(214, 171, 76, 0.22) !important;
+  color: #0f172a !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
   border-radius: 22px !important;
-  box-shadow: 0 16px 30px rgba(13, 7, 8, 0.2) !important;
+  box-shadow: 0 16px 30px rgba(31, 95, 191, 0.08) !important;
   overflow: hidden !important;
 }
 
@@ -225,28 +227,28 @@
   border: 0 !important;
   border-radius: 22px !important;
   box-shadow: none !important;
-  color: #fff4dc !important;
+  color: #0f172a !important;
   overflow: hidden;
 }
 
 .admin-menu-page :deep(.listMenu.categories-content),
 .admin-menu-page :deep(.categories-content) {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.96), rgba(24, 14, 17, 0.96)) !important;
-  background-color: #231518 !important;
-  border: 1px solid rgba(214, 171, 76, 0.18) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
   border-radius: 22px;
-  box-shadow: 0 16px 30px rgba(13, 7, 8, 0.2);
-  color: #fff4dc;
+  box-shadow: 0 16px 30px rgba(31, 95, 191, 0.08);
+  color: #0f172a;
 }
 
 .admin-menu-page .admin-menu-link img {
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 6px 12px rgba(31, 95, 191, 0.12));
 }
 
 .admin-menu-page .admin-menu-link,
 .admin-menu-page .admin-menu-link h6,
 .admin-menu-page .admin-menu-link span {
-  color: #fff4dc !important;
+  color: #0f172a !important;
 }
 
 .admin-menu-page .admin-menu-link * {
@@ -256,11 +258,11 @@
 
 .admin-menu-page .admin-menu-link h6 {
   font-weight: 800;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  text-shadow: none;
 }
 
 .admin-menu-page .admin-menu-link span {
-  color: rgba(255, 244, 220, 0.9) !important;
+  color: #475569 !important;
 }
 
 .admin-menu-page .admin-menu-link:hover,
@@ -268,8 +270,8 @@
 .admin-menu-page .admin-menu-link:hover .listMenu.categories-content,
 .admin-menu-page .admin-menu-link:focus .listMenu.categories-content {
   transform: translateY(-2px);
-  border-color: rgba(214, 171, 76, 0.3);
-  box-shadow: 0 22px 34px rgba(13, 7, 8, 0.28);
+  border-color: rgba(31, 95, 191, 0.2);
+  box-shadow: 0 22px 34px rgba(31, 95, 191, 0.12);
 }
 
 .admin-menu-page .admin-menu-link:hover,
@@ -278,15 +280,15 @@
 }
 
 .admin-menu-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(31, 95, 191, 0.14);
+  color: #1f5fbf;
 }
 
 .admin-menu-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 </style>
 

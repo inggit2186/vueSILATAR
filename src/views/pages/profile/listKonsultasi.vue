@@ -124,8 +124,8 @@
 <style scoped>
 .daftar-konsultasi-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 44%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .daftar-konsultasi-page .dashboard-content {
@@ -133,48 +133,48 @@
 }
 
 .daftar-konsultasi-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
+  box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+  color: #1f2937;
 }
 
 .daftar-konsultasi-page .card-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-  color: #fff4dc;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.1);
+  color: #1f2937;
 }
 
 .daftar-konsultasi-page h4,
 .daftar-konsultasi-page .card-header h4 {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .daftar-konsultasi-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
+  background: #ffffff;
+  border: 1px solid rgba(31, 95, 191, 0.16);
+  color: #1f2937;
 }
 
 .daftar-konsultasi-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
+  color: #8aa0c3;
 }
 
 .daftar-konsultasi-page :deep(.table) {
-  color: #fff4dc;
+  color: #1f2937;
 }
 
 .daftar-konsultasi-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.14);
 }
 
 .daftar-konsultasi-page :deep(.table tbody td) {
   background: #fffdf7 !important;
-  border-color: rgba(59, 36, 24, 0.12);
-  color: #3b2418 !important;
+  border-color: rgba(31, 95, 191, 0.08);
+  color: #2f3b4f !important;
 }
 
 .daftar-konsultasi-page :deep(.table tbody td *) {
@@ -182,36 +182,36 @@
 }
 
 .daftar-konsultasi-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.08);
+  background: rgba(31, 95, 191, 0.05);
 }
 
 .daftar-konsultasi-page :deep(.badge) {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .daftar-konsultasi-page :deep(.btn-outline-primary) {
-  border-color: rgba(171, 23, 57, 0.28);
-  color: #ab1739;
-  background: #fff9f1;
+  border-color: rgba(31, 95, 191, 0.22);
+  color: #1f5fbf;
+  background: #f8fbff;
 }
 
 .daftar-konsultasi-page :deep(.btn-outline-primary:hover),
 .daftar-konsultasi-page :deep(.btn-outline-primary:focus) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 
 .daftar-konsultasi-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
+  background: #ffffff;
+  border-color: rgba(31, 95, 191, 0.14);
+  color: #1f5fbf;
 }
 
 .daftar-konsultasi-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 </style>
 

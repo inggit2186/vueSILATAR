@@ -6,7 +6,7 @@
 
   <div class="dashboard-content">
     <div class="container">
-      <div class="report-shell madrasah-page-shell">
+      <div class="report-shell madrasah-page-shell theme-report-shell">
         <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
         <div class="hero madrasah-hero">
           <div>
@@ -1557,6 +1557,66 @@ h5::before {
 .report-shell :deep(.profile-card),
 .report-shell :deep(.section-block) {
   color: #fff4dc !important;
+}
+
+.report-shell.theme-report-shell :deep(.card-section),
+.report-shell.theme-report-shell :deep(.profile-card),
+.report-shell.theme-report-shell :deep(.section-block),
+.report-shell.theme-report-shell :deep(.madrasah-context),
+.report-shell.theme-report-shell :deep(.hero),
+.report-shell.theme-report-shell :deep(.modal-content),
+.report-shell.theme-report-shell :deep(.dropdown-menu),
+.report-shell.theme-report-shell :deep(.list-group-item),
+.report-shell.theme-report-shell :deep(.alert),
+.report-shell.theme-report-shell :deep(.input-group-text) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.section-heading h5),
+.report-shell.theme-report-shell :deep(.section-heading p),
+.report-shell.theme-report-shell :deep(.section-kicker),
+.report-shell.theme-report-shell :deep(.section-number),
+.report-shell.theme-report-shell :deep(.context-item span),
+.report-shell.theme-report-shell :deep(.context-item strong),
+.report-shell.theme-report-shell :deep(.hero-chip span),
+.report-shell.theme-report-shell :deep(.hero-chip strong),
+.report-shell.theme-report-shell :deep(.hero p),
+.report-shell.theme-report-shell :deep(.madrasah-context),
+.report-shell.theme-report-shell :deep(.madrasah-context span),
+.report-shell.theme-report-shell :deep(.madrasah-context strong),
+.report-shell.theme-report-shell :deep(.profile-card label),
+.report-shell.theme-report-shell :deep(.profile-card .col-form-label),
+.report-shell.theme-report-shell :deep(.profile-card small),
+.report-shell.theme-report-shell :deep(.profile-card h5),
+.report-shell.theme-report-shell :deep(label),
+.report-shell.theme-report-shell :deep(.col-form-label),
+.report-shell.theme-report-shell :deep(small),
+.report-shell.theme-report-shell :deep(h5) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control),
+.report-shell.theme-report-shell :deep(.form-select),
+.report-shell.theme-report-shell :deep(textarea.form-control) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control::placeholder),
+.report-shell.theme-report-shell :deep(textarea.form-control::placeholder) {
+  color: #64748b !important;
+}
+
+.report-shell.theme-report-shell :deep(.text-primary),
+.report-shell.theme-report-shell :deep(.text-muted),
+.report-shell.theme-report-shell :deep(.text-success),
+.report-shell.theme-report-shell :deep(.text-danger),
+.report-shell.theme-report-shell :deep(.text-warning),
+.report-shell.theme-report-shell :deep(.text-info) {
+  color: #0f172a !important;
 }
 
 @media (max-width: 768px) {

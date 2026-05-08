@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper humas-page">
+        <div class="page-wrapper humas-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             	<!-- Dashboard Content -->
                 <div class="dashboard-content">
@@ -179,7 +179,7 @@
 														<b-form-select-option value="Koran">Koran</b-form-select-option>
 													</b-form-select>
 													<b-form-input id="link" v-model="kegiatan.link" type="text" class="form-control pass-input" placeholder="Link Platform Pemberitaan" style="max-width: 64%;float:left;margin-left:10px;margin-top:5px;margin-bottom:5px;" />
-													<label :for="'file-' + index" class="custom-file-upload" style="max-width: 14%;float:left;margin-left:5px;margin-top:5px;">
+													<label :for="'file-' + index" class="file-upload" style="max-width: 14%;float:left;margin-left:5px;margin-top:5px;">
 														<i class="fas fa-upload"></i> {{ kegiatan.filename }}
 													</label> &nbsp;&nbsp;<a v-if="kegiatan.file_path != 'NONE' && kegiatan.file_path != null" :href="apiUrl + kegiatan.file_path" target="_blank"><i-bi-camera-fill style="font-size: 20px;"/></a>
 													<input :id="'file-' + index" type="file" accept="image/*" @change="onFileChange(index, $event)" />   
@@ -669,186 +669,77 @@ export default {
 }
 </script>
 
-<style>
-.alert {
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.alert-info {
-  background-color: #cce5ff;
-  border-color: #b8daff;
-  color: #004085;
-}
-
-.humas-page {
-  color: #f8ecd1;
-}
-
-.humas-page .dashboard-content {
+.humas-page.theme-report-shell {
   background:
-    radial-gradient(circle at top left, rgba(246, 215, 138, 0.08), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(106, 31, 43, 0.2), transparent 26%),
-    linear-gradient(180deg, #1a0e10 0%, #261416 100%);
-  padding-bottom: 42px;
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 44%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
-.humas-page .dash-cards.card,
-.humas-page .messages-form .card,
-.humas-page .card {
-  background: linear-gradient(180deg, rgba(34, 17, 19, 0.98) 0%, rgba(23, 12, 13, 0.98) 100%);
-  border: 1px solid rgba(246, 215, 138, 0.16);
-  color: #f8ecd1;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+.humas-page.theme-report-shell .dash-cards.card,
+.humas-page.theme-report-shell .messages-form .card,
+.humas-page.theme-report-shell .card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08) !important;
+  color: #0f172a !important;
 }
 
-.humas-page .card-header {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  color: #fff4dc;
-  border-bottom: 1px solid rgba(246, 215, 138, 0.12);
+.humas-page.theme-report-shell .card-header,
+.humas-page.theme-report-shell .card-header h4,
+.humas-page.theme-report-shell .card-body,
+.humas-page.theme-report-shell .messages-form,
+.humas-page.theme-report-shell .profile-content,
+.humas-page.theme-report-shell .alert-info,
+.humas-page.theme-report-shell .alert-info ul,
+.humas-page.theme-report-shell .alert-info li,
+.humas-page.theme-report-shell .alert-info span,
+.humas-page.theme-report-shell .card-body span,
+.humas-page.theme-report-shell .card-body p,
+.humas-page.theme-report-shell .card-body small,
+.humas-page.theme-report-shell .page-link {
+  color: #0f172a !important;
 }
 
-.humas-page .card-body,
-.humas-page .messages-form,
-.humas-page .profile-content {
-  color: #f8ecd1;
+.humas-page.theme-report-shell .alert-info {
+  background: rgba(219, 234, 254, 0.42) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
 }
 
-.humas-page .alert-info {
-  background: linear-gradient(180deg, rgba(246, 215, 138, 0.16) 0%, rgba(106, 31, 43, 0.18) 100%) !important;
-  color: #fff4dc !important;
-  border: 1px solid rgba(246, 215, 138, 0.18) !important;
+.humas-page.theme-report-shell :deep(.form-control),
+.humas-page.theme-report-shell :deep(.form-select),
+.humas-page.theme-report-shell :deep(textarea) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(31, 95, 191, 0.16) !important;
 }
 
-.humas-page .alert-info hr {
-  border-color: rgba(246, 215, 138, 0.14);
+.humas-page.theme-report-shell :deep(.form-control::placeholder),
+.humas-page.theme-report-shell :deep(textarea::placeholder) {
+  color: #64748b !important;
 }
 
-.humas-page .alert-info ul,
-.humas-page .alert-info li,
-.humas-page .alert-info span {
-  color: #fff4dc;
+.humas-page.theme-report-shell :deep(.table thead th) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
 }
 
-.humas-page .listing-search .form-control,
-.humas-page .messages-form .form-control,
-.humas-page .messages-form .form-select,
-.humas-page .messages-form textarea {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(246, 215, 138, 0.2);
-  color: #fff4dc;
+.humas-page.theme-report-shell :deep(.table tbody td) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
 }
 
-.humas-page .listing-search .form-control::placeholder,
-.humas-page .messages-form .form-control::placeholder,
-.humas-page .messages-form textarea::placeholder {
-  color: rgba(248, 236, 209, 0.58);
+.humas-page.theme-report-shell :deep(.badge) {
+  color: #ffffff !important;
 }
 
-.humas-page .table {
-  background: transparent;
-  color: #fff4dc;
+.humas-page.theme-report-shell :deep(.page-link) {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
 }
 
-.humas-page .table thead th {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  color: #fff4dc;
-  border-color: rgba(246, 215, 138, 0.14);
+.humas-page.theme-report-shell :deep(.page-item.active .page-link) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
 }
-
-.humas-page .table tbody td {
-  color: #fff4dc;
-  background: rgba(255, 244, 216, 0.03);
-  border-color: rgba(201, 157, 79, 0.12);
-}
-
-.humas-page .table tbody tr:hover td {
-  background: rgba(255, 244, 216, 0.08);
-}
-
-.humas-page .table tbody td a {
-  color: #f6d78a;
-}
-
-.humas-page .text-success {
-  color: #7cc28f !important;
-}
-
-.humas-page .text-warning {
-  color: #f6d78a !important;
-}
-
-.humas-page .text-failed,
-.humas-page .text-danger {
-  color: #d46a74 !important;
-}
-
-.humas-page .text-muted {
-  color: #fff2d1 !important;
-}
-
-.humas-page .card-body .small,
-.humas-page .card-body p,
-.humas-page .card-body span {
-  color: #fff4dc !important;
-}
-
-.humas-page .pagination .page-link {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(246, 215, 138, 0.18);
-  color: #fff4dc;
-}
-
-.humas-page .pagination .page-item.active .page-link {
-  background: #f6d78a;
-  color: #241213;
-  border-color: #f6d78a;
-}
-
-.humas-page .btn-primary {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  border: 0;
-  color: #fff4dc;
-}
-
-.humas-page .btn-warning {
-  background: #f6d78a;
-  border: 0;
-  color: #241213;
-}
-
-.humas-page .btn-danger {
-  background: #b03b4a;
-  border: 0;
-  color: #fff4dc;
-}
-
-/* Hide the default file input */
-input[type="file"] {
-    display: none;
-}
-
-/* Style the custom file upload label */
-.custom-file-upload {
-    display: inline-block;
-    padding: 8px 10px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-    color: #fff4dc;
-    border-radius: 6px;
-    font-size: 16px;
-	font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.custom-file-upload:hover {
-    background: linear-gradient(135deg, #7c2330 0%, #b16a2c 100%);
-}
-
-.custom-file-upload i {
-    margin-right: 5px;
-}
-</style>

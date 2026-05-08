@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper nilai-kinerja-page">
+        <div class="page-wrapper nilai-kinerja-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
@@ -81,7 +81,7 @@
                                 <!--Pagination--> 
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -299,19 +299,19 @@ export default {
                     <div class="container-fluid" style="text-align: left; padding: 20px;">
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <label for="jumlahTidakApel" class="form-label fw-bold" style="color:#8f1d2c;">
+                                <label for="jumlahTidakApel" class="form-label fw-bold" style="color:#113f82;">
                                     <i class="fas fa-calendar-times"></i> Jumlah Tidak Apel/Upacara:
                                 </label>
-                                <input id="jumlahTidakApel" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah tidak ikut Apel/Upacara" min="0" style="border-radius: 10px; border: 2px solid #c58a2a; background:#2a191a; color:#fff2d1;">
+                                <input id="jumlahTidakApel" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah tidak ikut Apel/Upacara" min="0" style="border-radius: 10px; border: 2px solid rgba(31,95,191,0.18); background:#ffffff; color:#0f172a;">
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="jumlahKeluar" class="form-label fw-bold" style="color:#c58a2a;">
+                                <label for="jumlahKeluar" class="form-label fw-bold" style="color:#c89b3c;">
                                     <i class="fas fa-sign-out-alt"></i> Jumlah Keluar saat Jam Kerja:
                                 </label>
-                                <input id="jumlahKeluar" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah keluar pada saat Jam Kerja" min="0" style="border-radius: 10px; border: 2px solid #8f1d2c; background:#2a191a; color:#fff2d1;">
+                                <input id="jumlahKeluar" type="number" class="form-control form-control-lg" placeholder="Masukkan jumlah keluar pada saat Jam Kerja" min="0" style="border-radius: 10px; border: 2px solid rgba(31,95,191,0.18); background:#ffffff; color:#0f172a;">
                             </div>
                         </div>
-                        <div class="alert mt-3" style="border-radius: 10px; background:rgba(201,157,79,0.1); color:#fff2d1; border:1px solid rgba(201,157,79,0.22);">
+                        <div class="alert mt-3" style="border-radius: 10px; background:rgba(219,234,254,0.52); color:#0f172a; border:1px solid rgba(31,95,191,0.16);">
                             <i class="fas fa-info-circle"></i> Pastikan data yang dimasukkan akurat untuk perhitungan kinerja.
                         </div>
                     </div>
@@ -391,50 +391,56 @@ export default {
 <style scoped>
 .nilai-kinerja-page {
   background:
-    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
-    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
-  color: #fff2d1;
+    radial-gradient(circle at top left, rgba(31, 95, 191, 0.08), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 24%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+  color: #0f172a;
 }
 
 .nilai-kinerja-page :deep(.dash-cards.card) {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
-  border: 1px solid rgba(201, 157, 79, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96));
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 24px;
+  box-shadow: 0 22px 48px rgba(31, 95, 191, 0.08);
 }
 
 .nilai-kinerja-page :deep(.card-header),
 .nilai-kinerja-page :deep(.card-body) {
-  color: #fff2d1;
+  color: #0f172a;
 }
 
 .nilai-kinerja-page :deep(.card-header h4),
 .nilai-kinerja-page :deep(.listing-search .form-control),
 .nilai-kinerja-page :deep(.pagination .page-link) {
-  color: #fff4dc;
+  color: #0f172a;
 }
 
 .nilai-kinerja-page :deep(.listing-search .form-control) {
-  background: rgba(255, 244, 220, 0.04);
-  border: 1px solid rgba(201, 157, 79, 0.24);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.16);
 }
 
 .nilai-kinerja-page :deep(.table thead th) {
-  background: rgba(201, 157, 79, 0.14);
-  color: #fff4dc;
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96));
+  color: #ffffff;
 }
 
 .nilai-kinerja-page :deep(.table tbody td) {
-  background: rgba(255, 244, 220, 0.03);
-  color: #fff2d1;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.nilai-kinerja-page :deep(.table tbody td *) {
+  color: inherit !important;
 }
 
 .nilai-kinerja-page :deep(.btn-outline-primary) {
-  border-color: rgba(201, 157, 79, 0.42);
-  color: #fff4dc;
+  border-color: rgba(31, 95, 191, 0.24);
+  color: #113f82;
 }
 
 .nilai-kinerja-page :deep(.btn-outline-primary:hover) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
   color: #fff;
 }
 

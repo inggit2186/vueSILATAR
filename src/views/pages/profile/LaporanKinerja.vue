@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper laporan-kinerja-page">
+        <div class="page-wrapper laporan-kinerja-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -82,8 +82,9 @@
 <style scoped>
 .laporan-kinerja-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.14), transparent 44%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.08), transparent 44%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+  color: #0f172a;
 }
 
 .laporan-kinerja-page .dashboard-content {
@@ -91,41 +92,41 @@
 }
 
 .laporan-kinerja-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96));
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
+  box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+  color: #0f172a;
 }
 
 .laporan-kinerja-page .card-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-  color: #fff4dc;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.12);
+  color: #113f82;
 }
 
 .laporan-kinerja-page h4,
 .laporan-kinerja-page .card-header h4,
 .laporan-kinerja-page .media-title {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .laporan-kinerja-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  color: #1f2937;
 }
 
 .laporan-kinerja-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
+  color: #64748b;
 }
 
 .laporan-kinerja-page .media-image {
-  background: rgba(255, 244, 220, 0.04);
-  border: 1px solid rgba(214, 171, 76, 0.14);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 18px;
   padding: 1rem;
-  color: #fff4dc;
+  color: #0f172a;
 }
 
 .laporan-kinerja-page .media-image img {
@@ -133,18 +134,18 @@
 }
 
 .laporan-kinerja-page .file-upload {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
-  color: #fff4dc;
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
+  color: #ffffff;
   border: 1px solid transparent;
 }
 
 .laporan-kinerja-page .file-upload:hover {
-  background: linear-gradient(135deg, #d6ab4c, #ab1739);
-  color: #fff4dc;
+  background: linear-gradient(135deg, #c89b3c, #1f5fbf);
+  color: #ffffff;
 }
 
 .laporan-kinerja-page :deep(.btn-danger) {
-  background: linear-gradient(135deg, #8f1c31, #ab1739);
+  background: linear-gradient(135deg, #1f5fbf, #113f82);
   border: none;
 }
 </style>

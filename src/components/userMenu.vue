@@ -106,16 +106,16 @@ export default {
 
 <style scoped>
 .logout-cta {
-    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c) !important;
     border: none !important;
-    color: #fff8e6 !important;
-    box-shadow: 0 10px 24px rgba(171, 23, 57, 0.22);
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(31, 95, 191, 0.18);
 }
 
 .logout-cta:hover,
 .logout-cta:focus {
-    background: linear-gradient(135deg, #e0ba62, #c82349) !important;
-    color: #fffdf6 !important;
+    background: linear-gradient(135deg, #c89b3c, #1f5fbf) !important;
+    color: #ffffff !important;
 }
 
 .logout-cta span {

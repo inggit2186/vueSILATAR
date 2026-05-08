@@ -2,7 +2,7 @@
     <div class="main-menu-wrapper d-flex justify-content-between align-items-center">
         <div class="menu-header">
             <router-link to="/" class="menu-logo">
-                <img src="../assets/img/logo.png" class="img-fluid" alt="Logo">
+                <img src="../assets/img/logo.svg" class="img-fluid" alt="Logo">
             </router-link>
             <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
         </div>
@@ -33,7 +33,7 @@ class="has-submenu megamenu active"
             </li>
             <li v-if="!auth" class="d-block d-sm-none" style="padding:5% 5% 5% 5%;">
                 <li><router-link to="/login"><BBadge variant="danger" style="font-size: medium;float: left;"><i-solar-login-3-bold /> &nbsp;LOGIN</BBadge></router-link></li>
-                <li><router-link to="/signup"><BBadge variant="dark" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></li>
+                <li><router-link to="/signup"><BBadge variant="warning" style="font-size: medium;float: right"><i-mdi-register /> &nbsp;DAFTAR</BBadge></router-link></li>
             </li>
         </ul>
         
@@ -56,8 +56,8 @@ class="has-submenu megamenu active"
                 </a>
                 <span v-else><i-svg-spinners-bars-scale-middle />  Good Bye...</span>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: #6a1f2b;color: #f6d78a;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
-                    <b-button class="dropdown-item" to="/userdata" style="background-color: #1f3c2d;color: #f8ecd1;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
+                    <router-link v-if="user.dept.kategori == 'kantor'" class="dropdown-item" to="/admin" style="background-color: #eef4ff;color: #113f82;"><i-wpf-administrator />&nbsp; Admin Panel</router-link>
+                    <b-button class="dropdown-item" to="/userdata" style="background-color: #fff7e6;color: #8a5d10;"><i-fluent-folder-16-filled />&nbsp; Personal File</b-button>
                     <router-link class="dropdown-item" to="/dashboard"><i class="feather-grid"></i>&nbsp; Dashboard</router-link>
                     <router-link class="dropdown-item" to="/profile"><i class="fa-solid fa-user"></i>&nbsp; Profil</router-link>
                     <router-link class="dropdown-item" to="/my-listing"><i class="feather-list"></i>&nbsp; Layanan</router-link>
@@ -77,21 +77,21 @@ class="has-submenu megamenu active"
 
 <style scoped>
 :deep(.dropdown-menu) {
-    background: linear-gradient(180deg, #2a171a 0%, #1a0f12 100%);
-    border: 1px solid rgba(214, 171, 76, 0.18);
-    box-shadow: 0 20px 40px rgba(12, 7, 9, 0.32);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 248, 255, 0.98) 100%);
+    border: 1px solid rgba(31, 95, 191, 0.14);
+    box-shadow: 0 22px 40px rgba(31, 95, 191, 0.12);
 }
 
 :deep(.dropdown-menu .dropdown-item) {
-    color: #fff4dc;
-    border-bottom: 1px solid rgba(255, 244, 220, 0.08);
+    color: #1f2937;
+    border-bottom: 1px solid rgba(96, 120, 166, 0.1);
     background: transparent;
 }
 
 :deep(.dropdown-menu .dropdown-item:hover),
 :deep(.dropdown-menu .dropdown-item:focus) {
-    background: rgba(214, 171, 76, 0.12);
-    color: #fff4dc;
+    background: rgba(31, 95, 191, 0.08);
+    color: #113f82;
 }
 
 :deep(.dropdown-menu .dropdown-item:last-child) {
@@ -109,20 +109,19 @@ class="has-submenu megamenu active"
 :deep(.dropdown-menu .logout-item) {
     display: block;
     width: 100%;
-    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
-    color: #fffdf6 !important;
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c) !important;
+    color: #ffffff !important;
     border: none;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 18px rgba(171, 23, 57, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 10px 20px rgba(31, 95, 191, 0.18);
     text-align: left;
     padding: 0.7rem 0.95rem;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     min-height: 42px;
 }
 
 :deep(.dropdown-menu .logout-item:hover),
 :deep(.dropdown-menu .logout-item:focus) {
-    background: linear-gradient(135deg, #e0ba62, #c82349) !important;
-    color: #fffdf6 !important;
+    background: linear-gradient(135deg, #2f74d0, #d0ab57) !important;
+    color: #ffffff !important;
 }
 
 :deep(.dropdown-menu .logout-item span) {
@@ -138,9 +137,9 @@ class="has-submenu megamenu active"
 :deep(.dropdown-menu .logout-item.btn-primary),
 :deep(.dropdown-menu .logout-item.btn-secondary),
 :deep(.dropdown-menu .logout-item.btn-danger) {
-    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c) !important;
     border: none !important;
-    color: #fffdf6 !important;
+    color: #ffffff !important;
 }
 
 :deep(.dropdown-menu .logout-item.dropdown-item),
@@ -149,8 +148,8 @@ class="has-submenu megamenu active"
 :deep(.dropdown-menu .logout-item.btn-danger),
 :deep(.dropdown-menu .logout-item.btn-danger:hover),
 :deep(.dropdown-menu .logout-item.btn-danger:focus) {
-    background: linear-gradient(135deg, #d6ab4c, #ab1739) !important;
-    color: #fffdf6 !important;
+    background: linear-gradient(135deg, #1f5fbf, #c89b3c) !important;
+    color: #ffffff !important;
 }
 </style>
 

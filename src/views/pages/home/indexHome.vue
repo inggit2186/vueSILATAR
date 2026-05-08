@@ -17,7 +17,7 @@
 								<span class="home-title-bottom">Sistem Informasi Layanan dan Administrasi Kankemenag Kab. Tanah Datar.</span>
 							</h1>
 							<p class="home-lead">
-								Menghadirkan informasi, layanan, dan administrasi internal dalam satu pintu dengan tampilan yang tenang, hangat, dan bernuansa adat.
+								Menghadirkan informasi, layanan, dan administrasi internal dalam satu pintu dengan tampilan yang tenang, hangat, dan bernuansa kenyamanan.
 							</p>
 							<div class="home-pill-row">
 								<span class="home-pill">Adat basandi syarak</span>
@@ -67,9 +67,9 @@
 				<div class="home-showcase-shell">
 					<div class="home-showcase-heading">
 						<span class="home-showcase-kicker">Warisan visual</span>
-						<h2 class="home-showcase-title">Poster layanan bernuansa Rumah Gadang dan budaya kerja Minangkabau</h2>
+						<h2 class="home-showcase-title">Poster layanan</h2>
 						<p class="home-showcase-lead">
-							Tiga visual ini ditata lebih tegas agar identitas Sumatera Barat terasa jelas, dengan gaya yang lebih dekat pada suasana adat dan penghormatan.
+							Tiga visual ini ditata lebih tegas agar identitas Sumatera Barat terasa jelas, dengan gaya yang lebih dekat pada suasana kenyamanan dan penghormatan.
 						</p>
 					</div>
 					<div class="home-showcase-grid">
@@ -183,9 +183,9 @@ export default {
 	overflow: hidden;
 	padding: 68px 0 44px;
 	background:
-		radial-gradient(circle at top left, rgba(215, 167, 58, 0.16), transparent 28%),
-		radial-gradient(circle at right 20%, rgba(159, 26, 38, 0.22), transparent 24%),
-		linear-gradient(135deg, #090707 0%, #1d1114 48%, #45111a 100%);
+		radial-gradient(circle at top left, rgba(31, 95, 191, 0.12), transparent 28%),
+		radial-gradient(circle at right 20%, rgba(200, 155, 60, 0.14), transparent 24%),
+		linear-gradient(135deg, #f8fbff 0%, #eef4ff 48%, #ffffff 100%);
 }
 
 .home-hero-section::before {
@@ -193,11 +193,11 @@ export default {
 	position: absolute;
 	inset: 0;
 	background-image:
-		linear-gradient(rgba(215, 167, 58, 0.06) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(215, 167, 58, 0.06) 1px, transparent 1px),
-		repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 14px);
+		linear-gradient(rgba(31, 95, 191, 0.05) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(31, 95, 191, 0.05) 1px, transparent 1px),
+		repeating-linear-gradient(45deg, rgba(31, 95, 191, 0.014) 0 2px, transparent 2px 14px);
 	background-size: 42px 42px;
-	mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 88%);
+	mask-image: linear-gradient(to bottom, rgba(0,0,0,0.25), transparent 88%);
 	pointer-events: none;
 }
 
@@ -214,7 +214,7 @@ export default {
 	height: 240px;
 	left: -70px;
 	top: 90px;
-	background: radial-gradient(circle, rgba(215, 167, 58, 0.28), rgba(215, 167, 58, 0));
+	background: radial-gradient(circle, rgba(31, 95, 191, 0.18), rgba(31, 95, 191, 0));
 }
 
 .home-hero-orb-b {
@@ -222,21 +222,21 @@ export default {
 	height: 300px;
 	right: -110px;
 	bottom: 40px;
-	background: radial-gradient(circle, rgba(159, 26, 38, 0.26), rgba(159, 26, 38, 0));
+	background: radial-gradient(circle, rgba(200, 155, 60, 0.18), rgba(200, 155, 60, 0));
 }
 
 .home-hero-shell {
 	position: relative;
 	z-index: 1;
 	padding: 22px;
-	border: 1px solid rgba(215, 167, 58, 0.3);
+	border: 1px solid rgba(31, 95, 191, 0.12);
 	border-radius: 22px;
 	background:
-		linear-gradient(180deg, rgba(255, 247, 232, 0.03), rgba(255, 255, 255, 0.01)),
-		radial-gradient(circle at top left, rgba(215, 167, 58, 0.12), transparent 28%),
-		linear-gradient(180deg, rgba(18, 10, 11, 0.9), rgba(43, 14, 19, 0.92));
+		linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(246, 249, 255, 0.94)),
+		radial-gradient(circle at top left, rgba(31, 95, 191, 0.08), transparent 28%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 255, 0.96));
 	backdrop-filter: blur(12px);
-	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+	box-shadow: 0 24px 60px rgba(31, 95, 191, 0.1);
 }
 
 .home-hero-shell::before {
@@ -246,9 +246,9 @@ export default {
 	height: 42px;
 	border-radius: 16px 16px 0 0;
 	background:
-		repeating-linear-gradient(135deg, rgba(246, 212, 122, 0.08) 0 8px, transparent 8px 22px),
-		repeating-linear-gradient(45deg, rgba(169, 29, 42, 0.12) 0 6px, transparent 6px 18px);
-	opacity: 0.45;
+		repeating-linear-gradient(135deg, rgba(31, 95, 191, 0.06) 0 8px, transparent 8px 22px),
+		repeating-linear-gradient(45deg, rgba(200, 155, 60, 0.08) 0 6px, transparent 6px 18px);
+	opacity: 0.4;
 	pointer-events: none;
 }
 
@@ -259,7 +259,7 @@ export default {
 	top: -1px;
 	height: 26px;
 	background:
-		linear-gradient(90deg, #f6d47a 0%, #d0a03c 46%, #a91d2a 100%);
+		linear-gradient(90deg, #1f5fbf 0%, #c89b3c 46%, #d46b39 100%);
 	clip-path: polygon(0 100%, 4% 36%, 8% 100%, 12% 16%, 16% 100%, 20% 28%, 24% 100%, 28% 12%, 32% 100%, 36% 22%, 40% 100%, 44% 16%, 48% 100%, 52% 28%, 56% 100%, 60% 12%, 64% 100%, 68% 22%, 72% 100%, 76% 16%, 80% 100%, 84% 28%, 88% 100%, 92% 16%, 96% 100%, 100% 36%, 100% 100%);
 	opacity: 1;
 	pointer-events: none;
@@ -274,7 +274,7 @@ export default {
 }
 
 .home-hero-copy {
-	color: #f6f8ff;
+	color: #1f2937;
 	padding: 12px 12px 12px 14px;
 }
 
@@ -284,9 +284,9 @@ export default {
 	flex-wrap: wrap;
 	gap: 10px;
 	padding: 9px 14px;
-	border: 1px solid rgba(215, 167, 58, 0.34);
+	border: 1px solid rgba(31, 95, 191, 0.18);
 	border-radius: 999px;
-	background: linear-gradient(180deg, rgba(255, 247, 232, 0.05), rgba(255, 255, 255, 0.02));
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.94));
 	margin-bottom: 18px;
 }
 
@@ -295,8 +295,8 @@ export default {
 	font-weight: 700;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: #190d10;
-	background: linear-gradient(135deg, #f9d36f 0%, #cf9d37 100%);
+	color: #113f82;
+	background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%);
 	padding: 7px 12px;
 	border-radius: 999px;
 }
@@ -304,6 +304,7 @@ export default {
 .home-eyebrow-text {
 	font-size: 14px;
 	opacity: 0.9;
+	color: #5b6677;
 }
 
 .home-title {
@@ -318,8 +319,8 @@ export default {
 	font-weight: 900;
 	letter-spacing: 0.01em;
 	text-transform: uppercase;
-	color: #f6d47a;
-	text-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+	color: #1f5fbf;
+	text-shadow: none;
 }
 
 .home-title-bottom {
@@ -327,7 +328,7 @@ export default {
 	font-size: clamp(1.18rem, 2.1vw, 1.62rem);
 	line-height: 1.2;
 	font-weight: 700;
-	color: rgba(255, 242, 222, 0.92);
+	color: #334155;
 	padding-bottom: 2px;
 }
 
@@ -338,7 +339,7 @@ export default {
 	height: 3px;
 	margin-top: 12px;
 	border-radius: 999px;
-	background: linear-gradient(90deg, #f6d47a 0%, rgba(246, 212, 122, 0.08) 100%);
+	background: linear-gradient(90deg, #1f5fbf 0%, rgba(200, 155, 60, 0.18) 100%);
 }
 
 .home-lead {
@@ -346,7 +347,7 @@ export default {
 	margin: 14px 0 0;
 	font-size: 1.03rem;
 	line-height: 1.7;
-	color: rgba(248, 241, 226, 0.84);
+	color: #526175;
 }
 
 .home-pill-row {
@@ -361,9 +362,9 @@ export default {
 	align-items: center;
 	padding: 10px 14px;
 	border-radius: 999px;
-	border: 1px solid rgba(215, 167, 58, 0.22);
-	background: rgba(255, 248, 235, 0.04);
-	color: #fff3d0;
+	border: 1px solid rgba(31, 95, 191, 0.14);
+	background: rgba(255, 255, 255, 0.98);
+	color: #113f82;
 	font-size: 0.95rem;
 	font-weight: 600;
 }
@@ -379,10 +380,10 @@ export default {
 	padding: 17px 15px;
 	border-radius: 20px;
 	background:
-		linear-gradient(180deg, rgba(255, 247, 232, 0.06), rgba(255, 247, 232, 0.02)),
-		linear-gradient(180deg, rgba(24, 11, 13, 0.84), rgba(18, 10, 13, 0.92));
-	border: 1px solid rgba(215, 167, 58, 0.18);
+		linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.94));
+	border: 1px solid rgba(31, 95, 191, 0.12);
 	min-height: 112px;
+	box-shadow: 0 12px 24px rgba(31, 95, 191, 0.06);
 }
 
 .home-stat-card strong {
@@ -395,7 +396,7 @@ export default {
 	display: block;
 	font-size: 0.95rem;
 	line-height: 1.58;
-	color: rgba(248, 241, 226, 0.74);
+	color: #5b6677;
 }
 
 .home-hero-visual {
@@ -413,11 +414,11 @@ export default {
 	padding: 7px;
 	border-radius: 24px;
 	background:
-		linear-gradient(160deg, rgba(255, 247, 232, 0.05), rgba(255, 247, 232, 0.015)),
-		radial-gradient(circle at top, rgba(215, 167, 58, 0.12), transparent 42%),
-		linear-gradient(180deg, rgba(18, 10, 12, 0.78), rgba(63, 17, 24, 0.92));
-	border: 1px solid rgba(215, 167, 58, 0.26);
-	box-shadow: 0 28px 72px rgba(0, 0, 0, 0.46);
+		linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(246, 249, 255, 0.92)),
+		radial-gradient(circle at top, rgba(31, 95, 191, 0.1), transparent 42%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 255, 0.96));
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	box-shadow: 0 28px 72px rgba(31, 95, 191, 0.08);
 	overflow: hidden;
 }
 
@@ -426,8 +427,8 @@ export default {
 	position: absolute;
 	inset: 0;
 	background:
-		linear-gradient(180deg, transparent 55%, rgba(15, 10, 11, 0.5)),
-		repeating-linear-gradient(135deg, rgba(215, 167, 58, 0.05) 0 2px, transparent 2px 18px);
+		linear-gradient(180deg, transparent 55%, rgba(31, 95, 191, 0.08)),
+		repeating-linear-gradient(135deg, rgba(31, 95, 191, 0.04) 0 2px, transparent 2px 18px);
 	pointer-events: none;
 }
 
@@ -478,7 +479,7 @@ export default {
 	object-position: center 3%;
 	transform-origin: center top;
 	transform: translateY(-14px) scale(0.87);
-	filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.34));
+	filter: drop-shadow(0 24px 44px rgba(31, 95, 191, 0.1));
 }
 
 .fade-enter-active {
@@ -495,19 +496,18 @@ export default {
 	position: relative;
 	padding: 22px 0 18px;
 	background:
-		radial-gradient(circle at top left, rgba(215, 167, 58, 0.08), transparent 24%),
-		radial-gradient(circle at right bottom, rgba(159, 26, 38, 0.1), transparent 26%),
-		linear-gradient(135deg, #140b0d 0%, #291116 54%, #471119 100%);
+		radial-gradient(circle at top left, rgba(31, 95, 191, 0.08), transparent 24%),
+		radial-gradient(circle at right bottom, rgba(200, 155, 60, 0.08), transparent 26%),
+		linear-gradient(135deg, #ffffff 0%, #f5f8ff 54%, #eef4ff 100%);
 }
 
 .home-showcase-shell {
 	padding: 24px;
 	border-radius: 28px;
 	background:
-		linear-gradient(180deg, rgba(255, 247, 232, 0.04), rgba(255, 247, 232, 0.015)),
-		linear-gradient(180deg, rgba(17, 9, 10, 0.92), rgba(34, 13, 17, 0.96));
-	border: 1px solid rgba(215, 167, 58, 0.24);
-	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.36);
+		linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.92));
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	box-shadow: 0 20px 50px rgba(31, 95, 191, 0.08);
 	backdrop-filter: blur(10px);
 }
 
@@ -523,7 +523,7 @@ export default {
 	height: 4px;
 	margin-bottom: 14px;
 	border-radius: 999px;
-	background: linear-gradient(90deg, #f7cf68 0%, #9f1a26 100%);
+	background: linear-gradient(90deg, #1f5fbf 0%, #c89b3c 100%);
 }
 
 .home-showcase-kicker {
@@ -531,8 +531,8 @@ export default {
 	align-items: center;
 	padding: 8px 12px;
 	border-radius: 999px;
-	background: linear-gradient(135deg, #f6d47a, #c58f2d);
-	color: #1a0d10;
+	background: linear-gradient(135deg, #dbeafe, #fff1cf);
+	color: #113f82;
 	font-size: 12px;
 	font-weight: 800;
 	letter-spacing: 0.08em;
@@ -545,7 +545,7 @@ export default {
 	font-size: clamp(1.55rem, 2.8vw, 2.2rem);
 	line-height: 1.12;
 	font-weight: 900;
-	color: #fff3d0;
+	color: #113f82;
 }
 
 .home-showcase-lead {
@@ -553,7 +553,7 @@ export default {
 	max-width: 62ch;
 	font-size: 1rem;
 	line-height: 1.7;
-	color: rgba(248, 241, 226, 0.82);
+	color: #526175;
 }
 
 .home-showcase-grid {
@@ -574,11 +574,11 @@ export default {
 	min-height: 260px;
 	border-radius: 24px;
 	background:
-		linear-gradient(180deg, rgba(255, 247, 232, 0.05), rgba(255, 247, 232, 0.02)),
-		radial-gradient(circle at top, rgba(215, 167, 58, 0.1), transparent 54%),
-		linear-gradient(180deg, rgba(21, 11, 12, 0.94), rgba(41, 14, 18, 0.98));
-	border: 1px solid rgba(215, 167, 58, 0.18);
-	box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+		linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.94)),
+		radial-gradient(circle at top, rgba(31, 95, 191, 0.08), transparent 54%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 255, 0.96));
+	border: 1px solid rgba(31, 95, 191, 0.1);
+	box-shadow: 0 14px 32px rgba(31, 95, 191, 0.06);
 }
 
 .home-showcase-card-wide {
@@ -611,13 +611,13 @@ export default {
 .home-showcase-caption strong {
 	font-size: 1.02rem;
 	font-weight: 800;
-	color: #fff3d0;
+	color: #113f82;
 }
 
 .home-showcase-caption span {
 	font-size: 0.92rem;
 	line-height: 1.5;
-	color: rgba(248, 241, 226, 0.74);
+	color: #5b6677;
 }
 
 @media (max-width: 768px) {

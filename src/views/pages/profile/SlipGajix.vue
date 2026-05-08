@@ -358,56 +358,56 @@ export default {
 <style scoped>
 .slip-gajix-page {
   background:
-    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
-    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
-  color: #fff2d1;
+    radial-gradient(circle at top left, rgba(31, 95, 191, 0.1), transparent 28%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
+  color: #1f2937;
 }
 
 .slip-gajix-page :deep(.dash-cards.card) {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
-  border: 1px solid rgba(201, 157, 79, 0.16);
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 24px;
 }
 
 .slip-gajix-page :deep(.card-header),
 .slip-gajix-page :deep(.card-body) {
-  color: #fff2d1;
+  color: #1f2937;
 }
 
 .slip-gajix-page :deep(.card-header h4),
 .slip-gajix-page :deep(.listing-search .form-control),
 .slip-gajix-page :deep(.pagination .page-link) {
-  color: #fff4dc;
+  color: #1f2937;
 }
 
 .slip-gajix-page :deep(.listing-search .form-control) {
-  background: rgba(255, 244, 220, 0.04);
-  border: 1px solid rgba(201, 157, 79, 0.24);
+  background: #ffffff;
+  border: 1px solid rgba(31, 95, 191, 0.16);
 }
 
 .slip-gajix-page :deep(.table thead th) {
-  background: rgba(201, 157, 79, 0.14);
-  color: #fff4dc;
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+  color: #113f82;
 }
 
 .slip-gajix-page :deep(.table tbody td) {
-  background: rgba(255, 244, 220, 0.03);
-  color: #fff2d1;
+  background: #fffdf7;
+  color: #2f3b4f;
 }
 
 .slip-gajix-page :deep(.btn-dark) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
   border: none;
 }
 
 .slip-gajix-page :deep(.btn-outline-primary) {
-  border-color: rgba(201, 157, 79, 0.42);
-  color: #fff4dc;
+  border-color: rgba(31, 95, 191, 0.24);
+  color: #1f5fbf;
 }
 
 .slip-gajix-page :deep(.btn-outline-primary:hover) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
+  color: #ffffff;
 }
 
 @media (max-width: 767px) {

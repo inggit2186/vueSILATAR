@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-madrasah-shell">
+  <div class="admin-madrasah-shell theme-report-shell">
     <div class="admin-hero">
       <div>
         <h2>{{ title }}</h2>
@@ -56,7 +56,7 @@
       <div class="export-period-grid">
         <div class="export-field">
           <label for="export-semester">Semester</label>
-          <select id="export-semester" v-model="exportSemester" class="admin-hero-select admin-hero-select-dark">
+            <select id="export-semester" v-model="exportSemester" class="admin-hero-select">
             <option v-for="item in semesterOptions" :key="item.value" :value="item.value">
               {{ item.label }}
             </option>
@@ -64,7 +64,7 @@
         </div>
         <div class="export-field">
           <label for="export-academic-year">Tahun Ajaran</label>
-          <select id="export-academic-year" v-model="exportAcademicYear" class="admin-hero-select admin-hero-select-dark">
+            <select id="export-academic-year" v-model="exportAcademicYear" class="admin-hero-select">
             <option v-for="item in academicYearOptions" :key="item.value" :value="item.value">
               {{ item.label }}
             </option>
@@ -72,7 +72,7 @@
         </div>
         <div class="export-field">
           <label for="export-month">Bulan Laporan</label>
-          <select id="export-month" v-model="exportMonth" class="admin-hero-select admin-hero-select-dark">
+            <select id="export-month" v-model="exportMonth" class="admin-hero-select">
             <option v-for="item in monthSelectOptions" :key="item.value" :value="item.value">
               {{ item.label }}
             </option>
@@ -80,7 +80,7 @@
         </div>
         <div class="export-field">
           <label for="export-year">Tahun Laporan</label>
-          <select id="export-year" v-model="exportYear" class="admin-hero-select admin-hero-select-dark">
+            <select id="export-year" v-model="exportYear" class="admin-hero-select">
             <option v-for="item in reportYearOptions" :key="item.value" :value="item.value">
               {{ item.label }}
             </option>
@@ -972,39 +972,39 @@ export default {
             <title>${escapeHtml(`Export Madrasah ${profile.nama || bundle.selectedMadrasahLabel || bundle.deptId}`)}</title>
             <style>
               @page { size: A4 landscape; margin: 10mm; }
-              body { font-family: Calibri, Arial, sans-serif; color: #fff2d1; margin: 0; padding: 20px; background: #231516; }
+              body { font-family: Manrope, Calibri, Arial, sans-serif; color: #0f172a; margin: 0; padding: 20px; background: #eef4ff; }
               .wrapper { display: flex; flex-direction: column; gap: 18px; }
-              .sheet { background: linear-gradient(180deg, #2a191a 0%, #241516 100%); border: 1px solid rgba(201, 157, 79, 0.22); border-radius: 18px; padding: 18px 20px; box-shadow: 0 12px 30px rgba(22, 12, 13, 0.22); page-break-after: always; }
+              .sheet { background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%); border: 1px solid rgba(31, 95, 191, 0.12); border-radius: 18px; padding: 18px 20px; box-shadow: 0 12px 30px rgba(31, 95, 191, 0.08); page-break-after: always; }
               .sheet:last-child { page-break-after: auto; }
-              .hero { padding: 18px 20px; border-radius: 16px; background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%); color: #fff; }
+              .hero { padding: 18px 20px; border-radius: 16px; background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%); color: #fff; }
               .hero h1, .hero h2, .hero p { margin: 0; }
               .hero h1 { font-size: 24px; margin-bottom: 6px; }
               .hero h2 { font-size: 15px; font-weight: 600; margin-bottom: 6px; opacity: 0.95; }
               .hero p { font-size: 12px; opacity: 0.88; }
               .meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
-              .meta-card { background: rgba(255,244,216,0.08); border: 1px solid rgba(201,157,79,0.2); border-radius: 12px; padding: 10px 12px; }
+              .meta-card { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.24); border-radius: 12px; padding: 10px 12px; }
               .meta-card span { display: block; font-size: 10px; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; }
               .meta-card strong { font-size: 13px; }
-              .section-title { font-size: 18px; margin: 0 0 10px; color: #fff2d1; }
-              .section-subtitle { font-size: 12px; color: rgba(255,240,197,0.78); margin: 0 0 12px; }
+              .section-title { font-size: 18px; margin: 0 0 10px; color: #113f82; }
+              .section-subtitle { font-size: 12px; color: #64748b; margin: 0 0 12px; }
               .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
               .subsection { margin-bottom: 14px; }
-              .subsection h4 { margin: 0 0 8px; color: #fff2d1; font-size: 14px; }
+              .subsection h4 { margin: 0 0 8px; color: #0f172a; font-size: 14px; }
               .report-table { width: 100%; border-collapse: collapse; font-family: Calibri, Arial, sans-serif; }
-              .report-table th, .report-table td { border: 1px solid rgba(201,157,79,0.2); padding: 6px 7px; font-size: 11px; vertical-align: top; text-align: center; color: #fff2d1; }
-              .report-table th { background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%); font-weight: 700; color: #fff; }
-              .report-table tbody tr:nth-child(even) td { background: rgba(255,244,216,0.04); }
+              .report-table th, .report-table td { border: 1px solid rgba(31,95,191,0.12); padding: 6px 7px; font-size: 11px; vertical-align: top; text-align: center; color: #0f172a; }
+              .report-table th { background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%); font-weight: 700; color: #fff; }
+              .report-table tbody tr:nth-child(even) td { background: rgba(219,234,254,0.28); }
               .text-left { text-align: left !important; }
-              .empty-cell { text-align: center; color: rgba(255,240,197,0.72); padding: 14px; }
+              .empty-cell { text-align: center; color: #64748b; padding: 14px; }
               .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-              .chip { display: inline-flex; align-items: center; padding: 6px 10px; border-radius: 999px; background: rgba(255,244,216,0.06); color: #fff2d1; font-size: 11px; font-weight: 700; border: 1px solid rgba(201,157,79,0.2); }
-              .footer-note { margin-top: 12px; font-size: 11px; color: rgba(255,240,197,0.72); text-align: right; }
-              .total-row td { font-weight: 700; background: rgba(201,157,79,0.12) !important; }
-              .wide-report-table { border: 2px solid rgba(201,157,79,0.24); table-layout: auto; }
+              .chip { display: inline-flex; align-items: center; padding: 6px 10px; border-radius: 999px; background: rgba(219,234,254,0.68); color: #113f82; font-size: 11px; font-weight: 700; border: 1px solid rgba(31,95,191,0.16); }
+              .footer-note { margin-top: 12px; font-size: 11px; color: #64748b; text-align: right; }
+              .total-row td { font-weight: 700; background: rgba(219,234,254,0.4) !important; }
+              .wide-report-table { border: 2px solid rgba(31,95,191,0.16); table-layout: auto; }
               .wide-report-table th,
-              .wide-report-table td { border: 1px solid rgba(201,157,79,0.2); font-size: 10px; white-space: nowrap; }
-              .wide-report-table th { background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%); color: #fff; font-family: Cambria, 'Times New Roman', serif; font-weight: 700; }
-              .wide-report-table td { background: rgba(255,244,216,0.04); color: #fff2d1; font-family: Calibri, Arial, sans-serif; }
+              .wide-report-table td { border: 1px solid rgba(31,95,191,0.12); font-size: 10px; white-space: nowrap; }
+              .wide-report-table th { background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%); color: #fff; font-family: 'Space Grotesk', Cambria, 'Times New Roman', serif; font-weight: 700; }
+              .wide-report-table td { background: rgba(255,255,255,0.96); color: #0f172a; font-family: Manrope, Calibri, Arial, sans-serif; }
             </style>
           </head>
           <body>
@@ -1564,5 +1564,66 @@ export default {
   .export-period-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.admin-madrasah-shell.theme-report-shell {
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .admin-hero,
+.admin-madrasah-shell.theme-report-shell .feature-nav-panel,
+.admin-madrasah-shell.theme-report-shell .export-period-panel,
+.admin-madrasah-shell.theme-report-shell .empty-state,
+.admin-madrasah-shell.theme-report-shell .loading-state {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96));
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08);
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .admin-hero h2,
+.admin-madrasah-shell.theme-report-shell .feature-nav-heading strong,
+.admin-madrasah-shell.theme-report-shell .export-period-heading strong,
+.admin-madrasah-shell.theme-report-shell .empty-state h4,
+.admin-madrasah-shell.theme-report-shell .loading-state-inner {
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .admin-hero p,
+.admin-madrasah-shell.theme-report-shell .feature-nav-heading small,
+.admin-madrasah-shell.theme-report-shell .feature-link small,
+.admin-madrasah-shell.theme-report-shell .export-period-heading small,
+.admin-madrasah-shell.theme-report-shell .empty-state p {
+  color: #64748b;
+}
+
+.admin-madrasah-shell.theme-report-shell .admin-hero-select,
+.admin-madrasah-shell.theme-report-shell .admin-hero-select-dark {
+  background: #ffffff;
+  border: 1px solid rgba(31, 95, 191, 0.16);
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .admin-hero-select option,
+.admin-madrasah-shell.theme-report-shell .admin-hero-select-dark option {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .feature-link {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  color: #0f172a;
+}
+
+.admin-madrasah-shell.theme-report-shell .feature-link small {
+  color: #64748b;
+}
+
+.admin-madrasah-shell.theme-report-shell .feature-link.active,
+.admin-madrasah-shell.theme-report-shell .export-action-button {
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
+  color: #ffffff;
+  border-color: transparent;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper rekap-kinerja-page">
+        <div class="page-wrapper rekap-kinerja-page theme-report-shell theme-report-shell--dark">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
@@ -54,11 +54,11 @@
                                                     <BBadge pill variant="secondary" style="font-size: small;"> {{ item.nip }} </BBadge>
                                                 </td>
                                                 <td>
-                                                    <BBadge v-if="item.status == 'DIKIRIM'" variant="light">DIAJUKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary">DISETUJUI</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
-                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark">BELUM UPLOAD</BBadge>
+                                                    <BBadge v-if="item.status == 'DIKIRIM'" variant="light" class="status-badge status-badge-submitted">DIAJUKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary" class="status-badge status-badge-received">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary" class="status-badge status-badge-approved">DISETUJUI</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger" class="status-badge status-badge-rejected">DITOLAK</BBadge>
+                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark" class="status-badge status-badge-none">BELUM UPLOAD</BBadge>
                                                 </td>
 												<td>
 													<span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-iconoir-send-solid /> Dikirim : {{ item.created }}</i></span><br/>
@@ -79,7 +79,7 @@
                                 <!--Pagination--> 
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -116,102 +116,6 @@
         </div>
     </div>
 </template>
-
-<style scoped>
-.rekap-kinerja-page {
-  background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
-}
-
-.rekap-kinerja-page .dashboard-content {
-  padding: 1rem 0 2.5rem;
-}
-
-.rekap-kinerja-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
-  border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page .card-header {
-  background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-}
-
-.rekap-kinerja-page h4,
-.rekap-kinerja-page .card-header h4 {
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
-}
-
-.rekap-kinerja-page :deep(.table) {
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
-}
-
-.rekap-kinerja-page :deep(.table tbody td) {
-  border-color: rgba(255, 244, 220, 0.08);
-  color: #4a3323;
-  background: #fffdf7;
-}
-
-.rekap-kinerja-page :deep(.table tbody td *) {
-  color: inherit !important;
-}
-
-.rekap-kinerja-page :deep(.table tbody td a) {
-  color: #a61d3a;
-}
-
-.rekap-kinerja-page :deep(.table tbody td b),
-.rekap-kinerja-page :deep(.table tbody td strong) {
-  color: #3a271b;
-}
-
-.rekap-kinerja-page :deep(.table tbody td span),
-.rekap-kinerja-page :deep(.table tbody td i),
-.rekap-kinerja-page :deep(.table tbody td small) {
-  color: #6a4b35;
-}
-
-.rekap-kinerja-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.08);
-}
-
-.rekap-kinerja-page :deep(.badge) {
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
-}
-
-.rekap-kinerja-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
-  border-color: transparent;
-  color: #fff4dc;
-}
-</style>
-
 <script>
 export default {
     data() {

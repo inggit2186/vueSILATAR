@@ -204,6 +204,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'ant-design-vue/dist/antd.css';
 import './assets/css/feather.css';
 import './assets/css/style.css';
+import './assets/css/theme.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 import "bottom-navigation-vue/dist/style.css";
 
@@ -220,6 +221,12 @@ const Toast = Swal.mixin({
   })
 const assetSrc = new URL(`${window.location.origin}/v2/assets`, import.meta.url).href;
 const assetPath = (relativePath) => new URL(`./assets/img/${relativePath}`, import.meta.url).href;
+const cacheToken = Date.now().toString();
+const cacheBust = (url) => {
+  if (!url) return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}v=${cacheToken}`;
+};
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
@@ -227,6 +234,7 @@ app.config.globalProperties.$swal = Swal;
 app.config.globalProperties.$toast = Toast;
 app.config.globalProperties.$assets = assetSrc;
 app.config.globalProperties.$asset = assetPath;
+app.config.globalProperties.$cacheBust = cacheBust;
 app.component('Layouts',Header)
 app.component('Usernavbar',UserNavbar)
 app.component('Navbartwo',NavbarTwo)

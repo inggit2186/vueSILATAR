@@ -26,7 +26,7 @@
 							<!-- Footer Widget -->
 							<div class="footer-widget">
 								<div class="footer-logo">
-									<router-link to="#"><img src="../../assets/img/logo.png" alt="logo" style="max-width: 80%;"></router-link>
+									<router-link to="#"><img src="../../assets/img/footerlogo.svg" alt="logo" style="max-width: 80%;"></router-link>
 								</div>
 								<div class="footer-content">
 									<p>Website Sistem Layanan dan Administrasi Tanah Datar (SILATAR) Kantor Kementerian Agama Kabupaten Tanah Datar.  </p>

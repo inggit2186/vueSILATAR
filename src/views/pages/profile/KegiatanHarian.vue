@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <usernavbar />
-        <div class="page-wrapper kinerja-page">
+        <div class="page-wrapper kinerja-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" :key="column.name" @click="sortTable(column.data)">
@@ -102,7 +102,7 @@
                                 <!--Pagination--> 
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -222,11 +222,11 @@
             <h3>Input Data Atasan</h3>
             <p>Masukkan Data Atasan Anda untuk Laporan Kinerja.</p>
             <div style="text-align: left; margin-bottom: 20px;">
-              <label for="atasanName" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff2d1;">Nama Atasan</label>
+              <label for="atasanName" style="display: block; margin-bottom: 5px; font-weight: bold;">Nama Atasan</label>
               <input id="atasanName" v-model="atasanName" class="modal-input" placeholder="Masukkan Nama Atasan" required />
             </div>
             <div style="text-align: left;">
-              <label for="atasanNip" style="display: block; margin-bottom: 5px; font-weight: bold; color: #fff2d1;">NIP Atasan</label>
+              <label for="atasanNip" style="display: block; margin-bottom: 5px; font-weight: bold;">NIP Atasan</label>
               <input id="atasanNip" v-model="atasanNip" class="modal-input" placeholder="Masukkan NIP Atasan" required />
             </div>
             <div class="modal-buttons">
@@ -783,52 +783,52 @@ export default {
 .table th:nth-child(3), .table td:nth-child(3) { width: auto; }
 
 .kinerja-page {
-  color: #f8ecd1;
+  color: #1f2937;
 }
 
 .kinerja-page .dashboard-content {
   background:
-    radial-gradient(circle at top left, rgba(246, 215, 138, 0.08), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(106, 31, 43, 0.2), transparent 26%),
-    linear-gradient(180deg, #1a0e10 0%, #261416 100%);
+    radial-gradient(circle at top left, rgba(31, 95, 191, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 26%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
   padding-bottom: 42px;
 }
 
 .kinerja-page .dash-cards.card,
 .kinerja-page .messages-form .card,
 .kinerja-page .card {
-  background: linear-gradient(180deg, rgba(34, 17, 19, 0.98) 0%, rgba(23, 12, 13, 0.98) 100%);
-  border: 1px solid rgba(246, 215, 138, 0.16);
-  color: #f8ecd1;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  color: #1f2937;
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08);
 }
 
 .kinerja-page .card-header {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  color: #fff4dc;
-  border-bottom: 1px solid rgba(246, 215, 138, 0.12);
+  background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%);
+  color: #113f82;
+  border-bottom: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .kinerja-page .card-body,
 .kinerja-page .messages-form,
 .kinerja-page .profile-content {
-  color: #f8ecd1;
+  color: #1f2937;
 }
 
 .kinerja-page .alert-info {
-  background: linear-gradient(180deg, rgba(246, 215, 138, 0.16) 0%, rgba(106, 31, 43, 0.18) 100%) !important;
-  color: #fff4dc !important;
-  border: 1px solid rgba(246, 215, 138, 0.18) !important;
+  background: rgba(219, 234, 254, 0.6) !important;
+  color: #113f82 !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
 }
 
 .kinerja-page .alert-info hr {
-  border-color: rgba(246, 215, 138, 0.14);
+  border-color: rgba(31, 95, 191, 0.12);
 }
 
 .kinerja-page .alert-info ul,
 .kinerja-page .alert-info li,
 .kinerja-page .alert-info span {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .kinerja-page .listing-search .form-control,
@@ -836,92 +836,71 @@ export default {
 .kinerja-page .messages-form .form-select,
 .kinerja-page .messages-form textarea,
 .kinerja-page .modal-input {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(246, 215, 138, 0.2);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.12);
+  color: #1f2937;
 }
 
 .kinerja-page .listing-search .form-control::placeholder,
 .kinerja-page .messages-form .form-control::placeholder,
 .kinerja-page .messages-form textarea::placeholder,
 .kinerja-page .modal-input::placeholder {
-  color: rgba(248, 236, 209, 0.58);
+  color: #64748b;
 }
 
 .kinerja-page .table {
   background: transparent;
-  color: #fff4dc;
+  color: #1f2937;
 }
 
 .kinerja-page .table thead th {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  color: #fff4dc;
-  border-color: rgba(246, 215, 138, 0.14);
+  background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%);
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.12);
 }
 
 .kinerja-page .table tbody td {
-  color: #fff4dc;
-  background: rgba(255, 244, 216, 0.03);
-  border-color: rgba(201, 157, 79, 0.12);
+  color: #1f2937;
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(31, 95, 191, 0.08);
 }
 
 .kinerja-page .table tbody tr:hover td {
-  background: rgba(255, 244, 216, 0.08);
+  background: rgba(31, 95, 191, 0.05);
 }
 
 .kinerja-page .table tbody td a {
-  color: #f6d78a;
+  color: #1f5fbf;
 }
 
 .kinerja-page .pagination .page-link {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(246, 215, 138, 0.18);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(31, 95, 191, 0.12);
+  color: #113f82;
 }
 
 .kinerja-page .pagination .page-item.active .page-link {
-  background: #f6d78a;
-  color: #241213;
-  border-color: #f6d78a;
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
+  color: #ffffff;
+  border-color: transparent;
 }
 
 .kinerja-page .btn-primary {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
+  background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
   border: 0;
-  color: #fff4dc;
+  color: #ffffff;
 }
 
 .kinerja-page .btn-warning {
-  background: #f6d78a;
+  background: #c89b3c;
   border: 0;
-  color: #241213;
+  color: #ffffff;
 }
 
 .kinerja-page .btn-danger {
-  background: #b03b4a;
+  background: linear-gradient(135deg, #1f5fbf, #113f82);
   border: 0;
-  color: #fff4dc;
-}
-
-.kinerja-page .atasan-modal .modal-content {
-  background: linear-gradient(180deg, #241213 0%, #160b0c 100%);
-  border: 1px solid rgba(246, 215, 138, 0.18);
-}
-
-.kinerja-page .atasan-modal .modal-content h3,
-.kinerja-page .atasan-modal .modal-content p,
-.kinerja-page .atasan-modal .modal-content label {
-  color: #fff4dc !important;
-}
-
-.kinerja-page .modal-save-btn {
-  background: #f6d78a;
-  color: #241213;
-}
-
-.kinerja-page .modal-cancel-btn {
-  background: #6a1f2b;
-  color: #fff4dc;
+  color: #ffffff;
 }
 
 .atasan-modal {
@@ -930,88 +909,25 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(31, 95, 191, 0.18);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
-
-.modal-content {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
-  text-align: center;
-  color: #fff4dc;
-}
-
-.modal-content h3 {
-  margin-bottom: 10px;
-  color: #fff4dc;
-}
-
-.modal-content p {
-  margin-bottom: 20px;
-  color: rgba(255, 244, 220, 0.72);
-}
-
-.modal-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(201, 157, 79, 0.18);
-  border-radius: 4px;
-  background-color: rgba(255, 244, 220, 0.04);
-  color: #fff4dc;
-}
-
-.modal-input:focus {
-  outline: none;
-  border-color: #c58a2a;
-}
-
 .modal-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-.modal-save-btn {
-  background: linear-gradient(135deg, #2f5f48 0%, #6a1f2b 100%);
-  color: #fff4dc;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-save-btn:hover {
-  filter: brightness(1.05);
-}
-
-.modal-cancel-btn {
-  background: linear-gradient(135deg, #6a1f2b 0%, #9a5925 100%);
-  color: #fff4dc;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-cancel-btn:hover {
-  filter: brightness(1.05);
-}
-
 .kinerja-page .card,
 .kinerja-page .card-header,
 .kinerja-page .card-body,
 .kinerja-page .dash-cards {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%) !important;
-  border-color: rgba(201, 157, 79, 0.18) !important;
-  color: #fff4dc !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+  color: #1f2937 !important;
 }
 
 .kinerja-page .card-header h4,
@@ -1025,16 +941,16 @@ export default {
 .kinerja-page .table,
 .kinerja-page .table td,
 .kinerja-page .table th {
-  color: #fff4dc !important;
+  color: #1f2937 !important;
 }
 
 .kinerja-page .table thead th {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, #dbeafe 0%, #fff1cf 100%) !important;
+  color: #113f82 !important;
 }
 
 .kinerja-page .table tbody td {
-  background: rgba(255, 244, 220, 0.04) !important;
-  color: #fff4dc !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #1f2937 !important;
 }
 </style>

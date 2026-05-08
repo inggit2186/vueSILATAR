@@ -274,49 +274,49 @@ export default {
 <style scoped>
 .dashboard-content {
 	background:
-		radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 44%),
-		linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+		radial-gradient(circle at top, rgba(31, 95, 191, 0.08), transparent 44%),
+		linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .dashboard-content :deep(.dash-cards) {
-	background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-	border: 1px solid rgba(214, 171, 76, 0.18);
+	background: rgba(255, 255, 255, 0.98);
+	border: 1px solid rgba(31, 95, 191, 0.12);
 	border-radius: 22px;
-	box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-	color: #fff4dc;
+	box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+	color: #1f2937;
 }
 
 .dashboard-content :deep(.card-header) {
 	background: transparent;
-	border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-	color: #fff4dc;
+	border-bottom: 1px solid rgba(31, 95, 191, 0.12);
+	color: #113f82;
 }
 
 .dashboard-content :deep(.card-header h4),
 .dashboard-content :deep(.dash-cards h4) {
-	color: #fff4dc;
+	color: #113f82;
 }
 
 .dashboard-content :deep(.form-control) {
-	background: rgba(255, 244, 220, 0.08);
-	border: 1px solid rgba(214, 171, 76, 0.24);
-	color: #fff4dc;
+	background: rgba(255, 255, 255, 0.96);
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	color: #1f2937;
 }
 
 .dashboard-content :deep(.form-control::placeholder) {
-	color: rgba(255, 244, 220, 0.56);
+	color: #64748b;
 }
 
 .dashboard-content :deep(.table thead th) {
-	background: rgba(214, 171, 76, 0.12);
-	color: #fff4dc;
-	border-color: rgba(214, 171, 76, 0.18);
+	background: linear-gradient(180deg, rgba(219, 234, 254, 0.72), rgba(255, 241, 207, 0.76));
+	color: #113f82;
+	border-color: rgba(31, 95, 191, 0.12);
 }
 
 .dashboard-content :deep(.table tbody td) {
 	background: #fffdf7 !important;
-	border-color: rgba(59, 36, 24, 0.12);
-	color: #3b2418 !important;
+	border-color: rgba(31, 95, 191, 0.08);
+	color: #1f2937 !important;
 }
 
 .dashboard-content :deep(.table tbody td *) {
@@ -324,41 +324,41 @@ export default {
 }
 
 .dashboard-content :deep(.table tbody tr:hover) {
-	background: rgba(214, 171, 76, 0.06);
+	background: rgba(31, 95, 191, 0.05);
 }
 
 .dashboard-content :deep(.btn-outline-primary) {
-	border-color: rgba(171, 23, 57, 0.28);
-	color: #ab1739;
-	background: #fff9f1;
+	border-color: rgba(31, 95, 191, 0.18);
+	color: #113f82;
+	background: #f8fbff;
 }
 
 .dashboard-content :deep(.btn-outline-primary:hover),
 .dashboard-content :deep(.btn-outline-primary:focus) {
-	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	background: linear-gradient(135deg, #1f5fbf, #c89b3c);
 	border-color: transparent;
-	color: #fff4dc;
+	color: #ffffff;
 }
 
 .dashboard-content :deep(.btn-danger) {
-	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	background: linear-gradient(135deg, #1f5fbf, #c89b3c);
 	border-color: transparent;
-	color: #fff4dc;
+	color: #ffffff;
 }
 
 .dashboard-content :deep(.badge) {
-	box-shadow: 0 6px 14px rgba(13, 7, 8, 0.12);
+	box-shadow: 0 6px 14px rgba(31, 95, 191, 0.08);
 }
 
 .dashboard-content :deep(.page-link) {
-	background: rgba(255, 244, 220, 0.08);
-	border-color: rgba(214, 171, 76, 0.2);
-	color: #fff4dc;
+	background: rgba(255, 255, 255, 0.96);
+	border-color: rgba(31, 95, 191, 0.12);
+	color: #113f82;
 }
 
 .dashboard-content :deep(.page-item.active .page-link) {
-	background: linear-gradient(135deg, #ab1739, #d6ab4c);
+	background: linear-gradient(135deg, #1f5fbf, #c89b3c);
 	border-color: transparent;
-	color: #fff4dc;
+	color: #ffffff;
 }
 </style>

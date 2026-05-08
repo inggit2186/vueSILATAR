@@ -634,61 +634,61 @@ async recordVoice() {
   bottom: 24px;
   right: 24px;
   z-index: 1000;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   user-select: none;
 }
 
 .chat-icon {
   width: 120px;
   height: 56px;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
   border-radius: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 0 15px 3px rgba(110, 142, 251, 0.7);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.24);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .chat-icon:hover {
-  background: linear-gradient(135deg, #a777e3, #6e8efb);
-  box-shadow: 0 0 20px 5px rgba(167, 119, 227, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.28);
 }
 
 .chat-icon-svg {
   width: 28px;
   height: 28px;
   stroke: white;
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
   transition: filter 0.3s ease;
 }
 .chat-icon:hover .chat-icon-svg {
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
 }
 
 .chat-text {
   color: white;
   font-weight: bold;
   font-size: 16px;
-  background: linear-gradient(135deg, #ffffff, #e0e0e0);
+  background: linear-gradient(135deg, #ffffff, #dbeafe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
 }
 
 .new-message-notification {
   position: absolute;
   top: -40px;
   right: -10px;
-  background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
   color: white;
   font-size: 14px;
   font-weight: 700;
   padding: 8px 16px;
   border-radius: 24px;
-  box-shadow: 0 4px 12px rgba(255, 59, 59, 0.8);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.24);
   animation: pulse 2s infinite;
   user-select: none;
   pointer-events: none;
@@ -715,25 +715,27 @@ async recordVoice() {
 .chat-window {
   width: 450px;
   height: 550px;
-  background-color: #2f3136;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  color: #dcddde;
+  color: #334155;
 }
 
 .chat-header {
-  background-color: #202225;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
   padding: 12px 16px;
   font-weight: 600;
   font-size: 16px;
-  color: #fff;
+  color: #0f172a;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #292b2f;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .header-loading-container {
@@ -746,7 +748,7 @@ async recordVoice() {
 .close-btn {
   background: none;
   border: none;
-  color: #b9bbbe;
+  color: #64748b;
   font-size: 24px;
   cursor: pointer;
   line-height: 1;
@@ -755,13 +757,13 @@ async recordVoice() {
 }
 
 .close-btn:hover {
-  color: #fff;
+  color: #0f172a;
 }
 
 .clear-btn {
-  background: linear-gradient(135deg, #36393f, #40444b);
-  border: 1px solid #72767d;
-  color: #b9bbbe;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  color: #1d4ed8;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -786,11 +788,11 @@ async recordVoice() {
 }
 
 .clear-btn:hover {
-  background: linear-gradient(135deg, #ff6b6b, #ff4757);
-  border-color: #ff6b6b;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  border-color: transparent;
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.22);
 }
 
 .clear-btn:hover::before {
@@ -809,7 +811,7 @@ async recordVoice() {
   font-size: 14px;
   line-height: 1.4;
   scrollbar-width: thin;
-  scrollbar-color: #202225 #2f3136;
+  scrollbar-color: #cbd5e1 #eff6ff;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -817,14 +819,14 @@ async recordVoice() {
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: #2f3136;
+  background: #eff6ff;
   border-radius: 8px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background-color: #202225;
+  background-color: #cbd5e1;
   border-radius: 8px;
-  border: 2px solid #2f3136;
+  border: 2px solid #eff6ff;
 }
 
 .message {
@@ -861,13 +863,13 @@ async recordVoice() {
 }
 
 .message-body .message-header strong {
-  color: #fff;
+  color: #0f172a;
   font-weight: 600;
   font-size: 14px;
 }
 
 .message-body .message-time {
-  color: #b9bbbe;
+  color: #94a3b8;
   font-size: 10px;
   font-weight: 400;
   font-style: italic;
@@ -880,21 +882,23 @@ async recordVoice() {
 
 .message-role {
   display: inline-block;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(37, 99, 235, 0.1);
   padding: 1px 4px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 500;
   margin-left: 4px;
+  color: #2563eb;
 }
 
 .message-body .message-text {
   word-wrap: break-word;
   line-height: 1.4;
   padding: 8px 12px;
-  border-radius: 8px;
-  background-color: #36393f;
-  color: #dcddde;
+  border-radius: 14px;
+  background: #f8fbff;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  color: #334155;
   font-size: 14px;
   max-width: 95%;
   white-space: pre-wrap;
@@ -909,7 +913,7 @@ async recordVoice() {
 }
 
 .message.own .message-body .message-text {
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
   color: white;
   text-align: right;
 }
@@ -932,12 +936,12 @@ async recordVoice() {
 }
 
 .message-header strong {
-  color: #fff;
+  color: #0f172a;
   font-weight: 600;
 }
 
 .message-time {
-  color: #b9bbbe;
+  color: #94a3b8;
   font-size: 11px;
   font-weight: 400;
 }
@@ -949,22 +953,23 @@ async recordVoice() {
 
 .message-audio {
   padding: 8px 12px;
-  border-radius: 8px;
-  background-color: #36393f;
-  color: #dcddde;
+  border-radius: 14px;
+  background: #f8fbff;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  color: #334155;
   font-size: 14px;
   max-width: 95%;
 }
 
 .message.own .message-audio {
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
   color: white;
 }
 
 .chat-input {
   padding: 12px 16px;
-  border-top: 1px solid #292b2f;
-  background-color: #202225;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .input-container {
@@ -974,10 +979,10 @@ async recordVoice() {
 .chat-input textarea {
   width: 100%;
   padding: 8px 104px 8px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #40444b;
-  color: #dcddde;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 14px;
+  background-color: #ffffff;
+  color: #0f172a;
   font-size: 14px;
   outline: none;
   transition: background-color 0.2s ease;
@@ -990,17 +995,19 @@ async recordVoice() {
 }
 
 .chat-input textarea::placeholder {
-  color: #72767d;
+  color: #94a3b8;
 }
 
 .chat-input textarea:focus {
-  background-color: #5865f2;
-  color: white;
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 0 0.18rem rgba(37, 99, 235, 0.1);
 }
 
 .chat-input textarea:disabled {
-  background-color: #2f3136;
-  color: #72767d;
+  background-color: #f1f5f9;
+  color: #94a3b8;
   cursor: not-allowed;
 }
 
@@ -1018,7 +1025,7 @@ async recordVoice() {
 }
 
 .send-icon:hover:not(:disabled) {
-  background-color: rgba(88, 101, 242, 0.1);
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .send-icon:disabled {
@@ -1029,16 +1036,16 @@ async recordVoice() {
 .send-icon-svg {
   width: 20px;
   height: 20px;
-  stroke: #5865f2;
+  stroke: #2563eb;
 }
 
 .send-icon.typing .send-icon-svg {
-  stroke: greenyellow;
+  stroke: #16a34a;
 }
 
 .typing-indicator {
   font-size: 10px;
-  color: #b9bbbe;
+  color: #64748b;
   margin-top: 4px;
 }
 
@@ -1056,7 +1063,7 @@ async recordVoice() {
 }
 
 .emoji-icon:hover:not(:disabled) {
-  background-color: rgba(88, 101, 242, 0.1);
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .emoji-icon:disabled {
@@ -1067,7 +1074,7 @@ async recordVoice() {
 .emoji-icon-svg {
   width: 20px;
   height: 20px;
-  stroke: #b9bbbe;
+  stroke: #64748b;
 }
 
 .mic-icon {
@@ -1084,7 +1091,7 @@ async recordVoice() {
 }
 
 .mic-icon:hover:not(:disabled) {
-  background-color: rgba(88, 101, 242, 0.1);
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .mic-icon:disabled {
@@ -1095,11 +1102,11 @@ async recordVoice() {
 .mic-icon-svg {
   width: 20px;
   height: 20px;
-  stroke: #b9bbbe;
+  stroke: #64748b;
 }
 
 .mic-icon.recording .mic-icon-svg {
-  stroke: red;
+  stroke: #ef4444;
 }
 
 .recording-status {
@@ -1111,14 +1118,14 @@ async recordVoice() {
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: #b9bbbe;
+  color: #64748b;
   font-weight: 500;
 }
 
 .recording-dot {
   width: 8px;
   height: 8px;
-  background-color: red;
+  background-color: #ef4444;
   border-radius: 50%;
   animation: recording-pulse 1s infinite;
 }
@@ -1137,7 +1144,7 @@ async recordVoice() {
 }
 
 .stop-icon:hover:not(:disabled) {
-  background-color: rgba(88, 101, 242, 0.1);
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .stop-icon:disabled {
@@ -1148,7 +1155,7 @@ async recordVoice() {
 .stop-icon-svg {
   width: 20px;
   height: 20px;
-  stroke: #b9bbbe;
+  stroke: #64748b;
 }
 
 @keyframes recording-pulse {
@@ -1170,9 +1177,10 @@ async recordVoice() {
   position: absolute;
   bottom: 100%;
   right: 0;
-  background-color: #36393f;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
   padding: 8px;
   z-index: 10;
   max-width: 300px;
@@ -1193,7 +1201,7 @@ async recordVoice() {
 }
 
 .emoji-item:hover {
-  background-color: rgba(88, 101, 242, 0.1);
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .emoji-pagination {
@@ -1205,23 +1213,23 @@ async recordVoice() {
 }
 
 .emoji-pagination button {
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
   border: none;
   color: white;
   padding: 4px 12px;
-  border-radius: 4px;
+  border-radius: 999px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.2s ease;
 }
 
 .emoji-pagination button:disabled {
-  background-color: #40444b;
+  background-color: #cbd5e1;
   cursor: not-allowed;
 }
 
 .emoji-pagination button:hover:not(:disabled) {
-  background-color: #4752c4;
+  background: linear-gradient(135deg, #1d4ed8, #4338ca);
 }
 
 .loading-container {
@@ -1230,64 +1238,64 @@ async recordVoice() {
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: #b9bbbe;
+  color: #64748b;
   font-size: 14px;
 }
 
 .loading-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid #36393f;
-  border-top: 3px solid #5865f2;
+  border: 3px solid #dbeafe;
+  border-top: 3px solid #2563eb;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 12px;
 }
 
 .loading-text {
-  color: #b9bbbe;
+  color: #64748b;
   font-size: 14px;
   font-weight: 500;
 }
 
 .role-admin {
-  color: #ff6b6b;
+  color: #dc2626;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-kepala {
-  color: #4ecdc4;
+  color: #0f766e;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-kasi {
-  color: #45b7d1;
+  color: #0284c7;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-kasubbag {
-  color: #f9ca24;
+  color: #b45309;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-petugas {
-  color: #a55eea;
+  color: #7c3aed;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-pegawai {
-  color: #95a5a6;
+  color: #64748b;
   font-weight: 600;
   font-style: italic;
 }
 
 .role-ptsp {
-  color: #2ecc71;
+  color: #16a34a;
   font-weight: 600;
   font-style: italic;
 }
@@ -1303,7 +1311,7 @@ async recordVoice() {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(15, 23, 42, 0.52);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1311,36 +1319,37 @@ async recordVoice() {
 }
 
 .modal-content {
-  background-color: #36393f;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.16);
   padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
   max-width: 400px;
   width: 90%;
   text-align: center;
-  color: #dcddde;
+  color: #334155;
 }
 
 .modal-content h3 {
   margin: 0 0 12px 0;
   font-size: 20px;
   font-weight: 600;
-  color: #fff;
+  color: #0f172a;
 }
 
 .modal-content p {
   margin: 0 0 20px 0;
   font-size: 14px;
-  color: #b9bbbe;
+  color: #64748b;
 }
 
 .modal-name-input {
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #40444b;
-  color: #dcddde;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 14px;
+  background-color: #ffffff;
+  color: #0f172a;
   font-size: 14px;
   outline: none;
   margin-bottom: 16px;
@@ -1348,20 +1357,22 @@ async recordVoice() {
 }
 
 .modal-name-input::placeholder {
-  color: #72767d;
+  color: #94a3b8;
 }
 
 .modal-name-input:focus {
-  background-color: #5865f2;
-  color: white;
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 0 0.18rem rgba(37, 99, 235, 0.1);
 }
 
 .modal-start-btn {
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
   border: none;
   color: white;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -1369,11 +1380,11 @@ async recordVoice() {
 }
 
 .modal-start-btn:hover:not(:disabled) {
-  background-color: #4752c4;
+  background: linear-gradient(135deg, #1d4ed8, #4338ca);
 }
 
 .modal-start-btn:disabled {
-  background-color: #40444b;
+  background-color: #cbd5e1;
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -1385,7 +1396,7 @@ async recordVoice() {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(15, 23, 42, 0.52);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1393,11 +1404,11 @@ async recordVoice() {
 }
 
 .modal-enable-btn {
-  background-color: #5865f2;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
   border: none;
   color: white;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -1406,15 +1417,15 @@ async recordVoice() {
 }
 
 .modal-enable-btn:hover:not(:disabled) {
-  background-color: #4752c4;
+  background: linear-gradient(135deg, #1d4ed8, #4338ca);
 }
 
 .modal-close-btn {
-  background-color: #40444b;
+  background-color: #e2e8f0;
   border: none;
-  color: #b9bbbe;
+  color: #334155;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -1422,7 +1433,7 @@ async recordVoice() {
 }
 
 .modal-close-btn:hover {
-  background-color: #36393f;
+  background-color: #cbd5e1;
 }
 
 /* Mobile Responsiveness */

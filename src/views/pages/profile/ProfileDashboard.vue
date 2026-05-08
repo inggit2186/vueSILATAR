@@ -20,8 +20,8 @@
 											<div class="settings-upload-btn">
 												<input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
 												<label for="filex" class="file-upload" :disable="loadingpp">
-												<span v-if="!loadingpp" style="color: #fff4dc;"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
-												<span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
+												<span v-if="!loadingpp" class="premium-action-text"><i class="fa fa-upload" aria-hidden="true"></i> Upload Foto Baru</span>
+												<span v-else class="premium-action-text"><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 												</label>												
 											</div>	
 											<span>Max file size: 2 MB</span>
@@ -471,10 +471,10 @@ const image = new URL('../../../assets/img/profile-img.jpg', import.meta.url).hr
 <style>
 .profile-dashboard-page .dash-cards,
 .profile-dashboard-page .profile-sidebar .card {
-	background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
-	border: 1px solid rgba(201, 157, 79, 0.18);
-	box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
-	color: #fff4dc;
+	background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08);
+	color: #1f2937;
 }
 
 .profile-dashboard-page .card-header h4,
@@ -484,30 +484,34 @@ const image = new URL('../../../assets/img/profile-img.jpg', import.meta.url).hr
 .profile-dashboard-page .profile-sidebar span,
 .profile-dashboard-page .profile-form small,
 .profile-dashboard-page .profile-sidebar small {
-	color: #fff4dc;
+	color: #1f2937;
 }
 
 .profile-dashboard-page .settings-upload-btn .file-upload {
-	border-color: rgba(201, 157, 79, 0.28);
-	background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
+	border-color: rgba(31, 95, 191, 0.22);
+	background: linear-gradient(135deg, #1f5fbf 0%, #c89b3c 100%);
 }
 
 .profile-dashboard-page .profile-form .form-control,
 .profile-dashboard-page .profile-sidebar .form-control {
-	background: rgba(255, 244, 220, 0.04);
-	border-color: rgba(201, 157, 79, 0.2);
-	color: #fff4dc;
+	background: #ffffff;
+	border-color: rgba(31, 95, 191, 0.16);
+	color: #1f2937;
 }
 
 .profile-dashboard-page .profile-form .form-control::placeholder,
 .profile-dashboard-page .profile-sidebar .form-control::placeholder {
-	color: rgba(255, 244, 220, 0.62);
+	color: #8aa0c3;
 }
 
 .profile-dashboard-page .profile-form .form-control:focus,
 .profile-dashboard-page .profile-sidebar .form-control:focus {
-	border-color: rgba(201, 157, 79, 0.45);
-	box-shadow: 0 0 0 0.2rem rgba(201, 157, 79, 0.14);
+	border-color: rgba(31, 95, 191, 0.45);
+	box-shadow: 0 0 0 0.2rem rgba(31, 95, 191, 0.12);
+}
+
+.premium-action-text {
+	color: #113f82;
 }
 </style>
 	

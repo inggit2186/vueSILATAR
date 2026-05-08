@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper list-request-page">
+        <div class="page-wrapper list-request-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -168,8 +168,9 @@
 <style scoped>
 .list-request-page {
   background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
+    radial-gradient(circle at top, rgba(31, 95, 191, 0.12), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.08), transparent 28%),
+    linear-gradient(180deg, #fbfdff 0%, #eef4ff 100%);
 }
 
 .list-request-page .dashboard-content {
@@ -177,47 +178,47 @@
 }
 
 .list-request-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96));
+  border: 1px solid rgba(31, 95, 191, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
+  box-shadow: 0 18px 36px rgba(31, 95, 191, 0.08);
+  color: #0f172a;
 }
 
 .list-request-page .card-header {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
+  border-bottom: 1px solid rgba(31, 95, 191, 0.12);
 }
 
 .list-request-page h4,
 .list-request-page .card-header h4 {
-  color: #fff4dc;
+  color: #113f82;
 }
 
 .list-request-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 95, 191, 0.16);
+  color: #0f172a;
 }
 
 .list-request-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
+  color: #8aa0c3;
 }
 
 .list-request-page :deep(.table) {
-  color: #fff4dc;
+  color: #0f172a;
 }
 
 .list-request-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.1), rgba(200, 155, 60, 0.12));
+  color: #113f82;
+  border-color: rgba(31, 95, 191, 0.14);
 }
 
 .list-request-page :deep(.table tbody td) {
-  border-color: rgba(255, 244, 220, 0.08);
-  color: #4b3324;
-  background: #fffdf7;
+  border-color: rgba(31, 95, 191, 0.08);
+  color: #0f172a;
+  background: #ffffff;
 }
 
 .list-request-page :deep(.table tbody td *) {
@@ -225,38 +226,38 @@
 }
 
 .list-request-page :deep(.table tbody td a) {
-  color: #a61d3a;
+  color: #1f5fbf;
 }
 
 .list-request-page :deep(.table tbody td b),
 .list-request-page :deep(.table tbody td strong) {
-  color: #3a271b;
+  color: #0f172a;
 }
 
 .list-request-page :deep(.table tbody td span),
 .list-request-page :deep(.table tbody td i),
 .list-request-page :deep(.table tbody td small) {
-  color: #6a4b35;
+  color: #64748b;
 }
 
 .list-request-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.08);
+  background: rgba(31, 95, 191, 0.05);
 }
 
 .list-request-page :deep(.badge) {
-  color: #fff4dc;
+  color: #fff;
 }
 
 .list-request-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
+  background: #ffffff;
+  border-color: rgba(31, 95, 191, 0.14);
+  color: #1f5fbf;
 }
 
 .list-request-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
+  background: linear-gradient(135deg, #1f5fbf, #c89b3c);
   border-color: transparent;
-  color: #fff4dc;
+  color: #ffffff;
 }
 </style>
 

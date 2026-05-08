@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
         <layouts></layouts>
-    <div class="page-wrapper detail-request-page">
+    <div class="page-wrapper detail-request-page theme-report-shell">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1"/>
             
             <div class="dashboard-content">		
@@ -1174,6 +1174,101 @@ export default {
 
 .detail-request-page .form-control::placeholder {
   color: rgba(255, 244, 220, 0.62);
+}
+
+.detail-request-page.theme-report-shell .card.media-section,
+.detail-request-page.theme-report-shell .messages-form .card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.detail-request-page.theme-report-shell .card-header h4,
+.detail-request-page.theme-report-shell .detailhead,
+.detail-request-page.theme-report-shell .detailhead td,
+.detail-request-page.theme-report-shell .detailhead tr,
+.detail-request-page.theme-report-shell .detailhead th,
+.detail-request-page.theme-report-shell .card-body,
+.detail-request-page.theme-report-shell .card-body label,
+.detail-request-page.theme-report-shell .card-body h6,
+.detail-request-page.theme-report-shell .card-body span,
+.detail-request-page.theme-report-shell .card-body p,
+.detail-request-page.theme-report-shell .text-muted,
+.detail-request-page.theme-report-shell .text-primary,
+.detail-request-page.theme-report-shell .step2 .label,
+.detail-request-page.theme-report-shell .step2 .icons,
+.detail-request-page.theme-report-shell .step2 .step,
+.detail-request-page.theme-report-shell .step2 .step p,
+.detail-request-page.theme-report-shell .messages-form .card-header,
+.detail-request-page.theme-report-shell .messages-form .card-header h4,
+.detail-request-page.theme-report-shell .media-image,
+.detail-request-page.theme-report-shell .media-title,
+.detail-request-page.theme-report-shell .centered,
+.detail-request-page.theme-report-shell .centered h4,
+.detail-request-page.theme-report-shell .centered span {
+  color: #0f172a !important;
+}
+
+.detail-request-page.theme-report-shell .detailhead td:nth-child(2) {
+  color: #1d4ed8 !important;
+}
+
+.detail-request-page.theme-report-shell a:not(.btn) {
+  color: #1d4ed8 !important;
+}
+
+.detail-request-page.theme-report-shell a:not(.btn):hover {
+  color: #0f172a !important;
+}
+
+.detail-request-page.theme-report-shell .media-image,
+.detail-request-page.theme-report-shell .messages-form .card {
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.detail-request-page.theme-report-shell .step2 .step {
+  background: rgba(219, 234, 254, 0.72) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(31, 95, 191, 0.16) !important;
+}
+
+.detail-request-page.theme-report-shell .step2 .active {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+}
+
+.detail-request-page.theme-report-shell .bubble,
+.detail-request-page.theme-report-shell .bubble2 {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.12), rgba(200, 155, 60, 0.18)) !important;
+  color: #0f172a !important;
+}
+
+.detail-request-page.theme-report-shell .bubble:after {
+  border-right-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.detail-request-page.theme-report-shell .bubble2:after {
+  border-left-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.detail-request-page.theme-report-shell .form-control,
+.detail-request-page.theme-report-shell .form-select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.detail-request-page.theme-report-shell .form-control::placeholder {
+  color: #64748b !important;
+}
+
+.detail-request-page.theme-report-shell .btn-primary,
+.detail-request-page.theme-report-shell .btn-warning,
+.detail-request-page.theme-report-shell .btn-danger,
+.detail-request-page.theme-report-shell .btn-secondary,
+.detail-request-page.theme-report-shell .btn-dark {
+  color: #ffffff !important;
 }
 
 .detailhead {

@@ -107,13 +107,19 @@ export default {
 						'Content-Type': 'application/json',
 						'Authorization': `Bearer ${localStorage.getItem('token')}`
 					};
-				const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekAuth',{
+        const response = await this.$axios.post(import.meta.env.VITE_APP_API_URL+'/cekAuth',{
 					source: 'VueJs',
 					version: 'Auto Update'
 				},{headers})
         if(response.data.success === true){
-          
-            if(!Array.isArray(this.user?.sppt) || this.user.sppt.length === 0){
+          const currentUser = response.data.data || this.user;
+          if (!currentUser) {
+            throw new Error('Data user tidak tersedia setelah login');
+          }
+          this.user = currentUser;
+          this.auth = true;
+            
+            if(!this.user?.sppt || this.user.sppt.status !== 'sudah'){
               if (window.innerWidth < 768) {
                 this.$swal.fire({
                   width: '400px',
@@ -487,20 +493,36 @@ export default {
 }
 </script>
 <style>
+  #app {
+    min-height: 100vh;
+    color: var(--theme-text);
+    background: transparent;
+  }
+
   .opening {
   content: "";
   display: block;
   height: 100vh;
-  background-color: brown;
-  background: url('/waiting.gif') no-repeat center fixed;
+  background-color: #f6f9ff;
+  background-image:
+    radial-gradient(circle at top left, rgba(31, 95, 191, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(200, 155, 60, 0.12), transparent 24%),
+    linear-gradient(135deg, #f6f9ff 0%, #ffffff 52%, #eef4ff 100%),
+    url('/waiting.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
   background-size: cover;
 }
 
 .custom-bottom-nav {
   bottom: 0 !important;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
-  background: linear-gradient(to top, #ffffff, #f8f9fa) !important;
-  border-radius: 20px 20px 0 0 !important;
+  box-shadow: 0 -12px 32px rgba(31, 95, 191, 0.08) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(31, 95, 191, 0.12) !important;
+  border-radius: 24px 24px 0 0 !important;
+  color: var(--theme-text);
 }
 </style>
 

@@ -6,7 +6,7 @@
 
       <div class="dashboard-content">
         <div class="container">
-          <div class="report-shell madrasah-page-shell">
+          <div class="report-shell madrasah-page-shell theme-report-shell">
             <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
             <div class="hero madrasah-hero">
               <div>
@@ -2048,5 +2048,119 @@ watch(
 .report-shell :deep(.custom-modal-body),
 .report-shell :deep(.custom-modal-header) {
   color: #fff4dc !important;
+}
+
+.report-shell.theme-report-shell .madrasah-hero {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.97) 0%, rgba(59, 130, 246, 0.93) 55%, rgba(200, 155, 60, 0.92) 100%) !important;
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell .madrasah-hero h2,
+.report-shell.theme-report-shell .madrasah-hero p,
+.report-shell.theme-report-shell .hero-chip span,
+.report-shell.theme-report-shell .hero-chip strong {
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell .hero-chip {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.report-shell.theme-report-shell .card-section,
+.report-shell.theme-report-shell .data-card,
+.report-shell.theme-report-shell .pegawai-table,
+.report-shell.theme-report-shell .pegawai-row-details,
+.report-shell.theme-report-shell .custom-modal,
+.report-shell.theme-report-shell .custom-modal-header,
+.report-shell.theme-report-shell .custom-modal-body,
+.report-shell.theme-report-shell .custom-modal-footer {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 249, 255, 0.96)) !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.report-shell.theme-report-shell .data-card :deep(.table-responsive) {
+  background: #ffffff !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.report-shell.theme-report-shell .data-card :deep(thead th),
+.report-shell.theme-report-shell .pegawai-table th,
+.report-shell.theme-report-shell :deep(table thead th) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell .data-card :deep(tbody td),
+.report-shell.theme-report-shell .pegawai-table td,
+.report-shell.theme-report-shell :deep(table tbody td) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
+}
+
+.report-shell.theme-report-shell .data-card :deep(tbody tr:hover) {
+  background: rgba(219, 234, 254, 0.42) !important;
+}
+
+.report-shell.theme-report-shell .data-card :deep(.b-table-empty-row),
+.report-shell.theme-report-shell .table-busy-state,
+.report-shell.theme-report-shell .table-pagination-info,
+.report-shell.theme-report-shell .details-title,
+.report-shell.theme-report-shell .details-item,
+.report-shell.theme-report-shell .details-item strong,
+.report-shell.theme-report-shell .pegawai-name-meta strong,
+.report-shell.theme-report-shell .pegawai-name-meta small,
+.report-shell.theme-report-shell label,
+.report-shell.theme-report-shell .col-form-label,
+.report-shell.theme-report-shell small {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell .pegawai-avatar {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.9), rgba(200, 155, 60, 0.92)) !important;
+}
+
+.report-shell.theme-report-shell .custom-modal-backdrop {
+  background: rgba(15, 23, 42, 0.42) !important;
+}
+
+.report-shell.theme-report-shell .btn-close {
+  filter: none !important;
+  color: #0f172a !important;
+  background: rgba(219, 234, 254, 0.72) !important;
+}
+
+.report-shell.theme-report-shell .input-floating :deep(.form-control),
+.report-shell.theme-report-shell .input-floating :deep(.form-select),
+.report-shell.theme-report-shell .input-floating .floating-input {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell .input-floating > label {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell .input-floating > i,
+.report-shell.theme-report-shell .input-floating > .input-icon,
+.report-shell.theme-report-shell .section-title i,
+.report-shell.theme-report-shell .section-chevron {
+  color: #1d4ed8 !important;
+}
+
+.report-shell.theme-report-shell .btn-primary {
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell .btn-secondary {
+  color: #1f2937 !important;
+}
+
+.report-shell.theme-report-shell .report-shell :deep(.b-badge),
+.report-shell.theme-report-shell .b-badge {
+  color: #ffffff !important;
 }
 </style>

@@ -12,7 +12,7 @@
 
       <div class="dashboard-content">
         <div class="container">
-          <div class="report-shell madrasah-page-shell">
+          <div class="report-shell madrasah-page-shell theme-report-shell">
             <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
             <div class="hero">
               <div class="hero-heading">
@@ -2465,6 +2465,133 @@ export default {
   background: rgba(255, 244, 220, 0.05) !important;
   color: #fff4dc !important;
   border-color: rgba(201, 157, 79, 0.22) !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero),
+.report-shell.theme-report-shell :deep(.card-section),
+.report-shell.theme-report-shell :deep(.section-block),
+.report-shell.theme-report-shell :deep(.profile-card),
+.report-shell.theme-report-shell :deep(.data-card),
+.report-shell.theme-report-shell :deep(.table-wrap),
+.report-shell.theme-report-shell :deep(.table-responsive),
+.report-shell.theme-report-shell :deep(.report-heading),
+.report-shell.theme-report-shell :deep(.custom-modal),
+.report-shell.theme-report-shell :deep(.custom-modal-header),
+.report-shell.theme-report-shell :deep(.custom-modal-body),
+.report-shell.theme-report-shell :deep(.custom-modal-footer) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero-heading h2),
+.report-shell.theme-report-shell :deep(.hero p),
+.report-shell.theme-report-shell :deep(.section-title-block h4),
+.report-shell.theme-report-shell :deep(.section-subtitle),
+.report-shell.theme-report-shell :deep(.report-heading h3),
+.report-shell.theme-report-shell :deep(.report-heading p),
+.report-shell.theme-report-shell :deep(.report-heading span),
+.report-shell.theme-report-shell :deep(.summary-label),
+.report-shell.theme-report-shell :deep(.summary-card strong),
+.report-shell.theme-report-shell :deep(.level-card-header h5),
+.report-shell.theme-report-shell :deep(.level-card-header p),
+.report-shell.theme-report-shell :deep(.class-card-title strong),
+.report-shell.theme-report-shell :deep(.class-card-title span),
+.report-shell.theme-report-shell :deep(.mutation-card-header h5),
+.report-shell.theme-report-shell :deep(.mutation-empty-state h5),
+.report-shell.theme-report-shell :deep(.mutation-empty-state p),
+.report-shell.theme-report-shell :deep(label),
+.report-shell.theme-report-shell :deep(.col-form-label),
+.report-shell.theme-report-shell :deep(small),
+.report-shell.theme-report-shell :deep(.meta-card small),
+.report-shell.theme-report-shell :deep(.meta-card strong),
+.report-shell.theme-report-shell :deep(.section-header h4),
+.report-shell.theme-report-shell :deep(.section-header button),
+.report-shell.theme-report-shell :deep(.section-compact-preview),
+.report-shell.theme-report-shell :deep(.compact-pill),
+.report-shell.theme-report-shell :deep(.level-total-bar span),
+.report-shell.theme-report-shell :deep(.level-total-bar strong) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table thead th),
+.report-shell.theme-report-shell :deep(table thead th) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table tbody td),
+.report-shell.theme-report-shell :deep(table tbody td) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control),
+.report-shell.theme-report-shell :deep(.form-select),
+.report-shell.theme-report-shell :deep(textarea.form-control) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control::placeholder),
+.report-shell.theme-report-shell :deep(textarea.form-control::placeholder) {
+  color: #64748b !important;
+}
+
+.report-shell.theme-report-shell :deep(.bg-white),
+.report-shell.theme-report-shell :deep(.bg-light),
+.report-shell.theme-report-shell :deep(.modal-content),
+.report-shell.theme-report-shell :deep(.dropdown-menu),
+.report-shell.theme-report-shell :deep(.list-group-item),
+.report-shell.theme-report-shell :deep(.alert),
+.report-shell.theme-report-shell :deep(.input-group-text) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.report-shell.theme-report-shell :deep(.btn-light),
+.report-shell.theme-report-shell :deep(.btn-outline-light) {
+  background: rgba(219, 234, 254, 0.68) !important;
+  color: #1d4ed8 !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero p),
+.report-shell.theme-report-shell :deep(.status-badge),
+.report-shell.theme-report-shell :deep(.meta-card small),
+.report-shell.theme-report-shell :deep(.meta-card strong),
+.report-shell.theme-report-shell :deep(.section-subtitle),
+.report-shell.theme-report-shell :deep(.section-header h4),
+.report-shell.theme-report-shell :deep(.section-header button),
+.report-shell.theme-report-shell :deep(.compact-pill),
+.report-shell.theme-report-shell :deep(.report-heading h3),
+.report-shell.theme-report-shell :deep(.report-heading p),
+.report-shell.theme-report-shell :deep(.report-heading span),
+.report-shell.theme-report-shell :deep(.hero-actions .btn) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.status-badge) {
+  background: rgba(219, 234, 254, 0.76) !important;
+  border-color: rgba(31, 95, 191, 0.18) !important;
+}
+
+.report-shell.theme-report-shell :deep(.compact-pill) {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(31, 95, 191, 0.14) !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero-actions .btn-primary),
+.report-shell.theme-report-shell :deep(.hero-actions .btn-success) {
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero-actions .btn-outline-primary),
+.report-shell.theme-report-shell :deep(.hero-actions .btn-outline-secondary) {
+  color: #1d4ed8 !important;
 }
 
 @media (max-width: 992px) {

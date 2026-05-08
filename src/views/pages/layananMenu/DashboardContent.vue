@@ -30,7 +30,7 @@
 										<div class="card-body">
 											<div class="blogfeaturelink">
 											    <div class="grid-author">
-												    <img :src="item.ppkepala ?? $assets+'/img/profiles/avatar-01.jpg'" alt="author">
+												    <img :src="$cacheBust(item.ppkepala ?? $assets+'/img/profiles/avatar-01.jpg')" alt="author">
                                                 </div>
 												<div class="blog-features">
 												   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ item.kode }}</span></a>

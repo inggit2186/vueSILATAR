@@ -32,8 +32,8 @@
 										<div class="settings-upload-btn d-block d-sm-none">
 											<input id="filex" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.pdf" name="image" class="hide-input image-upload" @change="onFile">
 											<label for="file" class="file-upload" :disable="loadingfile">
-												<span v-if="!loadingfile" style="color: #fff2d1;"><i-subway-add /> <b>Unggah Data</b></span>
-												<span v-else style="color: #fff2d1;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
+												<span v-if="!loadingfile" style="color: #113f82;"><i-subway-add /> <b>Unggah Data</b></span>
+												<span v-else style="color: #113f82;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
 											</label>
                                         </div>
 										<br/>

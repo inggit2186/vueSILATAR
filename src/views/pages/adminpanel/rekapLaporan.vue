@@ -1,7 +1,7 @@
 <template>
     <div class="main-wrapper">
 		<layouts></layouts>
-        <div class="page-wrapper rekap-laporan-page">
+        <div class="page-wrapper rekap-laporan-page theme-report-shell theme-report-shell--dark">
             <breadcrumb :title="title" :name="name" :text="text" :text1="text1" />
             
             	<!-- Dashboard Content -->
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover centered">
+                                    <table class="table table-hover centered theme-table">
 										<thead>
                                             <tr>
                                                 <th v-for="column in columns2" v-if="$route.params.id == 'Penyuluh'" :key="column.name" style="max-width: 20px;" @click="sortTable(column.data)">
@@ -63,11 +63,11 @@
                                                     <BBadge v-if="item.uploader != 'NONE'" pill variant="secondary" style="font-size: small;"> {{ item.uploader_id }} </BBadge>
                                                 </td>
                                                 <td>
-                                                    <BBadge v-if="item.status == 'DIKIRIM'" variant="light">DIAJUKAN</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary">DITERIMA</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary">DISETUJUI</BBadge>
-                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger">DITOLAK</BBadge>
-                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark">BELUM UPLOAD</BBadge>
+                                                    <BBadge v-if="item.status == 'DIKIRIM'" variant="light" class="status-badge status-badge-submitted">DIAJUKAN</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITERIMA'" variant="secondary" class="status-badge status-badge-received">DITERIMA</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DISETUJUI'" variant="primary" class="status-badge status-badge-approved">DISETUJUI</BBadge>
+                                                    <BBadge v-else-if="item.status == 'DITOLAK'" variant="danger" class="status-badge status-badge-rejected">DITOLAK</BBadge>
+                                                    <BBadge v-else-if="item.status == 'NONE'" variant="dark" class="status-badge status-badge-none">BELUM UPLOAD</BBadge>
                                                     <br/>
 													<span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-iconoir-send-solid /> Dikirim : {{ item.created }}</i></span><br/>
                                                     <span v-if="item.status != 'NONE'" style="font-size: smaller;"><i><i-mdi-update /> Last Update : {{ item.update }}</i></span><br/>
@@ -87,7 +87,7 @@
                                 <!--Pagination--> 
                                 <div class="blog-pagination">
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination theme-pagination">
                                             <li class="page-item previtem" :class="{'disabled': currentPage === 1}">
                                                 <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
                                             </li>
@@ -124,101 +124,6 @@
         </div>
     </div>
 </template>
-
-<style scoped>
-.rekap-laporan-page {
-  background:
-    radial-gradient(circle at top, rgba(171, 23, 57, 0.12), transparent 42%),
-    linear-gradient(180deg, #1f1216 0%, #120b0f 100%);
-}
-
-.rekap-laporan-page .dashboard-content {
-  padding: 1rem 0 2.5rem;
-}
-
-.rekap-laporan-page .dash-cards {
-  background: linear-gradient(180deg, rgba(35, 21, 24, 0.98), rgba(24, 14, 17, 0.98));
-  border: 1px solid rgba(214, 171, 76, 0.18);
-  border-radius: 22px;
-  box-shadow: 0 18px 36px rgba(13, 7, 8, 0.22);
-  color: #fff4dc;
-}
-
-.rekap-laporan-page .card-header {
-  background: transparent;
-  border-bottom: 1px solid rgba(255, 244, 220, 0.12);
-}
-
-.rekap-laporan-page h4,
-.rekap-laporan-page .card-header h4 {
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.form-control) {
-  background: rgba(255, 244, 220, 0.08);
-  border: 1px solid rgba(214, 171, 76, 0.24);
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.form-control::placeholder) {
-  color: rgba(255, 244, 220, 0.56);
-}
-
-.rekap-laporan-page :deep(.table) {
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.table thead th) {
-  background: rgba(214, 171, 76, 0.12);
-  color: #fff4dc;
-  border-color: rgba(214, 171, 76, 0.18);
-}
-
-.rekap-laporan-page :deep(.table tbody td) {
-  border-color: rgba(255, 244, 220, 0.08);
-  color: #4a3323;
-  background: #fffdf7;
-}
-
-.rekap-laporan-page :deep(.table tbody td *) {
-  color: inherit !important;
-}
-
-.rekap-laporan-page :deep(.table tbody td a) {
-  color: #a61d3a;
-}
-
-.rekap-laporan-page :deep(.table tbody td b),
-.rekap-laporan-page :deep(.table tbody td strong) {
-  color: #3a271b;
-}
-
-.rekap-laporan-page :deep(.table tbody td span),
-.rekap-laporan-page :deep(.table tbody td i),
-.rekap-laporan-page :deep(.table tbody td small) {
-  color: #6a4b35;
-}
-
-.rekap-laporan-page :deep(.table tbody tr:hover) {
-  background: rgba(214, 171, 76, 0.08);
-}
-
-.rekap-laporan-page :deep(.badge) {
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.page-link) {
-  background: rgba(255, 244, 220, 0.08);
-  border-color: rgba(214, 171, 76, 0.2);
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #ab1739, #d6ab4c);
-  border-color: transparent;
-  color: #fff4dc;
-}
-</style>
 
 <script>
 export default {
@@ -501,75 +406,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.rekap-laporan-page {
-  background:
-    radial-gradient(circle at top left, rgba(201, 157, 79, 0.1), transparent 28%),
-    linear-gradient(180deg, #1f1213 0%, #2a191a 100%);
-  color: #fff2d1;
-}
-
-.rekap-laporan-page :deep(.dash-cards.card) {
-  background: linear-gradient(180deg, rgba(42, 25, 26, 0.97), rgba(31, 18, 19, 0.98));
-  border: 1px solid rgba(201, 157, 79, 0.16);
-  border-radius: 24px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-}
-
-.rekap-laporan-page :deep(.card-header),
-.rekap-laporan-page :deep(.card-body) {
-  color: #fff2d1;
-}
-
-.rekap-laporan-page :deep(.card-header h4),
-.rekap-laporan-page :deep(.listing-search .form-control),
-.rekap-laporan-page :deep(.pagination .page-link),
-.rekap-laporan-page :deep(.badge) {
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.listing-search .form-control) {
-  background: rgba(255, 244, 220, 0.04);
-  border: 1px solid rgba(201, 157, 79, 0.24);
-}
-
-.rekap-laporan-page :deep(.table thead th) {
-  background: rgba(201, 157, 79, 0.14);
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.table tbody td) {
-  background: rgba(255, 244, 220, 0.03);
-  color: #fff2d1;
-}
-
-.rekap-laporan-page :deep(.btn-outline-primary),
-.rekap-laporan-page :deep(.btn-primary),
-.rekap-laporan-page :deep(.btn-dark) {
-  border: none;
-}
-
-.rekap-laporan-page :deep(.btn-outline-primary) {
-  border: 1px solid rgba(201, 157, 79, 0.42);
-  color: #fff4dc;
-}
-
-.rekap-laporan-page :deep(.btn-outline-primary:hover),
-.rekap-laporan-page :deep(.btn-primary),
-.rekap-laporan-page :deep(.btn-dark) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-  color: #fff;
-}
-
-.rekap-laporan-page :deep(.page-item.active .page-link) {
-  background: linear-gradient(135deg, #8f1d2c 0%, #c58a2a 100%);
-  color: #fff;
-}
-
-@media (max-width: 767px) {
-  .rekap-laporan-page :deep(.dash-cards.card) {
-    border-radius: 18px;
-  }
-}
-</style>

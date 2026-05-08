@@ -12,7 +12,7 @@
 
       <div class="dashboard-content">
         <div class="container">
-          <div class="report-shell madrasah-page-shell">
+      <div class="report-shell madrasah-page-shell theme-report-shell">
             <MadrasahHeaderMenu v-if="!isAdminMadrasahView" />
             <div class="hero">
               <div class="hero-heading">
@@ -1549,6 +1549,129 @@ export default {
   background: rgba(255, 244, 220, 0.05) !important;
   color: #fff4dc !important;
   border-color: rgba(201, 157, 79, 0.22) !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero),
+.report-shell.theme-report-shell :deep(.card-section),
+.report-shell.theme-report-shell :deep(.section-block),
+.report-shell.theme-report-shell :deep(.profile-card),
+.report-shell.theme-report-shell :deep(.table-wrap),
+.report-shell.theme-report-shell :deep(.table-responsive),
+.report-shell.theme-report-shell :deep(.report-heading),
+.report-shell.theme-report-shell :deep(.custom-modal),
+.report-shell.theme-report-shell :deep(.custom-modal-header),
+.report-shell.theme-report-shell :deep(.custom-modal-body),
+.report-shell.theme-report-shell :deep(.custom-modal-footer) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.card-section h4),
+.report-shell.theme-report-shell :deep(.card-section h5),
+.report-shell.theme-report-shell :deep(.card-section p),
+.report-shell.theme-report-shell :deep(.card-section span),
+.report-shell.theme-report-shell :deep(.card-section small),
+.report-shell.theme-report-shell :deep(.hero-heading h2),
+.report-shell.theme-report-shell :deep(.hero-meta small),
+.report-shell.theme-report-shell :deep(.hero-meta strong),
+.report-shell.theme-report-shell :deep(.section-header h4),
+.report-shell.theme-report-shell :deep(.section-subtitle),
+.report-shell.theme-report-shell :deep(.semester-filter label),
+.report-shell.theme-report-shell :deep(.semester-filter select),
+.report-shell.theme-report-shell :deep(.table-wrap th),
+.report-shell.theme-report-shell :deep(.table-wrap td),
+.report-shell.theme-report-shell :deep(label),
+.report-shell.theme-report-shell :deep(.col-form-label),
+.report-shell.theme-report-shell :deep(small) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table th),
+.report-shell.theme-report-shell :deep(.report-table td),
+.report-shell.theme-report-shell :deep(table thead th) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table thead th),
+.report-shell.theme-report-shell :deep(table thead th) {
+  background: linear-gradient(135deg, rgba(31, 95, 191, 0.96), rgba(200, 155, 60, 0.96)) !important;
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table tbody td),
+.report-shell.theme-report-shell :deep(table tbody td) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.08) !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control),
+.report-shell.theme-report-shell :deep(.form-select),
+.report-shell.theme-report-shell :deep(textarea.form-control) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell :deep(.form-control::placeholder),
+.report-shell.theme-report-shell :deep(textarea.form-control::placeholder) {
+  color: #64748b !important;
+}
+
+.report-shell.theme-report-shell :deep(.bg-white),
+.report-shell.theme-report-shell :deep(.bg-light),
+.report-shell.theme-report-shell :deep(.modal-content),
+.report-shell.theme-report-shell :deep(.dropdown-menu),
+.report-shell.theme-report-shell :deep(.list-group-item),
+.report-shell.theme-report-shell :deep(.alert),
+.report-shell.theme-report-shell :deep(.input-group-text) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96)) !important;
+  color: #0f172a !important;
+  border-color: rgba(31, 95, 191, 0.12) !important;
+}
+
+.report-shell.theme-report-shell :deep(.btn-light),
+.report-shell.theme-report-shell :deep(.btn-outline-light) {
+  background: rgba(219, 234, 254, 0.68) !important;
+  color: #1d4ed8 !important;
+  border-color: rgba(31, 95, 191, 0.16) !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero p),
+.report-shell.theme-report-shell :deep(.status-badge),
+.report-shell.theme-report-shell :deep(.meta-card small),
+.report-shell.theme-report-shell :deep(.meta-card strong),
+.report-shell.theme-report-shell :deep(.section-header h4),
+.report-shell.theme-report-shell :deep(.section-header button),
+.report-shell.theme-report-shell :deep(.card-section h4),
+.report-shell.theme-report-shell :deep(.card-section p),
+.report-shell.theme-report-shell :deep(.card-section small),
+.report-shell.theme-report-shell :deep(.label-cell span),
+.report-shell.theme-report-shell :deep(.sum-cell),
+.report-shell.theme-report-shell :deep(.hero-actions .btn),
+.report-shell.theme-report-shell :deep(.report-table input) {
+  color: #0f172a !important;
+}
+
+.report-shell.theme-report-shell :deep(.report-table input::placeholder) {
+  color: #64748b !important;
+}
+
+.report-shell.theme-report-shell :deep(.status-badge) {
+  background: rgba(219, 234, 254, 0.76) !important;
+  border-color: rgba(31, 95, 191, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero-actions .btn-primary),
+.report-shell.theme-report-shell :deep(.hero-actions .btn-success) {
+  color: #ffffff !important;
+}
+
+.report-shell.theme-report-shell :deep(.hero-actions .btn-outline-primary),
+.report-shell.theme-report-shell :deep(.hero-actions .btn-outline-secondary) {
+  color: #1d4ed8 !important;
 }
 
 @media (max-width: 992px) {

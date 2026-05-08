@@ -104,8 +104,8 @@
                                                 <div class="settings-upload-btn">
                                                     <input id="filex" type="file" accept="image/*" name="image" class="hide-input image-upload" @change="onFileSelected">
                                                     <label for="filex" class="file-upload" :disable="loadingpp">
-                                                        <span v-if="!loadingpp" style="color: #fff4dc;"><i class="fa fa-upload" aria-hidden="true"></i> <b>Unggah Foto Profil</b></span>
-                                                        <span v-else style="color: #fff4dc;" ><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
+                                                        <span v-if="!loadingpp" class="premium-action-text"><i class="fa fa-upload" aria-hidden="true"></i> <b>Unggah Foto Profil</b></span>
+                                                        <span v-else class="premium-action-text"><i-svg-spinners-bars-scale-middle />&nbsp; Sedang memproses... </span>
                                                     </label>												
                                                 </div>&nbsp;&nbsp;
                                                 <span>Maks. ukuran file: 2 MB</span>
@@ -2551,10 +2551,10 @@ export default {
 .profile-userdata-page .media-section,
 .profile-userdata-page .categories-content,
 .profile-userdata-page .listMenu {
-	background: linear-gradient(180deg, rgba(42, 25, 26, 0.98) 0%, rgba(35, 21, 22, 0.98) 100%);
-	border: 1px solid rgba(201, 157, 79, 0.18);
-	box-shadow: 0 18px 40px rgba(22, 12, 13, 0.22);
-	color: #fff4dc;
+	background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+	border: 1px solid rgba(31, 95, 191, 0.12);
+	box-shadow: 0 18px 40px rgba(31, 95, 191, 0.08);
+	color: #1f2937;
 }
 
 .profile-userdata-page .card-header,
@@ -2564,7 +2564,7 @@ export default {
 .profile-userdata-page .categories-content b,
 .profile-userdata-page .listMenu span,
 .profile-userdata-page .listMenu b {
-	color: #fff4dc;
+	color: #1f2937;
 }
 
 .profile-userdata-page .categories-content {
@@ -2572,6 +2572,10 @@ export default {
 }
 
 .profile-userdata-page .categories-content img {
-	filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+	filter: drop-shadow(0 8px 18px rgba(31, 95, 191, 0.12));
+}
+
+.premium-action-text {
+	color: #113f82;
 }
 </style>
